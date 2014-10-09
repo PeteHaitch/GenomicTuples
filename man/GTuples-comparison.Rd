@@ -183,6 +183,26 @@
   }
 }
 
+\value{
+  For \code{compare}: see Details section above.
+
+  For \code{selfmatch}: an integer vector of the same length as \code{x}.
+
+  For \code{duplicated}, \code{unique}, and \code{\%in\%}: see
+  \code{?BiocGenerics::\link[BiocGenerics]{duplicated}},
+  \code{?BiocGenerics::\link[BiocGenerics]{unique}},
+  and \code{?`\link{\%in\%}`}.
+
+  For \code{findMatches}: a \link{Hits} object by default (i.e. if
+  \code{select="all"}).
+
+  For \code{countMatches}: an integer vector of the length of \code{x}
+  containing the number of matches in \code{table} for each element
+  in \code{x}.
+
+  For \code{sort}: see \code{?BiocGenerics::\link[BiocGenerics]{sort}}.
+}
+
 \author{Peter Hickey}
 
 \seealso{

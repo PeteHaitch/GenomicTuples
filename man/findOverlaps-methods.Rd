@@ -163,14 +163,17 @@
 }
 
 \details{
-  \code{findOverlaps} can search for \emph{tuple-tuple}, \emph{tuple-range} 
-  and \emph{range-tuple} overlaps. An important special case is equal 
-  tuple-tuple overlaps in \code{\link{GTuples}} objects.
+  The \code{findOverlaps}-based methods involving genomic tuples, 
+  either through \code{\link{GTuples}} or \code{\link{GTuplesList}} objects, 
+  can search for \emph{tuple-tuple}, \emph{tuple-range} and \emph{range-tuple} 
+  overlaps. Each of these are described below, with attention paid to 
+  the important special case of finding "equal tuple-tuple overlaps".
+      
   \describe{
     \item{Equal tuple-tuple overlaps}{
-      When the \code{query} and the \code{subject} are \code{\link{GTuples}} 
-      objects and \code{type = "equal"}, \code{findOverlaps} uses 
-      the seqnames (\code{\link{seqnames}}), positions 
+      When the \code{query} and the \code{subject} are both 
+      \code{\link{GTuples}} objects and \code{type = "equal"}, 
+      \code{findOverlaps} uses the seqnames (\code{\link{seqnames}}), positions 
       (\code{\link{tuples,GTuples-method}}) and strand (\code{\link{strand}}) 
       to determine which tuples from the \code{query} exactly match those in 
       the \code{subject}, where a \code{strand} value of \code{"*"} is treated 
@@ -181,10 +184,9 @@
       \code{"*"}/\code{"+"}, \code{"*"}/\code{"-"}, etc.), and have 
       identical positions.
       
-      \strong{NOTE}: Can only find equal tuple-tuple overlaps when 
-      \code{size(query)} is the same as \code{size(subject)}.
-      
-      }
+      \strong{NOTE}: Equal tuple-tuple overlaps can only be computed if 
+      \code{size(query)} is equal to \code{size(subject)}.
+    }
       
     \item{Other tuple-tuple overlaps}{
       When the \code{query} and the \code{subject} are \code{\link{GTuples}} or 
@@ -204,8 +206,8 @@
       \code{\link{GTuplesList}} objects. This is following the behaviour of 
       \code{\link[GenomicRanges]{findOverlaps,GRangesList,GRangesList-method}} 
       that allows \code{type = "any"}, \code{"start"}, \code{"end"} or 
-      \code{"within"} but does not allow \code{type = "equal"}. 
-      }
+      \code{"within"} but does not allow \code{type = "equal"}.
+    }
       
     \item{tuple-range and range-tuple overlaps}{
       When one of the \code{query} and the \code{subject} is not a 
@@ -266,6 +268,10 @@ underlying the powerful \code{findOverlaps} functionality.}
 
 \seealso{
   \itemize{
+    \item Please see the package vignette for an extended discussion of 
+    overlaps involving genomic tuples, which is available by typing 
+    \code{vignette(topic = 'GenomicTuplesIntroduction', package = 'GenomicTuples')} 
+    at the R prompt.
     \item \code{\link[GenomicRanges]{findOverlaps}}
     \item \code{\link[IRanges]{findOverlaps}}
     \item \code{\link[S4Vectors]{Hits-class}}

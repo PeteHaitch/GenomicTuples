@@ -2,5 +2,5 @@ packrat/lib*/
 .Rproj.user
 packrat/src/
 .Rhistory
-*.html
+*.pdf
 inst/doc

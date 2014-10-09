@@ -16,8 +16,8 @@
   
   \strong{WARNING}: These are not exactly the same as the intra-range methods 
   defined in the \pkg{GenomicRanges} package 
-  (\code{\link[GenomicRanges]{intra-range-methods}}) or in the \pkg{IRanges} 
-  package (\code{\link[IRanges]{intra-range-methods}}).
+  (\code{?GenomicRanges::\link[GenomicRanges]{intra-range-methods}}) or in the 
+  \pkg{IRanges} package (\code{?IRanges::\link[IRanges]{intra-range-methods}}).
 }
 
 \usage{
@@ -53,6 +53,10 @@
 \author{Peter Hickey for methods involving \code{GTuples} and 
 \code{GTuplesList}. P. Aboyoun and V. Obenchain <vobencha@fhcrc.org> for all 
 the real work underlying the powerful intra-range methods.}
+
+\value{
+  See Details section above.
+}
 
 \seealso{
   \itemize{

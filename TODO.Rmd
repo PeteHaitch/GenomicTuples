@@ -1,97 +1,18 @@
 ---
 title: "TODOs"
 author: "Peter Hickey"
-date: "24 September 2014"
-output: html_document
+date: "`r paste0('Modified: 09 October, 2014. Compiled: ', format(Sys.time(), '%d %B, %Y'))`"
+output:
+  BiocStyle::pdf_document
 ---
 
-# For submission to Biocondcutor
+<!--
+%% \VignetteEngine{knitr::knitr}
+-->
 
-These are issues that must be addressed either before or during the Bioconductor submission process.
-
-## Build currently failing 
-
-Problem due to `GenomeInfoDb` (`v1.2.0`) not building.
-
-## Inheritance
-
-If a method is defined for `GTuples` (resp. `GTuplesList`) via inheritance to `GRanges` (resp. `GRangesList`), should this be explicitly defined via `callNextMethod()`. For example, `seqnames,GTuples-method` just calls `seqnames,GRanges-method` via inheritance.
-
-## In help files, how to handle clashes?
-
-For example, the `.Rd` file for `findOverlaps,GTuples,GTuples-method` currently includes `\alias{findOverlaps}` but the same alias is found the `GenomicRanges` package for the `findOverlaps,GenomicRanges,GenomicRanges-method`.
-
-## S3/S4 combos
-
-Is there a need for an S3/S4 combo, i.e. in `duplicated,GTuples-method`? This behaviour is copied from `duplicated,GenomicRanges-method`.
-
-If required, why?
-
-## Results of R CMD CHECK
-
-### NOTEs
-
-#### Use of :::
-
-```sh
-* checking dependencies in R code ... NOTE
-Unexported objects imported by ':::' calls:
-  ‘GenomicRanges:::.findOverlaps.circle’
-  ‘GenomicRanges:::.strandAsSignedNumber’ ‘GenomicRanges:::clone’
-  ‘GenomicRanges:::extraColumnSlotNames’
-  ‘GenomicRanges:::extraColumnSlots’
-  ‘GenomicRanges:::extraColumnSlotsAsDF’ ‘GenomicRanges:::showList’
-  ‘S4Vectors:::VH_recycle’
-  ‘S4Vectors:::makePrettyMatrixForCompactPrinting’
-  ‘S4Vectors:::orderIntegerPairs’
-  See the note in ?`:::` about the use of this operator.
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
 ```
-
-These functions are required by `GenomicTuples`. Moreover, most, if not all, are also used by other package authors. Is this okay and am I calling these functions in the appropriate way?
-
-## Results of R CMD BiocCheck
-
-### RECOMMENDED
-
-### CONSIDER
-
-#### Object initialisation
-
-```sh
-* Installing package...
-    * CONSIDER: Clarifying how objects splitRanges, IRanges, IRanges,
-      PartitioningByEnd (used in .findEqual.GTuples, .findEqual.GTuples
-      , GTuples, GTuplesList) were initialized. Maybe they are part of
-      a data set loaded with data(), or perhaps part of an object
-      referenced in with() or within().
-```
-
-I don't understand this what this CONSIDER is warning me of or what I should do about it.
-
-
-#### Long lines
-
-```sh
-* Checking formatting of DESCRIPTION, NAMESPACE, man pages, R source,
-  and vignette source...
-    * CONSIDER: Shortening lines; 19 lines (0%) are > 80 characters
-      long.
-```
-
-There are so few long lines that I don't consider this an issue.
-
-#### Indentation
-
-```sh
-    * CONSIDER: Indenting lines with a multiple of 4 spaces; 1801 lines
-      (34%) are not.
-  See http://bioconductor.org/developers/how-to/coding-style/
-```
-My editor, RStudio, is set up to use 2 spaces for tabs rather than 4, hence the `CONSIDER`. I'd rather not change this.
-
-## Check minimal version of required packages
-
-Do I specify the version number of the to-be released versions?
 
 # Long-term
 
@@ -101,16 +22,10 @@ These are long-term features that are desirable or issues that require monitorin
 
 I don't yet have an analogy of a `GIntervalTree` for a set of tuples. So, for now I don't implement anything but rely on `GenomicRanges::findOverlaps`-based algorithms.
 
-## makeGRangesFromDataFrame.R
+## makeGTuplesFromDataFrame.R
 
 It's already very easy to create a `GTuples` object from a `data.frame` or a `DataFrame`, so I don't see a real need for this. However, I'll happily add a `makeGTuplesFromDataFrame` function if persuaded otherwise. See [this dicussion](https://stat.ethz.ch/pipermail/bioc-devel/2013-October/004777.html) for reasons given for the `makeGRangesFromDataFrame` convenience function.
 
 ## Test coverage
 
 See the [`testCoverage` package](https://github.com/MangoTheCat/testCoverage). Currently, this does not support S4 classes, which limits its use for the `GenomicTuples` package.
-
-## Understanding registered native routines
-
-I've been able to register my native routines using `Kmisc::registerFunctions`. This requires that I use the `.Call()` interface and, for example, `allTuplesSorted(tuples[, 1], tuples[, 2, drop = FALSE], tuples[, 3])` no longer works but `.Call(Cpp_GenomicTuples_allTuplesSorted, tuples[, 1], tuples[, 2, drop = FALSE], tuples[, 3])` does.
-
-How I can have the best of both worlds? I still don't really understand what it means to "register native routines".
