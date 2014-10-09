@@ -1,0 +1,213 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.1.1
+RVersion: 3.1.1
+Repos: CRAN=http://cran.rstudio.com,
+    BioCsoft=http://bioconductor.org/packages/3.0/bioc,
+    BioCann=http://bioconductor.org/packages/3.0/data/annotation,
+    BioCexp=http://bioconductor.org/packages/3.0/data/experiment,
+    BioCextra=http://bioconductor.org/packages/3.0/extra
+
+Package: AnnotationDbi
+Source: Bioconductor
+Version: 1.27.10
+Hash: 3dc52311e9c3fd7a916a7933fd95965d
+Requires: Biobase, BiocGenerics, DBI, GenomeInfoDb, RSQLite, S4Vectors
+
+Package: Biobase
+Source: Bioconductor
+Version: 2.25.0
+Hash: b3b80c6fb87508f3c50cb757ce75d3f4
+Requires: BiocGenerics
+
+Package: BiocGenerics
+Source: Bioconductor
+Version: 0.11.5
+Hash: bef0ccfc825fe064ad92633e0ae7ca78
+
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.15.5
+Hash: a6cfd3be3ab8dfdb94347ea220fdd629
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: cb26464a8321628636b547518994c931
+
+Package: brew
+Source: CRAN
+Version: 1.0-6
+Hash: 9d92cc5ac60123fdb7b0daa3ae83bf99
+
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: bb5fdc266f716b8a289a4f92007d53e3
+Requires: bitops
+
+Package: DBI
+Source: CRAN
+Version: 0.3.0
+Hash: c9ad68339f7ed9a89574dadad45636fd
+
+Package: devtools
+Source: CRAN
+Version: 1.5
+Hash: d8c2ffc3d991d1b1a8625919b8be3f4c
+Requires: digest, evaluate, httr, memoise, RCurl, whisker
+
+Package: digest
+Source: CRAN
+Version: 0.6.4
+Hash: e4bf0e79b15a352510aff0de905d31e2
+
+Package: evaluate
+Source: CRAN
+Version: 0.5.5
+Hash: 20881970e590ee68de97a468694db7b0
+Requires: stringr
+
+Package: formatR
+Source: CRAN
+Version: 1.0
+Hash: a90c211d7df7e61a72b8ab6c99c2e848
+
+Package: GenomeInfoDb
+Source: Bioconductor
+Version: 1.1.19
+Hash: 6b337a9148946d357ee64e5cbcb80ff3
+Requires: BiocGenerics, IRanges, S4Vectors
+
+Package: GenomicRanges
+Source: Bioconductor
+Version: 1.17.41
+Hash: a8d6dc689137c4b88df60eaf94355d2e
+Requires: BiocGenerics, GenomeInfoDb, IRanges, S4Vectors, XVector
+
+Package: highr
+Source: CRAN
+Version: 0.3
+Hash: 7c85a9b7d07a75e2d8ca74f9467fee21
+
+Package: htmltools
+Source: CRAN
+Version: 0.2.6
+Hash: 2c87108d130de261ac3c468d3316ae42
+Requires: digest
+
+Package: httr
+Source: CRAN
+Version: 0.5
+Hash: 68a70bdd16fb949a12e4fda7f31def00
+Requires: digest, jsonlite, RCurl, stringr
+
+Package: IRanges
+Source: Bioconductor
+Version: 1.99.28
+Hash: f6e046a00d994445a22cf34e1bfa721e
+Requires: BiocGenerics, S4Vectors
+
+Package: jsonlite
+Source: CRAN
+Version: 0.9.11
+Hash: 9eda817b04b4253e3dc1ba685b0bd612
+
+Package: knitr
+Source: CRAN
+Version: 1.6
+Hash: 0f6457facba94bccad17a7c67c2f4168
+Requires: digest, evaluate, formatR, highr, markdown, stringr
+
+Package: markdown
+Source: CRAN
+Version: 0.7.4
+Hash: 01d7f71ed6e3d9b1c17ba51cff91be72
+Requires: mime
+
+Package: memoise
+Source: CRAN
+Version: 0.2.1
+Hash: fc52fa39dfd216c44d64812ff31b1c67
+Requires: digest
+
+Package: mime
+Source: CRAN
+Version: 0.1.2
+Hash: 08ae994b18677717b786ade9c113b6ea
+
+Package: packrat
+Source: CRAN
+Version: 0.4.1-1
+Hash: 5716097644904b9c1b4be2692de16005
+
+Package: rbenchmark
+Source: CRAN
+Version: 1.0.0
+Hash: 5fffc14ff0c3ebac0e6cdc06091c0c16
+
+Package: Rcpp
+Source: CRAN
+Version: 0.11.2
+Hash: ef2b1a5e45d1461bd720e4ebbe48e601
+
+Package: RCurl
+Source: CRAN
+Version: 1.95-4.3
+Hash: 158377109f939084a72f240125f821d3
+Requires: bitops
+
+Package: rmarkdown
+Source: CRAN
+Version: 0.3.3
+Hash: fe7b370d7022b58c2b71469681c0431f
+Requires: caTools, htmltools, knitr, yaml
+
+Package: roxygen2
+Source: CRAN
+Version: 4.0.2
+Hash: e727ce76cbe729cc9272513956e7a23f
+Requires: brew, digest, Rcpp, stringr
+
+Package: RSQLite
+Source: CRAN
+Version: 0.11.4
+Hash: ec89370302e0078555a54c57b61373e2
+Requires: DBI
+
+Package: rstudioapi
+Source: CRAN
+Version: 0.1
+Hash: 5bd4449a873ec652a05c932312dcf04b
+
+Package: S4Vectors
+Source: Bioconductor
+Version: 0.2.4
+Hash: ef098c7c4dd4d74183a33dec7aea8043
+Requires: BiocGenerics
+
+Package: stringr
+Source: CRAN
+Version: 0.6.2
+Hash: cdde0cfa0f52cffeaca23a11a3899779
+
+Package: testthat
+Source: CRAN
+Version: 0.8.1
+Hash: f296283e62e2ff299efa01e26cfc3eb1
+Requires: digest
+
+Package: whisker
+Source: CRAN
+Version: 0.3-2
+Hash: 186ab2937fec1694c8a63009a2389c4e
+
+Package: XVector
+Source: Bioconductor
+Version: 0.5.8
+Hash: ea0e39f55c650a39f42b201a338fa736
+Requires: BiocGenerics, IRanges, S4Vectors
+
+Package: yaml
+Source: CRAN
+Version: 2.1.13
+Hash: e5d041c001f6d641fd009c1f6ef7d831

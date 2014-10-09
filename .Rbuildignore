@@ -1,0 +1,7 @@
+^packrat/
+^.*\.Rproj$
+^\.Rproj\.user$
+TODO.Rmd
+TODO.html
+.travis.yml
+.Rprofile
