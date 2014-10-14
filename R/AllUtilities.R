@@ -58,3 +58,20 @@ setMethod("replaceROWS",
   }
   return(z)
 }
+
+# Function not currently required but may be useful; see c,GTuples-method
+# TODO: Unit tests
+# #' Find the lowest common class of a list of objects
+# #' @keywords internal
+# #' @param ... A list of objects to be compared
+# #' @value The lowest common class if there is one, an error if there isn't one.
+# .lcc <- function(...) {
+#   args <- list(...)
+#   classes <- lapply(args, is)
+#   common_classes <- Reduce(f = "intersect", x = classes)
+#   if (identical(common_classes, numeric(0))) {
+#     stop("No common class")
+#   } else {
+#     common_classes[1]
+#   }
+# }

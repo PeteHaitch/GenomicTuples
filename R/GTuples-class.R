@@ -271,14 +271,32 @@ setMethod("c",
             } else {
               args <- unname(list(x, ...))
             }
-            if (!isTRUE(all(sapply(args, inherits, "GTuples")))) {
-                stop("Cannot combine GTuples to other objects")
-            }
+            # "c" will error if there is no common class, e.g. c(GRanges(), "1")
+            # The following commented-out error makes this explicit to the user 
+            # for c,GTuples-method
+#             if (!isTRUE(all(sapply(args, inherits, "GTuples")))) {
+#               # TODO: Check new error message works as intended
+#                 stop(paste0("Cannot combine ", 
+#                             paste0(unique(sapply(args, class)), 
+#                                    collapse = ' and '), 
+#                             " objects"))
+#             }
             if (!.zero_range(sapply(args, size)) && 
                   !isTRUE(all(is.na(sapply(args, size))))) {
-              stop("Cannot combine GTuples containing tuples of ", 
-                   "different 'size'.")
+              stop(paste0("Cannot combine ", paste0(unique(sapply(args, class)), 
+                                                    collapse = ' and '), 
+                          " containing tuples of different 'size'."))
             }
+            # "c" silently coerces to lowest common class, e.g., c(1, "next")
+            # The following commented-out warning makes this explicit to the 
+            # user for c,GTuples-method
+#             if (!all(sapply(args, class) == class(args[[1]]))) {
+#               warning(
+#                 paste0("Not all elements are same class: ", 
+#                        paste0(unique(sapply(args, class)), collapse = ', '), 
+#                        "\nResult will be coerced to lowest common class: ", 
+#                        .lcc(x, ...)))
+#             }
             .unlist_list_of_GTuples(args, ignore.mcols = ignore.mcols)
           }
 )
@@ -542,7 +560,6 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
 }
 
 # TODO: Need to keep this up to date with the show,GRanges-method
-# E.g. summary(seqinfo(x)) is currently broken in GenomeInfoDb
 showGTuples <- function(x, margin = "", print.classinfo = FALSE, 
                         print.seqinfo = FALSE) {
   if (!identical(print.classinfo, FALSE)) {

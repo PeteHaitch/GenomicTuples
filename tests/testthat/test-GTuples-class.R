@@ -308,16 +308,21 @@ test_that(".unlist_list_of_GTuples works", {
   expect_identical(.unlist_list_of_GTuples(list(gt4)), gt4)
 })
 
-test_that("concatenation works", {
+test_that("c works", {
   expect_identical(c(gt1[1:5], gt1[6:10]), gt1)
   expect_identical(c(gt2[1:5], gt2[6:10]), gt2)
   expect_identical(c(gt3[1:5], gt3[6:10]), gt3)
   expect_identical(c(gt4[1:5], gt4[6:10]), gt4)
   expect_error(c(gt3, granges(gt3)), 
-               "Cannot combine GTuples to other objects")
+               paste0("unable to find an inherited method for function ", 
+                      sQuote('size'), " for signature ", sQuote('"GRanges"')))
   expect_error(c(gt3, gt4), 
                paste0("Cannot combine GTuples containing tuples of ", 
                       "different 'size'"))
+  setClass(Class = "MTuples", contains = "GTuples")
+  x <- new("MTuples", gt2)
+  expect_is(c(x, gt2), "GTuples")
+  expect_is(c(gt2, x), "GTuples")
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
