@@ -167,9 +167,9 @@ test_that("size works", {
 })
 
 test_that("IPD works", {
-  expect_error(IPD(gtl0), "Cannot compute IPD from an empty GTuples.")
+  expect_error(IPD(gtl0), "Cannot compute IPD from an empty 'GTuples'.")
   expect_error(IPD(gtl1), 
-               "It does not make sense to compute IPD when size = 1.")
+               "It does not make sense to compute IPD when 'size' = 1.")
   expect_identical(IPD(gtl2), List(A = matrix(1L, nrow = 5, ncol = 1),
                                    B = matrix(1L, nrow = 5, ncol = 1)))
   expect_identical(IPD(gtl3), List(A = matrix(1L, nrow = 5, ncol = 2), 

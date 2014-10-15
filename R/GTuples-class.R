@@ -395,9 +395,9 @@ setMethod("IPD",
           function(x) {
             size <- size(x)
             if (is.na(size)) {
-              stop("Cannot compute IPD from an empty GTuples.")
+              stop("Cannot compute IPD from an empty '", class(x), "'.")
             } else if (isTRUE(size == 1L)) {
-              stop("It does not make sense to compute IPD when size = 1.")
+              stop("It does not make sense to compute IPD when 'size' = 1.")
             } else if (isTRUE(size == 2L)) {
               ## width is not the same as distance ... at least for IRanges  
               ipd <- matrix(width(x) - 1L, ncol=1)
@@ -433,11 +433,11 @@ setMethod("IPD",
 setReplaceMethod("[", 
                  "GTuples",
                  function(x, i, j, ..., value) {
-                   if (!is(value, "GTuples")) {
-                     stop("replacement value must be a GTuples object")
+                   if (!inherits(value, "GTuples")) {
+                     stop("replacement value must be a '", class(x), "' object")
                    }
                    if (!identical(size(x), size(value))) {
-                     stop("Cannot replace with tuples of a different size")
+                     stop("Cannot replace with tuples of a different 'size'")
                    }
                    seqinfo(x) <- merge(seqinfo(x), seqinfo(value))
                    seqnames <- seqnames(x)

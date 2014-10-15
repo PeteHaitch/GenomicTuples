@@ -8,9 +8,9 @@ context("compare,GTuples,GTuples-method and related methods")
 
 test_that("Returns errors on bad input", {
     # empty fails
-    expect_error(compare(gt0, gt0), "Cannot compare empty GTuples.")
-    expect_error(gt0 == gt0, "Cannot compare empty GTuples.")
-    expect_error(compare(gt0, gt1), "Cannot compare empty GTuples.")
+    expect_error(compare(gt0, gt0), "Cannot compare empty 'GTuples'.")
+    expect_error(gt0 == gt0, "Cannot compare empty 'GTuples'.")
+    expect_error(compare(gt0, gt1), "Cannot compare empty 'GTuples'.")
     expect_error(compare(gt1, gt2), 
                  "Cannot compare 'GTuples' objects of different 'size'.")
     expect_error(compare(gt2, gt3), 
@@ -120,8 +120,8 @@ test_that("duplicated works", {
   expect_identical(duplicated(c(q4, rev(q4)), fromLast = TRUE), 
                    c(rep(TRUE, length(q4)), rep(FALSE, length(q4))))
   expect_error(duplicated(gt3, incomparables = TRUE), 
-               paste0("\"duplicated\" method for GTuples objects only accepts ", 
-                      "'incomparables = FALSE'"))
+               paste0("\"duplicated\" method for 'GTuples' objects only ", 
+                      "accepts 'incomparables = FALSE'"))
 })
 
 test_that("unique works", {

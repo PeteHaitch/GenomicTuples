@@ -426,9 +426,9 @@ test_that("size works", {
 })
 
 test_that("IPD works", {
-  expect_error(IPD(gt0), "Cannot compute IPD from an empty GTuples.")
+  expect_error(IPD(gt0), "Cannot compute IPD from an empty 'GTuples'.")
   expect_error(IPD(gt1), 
-               "It does not make sense to compute IPD when size = 1.")
+               "It does not make sense to compute IPD when 'size' = 1.")
   expect_identical(IPD(gt2), matrix(1L, nrow = 10, ncol = 1))
   expect_identical(IPD(gt3), matrix(1L, nrow = 10, ncol = 2))
   expect_identical(IPD(gt4), matrix(1L, nrow = 10, ncol = 3))
@@ -693,7 +693,7 @@ test_that("[<- works", {
                                  score = c(20:21, 3:10), 
                                  seqinfo = seqinfo(gt4)))
   expect_error(gt2[1:2] <- gt3[1:2], 
-               "Cannot replace with tuples of a different size")
+               "Cannot replace with tuples of a different 'size'")
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

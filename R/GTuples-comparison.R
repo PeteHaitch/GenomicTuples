@@ -65,12 +65,12 @@
   # This is where .GTuples.compare really differs from .GenomicRanges.compare
   # NOTE: moved this up because the next 'if' will fail on NA != NA
   if (is.na(size(x)) || is.na(size(y))) {
-    stop("Cannot compare empty GTuples.")
+    stop("Cannot compare empty '", class(x), "'.")
   }
   
   # Check 'size' is identical
   if (size(x) != size(y)) {
-    stop("Cannot compare 'GTuples' objects of different 'size'.")
+    stop("Cannot compare '", class(x), "' objects of different 'size'.")
   }
   
   if (size(x) <= 2L) {
@@ -147,7 +147,7 @@ setMethod("compare",
                                 method = c("hash", "base")) {
   
   if (!identical(incomparables, FALSE)) {
-    stop("\"duplicated\" method for GTuples objects ",
+    stop("\"duplicated\" method for '", class(x), "' objects ",
          "only accepts 'incomparables = FALSE'")
   }
   
@@ -281,7 +281,8 @@ setMethod(order,
             } else {
               
               if (!.zero_range(size)) {
-                stop("All GTuples objects must have the same 'size' value.")
+                stop(paste0("All '", class(args[[1]]), "' objects must have ", 
+                            "the same 'size'."))
               } else{
                 size <- size[1]
               }
