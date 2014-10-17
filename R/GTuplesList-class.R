@@ -145,7 +145,7 @@ setAs("GTuplesList", "GRangesList",
 # "[", "[<-" and "[[<-" defined via inheritance to GRangesList
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Going from GRanges to GRangesList with extractList() and family.
+### Going from GTuples to GTuplesList with extractList() and family.
 ###
 
 #' @export
@@ -160,6 +160,7 @@ setMethod("relistToClass",
 ### show method.
 ###
 
+#' @export
 setMethod("show", 
           "GTuplesList",
           function(object) {

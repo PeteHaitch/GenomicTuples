@@ -359,7 +359,7 @@ test_that("Returns identical", {
 # to the showGTuples function being rather fragile.
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Going from GRanges to GRangesList with extractList() and family.
+### Going from GTuples to GTuplesList with extractList() and family.
 ###
 context("GTuplesList relistToClass")
 
