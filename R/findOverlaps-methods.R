@@ -62,7 +62,8 @@
       hits <- GenomicRanges:::.findOverlaps.circle(circle.length,
                                                    q_ranges,
                                                    s_ranges,
-                                                   maxgap, minoverlap, type)
+                                                   maxgap, minoverlap, type,
+                                                   algorithm)
       q_hits <- queryHits(hits)
       s_hits <- subjectHits(hits)
       compatible_strand <-
@@ -122,7 +123,8 @@
 setMethod("findOverlaps", signature = c("GTuples", "GTuples"), 
           function(query, subject, maxgap = 0L, minoverlap = 1L, 
                    type = c("any", "start", "end", "within", "equal"), 
-                   select = c("all", "first", "last", "arbitrary"), 
+                   select = c("all", "first", "last", "arbitrary"),
+                   algorithm = c("intervaltree", "nclist"),
                    ignore.strand = FALSE) {
             
             # Argument matching
@@ -131,6 +133,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             }
             select <- match.arg(select)
             type <- match.arg(type)
+            algorithm <- match.arg(algorithm)
             # TODO: Support maxgap and minoverlap when type = "equal" 
             # Need to define these for tuples.
             if (type == 'equal') {
@@ -164,6 +167,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                            minoverlap = minoverlap,
                            type = type,
                            select = select,
+                           algorithm = algorithm,
                            ignore.strand = ignore.strand)
             }
           }
