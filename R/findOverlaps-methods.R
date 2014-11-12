@@ -11,7 +11,7 @@
 #' 
 #' @keywords internal
 .findEqual.GTuples <- function(query, subject, maxgap, minoverlap, 
-                               select, ignore.strand) {
+                               select, ignore.strand, algorithm) {
   
   # Type is effectively hard-coded to 'equal' since this is the only value for
   # which this function should be called.
@@ -157,7 +157,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             
             if (isTRUE(size(query) >= 3) && type == 'equal') { 
               .findEqual.GTuples(query, subject, maxgap, minoverlap, 
-                                 select, ignore.strand)
+                                 select, ignore.strand, algorithm)
             } else{
               # TODO: Why doesn't callNextMethod() work?
               #callNextMethod()
@@ -182,44 +182,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
 ### findOverlaps-based methods
 ### -------------------------------------------------------------------------
 
-#' @export
-setMethod("countOverlaps", signature = c("GTuples", "GTuples"), 
-          function(query, subject, 
-                   maxgap = 0L, minoverlap = 1L, 
-                   type = c("any", "start", "end", "within", "equal"), 
-                   ignore.strand = FALSE) {
-            counts <- queryHits(findOverlaps(query, subject, maxgap = maxgap, 
-                                             minoverlap = minoverlap, 
-                                             type = match.arg(type), 
-                                             ignore.strand = ignore.strand)) 
-            structure(tabulate(counts, NROW(query)), names = names(query))
-          })
-
-#' @export
-setMethod("overlapsAny", signature = c("GTuples", "GTuples"), 
-          function(query, subject, 
-                   maxgap = 0L, minoverlap = 1L, 
-                   type = c("any", "start", "end", "within", "equal"), 
-                   ignore.strand = FALSE) {
-            !is.na(findOverlaps(query, subject, maxgap = maxgap,
-                                minoverlap = minoverlap,
-                                type = match.arg(type),
-                                select = "first",
-                                ignore.strand = ignore.strand))
-          })
-
-#' @export
-setMethod("subsetByOverlaps", signature = c("GTuples", "GTuples"), 
-          function(query, subject, 
-                   maxgap = 0L, minoverlap = 1L, 
-                   type = c("any", "start", "end", "within", "equal"), 
-                   ignore.strand = FALSE) {
-            query[!is.na(findOverlaps(query, subject, maxgap = maxgap,
-                                      minoverlap = minoverlap,
-                                      type = match.arg(type),
-                                      select = "first",
-                                      ignore.strand = ignore.strand))]
-          })
+# All defined via inheritance.
 
 ### =========================================================================
 ### findOverlaps-based methods with GTuples/GTuplesList signatures 
