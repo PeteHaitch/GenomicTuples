@@ -1,9 +1,15 @@
 # R package: GenomicTuples
-This is the developer version of Bioconductor package [GenomicTuples](http://bioconductor.org/packages/devel/bioc/html/GenomicTuples.html).  Install in R as:
+This is the development version (`devel`) of Bioconductor package 
+[GenomicTuples](http://bioconductor.org/packages/devel/bioc/html/GenomicTuples.html). 
+For the current release version, please 
+[follow these instructions](http://bioconductor.org/packages/release/bioc/html/GenomicTuples.html).
 
-```r
+The development version can only be installed using the development version of 
+Bioconductor. Please first read 
+[these instructions on installing the development version of Bioconductor](http://www.bioconductor.org/developers/how-to/useDevel/).
+
+```R
 source('http://bioconductor.org/biocLite.R')
-useDevel()
 biocLite('GenomicTuples')
 ```
 

@@ -209,10 +209,14 @@ Hash: 158377109f939084a72f240125f821d3
 Requires: bitops
 
 Package: rmarkdown
-Source: CRAN
-Version: 0.3.3
-Hash: fe7b370d7022b58c2b71469681c0431f
+Source: github
+Version: 0.3.10
+Hash: b96214b9ac86b437067a0aa21442203f52face83
 Requires: caTools, htmltools, knitr, yaml
+GithubRepo: rmarkdown
+GithubUsername: rstudio
+GithubRef: v0.98.1000
+GithubSha1: b96214b9ac86b437067a0aa21442203f52face83
 
 Package: roxygen2
 Source: CRAN

@@ -5,7 +5,7 @@
 #' that are analogous to those available for genomic ranges in the
 #' GenomicRanges Bioconductor package.
 #'
-#' Please refer to the vignettes to see how to use the  \pkg{GenomicTuples}
+#' Please refer to the vignettes to see how to use the \pkg{GenomicTuples}
 #' package.
 #'
 #' @docType package
