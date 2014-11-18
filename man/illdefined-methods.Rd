@@ -32,6 +32,8 @@
 
 % mapCoords methods
 \alias{mapCoords,GTuples,GTuplesList-method}
+\alias{mapCoords,GTuples,GTuples-method}
+\alias{pmapCoords,GTuples,GTuplesList-method}
 
 % setops methods
 \alias{Ops,GTuples,numeric-method}
