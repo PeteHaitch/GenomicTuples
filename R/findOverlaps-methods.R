@@ -160,8 +160,12 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
 ### =========================================================================
 ### findOverlaps-based methods
 ### -------------------------------------------------------------------------
+#' @export
+setMethod("countOverlaps", signature = c("GTuples", "GTuples"),
+    GenomicRanges:::countOverlaps.definition
+)
 
-# All defined via inheritance.
+# All others defined via inheritance.
 
 ### =========================================================================
 ### findOverlaps-based methods with GTuples/GTuplesList signatures 
