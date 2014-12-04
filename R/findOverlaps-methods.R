@@ -11,7 +11,7 @@
 #' 
 #' @keywords internal
 .findEqual.GTuples <- function(query, subject, maxgap, minoverlap, 
-                               select, ignore.strand, algorithm) {
+                               select, ignore.strand) {
   
   # Type is effectively hard-coded to 'equal' since this is the only value for
   # which this function should be called.
@@ -59,11 +59,11 @@
       s_matrix <- extractROWS(s_tuples, s_idx)[, seq.int(i, i + 1, 1), 
                                                drop = FALSE]
       s_ranges <- IRanges(start = s_matrix[, 1L], end = s_matrix[, 2L])
-      hits <- GenomicRanges:::.findOverlaps.circle(circle.length,
-                                                   q_ranges,
-                                                   s_ranges,
-                                                   maxgap, minoverlap, type,
-                                                   algorithm)
+      min.score <- IRanges:::min_overlap_score(maxgap, minoverlap)
+      hits <- IRanges:::findOverlaps_NCList(q_ranges, s_ranges,
+                                            min.score=min.score,
+                                            type=type, select="all",
+                                            circle.length=circle.length)
       q_hits <- queryHits(hits)
       s_hits <- subjectHits(hits)
       compatible_strand <-
@@ -89,29 +89,8 @@
   if (is.null(s_hits)) {
     s_hits <- integer(0)
   }
-  
-  if (select == "arbitrary") {
-    ans <- rep.int(NA_integer_, q_len)
-    ans[q_hits] <- s_hits
-    return(ans)
-  }
-  if (select == "first") {
-    ans <- rep.int(NA_integer_, q_len)
-    oo <- S4Vectors:::orderIntegerPairs(q_hits, s_hits, decreasing = TRUE)
-    ans[q_hits[oo]] <- s_hits[oo]
-    return(ans)
-  }
-  oo <- S4Vectors:::orderIntegerPairs(q_hits, s_hits)
-  q_hits <- q_hits[oo]
-  s_hits <- s_hits[oo]
-  if (select == "last") {
-    ans <- rep.int(NA_integer_, q_len)
-    ans[q_hits] <- s_hits
-    return(ans)
-  }
-  new2("Hits", queryHits = q_hits, subjectHits = s_hits, 
-       queryLength = q_len, subjectLength = s_len,
-       check = FALSE)
+ 
+  selectHits(Hits(q_hits, s_hits, q_len, s_len), select=select)
 }
 
 # There is a specially defined method for findOverlaps when both the query and 
@@ -124,7 +103,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
           function(query, subject, maxgap = 0L, minoverlap = 1L, 
                    type = c("any", "start", "end", "within", "equal"), 
                    select = c("all", "first", "last", "arbitrary"),
-                   algorithm = c("intervaltree", "nclist"),
+                   algorithm = c("nclist", "intervaltree"),
                    ignore.strand = FALSE) {
             
             # Argument matching
@@ -157,7 +136,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             
             if (isTRUE(size(query) >= 3) && type == 'equal') { 
               .findEqual.GTuples(query, subject, maxgap, minoverlap, 
-                                 select, ignore.strand, algorithm)
+                                 select, ignore.strand)
             } else{
               # TODO: Why doesn't callNextMethod() work?
               #callNextMethod()
