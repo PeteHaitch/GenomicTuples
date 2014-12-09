@@ -445,7 +445,7 @@ test_that("Works on 1-tuples", {
   expect_true(inherits(hits, "Hits"))
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
-  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(hits@subjectHits, c(1L, 2L))
   expect_identical(findOverlaps(gtl1, gtl1, type = 'any'), 
                    findOverlaps(grl1, 
                                 grl1, 
@@ -470,7 +470,7 @@ test_that("Works on 2-tuples", {
   hits <- findOverlaps(gtl2, gtl2, type = "start")
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
-  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(hits@subjectHits, c(1L, 2L))
   expect_identical(findOverlaps(gtl2, gtl2, type = 'any'), 
                    findOverlaps(grl2, 
                                 grl2, 
@@ -495,7 +495,7 @@ test_that("Works on 3-tuples", {
   hits <- findOverlaps(gtl3, gtl3, type = "start")
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
-  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(hits@subjectHits, c(1L, 2L))
   expect_identical(findOverlaps(gtl3, gtl3, type = 'any'), 
                    findOverlaps(grl3, 
                                 grl3, 
@@ -520,7 +520,7 @@ test_that("Works on m-tuples, m > 3", {
   hits <- findOverlaps(gtl4, gtl4, type = "start")
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
-  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(hits@subjectHits, c(1L, 2L))
   expect_identical(findOverlaps(gtl4, gtl4, type = 'any'), 
                    findOverlaps(grl4, 
                                 grl4, 
