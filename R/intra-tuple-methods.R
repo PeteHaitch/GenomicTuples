@@ -150,6 +150,9 @@ setMethod("resize",
 ### restrict()
 ###
 
+## TODO: restrict,GTuples-method is currently defined via inheritance but can 
+## return an invalid object.
+
 #' @export
 setMethod("restrict", 
           "GTuplesList", 

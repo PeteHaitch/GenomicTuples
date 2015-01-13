@@ -514,7 +514,7 @@ setReplaceMethod("[",
 ### Show
 ###
 
-# Ensure the extraPos column "sticks" during subsetting, etc.
+# Ensure the internalPos matrix "sticks" during subsetting, etc.
 setMethod(GenomicRanges:::extraColumnSlotNames, 
           "GTuples",
           function(x) {

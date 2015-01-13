@@ -263,6 +263,10 @@ setMethod("match",
 ### order implied by compare().
 ### sort is defined via inheritance to GRanges
 
+# TODO: Might be able to use data.table's blazing fast sorts by creating a 
+# data.table of seqnames, strand, pos1, ..., posn, and running 
+# data.table:::forder.
+
 #' @export
 setMethod(order, 
           "GTuples", 

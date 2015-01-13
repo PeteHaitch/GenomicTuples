@@ -817,7 +817,7 @@ findOverlaps(gt2, gt2, type = 'equal', ignore.strand = TRUE, select = 'last')
 @
 
 Finally, for m-tuples with $m > 2$ where \Rclass{GTuples} methods use the
-\Rclass{GRanges} methods \textbf{unless \Rcode{size = "equal"}}:
+\Rclass{GRanges} methods \textbf{unless \Rcode{type = "equal"}}:
 <<3-tuples-findOverlaps-examples, eval = TRUE, echo = TRUE>>=
 # Construct example 3-tuples
 gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
