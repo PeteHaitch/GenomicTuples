@@ -1,10 +1,9 @@
 language: c
 
 before_install:
-#  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-#  - curl -OL http://raw.github.com/lcolladotor/r-travis/master/scripts/travis-tool.sh
-#  - chmod 755 ./travis-tool.sh
-#  - ./travis-tool.sh bootstrap
+  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - chmod 755 ./travis-tool.sh
+  - ./travis-tool.sh bootstrap
   - curl -OL https://raw.githubusercontent.com/metacran/r-builder/master/pkg-build.sh
   - chmod 755 ./pkg-build.sh
   - ./pkg-build.sh bootstrap
@@ -21,6 +20,7 @@ install:
   - pandoc --version
   # Install bioc deps
   - ./pkg-build.sh install_bioc_deps
+  - ./travis-tool.sh github_package jimhester/covr
  
 script:
 #  - ./travis-tool.sh run_tests
@@ -29,6 +29,9 @@ script:
 after_failure:
 #  - ./travis-tool.sh dump_logs
   - ./pkg-build.sh dump_logs
+
+after_success:
+  - Rscript -e 'library(covr);coveralls()'
 
 after_script:
 #  - ./travis-tool.sh dump_logs_by_extension "timings"

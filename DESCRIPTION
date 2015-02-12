@@ -6,7 +6,7 @@ Date: 2015-01-13
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
     person("Marcin", "Cieslik", role = "ctb",
-    email = "marcin.cieslik@gmail.com"), 
+    email = "marcin.cieslik@gmail.com"),
     person("Herve", "Pages", role = "ctb"))
 Author: Peter Hickey <peter.hickey@gmail.com>, with contributions from Marcin
     Cieslik and Herve Pages

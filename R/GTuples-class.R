@@ -28,7 +28,7 @@ setClass("GTuples",
   if (isTRUE(object@size > 2L) && length(object) != 0L) {
     if (!.Call(Cpp_GenomicTuples_allTuplesSorted, object@ranges@start, 
                object@internalPos, 
-               object@ranges@start + object@ranges@width - 1)
+               object@ranges@start + object@ranges@width - 1L)
     ) {
       msg <- validMsg(msg, paste0("positions in each tuple must be sorted in ", 
                                   "strictly increasing order, i.e. 'pos1' < ", 
@@ -49,8 +49,8 @@ setClass("GTuples",
   # pos1 < internalPos < posm
   # NB: min(x) < 0 is faster than any(x < 0)
   if (!is.na(object@size) && length(object) != 0L) {
-    if (min(object@ranges@start) < 0 || min(object@ranges@start + 
-                                              object@ranges@width - 1) < 0) {
+    if (min(object@ranges@start) < 0L || min(object@ranges@start + 
+                                              object@ranges@width - 1L) < 0L) {
       msg <- validMsg(msg, paste0("positions in each tuple must be positive ",
                              "integers."))
     }
@@ -105,7 +105,7 @@ GTuples <- function(seqnames = Rle(), tuples = matrix(),
   
   # Don't want tuples to contain mix of NA and non-NA
   NAs <- is.na(tuples)
-  if (sum(NAs) > 0 && sum(!NAs) > 0) {
+  if (sum(NAs) > 0L && sum(!NAs) > 0L) {
     stop("'NA' detected in 'tuples'")
   }
   if (!all(is.na(tuples))) {
@@ -129,16 +129,16 @@ GTuples <- function(seqnames = Rle(), tuples = matrix(),
   
   # Create IRanges
   if (!is.na(size)) {
-    ranges <- IRanges(start = tuples[, 1], end = tuples[, size])
+    ranges <- IRanges(start = tuples[, 1L], end = tuples[, size])
   } else {
     ranges <- IRanges()
   }
   
   # Create internalPos
-  if (is.na(size) || size < 3) {
+  if (is.na(size) || size < 3L) {
     internalPos <- NULL
   } else {
-    internalPos <- tuples[, seq(from = 2L, to = size - 1, by = 1L), 
+    internalPos <- tuples[, seq(from = 2L, to = size - 1L, by = 1L), 
                           drop = FALSE]
   }
   
