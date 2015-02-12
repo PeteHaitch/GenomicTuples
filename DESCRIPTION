@@ -1,15 +1,15 @@
 Package: GenomicTuples
 Type: Package
-Title: Representation and manipulation of genomic tuples
-Version: 1.1.13
-Date: 2015-01-13
+Title: Representation and Manipulation of Genomic Tuples
+Version: 1.1.14
+Date: 2015-02-12
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
     person("Marcin", "Cieslik", role = "ctb",
     email = "marcin.cieslik@gmail.com"),
     person("Herve", "Pages", role = "ctb"))
 Author: Peter Hickey <peter.hickey@gmail.com>, with contributions from Marcin
-    Cieslik and Herve Pages
+    Cieslik and Herve Pages.
 Maintainer: Peter Hickey <peter.hickey@gmail.com>
 Description: GenomicTuples defines general purpose containers for storing
     genomic tuples. It aims to provide functionality for tuples of genomic

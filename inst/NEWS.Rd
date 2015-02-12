@@ -2,6 +2,14 @@
 \title{GenomicTuples News}
 \encoding{UTF-8}
 
+\section{Version 1.1.14}{
+
+\itemize{
+
+\item Switched to a html vignette from a pdf one.
+
+}}
+
 \section{Version 0.99.1}{
 
 Addressing comments made in Bioconductor code review.

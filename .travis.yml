@@ -1,15 +1,11 @@
 language: c
 
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
   - curl -OL https://raw.githubusercontent.com/metacran/r-builder/master/pkg-build.sh
-  - chmod 755 ./pkg-build.sh
+  - chmod 755 pkg-build.sh
   - ./pkg-build.sh bootstrap
  
 install:
-#  - ./travis-tool.sh install_bioc_deps
   # Install binary pandoc from Rstudio
   - export PATH="$HOME/pandoc:$PATH"
   - mkdir $HOME/pandoc
@@ -20,24 +16,15 @@ install:
   - pandoc --version
   # Install bioc deps
   - ./pkg-build.sh install_bioc_deps
-  - ./travis-tool.sh github_package jimhester/covr
+  # Install covr from GitHub
+  - ./pkg-build.sh install_github jimhester/covr
  
 script:
-#  - ./travis-tool.sh run_tests
   - ./pkg-build.sh run_tests
-
-after_failure:
-#  - ./travis-tool.sh dump_logs
-  - ./pkg-build.sh dump_logs
-
-after_success:
   - Rscript -e 'library(covr);coveralls()'
-
-after_script:
-#  - ./travis-tool.sh dump_logs_by_extension "timings"
-#  - ./travis-tool.sh dump_sysinfo
-  - ./pkg-build.sh dump_logs_by_extension "timings"
-  - ./pkg-build.sh dump_sysinfo
+  
+after_failure:
+  - ./pkg-build.sh dump_logs
 
 notifications:
   email:
@@ -47,8 +34,3 @@ notifications:
 env:
   global:
     - RVERSION=devel
-    - R_BUILD_ARGS="--no-manual --no-resave-data"
-    - R_CHECK_ARGS="--no-build-vignettes --no-manual --timings"
-#    - R_CHECK_TIME="TRUE"
-    - R_CHECK_TESTS="TRUE"
-    - _R_CHECK_TIMINGS_="0"
