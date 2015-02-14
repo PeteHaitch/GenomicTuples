@@ -17,11 +17,11 @@ install:
   # Install bioc deps
   - ./pkg-build.sh install_bioc_deps
   # Install covr from GitHub
-  #- ./pkg-build.sh install_github jimhester/covr
+  - ./pkg-build.sh install_github jimhester/covr
  
 script:
   - ./pkg-build.sh run_tests
-  #- Rscript -e 'library(covr);coveralls()'
+  - Rscript -e 'library(covr);coveralls()'
   
 after_failure:
   - ./pkg-build.sh dump_logs
