@@ -13,9 +13,11 @@ source('http://bioconductor.org/biocLite.R')
 biocLite('GenomicTuples')
 ```
 
-## R CMD check results
+## R CMD check status
 Bioconductor: <a
 href="http://master.bioconductor.org/checkResults/devel/bioc-LATEST/GenomicTuples/">Multiple
 platform build/check report</a>  
 Travis CI: <a href="https://travis-ci.org/PeteHaitch/GenomicTuples"><img src="https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master" alt="Build status"></a>
 
+## Test coverage status
+coveralls.io: [![Coverage Status](https://coveralls.io/repos/PeteHaitch/GenomicTuples/badge.svg)](https://coveralls.io/r/PeteHaitch/GenomicTuples)
