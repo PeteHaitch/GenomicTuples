@@ -31,11 +31,10 @@ is based almost entirely on the wonderful `r Biocpkg("GenomicRanges")`
 package. Therefore, I have tried to keep the user interface as similar
 as possible. This vignette is also heavily based on the vignette "An
 Introduction to Genomic Ranges Classes", which is included with the 
-`r Biocpkg("GenomicRanges")` package (and can be accessed by typing 
-`vignette("GenomicRangesIntroduction", package = "GenomicRanges")` at the R 
-console). While not essential, familiarity with the 
-`r Biocpkg("GenomicRanges")` will be of benifit in understanding the 
-`r Biocpkg("GenomicTuples")` package.
+`r Biocpkg("GenomicRanges")` package[^GenomicRanges]. While not essential, familiarity with the `r Biocpkg("GenomicRanges")` will be of benifit in understanding the `r Biocpkg("GenomicTuples")` package.
+
+[^GenomicRanges]: The `r Biocpkg("GenomicRanges")` vignette can be accessed 
+by typing` vignette("GenomicRangesIntroduction", package = "GenomicRanges")` at the R console.
 
 ## What is a genomic tuple?
 
@@ -155,7 +154,7 @@ _DataFrame_ object using the `mcols` accessor:
 mcols(gt3)
 ```
 
-__Seqinfo__ can be extracted using the `seqinfo` accessor:
+_Seqinfo_ can be extracted using the `seqinfo` accessor:
 
 ```{r GTuples-accessors3, eval = TRUE, echo = TRUE}
 seqinfo(gt3)
@@ -331,7 +330,7 @@ size(gt3)
 
 Every m-tuple with $m \geq 2$ has an associated vector of intra-pair
 distances ($IPD$). This is defined as
-$IPD = (pos_{2} - pos_{1}, \ldots, pos_{m} - pos_{m - 1}$. The
+$IPD = (pos_{2} - pos_{1}, \ldots, pos_{m} - pos_{m - 1})$. The
 `IPD` method returns this as an integer matrix, where the $i^{th}$ 
 row contains the $IPD$ for the $i^{th}$ tuple:
 
@@ -344,7 +343,7 @@ IPD(gt3)
 While the _GTuples_ class can be thought of as a matrix-link
 object, with the number of columns equal to the `size` of the
 tuples plus two (one for the `seqname` and one for the
-`strand`, internally, it extends the _GenomicRanges::GRanges_
+`strand`), internally, it extends the _GenomicRanges::GRanges_
 class. Specifically, the `ranges` slot stores an
 _IRanges::IRanges_ object containing $pos_{1}$ and $pos_{m}$ and,
 if `size` $> 2$, a matrix is used to store the co-ordinates of the  "internal 
@@ -651,8 +650,7 @@ objects.
 [^findOverlaps]: The `findOverlaps`-based methods are `findOverlaps`, 
 `countOverlaps`, `overlapsAny` and `subsetByOverlaps`.
 
-I have chosen a definition that matches my intuition of what constitutes an 
-"overlap" between genomic tuples or between genomic tuples and genomic 
+I have chosen a definition that matches my intuition of what constitutes an "overlap" between genomic tuples or between genomic tuples and genomic 
 ranges. However, I am open to suggestions on amending or extending this 
 behaviour in future versions of `r Biocpkg("GenomicTuples")`.
 
@@ -679,8 +677,7 @@ they were _GenomicRanges::GRanges_ (resp. _GenomicRanges::GRangesList_) with
 
 ## Definition of overlapping genomic tuples and ranges
 
-Genomic tuples are __always__ treated as genomic ranges when searching for  
-overlaps between genomic tuples and genomic ranges.
+Genomic tuples are __always__ treated as genomic ranges when searching for overlaps between genomic tuples and genomic ranges.
 
 ## Examples
 
@@ -796,7 +793,7 @@ identical(findOverlaps(gt3, gt3, type = 'equal'),
 findOverlaps(gt3, gt3, type = 'equal', ignore.strand = TRUE, select = 'last')
 ```
 
-# Comparison of genomic tuples}
+# Comparison of genomic tuples
 
 I have chosen a definition that matches my intuition of what constitutes a  
 comparison between genomic tuples. However, I am open to suggestions 
@@ -890,7 +887,7 @@ unique(c(gt3, gt3[1:3]))
 
 I am very grateful to all the Bioconductor developers but particularly wish 
 to thank the developers of `r Biocpkg("GenomicRanges")` ([Lawrence, M. et al. Software for computing and annotating genomic ranges. PLoS Comput. Biol. 9, e1003118 (2013).](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003118)), which 
-`r Biocpkg("GenomicTuples")` uses heavily and is based upon. A special thanks to Hervé Pagès for his assistance and fixes.
+`r Biocpkg("GenomicTuples")` uses heavily and is based upon. A special thanks to Hervé Pagès for his assistance and fixes when making upstream changes to `r Biocpkg("GenomicRanges")`.
 
 # Session info
 

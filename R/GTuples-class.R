@@ -50,13 +50,13 @@ setClass("GTuples",
   # NB: min(x) < 0 is faster than any(x < 0)
   if (!is.na(object@size) && length(object) != 0L) {
     if (min(object@ranges@start) < 0L || min(object@ranges@start + 
-                                              object@ranges@width - 1L) < 0L) {
+                                             object@ranges@width - 1L) < 0L) {
       msg <- validMsg(msg, paste0("positions in each tuple must be positive ",
-                             "integers."))
+                                  "integers."))
     }
   }
   
-  return(msg)
+  msg
 }
 
 INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
@@ -66,12 +66,16 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
                          "tuples", "internalPos", "size")
 
 .valid.GTuples.mcols <- function(object) {
+  
+  msg <- NULL
+  
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
-    msg <- c("names of metadata columns cannot be one of ",
-             paste0("\"", INVALID.GT.COLNAMES, "\"", collapse=", "))
-    return(paste(msg, collapse=" "))
+    msg <- validMsg(msg, 
+                    paste0("names of metadata columns cannot be one of ",
+                           paste0("\"", INVALID.GT.COLNAMES, "\"", 
+                                  collapse = ", ")))
   }
-  NULL
+  msg
 }
 
 .valid.GTuples <- function(object) {
@@ -139,7 +143,7 @@ GTuples <- function(seqnames = Rle(), tuples = matrix(),
     internalPos <- NULL
   } else {
     internalPos <- tuples[, seq(from = 2L, to = size - 1L, by = 1L), 
-                          drop = FALSE]
+                           drop = FALSE]
   }
   
   # Create GRanges
@@ -274,15 +278,15 @@ setMethod("c",
             # "c" will error if there is no common class, e.g. c(GRanges(), "1")
             # The following commented-out error makes this explicit to the user 
             # for c,GTuples-method
-#             if (!isTRUE(all(sapply(args, inherits, "GTuples")))) {
-#               # TODO: Check new error message works as intended
-#                 stop(paste0("Cannot combine ", 
-#                             paste0(unique(sapply(args, class)), 
-#                                    collapse = ' and '), 
-#                             " objects"))
-#             }
+            #             if (!isTRUE(all(sapply(args, inherits, "GTuples")))) {
+            #               # TODO: Check new error message works as intended
+            #                 stop(paste0("Cannot combine ", 
+            #                             paste0(unique(sapply(args, class)), 
+            #                                    collapse = ' and '), 
+            #                             " objects"))
+            #             }
             if (!.zero_range(sapply(args, size)) && 
-                  !isTRUE(all(is.na(sapply(args, size))))) {
+                !isTRUE(all(is.na(sapply(args, size))))) {
               stop(paste0("Cannot combine ", paste0(unique(sapply(args, class)), 
                                                     collapse = ' and '), 
                           " containing tuples of different 'size'."))
@@ -290,13 +294,13 @@ setMethod("c",
             # "c" silently coerces to lowest common class, e.g., c(1, "next")
             # The following commented-out warning makes this explicit to the 
             # user for c,GTuples-method
-#             if (!all(sapply(args, class) == class(args[[1]]))) {
-#               warning(
-#                 paste0("Not all elements are same class: ", 
-#                        paste0(unique(sapply(args, class)), collapse = ', '), 
-#                        "\nResult will be coerced to lowest common class: ", 
-#                        .lcc(x, ...)))
-#             }
+            #             if (!all(sapply(args, class) == class(args[[1]]))) {
+            #               warning(
+            #                 paste0("Not all elements are same class: ", 
+            #                        paste0(unique(sapply(args, class)), collapse = ', '), 
+            #                        "\nResult will be coerced to lowest common class: ", 
+            #                        .lcc(x, ...)))
+            #             }
             .unlist_list_of_GTuples(args, ignore.mcols = ignore.mcols)
           }
 )
@@ -381,7 +385,7 @@ setReplaceMethod("tuples",
                      ranges <- IRanges(start = value[, 1], end = value[, m])
                      internalPos <- unname(value[, seq.int(from = 2, 
                                                            to = m - 1, by = 1), 
-                                                 drop = FALSE])
+                                                  drop = FALSE])
                    }
                    update(x, ranges = ranges, internalPos = internalPos,
                           check = TRUE)
@@ -466,7 +470,7 @@ setReplaceMethod("[",
                    if (length(x_ec) > 0L) {
                      x_ecs <- GenomicRanges:::extraColumnSlots(x)
                      x_ecs <- DataFrame(x_ecs[names(x_ecs) != 
-                                                        "internalPos"])
+                                                "internalPos"])
                    } else {
                      x_ecs <- DataFrame()
                      x_ecs@nrows <- length(x)
