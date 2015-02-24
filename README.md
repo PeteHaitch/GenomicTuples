@@ -20,4 +20,4 @@ platform build/check report</a>
 Travis CI: <a href="https://travis-ci.org/PeteHaitch/GenomicTuples"><img src="https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master" alt="Build status"></a>
 
 ## Test coverage status
-coveralls.io: [![Coverage Status](https://coveralls.io/repos/PeteHaitch/GenomicTuples/badge.svg)](https://coveralls.io/r/PeteHaitch/GenomicTuples)
+coveralls.io: [![Coverage Status](https://coveralls.io/repos/PeteHaitch/GenomicTuples/badge.svg?branch=master)](https://coveralls.io/r/PeteHaitch/GenomicTuples?branch=master)
