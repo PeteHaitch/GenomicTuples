@@ -3,3 +3,5 @@ packrat/lib*/
 .Rhistory
 *.pdf
 inst/doc
+src/*.o
+src/*.so
