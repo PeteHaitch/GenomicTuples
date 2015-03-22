@@ -6,3 +6,4 @@ TODO.pdf
 .Rprofile
 ^tmp/
 .coveralls.R
+^CHANGELOG\.md$
