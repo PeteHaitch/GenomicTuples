@@ -11,5 +11,3 @@ setMethod("tile",
                         "method."))
           }
 )
-
-

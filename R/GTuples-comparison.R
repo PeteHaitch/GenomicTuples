@@ -120,7 +120,7 @@
         )
       }
     }
-    return(val)
+    val
   }
 }
 
@@ -204,7 +204,7 @@ setMethod("compare",
                                    MARGIN = 1, fromLast = fromLast)
     }
   }  
-  return(as.vector(val))
+  as.vector(val)
 }
 
 # S3/S4 combo for duplicated.GTuples
@@ -252,7 +252,7 @@ setMethod("match",
             val <- findOverlaps(x, table, type = "equal", select = "first", 
                           ignore.strand = ignore.strand)
             val[is.na(val)] <- nomatch
-            return(val)
+            val
           }
 )
 
@@ -268,7 +268,7 @@ setMethod("match",
 # data.table:::forder.
 
 #' @export
-setMethod(order, 
+setMethod("order", 
           "GTuples", 
           function(..., na.last = TRUE, decreasing = FALSE) {
             

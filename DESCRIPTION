@@ -1,8 +1,8 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.1.16
-Date: 2015-02-24
+Version: 1.1.17
+Date: 2015-03-22
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
     person("Marcin", "Cieslik", role = "ctb",
@@ -20,7 +20,7 @@ BugReports: https://github.com/PeteHaitch/GenomicTuples/issues
 biocViews: Infrastructure, DataRepresentation, Sequencing
 VignetteBuilder: knitr
 Depends:
-    R (>= 2.10),
+    R (>= 3.2.0),
     GenomicRanges (>= 1.19.32),
     GenomeInfoDb,
     BiocGenerics,
@@ -52,3 +52,4 @@ Collate:
     'nearest-methods.R'
     'setops-methods.R'
     'tile-methods.R'
+    'zzz.R'

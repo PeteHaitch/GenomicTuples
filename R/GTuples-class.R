@@ -8,10 +8,10 @@ setClassUnion(name = "matrixOrNULL", members = c("matrix", "NULL"))
 #' @export
 setClass("GTuples",
          contains = "GRanges",
-         representation(
+         slots = list(
            internalPos = "matrixOrNULL", 
            size = "integer"),
-         prototype(
+         prototype = prototype(
            internalPos = NULL,
            size = NA_integer_)
 )
@@ -30,17 +30,18 @@ setClass("GTuples",
                object@internalPos, 
                object@ranges@start + object@ranges@width - 1L)
     ) {
-      msg <- validMsg(msg, paste0("positions in each tuple must be sorted in ", 
-                                  "strictly increasing order, i.e. 'pos1' < ", 
-                                  "... < ", 
-                                  paste0("'pos", object@size, "'")))
+      msg <- Biobase::validMsg(msg, 
+                               paste0("positions in each tuple must be sorted ",
+                                      "in strictly increasing order, i.e. ",
+                                      "'pos1' < ... < ", 
+                                      paste0("'pos", object@size, "'")))
     }
   } else if (isTRUE(object@size == 2L)) {
     if (isTRUE(any(object@ranges@width <= 1L))) {
-      msg <- validMsg(msg, 
-                      paste0("positions in each tuple must be sorted in ", 
-                             "strictly increasing order, i.e. 'pos1' < ", 
-                             "'pos2'"))
+      msg <- Biobase::validMsg(msg, 
+                               paste0("positions in each tuple must be sorted in ", 
+                                      "strictly increasing order, i.e. 'pos1' < ", 
+                                      "'pos2'"))
     }
   }
   
@@ -51,8 +52,9 @@ setClass("GTuples",
   if (!is.na(object@size) && length(object) != 0L) {
     if (min(object@ranges@start) < 0L || min(object@ranges@start + 
                                              object@ranges@width - 1L) < 0L) {
-      msg <- validMsg(msg, paste0("positions in each tuple must be positive ",
-                                  "integers."))
+      msg <- Biobase::validMsg(msg, 
+                               paste0("positions in each tuple must be ", 
+                                      "positive integers."))
     }
   }
   
@@ -70,10 +72,10 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
   msg <- NULL
   
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
-    msg <- validMsg(msg, 
-                    paste0("names of metadata columns cannot be one of ",
-                           paste0("\"", INVALID.GT.COLNAMES, "\"", 
-                                  collapse = ", ")))
+    msg <- Biobase::validMsg(msg, 
+                             paste0("names of metadata columns cannot be one of ",
+                                    paste0("\"", INVALID.GT.COLNAMES, "\"", 
+                                           collapse = ", ")))
   }
   msg
 }
@@ -86,7 +88,7 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
   if (is.null(msg)){
     return(TRUE)
   } else{
-    return(msg)
+    msg
   }
 }
 
@@ -97,9 +99,12 @@ setValidity2("GTuples", .valid.GTuples)
 ###
 
 #' @export
-GTuples <- function(seqnames = Rle(), tuples = matrix(), 
-                    strand = Rle("*", length(seqnames)), ..., 
-                    seqlengths = NULL, seqinfo = NULL) {
+GTuples <- function(seqnames = Rle(), 
+                    tuples = matrix(), 
+                    strand = Rle("*", length(seqnames)), 
+                    ..., 
+                    seqlengths = NULL, 
+                    seqinfo = NULL) {
   
   # Only need to check the tuples, all others get checked by the GRanges 
   # constructor
@@ -142,13 +147,17 @@ GTuples <- function(seqnames = Rle(), tuples = matrix(),
   if (is.na(size) || size < 3L) {
     internalPos <- NULL
   } else {
-    internalPos <- tuples[, seq(from = 2L, to = size - 1L, by = 1L), 
+    internalPos <- tuples[, seq.int(from = 2, to = size - 1, by = 1), 
                            drop = FALSE]
   }
   
   # Create GRanges
-  gr <- GRanges(seqnames = seqnames, ranges = ranges, strand = strand, 
-                seqlengths = seqlengths, seqinfo = seqinfo, ...)
+  gr <- GRanges(seqnames = seqnames, 
+                ranges = ranges, 
+                strand = strand, 
+                seqlengths = seqlengths, 
+                seqinfo = seqinfo, 
+                ...)
   
   new("GTuples", gr, internalPos = internalPos, size = size)
 }
@@ -181,12 +190,13 @@ setMethod("as.data.frame",
                 # being twice-included.
                 extraColumns <- extraColumns[colnames(extraColumns) != 
                                                'internalPos']
-                mcols_df <- cbind(as.data.frame(extraColumns, ...), 
-                                  mcols_df)
+                mcols_df <- cbind(as.data.frame(extraColumns, ...), mcols_df)
               }
               data.frame(seqnames = as.factor(seqnames(x)), 
-                         as.data.frame(tuples), strand = as.factor(strand(x)), 
-                         mcols_df, row.names = row.names, 
+                         as.data.frame(tuples), 
+                         strand = as.factor(strand(x)), 
+                         mcols_df, 
+                         row.names = row.names, 
                          stringsAsFactors = FALSE)
             }
           }
@@ -199,7 +209,9 @@ setMethod("granges",
             if (!isTRUEorFALSE(use.mcols)) {
               stop("'use.mcols' must be TRUE or FALSE")
             }
-            ans <- GRanges(seqnames(x), ranges(x), strand(x), 
+            ans <- GRanges(seqnames = seqnames(x), 
+                           ranges = ranges(x), 
+                           strand = strand(x), 
                            seqinfo = seqinfo(x))
             if (use.mcols) {
               extraColumns <- GenomicRanges:::extraColumnSlotsAsDF(x)
@@ -211,7 +223,6 @@ setMethod("granges",
           }
 )
 
-#' @export
 setAs("GTuples", 
       "GRanges", 
       function(from) {
@@ -249,18 +260,21 @@ setAs("GTuples",
   ans_seqnames <- do.call(c, lapply(x, seqnames))
   ans_ranges <- do.call(c, lapply(x, ranges))
   ans_strand <- do.call(c, lapply(x, strand))
-  ans_internalPos <- do.call(rbind, lapply(x, function(xx) {
-    xx@internalPos
-  }))
+  ans_internalPos <- do.call(rbind, lapply(x, function(xx) xx@internalPos))
   ans_size <- sapply(x, size)[1]
   if (ignore.mcols) {
     ans_mcols <- new("DataFrame", nrows = length(ans_ranges))
   } else {
     ans_mcols <- do.call(rbind, lapply(x, mcols, FALSE))
   }
-  new(ans_class, seqnames = ans_seqnames, ranges = ans_ranges, 
-      strand = ans_strand, elementMetadata = ans_mcols, seqinfo = ans_seqinfo, 
-      size = ans_size, internalPos = ans_internalPos)
+  new(ans_class, 
+      seqnames = ans_seqnames, 
+      ranges = ans_ranges, 
+      strand = ans_strand, 
+      elementMetadata = ans_mcols, 
+      seqinfo = ans_seqinfo, 
+      size = ans_size, 
+      internalPos = ans_internalPos)
 }
 
 #' @export
@@ -279,7 +293,6 @@ setMethod("c",
             # The following commented-out error makes this explicit to the user 
             # for c,GTuples-method
             #             if (!isTRUE(all(sapply(args, inherits, "GTuples")))) {
-            #               # TODO: Check new error message works as intended
             #                 stop(paste0("Cannot combine ", 
             #                             paste0(unique(sapply(args, class)), 
             #                                    collapse = ' and '), 
@@ -294,13 +307,15 @@ setMethod("c",
             # "c" silently coerces to lowest common class, e.g., c(1, "next")
             # The following commented-out warning makes this explicit to the 
             # user for c,GTuples-method
-            #             if (!all(sapply(args, class) == class(args[[1]]))) {
-            #               warning(
-            #                 paste0("Not all elements are same class: ", 
-            #                        paste0(unique(sapply(args, class)), collapse = ', '), 
-            #                        "\nResult will be coerced to lowest common class: ", 
-            #                        .lcc(x, ...)))
-            #             }
+#             if (!all(sapply(args, class) == class(args[[1]]))) {
+#               warning(
+#                 paste0("Not all elements are same class: ", 
+#                        paste0(unique(sapply(args, class)), 
+#                               collapse = ', '), 
+#                        "\nResult will be coerced to lowest common ", 
+#                        "class: ", 
+#                        .lcc(x, ...)))
+#             }
             .unlist_list_of_GTuples(args, ignore.mcols = ignore.mcols)
           }
 )
@@ -351,7 +366,7 @@ setMethod("tuples",
               ans <- cbind(start(x), x@internalPos, end(x))
               colnames(ans) <- paste0('pos', seq_len(size(x)))
             }
-            return(ans)
+            ans
           }
 )
 
@@ -387,7 +402,9 @@ setReplaceMethod("tuples",
                                                            to = m - 1, by = 1), 
                                                   drop = FALSE])
                    }
-                   update(x, ranges = ranges, internalPos = internalPos,
+                   update(x, 
+                          ranges = ranges, 
+                          internalPos = internalPos,
                           check = TRUE)
                  }
 )
@@ -412,7 +429,7 @@ setMethod("IPD",
                            end(x)
               )
             }
-            return(ipd)
+            ipd
           }
 )
 
@@ -507,8 +524,11 @@ setReplaceMethod("[",
                        x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]
                      }
                    }
-                   update(x, seqnames = seqnames, ranges = ranges,
-                          strand = strand, elementMetadata = ans_mcols,
+                   update(x, 
+                          seqnames = seqnames, 
+                          ranges = ranges,
+                          strand = strand, 
+                          elementMetadata = ans_mcols,
                           internalPos = internal_pos,
                           .slotList = as.list(x_ecs))
                  }
@@ -560,7 +580,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
                                  list(check.names = FALSE)))
     ans <- cbind(ans, `|` = rep.int("|", lx), as.matrix(tmp))
   }
-  return(ans)
+  ans
 }
 
 # TODO: Need to keep this up to date with the show,GRanges-method

@@ -33,19 +33,8 @@
       val <- (abs(max(x) - min(x)) < tol)
     }
   }  
-  return(val)
+  val
 }
-
-# Define a replaceROWS function with signature NULL. Required for when slots 
-# that are extraColumnSlots are NULL and calling the replaceROWS method for 
-# GTuples (via inheritance to the replaceROWS method for GenomicRanges).
-#' @export
-setMethod("replaceROWS",
-          "NULL",
-          function(x, i, value) {
-            NULL
-          }
-)
 
 #' Compute column-wise difference of matrices with possibly different number of 
 #' rows. Do this by iterating over columns, treating them as vectors and 
@@ -56,7 +45,7 @@ setMethod("replaceROWS",
   for (i in seq_len(ncol(x))) {
     z[, i] <- x[, i] - y[, i]
   }
-  return(z)
+  z
 }
 
 # Function not currently required but may be useful; see c,GTuples-method

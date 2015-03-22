@@ -6,11 +6,11 @@
 #' @export
 setClass("GTuplesList",
          contains = c("GRangesList"),
-         representation(
+         slots = list(
            unlistData = "GTuples",
            elementMetadata = "DataFrame"
          ),
-         prototype(
+         prototype = prototype(
            elementType = "GTuples"
          )
 )
@@ -28,14 +28,17 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
   msg <- NULL
   object_mcols <- object@elementMetadata
   if (nrow(object_mcols) != length(object)) {
-    msg <- "'mcols(object)' has an incorrect number of rows"
+    msg <- Biobase::validMsg(msg, 
+                             "'mcols(object)' has an incorrect number of rows")
   }
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
-    msg <- c("names of metadata columns cannot be one of ",
-             paste0("\"", INVALID.GT.COLNAMES, "\"", collapse=", "))
+    msg <- Biobase::validMsg(msg, 
+                             paste0("names of metadata columns cannot be one ", 
+                                    "of ", paste0("\"", INVALID.GT.COLNAMES, 
+                                                  "\"", collapse = ", ")))
   }
   if (!is.null(rownames(object_mcols))) {
-    msg <- c(msg, "'mcols(object)' cannot have row names")
+    msg <- Biobase::validMsg(msg, "'mcols(object)' cannot have row names")
   }
   msg
 }
@@ -123,7 +126,6 @@ setMethod("IPD",
 ### Coercion.
 ###
 
-#' @export
 setAs("GTuplesList", "GRangesList", 
       function(from) {
         if (length(from)) {

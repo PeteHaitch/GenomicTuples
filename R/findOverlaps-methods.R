@@ -15,7 +15,7 @@
   
   # Type is effectively hard-coded to 'equal' since this is the only value for
   # which this function should be called.
-  type <- 'equal'
+  type <- "equal"
   
   # merge() also checks that 'query' and 'subject' are based on the
   # same reference genome.
@@ -61,9 +61,9 @@
       s_ranges <- IRanges(start = s_matrix[, 1L], end = s_matrix[, 2L])
       min.score <- IRanges:::min_overlap_score(maxgap, minoverlap)
       hits <- IRanges:::findOverlaps_NCList(q_ranges, s_ranges,
-                                            min.score=min.score,
-                                            type=type, select="all",
-                                            circle.length=circle.length)
+                                            min.score = min.score,
+                                            type = type, select = "all",
+                                            circle.length = circle.length)
       q_hits <- queryHits(hits)
       s_hits <- subjectHits(hits)
       compatible_strand <-
@@ -90,7 +90,7 @@
     s_hits <- integer(0)
   }
  
-  selectHits(Hits(q_hits, s_hits, q_len, s_len), select=select)
+  selectHits(Hits(q_hits, s_hits, q_len, s_len), select = select)
 }
 
 # There is a specially defined method for findOverlaps when both the query and 
@@ -125,7 +125,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                             "other values not yet supported"))
               }
               # Second check is whether one, and only one, of query or subject 
-              # have size NA
+              # have size NA.
               if ((isTRUE(size(query) != size(subject))) || 
                     (is.na(size(query)) + is.na(size(subject))) == 1) {
                 stop("Cannot findOverlaps between '", class(query), "' and '", 

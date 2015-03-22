@@ -9,50 +9,38 @@ using namespace Rcpp;
 bool allTuplesSorted(IntegerVector pos1, IntegerMatrix internal_pos, IntegerVector posm);
 RcppExport SEXP GenomicTuples_allTuplesSorted(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< IntegerVector >::type pos1(pos1SEXP );
-        Rcpp::traits::input_parameter< IntegerMatrix >::type internal_pos(internal_posSEXP );
-        Rcpp::traits::input_parameter< IntegerVector >::type posm(posmSEXP );
-        bool __result = allTuplesSorted(pos1, internal_pos, posm);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< IntegerVector >::type pos1(pos1SEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type internal_pos(internal_posSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type posm(posmSEXP);
+    __result = Rcpp::wrap(allTuplesSorted(pos1, internal_pos, posm));
+    return __result;
 END_RCPP
 }
 // compareGTuples
 IntegerVector compareGTuples(IntegerVector int_seqnames, IntegerVector int_strand, IntegerMatrix int_pos);
 RcppExport SEXP GenomicTuples_compareGTuples(SEXP int_seqnamesSEXP, SEXP int_strandSEXP, SEXP int_posSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< IntegerVector >::type int_seqnames(int_seqnamesSEXP );
-        Rcpp::traits::input_parameter< IntegerVector >::type int_strand(int_strandSEXP );
-        Rcpp::traits::input_parameter< IntegerMatrix >::type int_pos(int_posSEXP );
-        IntegerVector __result = compareGTuples(int_seqnames, int_strand, int_pos);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< IntegerVector >::type int_seqnames(int_seqnamesSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type int_strand(int_strandSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type int_pos(int_posSEXP);
+    __result = Rcpp::wrap(compareGTuples(int_seqnames, int_strand, int_pos));
+    return __result;
 END_RCPP
 }
 // IPD
 IntegerMatrix IPD(IntegerVector pos1, IntegerMatrix internal_pos, IntegerVector posm);
 RcppExport SEXP GenomicTuples_IPD(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
 BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< IntegerVector >::type pos1(pos1SEXP );
-        Rcpp::traits::input_parameter< IntegerMatrix >::type internal_pos(internal_posSEXP );
-        Rcpp::traits::input_parameter< IntegerVector >::type posm(posmSEXP );
-        IntegerMatrix __result = IPD(pos1, internal_pos, posm);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< IntegerVector >::type pos1(pos1SEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type internal_pos(internal_posSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type posm(posmSEXP);
+    __result = Rcpp::wrap(IPD(pos1, internal_pos, posm));
+    return __result;
 END_RCPP
 }
