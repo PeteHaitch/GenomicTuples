@@ -29,3 +29,5 @@ It's already very easy to create a `GTuples` object from a `data.frame` or a `Da
 ## Test coverage
 
 See the [`testCoverage` package](https://github.com/MangoTheCat/testCoverage). Currently, this does not support S4 classes, which limits its use for the `GenomicTuples` package.
+
+__UPDATE:__ Now using [`covr`](https://github.com/jimhester/covr) for test coverage.
