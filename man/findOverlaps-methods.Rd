@@ -151,6 +151,9 @@
   \item{type}{
     See details below.
   }
+  \item{algorithm}{
+    Please see \code{GenomicRanges::\link[GenomicRanges]{findOverlaps}}.
+  }
   \item{maxgap, minoverlap}{
     See \code{\link[IRanges]{findOverlaps}} in the IRanges package for
     a description of these arguments. These arguments have no effect if both 
