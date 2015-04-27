@@ -81,7 +81,7 @@ where each tuple has the same `size`. These objects can be
 created by using the `GTuples` constructor function. For example, the following 
 code creates a _GTuples_ object with 10 genomic tuples:
 
-```{r,initialize, echo = TRUE, eval = TRUE}
+```{r initialize, echo = TRUE, eval = TRUE}
 library(GenomicTuples)
 ```
 
@@ -324,7 +324,7 @@ tuples(gt3)
 The `size` method returns the size of the tuples stored in the
 object:
 
-```{rsize-method, eval = TRUE, echo = TRUE}
+```{r size-method, eval = TRUE, echo = TRUE}
 size(gt3)
 ```
 
@@ -830,7 +830,7 @@ order".
 It is easiest to understand the above definitions by studying a few
 examples, here using 3-tuples:
 
-```{r3-tuples-compare-examples, eval = TRUE, echo = TRUE}
+```{r 3-tuples-compare-examples, eval = TRUE, echo = TRUE}
 # Construct example 3-tuples
 gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2', 'chr1', 
                             'chr1'), 
