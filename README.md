@@ -14,9 +14,8 @@ biocLite('GenomicTuples')
 ```
 
 ## R CMD check status
-Bioconductor: <a
-href="http://master.bioconductor.org/checkResults/devel/bioc-LATEST/GenomicTuples/">Multiple
-platform build/check report</a>  
+Bioconductor: <a href="http://bioconductor.org/packages/devel/bioc/html/GenomicTuples.html"><img src="http://bioconductor.org/shields/build/devel/bioc/GenomicTuples.svg" alt="Build status"></a>
+
 Travis CI: <a href="https://travis-ci.org/PeteHaitch/GenomicTuples"><img src="https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master" alt="Build status"></a>
 
 ## Test coverage status
