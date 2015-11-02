@@ -127,6 +127,11 @@ GTuples <- function(seqnames = Rle(),
   if (sum(NAs) > 0 && sum(!NAs) > 0) {
     stop("'NA' detected in 'tuples'")
   }
+  if (!all(is.na(tuples))) {
+    if (!is.matrix(tuples) || !is.numeric(tuples)) {
+      stop("'tuples' must be an integer matrix") 
+    }
+  }
   if (!is.integer(tuples)) {
     if (!all(is.na(tuples))) {
       warning("Converting 'tuples' to integer mode")
