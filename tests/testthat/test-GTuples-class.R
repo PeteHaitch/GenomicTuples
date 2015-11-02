@@ -453,7 +453,6 @@ test_that("GRanges inherited getters work", {
                                    'chr3' = 'foo'))
 })
   
-  
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Tuples methods
 ###
