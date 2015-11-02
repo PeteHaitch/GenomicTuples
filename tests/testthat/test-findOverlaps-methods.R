@@ -1410,3 +1410,233 @@ test_that("Works on m-tuples, m > 3", {
 
 })
 
+test_that("Works on m-tuples, m > 3", {
+  # Just need to test that output is the same as if the GTuples were GRanges 
+  # and GTuplesList were GRangesList
+  hits <- findOverlaps(gtl4, gt4, type = "start")
+  expect_identical(length(hits), 10L)
+  expect_identical(hits@queryHits, rep(1:2, each = 5))
+  expect_identical(hits@subjectHits, 1:10)
+  expect_identical(findOverlaps(gtl4, gt4, type = 'any'), 
+                   findOverlaps(as(gtl4, "GRangesList"), as(gt4, "GRanges"), 
+                                type = 'any'))
+  expect_identical(findOverlaps(gtl4, gt4, type = 'start'), 
+                   findOverlaps(as(gtl4, "GRangesList"), as(gt4, "GRanges"), 
+                                type = 'start'))
+  expect_identical(findOverlaps(gtl4, gt4, type = 'end'), 
+                   findOverlaps(as(gtl4, "GRangesList"), as(gt4, "GRanges"), 
+                                type = 'end'))
+  expect_identical(findOverlaps(gtl4, gt4, type = 'within'), 
+                   findOverlaps(as(gtl4, "GRangesList"), as(gt4, "GRanges"), 
+                                type = 'within'))
+})
+
+context("findOverlaps,GTuplesList,GTuplesList-method")
+
+test_that("Works on empty GTuples", {
+  # Just need to test that output is the same as if the GTuplesList were 
+  # GRangesList
+  hits <- findOverlaps(gtl0, gtl0, type = "start")
+  expect_true(inherits(hits, "Hits"))
+  expect_identical(length(hits), 0L)
+  expect_identical(findOverlaps(gtl0, gtl0, type = 'any'), 
+                   findOverlaps(as(gtl0, "GRangesList"), 
+                                as(gtl0, "GRangesList"), 
+                                type = 'any'))
+  expect_identical(findOverlaps(gtl0, gtl0, type = 'start'), 
+                   findOverlaps(as(gtl0, "GRangesList"), 
+                                as(gtl0, "GRangesList"), 
+                                type = 'start'))
+  expect_identical(findOverlaps(gtl0, gtl0, type = 'end'), 
+                   findOverlaps(as(gtl0, "GRangesList"), 
+                                as(gtl0, "GRangesList"), 
+                                type = 'end'))
+  expect_identical(findOverlaps(gtl0, gtl0, type = 'within'), 
+                   findOverlaps(as(gtl0, "GRangesList"), 
+                                as(gtl0, "GRangesList"), 
+                                type = 'within'))
+})
+
+test_that("Works on 1-tuples", {
+  # Just need to test that output is the same as if the GTuplesList were 
+  # GRangesList
+  hits <- findOverlaps(gtl1, gtl1, type = "start")
+  expect_true(inherits(hits, "Hits"))
+  expect_identical(length(hits), 2L)
+  expect_identical(hits@queryHits, c(1L, 2L))
+  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(findOverlaps(gtl1, gtl1, type = 'any'), 
+                   findOverlaps(as(gtl1, "GRangesList"), 
+                                as(gtl1, "GRangesList"), 
+                                type = 'any'))
+  expect_identical(findOverlaps(gtl1, gtl1, type = 'start'), 
+                   findOverlaps(as(gtl1, "GRangesList"), 
+                                as(gtl1, "GRangesList"), 
+                                type = 'start'))
+  expect_identical(findOverlaps(gtl1, gtl1, type = 'end'), 
+                   findOverlaps(as(gtl1, "GRangesList"), 
+                                as(gtl1, "GRangesList"), 
+                                type = 'end'))
+  expect_identical(findOverlaps(gtl1, gtl1, type = 'within'), 
+                   findOverlaps(as(gtl1, "GRangesList"), 
+                                as(gtl1, "GRangesList"), 
+                                type = 'within'))
+})
+
+test_that("Works on 2-tuples", {
+  # Just need to test that output is the same as if the GTuplesList were 
+  # GRangesList
+  hits <- findOverlaps(gtl2, gtl2, type = "start")
+  expect_identical(length(hits), 2L)
+  expect_identical(hits@queryHits, c(1L, 2L))
+  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(findOverlaps(gtl2, gtl2, type = 'any'), 
+                   findOverlaps(as(gtl2, "GRangesList"), 
+                                as(gtl2, "GRangesList"), 
+                                type = 'any'))
+  expect_identical(findOverlaps(gtl2, gtl2, type = 'start'), 
+                   findOverlaps(as(gtl2, "GRangesList"), 
+                                as(gtl2, "GRangesList"), 
+                                type = 'start'))
+  expect_identical(findOverlaps(gtl2, gtl2, type = 'end'), 
+                   findOverlaps(as(gtl2, "GRangesList"), 
+                                as(gtl2, "GRangesList"), 
+                                type = 'end'))
+  expect_identical(findOverlaps(gtl2, gtl2, type = 'within'), 
+                   findOverlaps(as(gtl2, "GRangesList"), 
+                                as(gtl2, "GRangesList"), 
+                                type = 'within'))
+})
+
+test_that("Works on 3-tuples", {
+  # Just need to test that output is the same as if the GTuplesList were 
+  # GRangesList
+  hits <- findOverlaps(gtl3, gtl3, type = "start")
+  expect_identical(length(hits), 2L)
+  expect_identical(hits@queryHits, c(1L, 2L))
+  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(findOverlaps(gtl3, gtl3, type = 'any'), 
+                   findOverlaps(as(gtl3, "GRangesList"), 
+                                as(gtl3, "GRangesList"), 
+                                type = 'any'))
+  expect_identical(findOverlaps(gtl3, gtl3, type = 'start'), 
+                   findOverlaps(as(gtl3, "GRangesList"), 
+                                as(gtl3, "GRangesList"), 
+                                type = 'start'))
+  expect_identical(findOverlaps(gtl3, gtl3, type = 'end'), 
+                   findOverlaps(as(gtl3, "GRangesList"), 
+                                as(gtl3, "GRangesList"), 
+                                type = 'end'))
+  expect_identical(findOverlaps(gtl3, gtl3, type = 'within'), 
+                   findOverlaps(as(gtl3, "GRangesList"), 
+                                as(gtl3, "GRangesList"), 
+                                type = 'within'))
+})
+
+test_that("Works on m-tuples, m > 3", {
+  # Just need to test that output is the same as if the GTuples were GRanges 
+  # and GTuplesList were GRangesList
+  hits <- findOverlaps(gtl4, gtl4, type = "start")
+  expect_identical(length(hits), 2L)
+  expect_identical(hits@queryHits, c(1L, 2L))
+  expect_identical(hits@subjectHits, c(1L, 1L))
+  expect_identical(findOverlaps(gtl4, gtl4, type = 'any'), 
+                   findOverlaps(as(gtl4, "GRangesList"), 
+                                as(gtl4, "GRangesList"), 
+                                type = 'any'))
+  expect_identical(findOverlaps(gtl4, gtl4, type = 'start'), 
+                   findOverlaps(as(gtl4, "GRangesList"), 
+                                as(gtl4, "GRangesList"), 
+                                type = 'start'))
+  expect_identical(findOverlaps(gtl4, gtl4, type = 'end'), 
+                   findOverlaps(as(gtl4, "GRangesList"), 
+                                as(gtl4, "GRangesList"), 
+                                type = 'end'))
+  expect_identical(findOverlaps(gtl4, gtl4, type = 'within'), 
+                   findOverlaps(as(gtl4, "GRangesList"), 
+                                as(gtl4, "GRangesList"), 
+                                type = 'within'))
+})
+
+context("countOverlaps,GTuples,GTuples-method")
+
+test_that("Works on empty GTuples", {
+ expect_identical(countOverlaps(gt0, gt0, type = 'any'), integer(0))
+ expect_identical(countOverlaps(gt0, gt0, type = 'start'), integer(0))
+ expect_identical(countOverlaps(gt0, gt0, type = 'end'), integer(0))
+ expect_identical(countOverlaps(gt0, gt0, type = 'within'), integer(0))
+ expect_identical(countOverlaps(gt0, gt0, type = 'equal'), integer(0))
+})
+
+test_that("Works on 1-tuples", {
+  # Just need to test that output is the same as if the GTuples were GRanges
+  expect_identical(countOverlaps(gt1, gt1, type = 'any'), 
+                   countOverlaps(as(gt1, "GRanges"), as(gt1, "GRanges"), 
+                                 type = 'any'))
+  expect_identical(countOverlaps(gt1, gt1, type = 'start'), 
+                   countOverlaps(as(gt1, "GRanges"), as(gt1, "GRanges"), 
+                                 type = 'start'))
+  expect_identical(countOverlaps(gt1, gt1, type = 'end'), 
+                   countOverlaps(as(gt1, "GRanges"), as(gt1, "GRanges"), 
+                                 type = 'end'))
+  expect_identical(countOverlaps(gt1, gt1, type = 'within'), 
+                   countOverlaps(as(gt1, "GRanges"), as(gt1, "GRanges"), 
+                                 type = 'within'))
+  expect_identical(countOverlaps(gt1, gt1, type = 'equal'), 
+                   countOverlaps(as(gt1, "GRanges"), as(gt1, "GRanges"), 
+                                 type = 'equal'))
+})
+
+test_that("Works on 2-tuples", {
+  # Just need to test that output is the same as if the GTuples were GRanges
+  expect_identical(countOverlaps(gt2, gt2, type = 'any'), 
+                   countOverlaps(as(gt2, "GRanges"), as(gt2, "GRanges"), 
+                                 type = 'any'))
+  expect_identical(countOverlaps(gt2, gt2, type = 'start'), 
+                   countOverlaps(as(gt2, "GRanges"), as(gt2, "GRanges"), 
+                                 type = 'start'))
+  expect_identical(countOverlaps(gt2, gt2, type = 'end'), 
+                   countOverlaps(as(gt2, "GRanges"), as(gt2, "GRanges"), 
+                                 type = 'end'))
+  expect_identical(countOverlaps(gt2, gt2, type = 'within'), 
+                   countOverlaps(as(gt2, "GRanges"), as(gt2, "GRanges"), 
+                                 type = 'within'))
+  expect_identical(countOverlaps(gt2, gt2, type = 'equal'), 
+                   countOverlaps(as(gt2, "GRanges"), as(gt2, "GRanges"), 
+                                 type = 'equal'))
+})
+  
+# TODO: Complete
+
+context("countOverlaps,GTuples,GTuplesList-method")
+# TODO
+
+context("countOverlaps,GTuplesList,GTuples-method")
+# TODO
+
+context("countOverlaps,GTuplesList,GTuplesList-method")
+# TODO
+
+context("overlapsAny,GTuples,GTuples-method")
+# TODO
+
+context("overlapsAny,GTuples,GTuplesList-method")
+# TODO
+
+context("overlapsAny,GTuplesList,GTuples-method")
+# TODO
+
+context("overlapsAny,GTuplesList,GTuplesList-method")
+# TODO
+
+context("subsetByOverlaps,GTuples,GTuples-method")
+# TODO
+
+context("subsetByOverlaps,GTuples,GTuplesList-method")
+# TODO
+
+context("subsetByOverlaps,GTuplesList,GTuples-method")
+# TODO
+
+context("subsetByOverlaps,GTuplesList,GTuplesList-method")
+# TODO
