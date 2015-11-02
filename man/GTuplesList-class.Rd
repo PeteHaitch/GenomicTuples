@@ -52,6 +52,9 @@
 \alias{end<-,GTuplesList-method}
 \alias{width,GTuplesList-method}
 \alias{width<-,GTuplesList-method}
+\alias{IPD,GTuplesList-method}
+\alias{size,GTuplesList-method}
+
 
 % Subsetting:
 \alias{[,GTuplesList,ANY-method}
