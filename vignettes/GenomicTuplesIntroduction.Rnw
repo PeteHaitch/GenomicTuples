@@ -10,6 +10,7 @@ BiocStyle::latex()
 %% also: \bioctitle{Title used for both header and title page}
 %% or... \title{Title used for both header and title page}
 \author{Peter Hickey\footnote{peter.hickey@gmail.com}}
+\date{Modified: 24 September, 2014. Compiled: \today}
 
 \begin{document}
 
@@ -102,7 +103,7 @@ consult the manual page:
 ?GTuples
 @
 
-\subsection{Inherited methods}\label{GTuples-inherited-methods}
+\subsection{\Rclass{GTuples} methods}\label{GTuples-methods}
 
 Most methods defined for \Rclass{GenomicRanges::GRanges} are also
 defined for \Rclass{GTuples}. Those that are not yet defined, which
@@ -124,7 +125,7 @@ accessors}\label{basic-GTuples-accessors}
 
 The components of the genomic coordinates within a \Rclass{GTuples}
 object can be extracted using the \Rfunction{seqnames},
-\Rfunction{tuples}, and \Rfunction{strand} accessor functions.
+\Rfunction{tuples} (see Section), and \Rfunction{strand} accessor functions.
 \warning{The \Rfunction{tuples} accessor should be used in place of the 
 \Rfunction{ranges} accessor. While the \Rfunction{ranges} method is
 well-defined, namely it accesses $pos_{1}$ and $pos_{m}$ of the object, 
@@ -319,7 +320,7 @@ are:
 I am happy to add these methods if appropriate, so please contact me if
 you have suggestions for good definitions.
 
-\subsection{Methods unique to 
+\subsubsection{Additional methods unique to 
 \Rclass{GTuples}}\label{methods-unique-to-GTuples}
 
 \Rclass{GTuples} have a few specifically defined methods that do not
@@ -348,12 +349,6 @@ row contains the $IPD$ for the $i^{th}$ tuple:
 <<IPD-method, eval = TRUE, echo = TRUE>>=
 IPD(gt3)
 @
-
-\subsection{\Rfunction{findOverlaps}-based 
-methods}\label{findoverlaps-based-methods-GTuples}
-
-\Rfunction{findOverlaps}-based methods are discussed in detail in Section 
-\ref{findoverlaps-based-methods}
 
 \subsection{Implementation details}\label{GTuples-implementation}
 
@@ -401,7 +396,7 @@ gtl3
 For even more information on the \Rclass{GTuplesList} classes be sure to
 consult the manual page.
 
-\subsection{Inherited methods}\label{GTuplesList-inherited-methods}
+\subsection{\Rclass{GTuplesList} methods}\label{GTuplesList-inherited-methods}
 
 Most methods defined for \Rclass{GenomicRanges::GRangesList} are also
 applicable to \Rclass{GTuplesList}. Those that are not yet defined,
@@ -610,31 +605,7 @@ are:
 I am happy to add these methods if appropriate, so please contact me if
 you have suggestions for good definitions.
 
-\subsection{Methods unique to
-\Rclass{GTuplesList}}\label{methods-unique-to-GTuplesList}
-
-Like \Rclass{GTuples}, \Rclass{GTuplesList} have a few specifically
-defined methods that do not exist for
-\Rclass{GenomicRanges::GRangesList}. These are \Rfunction{tuples},
-\Rfunction{size} and \Rfunction{IPD}. These are identical to the methods for
-\Rclass{GTuples}, except that they typically return a list since the
-input is now essentially a list of \Rclass{GTuples} objects.
-
-<<unique-GTuplesList-methods, echo = TRUE, eval = TRUE>>=
-tuples(gtl3)
-tuples(gtl3)[[1]]
-size(gtl3)
-IPD(gtl3)
-IPD(gtl3)[[1]]
-@
-
-\subsection{\Rfunction{findOverlaps}-based
-methods}\label{findoverlaps-based-methods-GTuplesList}
-
-\Rfunction{findOverlaps}-based methods are discussed in detail in Section 
-\ref{findoverlaps-based-methods}.
-
-\subsection{Looping over \Rclass{GTuplesList}
+\subsubsection{Looping over \Rclass{GTuplesList}
 objects}\label{looping-over-GTuplesList-objects}
 
 Like for \Rclass{GenomicRanges::GRangesList} objects, for
@@ -682,6 +653,24 @@ object:
 Reduce(c, gtl3)
 @
 
+\subsubsection{Additional methods unique to
+\Rclass{GTuplesList}}\label{methods-unique-to-GTuplesList}
+
+Like \Rclass{GTuples}, \Rclass{GTuplesList} have a few specifically
+defined methods that do not exist for
+\Rclass{GenomicRanges::GRangesList}. These are \Rfunction{tuples},
+\Rfunction{size} and \Rfunction{IPD}. These are identical to the methods for
+\Rclass{GTuples}, except that they typically return a list since the
+input is now essentially a list of \Rclass{GTuples} objects.
+
+<<unique-GTuplesList-methods, echo = TRUE, eval = TRUE>>=
+tuples(gtl3)
+tuples(gtl3)[[1]]
+size(gtl3)
+IPD(gtl3)
+IPD(gtl3)[[1]]
+@
+
 \subsection{Implementation details}\label{GTuplesList-implementation}
 
 The \Rclass{GTuplesList} class extends the \Rclass{GenomicRanges::GRangesList} 
@@ -690,24 +679,25 @@ class.
 \section{\Rfunction{findOverlaps}-based 
 methods}\label{findoverlaps-based-methods}
 
-The definition of what constitutes an ``overlap`` between tuples, or between 
-tuples and ranges, lies at the heart of all \Rfunction{findOverlaps}-based 
-methods\footnote{The \Rfunction{findOverlaps}-based methods are 
-\Rfunction{findOverlaps}, \Rfunction{countOverlaps}, \Rfunction{overlapsAny} 
-and \Rfunction{subsetByOverlaps}.} for \Rclass{GTuples} and 
-\Rclass{GTuplesList} objects. 
+The definition of what constitutes an ``overlap`` between genomic tuples, or 
+between genomic tuples and genomic ranges, lies at the heart of all 
+\Rfunction{findOverlaps}-based methods\footnote{The 
+\Rfunction{findOverlaps}-based methods are \Rfunction{findOverlaps}, 
+\Rfunction{countOverlaps}, \Rfunction{overlapsAny} and 
+\Rfunction{subsetByOverlaps}.} for \Rclass{GTuples} and \Rclass{GTuplesList} 
+objects. 
 
 I have chosen a definition that matches my intuition of what constitutes an 
-``overlap'' between tuples or between tuples and ranges. However, I am open to 
-suggestions on amending or extending this behaviour in future versions of 
-\Rpackage{GenomicTuples}.
+``overlap'' between genomic tuples or between genomic tuples and genomic 
+ranges. However, I am open to suggestions on amending or extending this 
+behaviour in future versions of \Rpackage{GenomicTuples}.
 
-\subsection{Definition of overlapping
+\subsection{Definition of overlapping genomic
 tuples}\label{definition-of-overlapping-tuples}
 
 I consider two genomic tuples to be \emph{equal}
 (\Rcode{type = "equal"}) if they have identical sequence names
-(\Robject{seqnames}), strands (\Robject{strand}) and positions
+(\Robject{seqnames}), strands (\Robject{strand}) and tuples
 (\Robject{tuples}). For 1-tuples and 2-tuples, this means we can simply
 defer to the \Rfunction{findOverlaps}-based methods for
 \Rclass{GenomicRanges::GRanges} and \Rclass{GenomicRanges::GRangesList}
@@ -718,19 +708,19 @@ Therefore, I have implemented a special case of the
 \Rcode{type = "equal"}, which ensures that the ``internal positions''
 are also checked for equality.
 
-\textbf{In all other cases tuples are treated as ranges.} This means that when 
-\Rcode{type = "any"}, \Rcode{type = "start"}, \Rcode{type = "end"} or 
-\Rcode{type = "within"} then the tuples are treated as if they were ranges. 
-Specifically, \Rclass{GTuples} (resp. \Rclass{GTuplesList}) are treated as 
-though they were \Rclass{GenomicRanges::GRanges} (resp.
-\Rclass{GenomicRanges::GRangesList}) with \Robject{pos1} = \Robject{start}
-and \Robject{posm} = \Robject{end}.
+\textbf{In all other cases genomic tuples are treated as genomic ranges.} This 
+means that when \Rcode{type = "any"}, \Rcode{type = "start"}, 
+\Rcode{type = "end"} or \Rcode{type = "within"} then the genomic tuples are 
+treated as if they were genomic ranges. Specifically, \Rclass{GTuples} (resp. 
+\Rclass{GTuplesList}) are treated as though they were 
+\Rclass{GenomicRanges::GRanges} (resp. \Rclass{GenomicRanges::GRangesList}) 
+with \Robject{pos1} = \Robject{start} and \Robject{posm} = \Robject{end}.
 
-\subsection{Definition of overlapping tuples and
+\subsection{Definition of overlapping genomic tuples and
 ranges}\label{definition-of-overlapping-tuples-and-ranges}
 
-Tuples are \textbf{always} treated as ranges when searching for overlaps
-between tuples and ranges.
+Genomic tuples are \textbf{always} treated as genomic ranges when searching for 
+overlaps between genomic tuples and genomic ranges.
 
 \subsection{Examples}\label{examples-findOverlaps}
 
@@ -850,7 +840,7 @@ comparison between genomic tuples. However, I am open to suggestions
 on amending or extending this behaviour in future versions of 
 \Rpackage{GenomicTuples}.
 
-\subsection{Definition of comparison methods for genomic 
+\subsection{Definition of comparison methods for 
 tuples}\label{definition-of-comparison}
 
 The comparison of two genomic tuples, \Robject{x} and \Robject{y}, is done by 
