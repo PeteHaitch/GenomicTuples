@@ -545,11 +545,23 @@ test_that("order works with multiple arguments", {
 })
 
 test_that("rank works", {
-  # TODO: Tests
+  expect_identical(rank(gt0), rank(gr0))
+  expect_identical(rank(sort(gt0)), seq_along(gt0))
+  expect_identical(rank(gt1), rank(gr1))
+  expect_identical(rank(sort(gt1)), seq_along(gt1))
+  expect_identical(rank(gt2), rank(gr2))
+  expect_identical(rank(sort(gt2)), seq_along(gt2))
+  expect_identical(rank(q3), c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
+  expect_identical(rank(sort(q3)), seq_len(length(q3)))
+  expect_identical(rank(q4), 
+                   c(9L, 10L, 11L, 12L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L))
+  expect_identical(rank(sort(q4)), seq_len(length(q4)))
 })
 
 test_that("sort works", {
-  # TODO: Tests
+  expect_identical(gt0, sort(gt0))
+  expect_identical(sort(gt1), gt1[order(gt1)])
+  expect_identical(sort(gt2), gt2[order(gt2)])
+  expect_identical(sort(q3), q3[order(q3)])
+  expect_identical(sort(q4), q4[order(q4)])
 })
-
-
