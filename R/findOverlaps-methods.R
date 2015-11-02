@@ -16,7 +16,7 @@
   # Type is effectively hard-coded to 'equal' since this is the only value for
   # which this function should be called.
   type <- "equal"
-  
+
   # merge() also checks that 'query' and 'subject' are based on the
   # same reference genome.
   seqinfo <- merge(seqinfo(query), seqinfo(subject))
