@@ -105,7 +105,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                    select = c("all", "first", "last", "arbitrary"),
                    algorithm = c("nclist", "intervaltree"),
                    ignore.strand = FALSE) {
-            
+
             # Argument matching
             if (!isSingleNumber(maxgap) || maxgap < 0L) {
               stop("'maxgap' must be a non-negative integer")
