@@ -10,7 +10,7 @@ BiocStyle::latex()
 %% also: \bioctitle{Title used for both header and title page}
 %% or... \title{Title used for both header and title page}
 \author{Peter Hickey\footnote{peter.hickey@gmail.com}}
-\date{Modified: 24 September, 2014. Compiled: \today}
+\date{Modified: 25 September, 2014. Compiled: \today}
 
 \begin{document}
 
@@ -18,9 +18,11 @@ BiocStyle::latex()
 
 \tableofcontents
 
+%---------------------------------------------------------
 \section{Introduction}\label{introduction}
+%---------------------------------------------------------
 
-The \Rpackage{GenomicTuples} package defines general purpose containers
+The \Rpackage{GenomicTuples} \R{} package defines general purpose containers
 for storing \emph{genomic tuples}. It aims to provide functionality for
 tuples of genomic co-ordinates that are analogous to those available for
 genomic ranges in the \Biocpkg{GenomicRanges} \Bioconductor{} package.
@@ -60,7 +62,9 @@ genomic range \texttt{chr10:-:{[}800, 900{]}} includes the positions
 \texttt{chr10:-:800}, \texttt{chr10:-:801}, \texttt{chr10:-:802},
 \ldots{}, \texttt{chr10:-:900}.
 
+%---------------------------------------------------------
 \section{\Rclass{GTuples}}\label{GTuples}
+%---------------------------------------------------------
 
 The \Rclass{GTuples} class represents a collection of genomic tuples,
 where each tuple has the same \Robject{size}. These objects can be
@@ -369,7 +373,9 @@ While there are arguments for creating stand-alone \Rclass{GTuples} and
 \Rclass{GRangesList} classes I get a lot of very useful functionality
 ``for free'' via appropriately defined inheritance.
 
+%---------------------------------------------------------
 \section{\Rclass{GTuplesList}}\label{GTuplesList}
+%---------------------------------------------------------
 
 The \Rclass{GTuplesList} class is a container to store a \Rclass{List}
 of \Rclass{GTuples} objects. It extends the \Rclass{GenomicRanges::GRangesList} 
@@ -676,8 +682,10 @@ IPD(gtl3)[[1]]
 The \Rclass{GTuplesList} class extends the \Rclass{GenomicRanges::GRangesList} 
 class.
 
+%---------------------------------------------------------
 \section{\Rfunction{findOverlaps}-based 
 methods}\label{findoverlaps-based-methods}
+%---------------------------------------------------------
 
 The definition of what constitutes an ``overlap`` between genomic tuples, or 
 between genomic tuples and genomic ranges, lies at the heart of all 
@@ -833,7 +841,9 @@ identical(findOverlaps(gt3, gt3, type = 'equal'),
 findOverlaps(gt3, gt3, type = 'equal', ignore.strand = TRUE, select = 'last')
 @
 
+%---------------------------------------------------------
 \section{Comparison of genomic tuples}
+%---------------------------------------------------------
 
 I have chosen a definition that matches my intuition of what constitutes a  
 comparison between genomic tuples. However, I am open to suggestions 
@@ -927,9 +937,24 @@ duplicated(c(gt3, gt3[1:3]))
 unique(c(gt3, gt3[1:3]))
 @
 
-\section{Session info}\label{session-info}
-<<sessionInfo, eval = TRUE, echo = TRUE, results = 'asis'>>=
+%---------------------------------------------------------
+\section{Acknowledgements}
+%---------------------------------------------------------
+
+I am very grateful to all the \Bioconductor{} developers but particularly wish 
+to thank the developers of \Biocpkg{GenomicRanges} \cite{GenomicRanges}, which 
+\Rpackage{GenomicTuples} uses heavily and is based upon.
+
+%---------------------------------------------------------
+\section{Session info}
+%---------------------------------------------------------
+
+Here is the output of \Rfunction{sessionInfo} on the system on which
+this document was compiled:
+<<sessionInfo, results = 'asis', eval = TRUE, echo = TRUE>>=
 toLatex(sessionInfo())
 @
+
+\bibliography{Bioc}
 
 \end{document}
