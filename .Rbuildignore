@@ -7,3 +7,4 @@ TODO.pdf
 ^tmp/
 .coveralls.R
 ^CHANGELOG\.md$
+^appveyor\.yml$

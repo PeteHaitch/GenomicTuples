@@ -1,22 +1,32 @@
-# R package: GenomicTuples
-This is the development version (`devel`) of Bioconductor package 
-[GenomicTuples](http://bioconductor.org/packages/devel/bioc/html/GenomicTuples.html). 
-For the current release version, please 
+# GenomicTuples
+
+[[![Bioconductor devel build status](http://bioconductor.org/shields/build/devel/bioc/GenomicTuples.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/GenomicTuples/)
+[![Linux Build Status](https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master)](https://travis-ci.org/PeteHaitch/GenomicTuples)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/PeteHaitch/GenomicTuples?svg=true)](https://ci.appveyor.com/project/PeteHaitch/GenomicTuples)
+[![Bioconductor downloads](http://bioconductor.org/shields/downloads/GenomicTuples.svg)](http://bioconductor.org/packages/stats/bioc/GenomicTuples.html)
+[![Coverage Status](https://coveralls.io/repos/PeteHaitch/GenomicTuples/badge.svg?branch=master)](https://coveralls.io/r/PeteHaitch/GenomicTuples?branch=master)
+
+---
+
+This is the development version (`devel`) of Bioconductor package
+[GenomicTuples](http://bioconductor.org/packages/devel/bioc/html/GenomicTuples.html).
+For the current release version, please
 [follow these instructions](http://bioconductor.org/packages/release/bioc/html/GenomicTuples.html).
 
-The development version can only be installed using the development version of 
-Bioconductor. Please first read 
+---
+
+## Installation
+
+The development version can only be installed using the development version of
+Bioconductor. Please first read
 [these instructions on installing the development version of Bioconductor](http://www.bioconductor.org/developers/how-to/useDevel/).
 
-```R
-source('http://bioconductor.org/biocLite.R')
-biocLite('GenomicTuples')
+```r
+source("http://bioconductor.org/biocLite.R")
+useDevel()
+biocLite("GenomicTuples")
 ```
 
-## R CMD check status
-Bioconductor: <a href="http://bioconductor.org/packages/devel/bioc/html/GenomicTuples.html"><img src="http://bioconductor.org/shields/build/devel/bioc/GenomicTuples.svg" alt="Build status"></a>
+## License
 
-Travis CI: <a href="https://travis-ci.org/PeteHaitch/GenomicTuples"><img src="https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master" alt="Build status"></a>
-
-## Test coverage status
-coveralls.io: [![Coverage Status](https://coveralls.io/repos/PeteHaitch/GenomicTuples/badge.svg?branch=master)](https://coveralls.io/r/PeteHaitch/GenomicTuples?branch=master)
+[Artistic License 2.0](https://www.r-project.org/Licenses/Artistic-2.0)
