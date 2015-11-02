@@ -214,7 +214,7 @@
     \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}: Get or set 
     the ranges in the form of a CompressedIRangesList. \code{value} can be a 
     RangesList object.
-
+    
     \strong{WARNING}: The use of \code{ranges} with \code{GTuples} objects is 
     \strong{strongly} discouraged. It will only get/set \eqn{pos_{1}} and 
     \eqn{pos_{m}} of the tuples, where \eqn{m} is the \code{size} of the 
@@ -306,7 +306,7 @@
   \strong{WARNING}: The preferred setter is \code{tuples(x) <- value} and the 
   use of \code{start(x) <- value}, \code{end(x) <- value} and 
   \code{width(x) <- value is discouraged}.
-
+    
   \describe{
     \item{}{
       \code{start(x)}, \code{start(x) <- value}:
@@ -573,7 +573,7 @@
   ## Revert to default values
   options("showHeadLines"=NULL)
   options("showTailLines"=NULL)
-
+  
   ## Get the size of the tuples stored in the GTuples object
   size(gt4)
   

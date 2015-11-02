@@ -29,7 +29,6 @@ setGeneric("IPD", function(x) {
 #' 
 #' @export
 setGeneric("tuples", function(x) {
-
   standardGeneric("tuples")
 })
 

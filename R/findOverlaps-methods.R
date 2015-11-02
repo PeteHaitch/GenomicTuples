@@ -19,15 +19,15 @@
 #' @keywords internal
 .findEqual.GTuples <- function(query, subject, maxgap, minoverlap, 
                                select, ignore.strand) {
-
+  
   # Type is effectively hard-coded to 'equal' since this is the only value for
   # which this function should be called.
   type <- "equal"
-
+  
   # merge() also checks that 'query' and 'subject' are based on the
   # same reference genome.
   seqinfo <- merge(seqinfo(query), seqinfo(subject))
-
+  
   q_len <- length(query)
   s_len <- length(subject)
   q_seqnames <- seqnames(query)
@@ -47,7 +47,7 @@
     q_strand <- .strandAsSignedNumber(strand(query))
     s_strand <- .strandAsSignedNumber(strand(subject))
   }
-
+  
   common_seqlevels <- intersect(q_seqlevels_nonempty, s_seqlevels_nonempty)
   # Apply over seqlevels
   results <- lapply(common_seqlevels, function(seqlevel) {
@@ -85,7 +85,7 @@
     # Intersect the pair-wise hits to form the tuple-wise hits
     Reduce(intersect, pair_hits)
   })
-
+  
   # Combine the results.
   q_hits <- unlist(lapply(results, queryHits))
   if (is.null(q_hits)) {
@@ -116,8 +116,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                    select = c("all", "first", "last", "arbitrary"),
                    algorithm = c("nclist", "intervaltree"),
                    ignore.strand = FALSE) {
-
-
+            
             # Argument matching
             if (!isSingleNumber(maxgap) || maxgap < 0L) {
               stop("'maxgap' must be a non-negative integer")

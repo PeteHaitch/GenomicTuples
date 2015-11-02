@@ -6,7 +6,6 @@
 #' GenomicRanges Bioconductor package.
 #'
 #' Please refer to the vignettes to see how to use the \pkg{GenomicTuples}
-
 #' package.
 #'
 #' @docType package

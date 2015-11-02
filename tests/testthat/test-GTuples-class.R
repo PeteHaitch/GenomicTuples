@@ -412,47 +412,6 @@ test_that("GRanges inherited getters work", {
                                    'chr3' = 'foo'))
 })
 
-test_that("GRanges inherited getters work", {
-  gt1_ <- gt1
-  seqnames(gt1_) <- rev(seqnames(gt1))
-  expect_identical(seqnames(gt1_), rev(seqnames(gt1)))
-  gt1_ <- gt1
-  ranges(gt1_) <- rev(ranges(gt1))
-  expect_identical(ranges(gt1_), rev(ranges(gt1)))
-  gt1_ <- gt1
-  strand(gt1_) <- rev(strand(gt1))
-  expect_identical(strand(gt1_), rev(strand(gt1)))
-  gt1_ <- gt1
-  mcols(gt1_) <- DataFrame(score = rev(mcols(gt1)$score))
-  expect_identical(mcols(gt1_), DataFrame(score = rev(mcols(gt1)$score)))
-  gt1_ <- gt1
-  seqinfo(gt1_) <- Seqinfo(seqnames = c("chr1", "chr2", "chr3"), 
-                           seqlengths = c(10000L, 20000L, 15000L), 
-                           isCircular = c(NA, NA, NA), 
-                           genome = c("mock1", "mock1", "mock1"))
-  expect_identical(seqinfo(gt1_), Seqinfo(seqnames = c("chr1", "chr2", "chr3"), 
-                                          seqlengths = c(10000L, 20000L, 
-                                                         15000L), 
-                                          isCircular = c(NA, NA, NA), 
-                                          genome = c("mock1", "mock1", 
-                                                     "mock1")))
-  gt1_ <- gt1
-  seqlevels(gt1_) <- c('chrI', 'chrII', 'chrIII')
-  expect_identical(seqlevels(gt1_), c('chrI', 'chrII', 'chrIII'))
-  gt1_ <- gt1
-  seqlengths(gt1_) <- c(10000L, 20000L, 15000L)
-  expect_identical(seqlengths(gt1_), c('chr1' = 10000L, 'chr2' = 20000L, 
-                                       'chr3' = 15000L))
-  gt1_ <- gt1
-  isCircular(gt1_) <- c('chr1' = TRUE, 'chr2' = FALSE, 'chr3' = FALSE)
-  expect_identical(isCircular(gt1_), c('chr1' = TRUE, 'chr2' = FALSE, 
-                                       'chr3' = FALSE))
-  gt1_ <- gt1
-  genome(gt1_) <- 'foo'
-  expect_identical(genome(gt1_), c('chr1' = 'foo', 'chr2' = 'foo', 
-                                   'chr3' = 'foo'))
-})
-  
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Tuples methods
 ###
@@ -511,7 +470,7 @@ test_that("tuples<- works", {
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### IPD
+### Subsetting
 ###
 context("GTuples subsetting")
 

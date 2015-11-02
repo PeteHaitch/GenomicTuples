@@ -42,19 +42,6 @@
 \alias{IPD,GTuplesList-method}
 \alias{size,GTuplesList-method}
 
-% TODO: Document these once implemented
-% Tuples methods:
-\alias{tuples,GTuplesList-method}
-\alias{tuples<-,GTuplesList-method}
-\alias{start,GTuplesList-method}
-\alias{start<-,GTuplesList-method}
-\alias{end,GTuplesList-method}
-\alias{end<-,GTuplesList-method}
-\alias{width,GTuplesList-method}
-\alias{width<-,GTuplesList-method}
-\alias{IPD,GTuplesList-method}
-\alias{size,GTuplesList-method}
-
 
 % Subsetting:
 \alias{[,GTuplesList,ANY-method}
@@ -89,7 +76,7 @@
 \section{Accessors}{
   In the following code snippets, \code{x} is a \code{\link{GTuplesList}} 
   object.
-
+  
   \describe{
     \item{}{
       \code{length(x)}:
@@ -126,7 +113,7 @@
       set the ranges in the form of a 
       \code{\link[IRanges]{CompressedIRangesList}}. \code{value} can be a 
       \code{\link[IRanges]{RangesList}} object.
-
+      
       \strong{WARNING}: The use of \code{ranges} with \code{GTuplesList} 
       objects is \strong{strongly} discouraged. It will only get/set 
       \eqn{pos_{1}} and \eqn{pos_{m}} of the tuples, where \eqn{m} is the 

@@ -63,6 +63,7 @@
   # length.
   # shortened error message because a long error trigger line formatting
   # that breaks the testthat error parser.
+
   # This is where .GTuples.compare really differs from .GenomicRanges.compare
   # NOTE: moved this up because the next 'if' will fail on NA != NA
   if (is.na(size(x)) || is.na(size(y))) {
@@ -156,10 +157,11 @@ setMethod("compare",
   
   if (!identical(incomparables, FALSE)) {
     stop("\"duplicated\" method for '", class(x), "' objects ",
+         "only accepts 'incomparables = FALSE'")
   }
   
   method <- match.arg(method)
-
+  
   # Store tuples as integer matrix
   if (is.na(size(x))) {
     val <- logical(0)
@@ -244,7 +246,6 @@ setMethod("duplicated",
 #' @export
 setMethod("match", 
           c("GTuples", "GTuples"), 
-
           function(x, table, nomatch = NA_integer_, incomparables = NULL, 
                    ignore.strand = FALSE) {
             

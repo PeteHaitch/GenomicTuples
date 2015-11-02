@@ -188,11 +188,11 @@
       strands (e.g. \code{"+"}/\code{"+"}, \code{"-"}/\code{"-"}, 
       \code{"*"}/\code{"+"}, \code{"*"}/\code{"-"}, etc.), and have 
       identical positions.
-
+      
       \strong{NOTE}: Equal tuple-tuple overlaps can only be computed if 
       \code{size(query)} is equal to \code{size(subject)}.
     }
-
+      
     \item{Other tuple-tuple overlaps}{
       When the \code{query} and the \code{subject} are \code{\link{GTuples}} or 
       \code{\link{GTuplesList}} objects and \code{type = "any"}, 
@@ -213,7 +213,7 @@
       that allows \code{type = "any"}, \code{"start"}, \code{"end"} or 
       \code{"within"} but does not allow \code{type = "equal"}.
     }
-
+      
     \item{tuple-range and range-tuple overlaps}{
       When one of the \code{query} and the \code{subject} is not a 
       \code{\link{GTuples}} or \code{\link{GTuplesList}} objects, 
