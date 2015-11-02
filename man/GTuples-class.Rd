@@ -28,6 +28,7 @@
 % Coercion:
 \alias{coerce,GRanges,GTuples-method}
 \alias{as.data.frame,GTuples-method}
+% TODO: Document granges
 \alias{granges,GTuples-method}
 
 % Tuples methods:
