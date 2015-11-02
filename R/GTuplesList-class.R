@@ -71,7 +71,7 @@ GTuplesList <- function(...) {
     }
     unlistData <- suppressWarnings(do.call("c", unname(listData)))
   }
-
+  
   relist(unlistData, PartitioningByEnd(listData))
 }
 
