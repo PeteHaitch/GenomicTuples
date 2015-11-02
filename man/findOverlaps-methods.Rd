@@ -114,26 +114,26 @@
 }
 
 \usage{
-\S4method{findOverlaps}{GTuples, GTuples}(query, subject,
+\S4method{findOverlaps}{GTuples,GTuples}(query, subject,
     maxgap = 0L, minoverlap = 1L,
     type = c("any", "start", "end", "within", "equal"),
     select = c("all", "first", "last", "arbitrary"),
     algorithm = c("nclist", "intervaltree"),
     ignore.strand = FALSE)
 
-\S4method{countOverlaps}{GTuples, GTuples}(query, subject,
+\S4method{countOverlaps}{GTuples,GTuples}(query, subject,
     maxgap = 0L, minoverlap = 1L,
     type = c("any", "start", "end", "within", "equal"),
     algorithm = c("nclist", "intervaltree"),
     ignore.strand = FALSE)
 
-\S4method{overlapsAny}{GTuples, GTuples}(query, subject,
+\S4method{overlapsAny}{GTuples,GTuples}(query, subject,
     maxgap = 0L, minoverlap = 1L,
     type = c("any", "start", "end", "within", "equal"),
     algorithm = c("nclist", "intervaltree"),
     ignore.strand = FALSE)
 
-\S4method{subsetByOverlaps}{GTuples, GTuples}(query, subject,
+\S4method{subsetByOverlaps}{GTuples,GTuples}(query, subject,
     maxgap = 0L, minoverlap = 1L,
     type = c("any", "start", "end", "within", "equal"),
     algorithm = c("nclist", "intervaltree"),

@@ -23,29 +23,6 @@
     .Call('GenomicTuples_allTuplesSorted', PACKAGE = 'GenomicTuples', pos1, internal_pos, posm)
 }
 
-#' An internal helper function used in finding duplicate genomic tuples.
-#'
-#' The tuples should have already been converted to integer representations,
-#' namely an integer vector for the seqnames, an integer vector 
-#' for the strand and an integer matrix for the  positions.
-#' 
-#' @param int_seqnames An integer vector of length n. An integer 
-#' representation of the seqnames of each m-tuple.
-#' @param int_strand An integer vector of length n. An integer representation 
-#' of the strand of each m-tuple.
-#' @param int_pos An integer matrix with n rows. Each row represents the 
-#' difference in positions of each tuple.
-#' 
-#' @return A logical vector. TRUE if the corresponding tuple is a candidate 
-#' duplicate and FALSE otherwise. 
-#' \emph{NOTE:} TRUE does not mean that it is a duplicate, merely that it is a 
-#' candidate. Further checking is required of these candidates, e.g. using the 
-#' \code{\link[base]{duplicated.array}} method.
-#' 
-.candidateDuplicateGTuples <- function(int_seqnames, int_strand, int_pos) {
-    .Call('GenomicTuples_candidateDuplicateGTuples', PACKAGE = 'GenomicTuples', int_seqnames, int_strand, int_pos)
-}
-
 #' An internal function used to compare GTuples.
 #' 
 #' @details 
@@ -91,36 +68,5 @@
 #' it's not a problem for me since I only use it on integer matrices.}
 .IPDCpp <- function(pos1, internal_pos, posm) {
     .Call('GenomicTuples_IPD', PACKAGE = 'GenomicTuples', pos1, internal_pos, posm)
-}
-
-#' An internal helper function used in finding duplicate genomic tuples.
-#'
-#' The tuples should have already been converted to integer representations,
-#' namely an integer vector for the seqnames, an integer vector 
-#' for the strand and an integer matrix for the  positions.
-#' 
-#' @note \strong{WARNING}: This function only works for tuples up to size 18 
-#' (seqnames + strand + pos1, ..., pos18). It uses a naive hash function of 
-#' each tuple to identify **candidate** tuples, which much then be checked 
-#' using another method to confirm that they are indeed duplicates. The hash
-#' function is the inner product of the tuple (in integer representation) with 
-#' a vector of prime numbers. The choice of prime numbers is arbitrary but 
-#' seems to work well in practice (certainly much better than using )
-#' 
-#' @param int_seqnames An integer vector of length n. An integer 
-#' representation of the seqnames of each m-tuple.
-#' @param int_strand An integer vector of length n. An integer representation 
-#' of the strand of each m-tuple.
-#' @param int_pos An integer matrix with n rows. Each row represents the 
-#' difference in positions of each tuple.
-#' 
-#' @return A logical vector. TRUE if the corresponding tuple is a candidate 
-#' duplicate and FALSE otherwise. 
-#' \emph{NOTE:} TRUE does not mean that it is a duplicate, merely that it is a 
-#' candidate. Further checking is required of these candidates, e.g. using the 
-#' \code{\link[base]{duplicated.array}} method.
-#' 
-.tmp <- function(int_seqnames, int_strand, int_pos) {
-    .Call('GenomicTuples_tmp', PACKAGE = 'GenomicTuples', int_seqnames, int_strand, int_pos)
 }
 

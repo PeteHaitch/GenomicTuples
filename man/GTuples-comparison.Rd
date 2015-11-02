@@ -4,6 +4,9 @@
 
 \alias{compare,GTuples,GTuples-method}
 
+\alias{==,GTuples,GTuples-method}
+\alias{<=,GTuples,GTuples-method}
+
 \alias{duplicated,GTuples-method}
 \alias{duplicated.GTuples}
 
