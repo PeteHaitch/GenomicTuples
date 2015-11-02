@@ -573,7 +573,7 @@
   ## Revert to default values
   options("showHeadLines"=NULL)
   options("showTailLines"=NULL)
-  
+
   ## Get the size of the tuples stored in the GTuples object
   size(gt4)
   
