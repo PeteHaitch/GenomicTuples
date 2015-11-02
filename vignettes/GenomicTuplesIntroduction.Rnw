@@ -10,7 +10,7 @@ BiocStyle::latex()
 %% also: \bioctitle{Title used for both header and title page}
 %% or... \title{Title used for both header and title page}
 \author{Peter Hickey\footnote{peter.hickey@gmail.com}}
-\date{Modified: 25 September, 2014. Compiled: \today}
+\date{Modified: 09 October, 2014. Compiled: \today}
 
 \begin{document}
 
@@ -22,12 +22,12 @@ BiocStyle::latex()
 \section{Introduction}\label{introduction}
 %---------------------------------------------------------
 
-The \Rpackage{GenomicTuples} \R{} package defines general purpose containers
+The \Biocpkg{GenomicTuples} \R{} package defines general purpose containers
 for storing \emph{genomic tuples}. It aims to provide functionality for
 tuples of genomic co-ordinates that are analogous to those available for
 genomic ranges in the \Biocpkg{GenomicRanges} \Bioconductor{} package.
 
-As you will see, the functionality of the \Rpackage{GenomicTuples} package
+As you will see, the functionality of the \Biocpkg{GenomicTuples} package
 is based almost entirely on the wonderful \Biocpkg{GenomicRanges}
 package. Therefore, I have tried to keep the user interface as similar
 as possible. This vignette is also heavily based on the vignette ``An
@@ -35,7 +35,7 @@ Introduction to Genomic Ranges Classes'', which is included with the
 \Biocpkg{GenomicRanges} package.
  
 \bioccomment{While not essential, familiarity with the \Biocpkg{GenomicRanges} 
-will be of benifit in understanding the \Rpackage{GenomicTuples} package.}
+will be of benifit in understanding the \Biocpkg{GenomicTuples} package.}
  
 \subsection{What is a genomic tuple?}\label{what-is-a-genomic-tuple}
 
@@ -48,7 +48,7 @@ positions \texttt{chr1:34}, \texttt{chr1:39} and \texttt{chr1:60} on the
 \Robject{+} strand. The \Robject{size} of a tuple is an integer, $1, 2, 
 \ldots$.
 
-When talking about genomic tuples of a general (fixed) \Robject{size}, I
+When referring to genomic tuples of a general (fixed) \Robject{size}, I
 will abbreviate these to \emph{m}-tuples, where $m$ = \Robject{size}. I
 will refer to the first position as $pos_{1}$ (\texttt{pos1}), the second
 as $pos_{2}$ (\texttt{pos2}), $\ldots{}$, and the final position as
@@ -61,6 +61,20 @@ positions \texttt{chr10:-:800} and \texttt{chr10:-:900} whereas the
 genomic range \texttt{chr10:-:{[}800, 900{]}} includes the positions
 \texttt{chr10:-:800}, \texttt{chr10:-:801}, \texttt{chr10:-:802},
 \ldots{}, \texttt{chr10:-:900}.
+
+\subsection{When would you need a genomic tuple?}
+
+In short, whenever the co-ordinates of your genomic data are better defined by 
+a set than by an interval.
+
+The original use case for the \Rclass{GTuples} class was to 
+store the genomic co-ordinates of "methylation patterns". I am currently 
+developing these ideas in a separate R package, 
+\Githubpkg{PeteHaitch/MethylationTuples}, which makes heavy use of the 
+\Rclass{GTuples} class. Other genomic data, such as long reads containing 
+multiple variants, may also be better conceptualised as genomic tuples rather 
+than as genomic ranges and therefore may benefit from the 
+\Biocpkg{GenomicTuples} infrastructure.
 
 %---------------------------------------------------------
 \section{\Rclass{GTuples}}\label{GTuples}
@@ -698,7 +712,7 @@ objects.
 I have chosen a definition that matches my intuition of what constitutes an 
 ``overlap'' between genomic tuples or between genomic tuples and genomic 
 ranges. However, I am open to suggestions on amending or extending this 
-behaviour in future versions of \Rpackage{GenomicTuples}.
+behaviour in future versions of \Biocpkg{GenomicTuples}.
 
 \subsection{Definition of overlapping genomic
 tuples}\label{definition-of-overlapping-tuples}
@@ -848,7 +862,7 @@ findOverlaps(gt3, gt3, type = 'equal', ignore.strand = TRUE, select = 'last')
 I have chosen a definition that matches my intuition of what constitutes a  
 comparison between genomic tuples. However, I am open to suggestions 
 on amending or extending this behaviour in future versions of 
-\Rpackage{GenomicTuples}.
+\Biocpkg{GenomicTuples}.
 
 \subsection{Definition of comparison methods for 
 tuples}\label{definition-of-comparison}
@@ -943,7 +957,7 @@ unique(c(gt3, gt3[1:3]))
 
 I am very grateful to all the \Bioconductor{} developers but particularly wish 
 to thank the developers of \Biocpkg{GenomicRanges} \cite{GenomicRanges}, which 
-\Rpackage{GenomicTuples} uses heavily and is based upon.
+\Biocpkg{GenomicTuples} uses heavily and is based upon.
 
 %---------------------------------------------------------
 \section{Session info}
