@@ -470,7 +470,7 @@ test_that("tuples<- works", {
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### Subsetting
+### IPD
 ###
 context("GTuples subsetting")
 
