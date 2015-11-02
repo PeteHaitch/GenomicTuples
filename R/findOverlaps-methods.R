@@ -12,7 +12,7 @@
 #' @keywords internal
 .findEqual.GTuples <- function(query, subject, maxgap, minoverlap, 
                                select, ignore.strand) {
-  
+
   # Type is effectively hard-coded to 'equal' since this is the only value for
   # which this function should be called.
   type <- "equal"
@@ -40,7 +40,7 @@
     q_strand <- GenomicRanges:::.strandAsSignedNumber(strand(query))
     s_strand <- GenomicRanges:::.strandAsSignedNumber(strand(subject))
   }
-  
+
   common_seqlevels <- intersect(q_seqlevels_nonempty, s_seqlevels_nonempty)
   # Apply over seqlevels
   results <- lapply(common_seqlevels, function(seqlevel) {
