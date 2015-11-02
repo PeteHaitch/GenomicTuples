@@ -3,9 +3,8 @@
 % AllUtilites
 \alias{replaceROWS,NULL-method}
 
-% coverage methods
-\alias{coverage,GTuples-method}
-\alias{coverage,GTuplesList-method}
+% GTuples-class methods
+\alias{granges,GTuples-method}
 
 % intra-tuple methods
 \alias{flank,GTuples-method}
@@ -15,8 +14,6 @@
 \alias{resize,GTuples-method}
 \alias{resize,GTuplesList-method}
 \alias{restrict,GTuplesList-method}
-\alias{narrow}
-\alias{narrow,GTuples-method}
 
 % inter-tuple methods
 \alias{disjoin,GTuples-method}
@@ -31,9 +28,7 @@
 \alias{reduce,GTuplesList-method}
 
 % mapCoords methods
-\alias{mapCoords,GTuples,GTuplesList-method}
-\alias{mapCoords,GTuples,GTuples-method}
-\alias{pmapCoords,GTuples,GTuplesList-method}
+\alias{mapCoords,GTuples,GTuplesList-methods}
 
 % setops methods
 \alias{Ops,GTuples,numeric-method}
@@ -62,16 +57,4 @@
   \code{\link[GenomicRanges]{GRangesList}} objects that have no well-defined 
   equivalent for \code{\link{GTuples}} or \code{\link{GTuplesList}}. Therefore, 
   I have explicitly written methods for these that return errors when called.
-}
-
-\examples{
-  gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
-                 tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, 
-                                   20L, 30L, 30L, 35L, 30L, 30L), ncol = 3), 
-                 strand = c('+', '-', '*', '+', '+'))
-  \dontrun{
-  # Will return errors
-  narrow(gt3)
-  reduce(gt3)
-  }
 }
