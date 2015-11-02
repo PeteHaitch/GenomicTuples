@@ -28,8 +28,7 @@
 % Coercion:
 \alias{coerce,GRanges,GTuples-method}
 \alias{as.data.frame,GTuples-method}
-% Don't want to expose coercion to granges "feature".
-%\alias{granges,GTuples-method}
+\alias{granges,GTuples-method}
 
 % Tuples methods:
 \alias{tuples}

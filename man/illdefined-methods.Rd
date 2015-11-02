@@ -3,8 +3,9 @@
 % AllUtilites
 \alias{replaceROWS,NULL-method}
 
-% GTuples-class methods
-\alias{granges,GTuples-method}
+% coverage methods
+\alias{coverage,GTuples-method}
+\alias{coverage,GTuplesList-method}
 
 % intra-tuple methods
 \alias{flank,GTuples-method}

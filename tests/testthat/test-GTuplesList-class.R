@@ -291,7 +291,6 @@ test_that("Coercion to GRangesList works", {
                    GRangesList(A = gr4[1:5], B = gr4[6:10]))
 })
 
-
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Subsetting
 ###
