@@ -35,4 +35,12 @@ It's already very easy to create a `GTuples` object from a `data.frame` or a `Da
 
 See the [`testCoverage` package](https://github.com/MangoTheCat/testCoverage). Currently, this does not support S4 classes, which limits its use for the `GenomicTuples` package.
 
+<<<<<<< HEAD
 __UPDATE:__ Now using [`covr`](https://github.com/jimhester/covr) for test coverage.
+=======
+## Understanding registered native routines
+
+I've been able to register my native routines using `Kmisc::registerFunctions`. This requires that I use the `.Call()` interface and, for example, `allTuplesSorted(tuples[, 1], tuples[, 2, drop = FALSE], tuples[, 3])` no longer works but `.Call(Cpp_GenomicTuples_allTuplesSorted, tuples[, 1], tuples[, 2, drop = FALSE], tuples[, 3])` does.
+
+How I can have the best of both worlds? I still don't really understand what it means to "register native routines".
+>>>>>>> Registered native routines with Kmisc::registerFunctions('Cpp')
