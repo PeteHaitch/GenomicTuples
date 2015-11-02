@@ -152,7 +152,7 @@ setMethod("compare",
   }
   
   method <- match.arg(method)
-  
+
   # Store tuples as integer matrix
   if (is.na(size(x))) {
     val <- logical(0)
@@ -296,11 +296,23 @@ setMethod("order",
               idx <- (size + 2L) * seq_len(length(args))
               order_args[seq.int(from = 1, to = max(idx), by = size + 2)] <- 
                 lapply(args, function(x) {
-                  as.factor(seqnames(x))
+                  # TODO: S4 dispatch seems to be going awry so I have to force 
+                  # the conversion of seqnames(x) and strand(x) to factor.
+                  # This is done using the exact code called by 
+                  # as.factor,Rle-method.
+                  #as.factor(seqnames(x))
+                  rep.int(as.factor(runValue(seqnames(x))), 
+                          runLength(seqnames(x)))
                 })
               order_args[seq.int(from = 2, to = max(idx), by = size + 2)] <- 
                 lapply(args, function(x) {
-                  as.factor(strand(x))
+                  # TODO: S4 dispatch seems to be going awry so I have to force 
+                  # the conversion of seqnames(x) and strand(x) to factor.
+                  # This is done using the exact code called by 
+                  # as.factor,Rle-method.
+                  #as.factor(strand(x))
+                  rep.int(as.factor(runValue(strand(x))), 
+                          runLength(strand(x)))
                 })
               order_args[seq.int(from = 3, to = max(idx), by = size + 2)] <- 
                 lapply(args, start)
