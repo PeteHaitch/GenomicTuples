@@ -2267,6 +2267,7 @@ test_that("Works on empty GTuples", {
 #   "corrected" attributes and compare against this.
   tmp <- GTuplesList()
   tmp@partitioning@NAMES <- character(0)
+  seqinfo(tmp) <- seqinfo(gtl0)
   expect_equal(subsetByOverlaps(gtl0, gt0, type = 'any'), 
                    tmp)
   expect_identical(subsetByOverlaps(gtl0, gt0, type = 'start'), 
@@ -2372,6 +2373,7 @@ test_that("Works on empty GTuples", {
   #   "corrected" attributes and compare against this.
   tmp <- GTuplesList()
   tmp@partitioning@NAMES <- character(0)
+  seqinfo(tmp) <- seqinfo(gtl0)
   expect_identical(subsetByOverlaps(gtl0, gtl0, type = 'any'), 
                    tmp)
   expect_identical(subsetByOverlaps(gtl0, gtl0, type = 'start'), 
