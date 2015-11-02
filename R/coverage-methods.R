@@ -2,6 +2,7 @@
 ### "coverage" methods
 ### -------------------------------------------------------------------------
 ###
+context("coverage,GTuples-method")
 
 #' @export
 setMethod("coverage", 
