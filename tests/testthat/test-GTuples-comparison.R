@@ -304,3 +304,5 @@ test_that("sort works", {
   expect_identical(sort(q3), q3[order(q3)])
   expect_identical(sort(q4), q4[order(q4)])
 })
+
+# TODO: More tests
