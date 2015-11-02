@@ -61,3 +61,15 @@
   equivalent for \code{\link{GTuples}} or \code{\link{GTuplesList}}. Therefore, 
   I have explicitly written methods for these that return errors when called.
 }
+
+\examples{
+  gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
+                 tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, 
+                                   20L, 30L, 30L, 35L, 30L, 30L), ncol = 3), 
+                 strand = c('+', '-', '*', '+', '+'))
+  \dontrun{
+  # Will return errors
+  narrow(gt3)
+  reduce(gt3)
+  }
+}
