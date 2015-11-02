@@ -1,9 +1,14 @@
 ---
 title: "TODOs"
 author: "Peter Hickey"
+<<<<<<< HEAD
 date: "`r paste0('Modified: 09 October, 2014. Compiled: ', format(Sys.time(), '%d %B, %Y'))`"
 output:
   BiocStyle::pdf_document
+=======
+date: "24 September 2014"
+output: html_document
+>>>>>>> Update TODOs
 ---
 
 <!--
