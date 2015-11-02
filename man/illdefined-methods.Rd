@@ -15,6 +15,8 @@
 \alias{resize,GTuples-method}
 \alias{resize,GTuplesList-method}
 \alias{restrict,GTuplesList-method}
+\alias{narrow}
+\alias{narrow,GTuples-method}
 
 % inter-tuple methods
 \alias{disjoin,GTuples-method}
