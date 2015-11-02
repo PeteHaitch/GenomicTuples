@@ -170,6 +170,7 @@ setMethod("show",
           }
 )
 
+
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Deconstruction/reconstruction of a GTuplesList into/from a GTuples
 ### object.

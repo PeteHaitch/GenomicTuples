@@ -688,6 +688,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
 }
 
 # TODO: Need to keep this up to date with the show,GRanges-method
+# E.g. summary(seqinfo(x)) is currently broken in GenomeInfoDb
 showGTuples <- function(x, margin = "", print.classinfo = FALSE, 
                         print.seqinfo = FALSE) {
   if (!identical(print.classinfo, FALSE)) {
