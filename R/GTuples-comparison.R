@@ -229,6 +229,7 @@ setMethod("duplicated",
 #' @export
 setMethod("match", 
           c("GTuples", "GTuples"), 
+          
           function(x, table, nomatch = NA_integer_, incomparables = NULL, 
                    ignore.strand = FALSE) {
             

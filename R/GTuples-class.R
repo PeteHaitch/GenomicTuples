@@ -68,7 +68,7 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
                          "tuples", "internalPos", "size")
 
 .valid.GTuples.mcols <- function(object) {
-  
+
   msg <- NULL
   
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
@@ -158,7 +158,7 @@ GTuples <- function(seqnames = Rle(),
                 seqlengths = seqlengths, 
                 seqinfo = seqinfo, 
                 ...)
-  
+
   new("GTuples", gr, internalPos = internalPos, size = size)
 }
 
@@ -548,6 +548,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
 
 # The show method is adapted from that of GRanges
 # TODO: Decide if I should support the print.classinfo argument?
+
 .makeNakedMatFromGTuples <- function(x) {
   lx <- length(x)
   nc <- ncol(mcols(x))

@@ -1,0 +1,35 @@
+---
+title: 'GenomicTuples: Classes and Methods'
+author: "Peter Hickey"
+date: "20 August 2014"
+output: html_document
+---
+  
+# Overview
+
+The `GenomicTuples` package defines general purpose containers for storing genomic tuples. It aims to provide functionality for tuples of genomic co-ordinates that are analogous to those available for genomic ranges in the [`GenomicRanges` Bioconductor package](). __TODO__ link.
+
+__WARNING:__ This package is in early development and is therefore subject to change. I have tried to use a similar interface to that provided by `GenomicRanges`. As you will see, the `GTuples` (resp. `GTuplesList`) class in fact extends the `GRanges` (resp. `GRangesList`) class. While it may be better in the long run to define stand-alone `GTuples`/`GTuplesList` classes, by extending these classes I get a lot of very useful functionality "for free".
+
+# Definitions
+
+To begin, I define a _genomic tuple_ and a compare it to a _genomic range_. 
+I then describes the two main classes in `GenomicTuples`, `GTuples` and `GTuplesList`, which are analogous to `GenomicRanges::GRanges` and `GenomicRanges::GRangesList`. Finally, I describe some key differences between `GTuples`/`GTuplesList` and `GRanges`/`GRangesList`, particularly with respect to `findOverlaps`-based functionality.
+
+## What is a genomic tuple?
+
+A genomic tuple is defined by a `seqname`, a `strand` and a `tuple`. All positions in a tuple must be on the same strand and sorted in ascending order. Each tuple has an associated `size`. For example, `chr1:+:(34, 39, 60)` is a 3-tuple (`size` = 3) of the positions `chr1:34`, `chr1:39` and `chr1:60` on the `+` strand.  The `size` of a tuple is an interger, $1, 2, \ldots$. 
+
+When talking about genomic tuples of a general (fixed) `size` I will abbreviate this to _m-tuples_, where $m$ = `size`. I will refer to the first position as $pos_{1}$/`pos1`, the second as $pos_{2}$/`pos2`, ..., and the final position as $pos_{m}$/`posm`.
+
+The difference between a genomic tuple and a genomic range can be thought of as the difference between a set and an interval. For example, the genomic tuple `chr10:-:(800, 900)` only includes the positions `chr10:-:800` and `chr10:-:900` whereas the genomic range `chr10:-:[800, 900]` includes the positions `chr10:-:800`, `chr10:-:801`, `chr10:-:802`, ..., `chr10:-:900`.
+
+## Intra-pair distances ($IPD$)
+
+Every m-tuple with $m \geq 2$ has an associated vector of intra-pair distances ($IPD$). This is defined by $IPD = (pos_{2} - pos_{1}, \ldots, pos_{m} - pos_{m - 1}$.
+
+# What is a `GTuple`?
+
+The `GTuples` class is a container for the genomic tuples and their associated annotations. All genomic tuples in a `GTuple` instance must have the same `size`. While the `GTuple` class can be thought of as a matrix-link object with the number of columns equal to the `size` of the tuples plus two (one for the `seqname` and one for the `strand`[^ncol]), internally, it extends the `GenomicRanges::GRanges` class. Specifically, an `IRanges` object is used to store $pos_{1}$ and $pos_{m}$ and, if required, a matrix containing the "internal" co-ordinates $pos_{2}, \ldots, pos_{m - 1}$ is stored in the `internalPos` slot. If `size`$\leq 2$ then the `internalPos` slot is set to `NULL`.
+
+[^ncol]: __WARNING:__ In order to be consistent with how `ncol` is defined for `GRanges` running `ncol(GTuples)` returns `NULL` rather than `size` + 2. Please use `size(GTuples)` to find the `size` of the genomic tuples stored in a `GTuples` instance.

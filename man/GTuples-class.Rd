@@ -306,7 +306,7 @@
   \strong{WARNING}: The preferred setter is \code{tuples(x) <- value} and the 
   use of \code{start(x) <- value}, \code{end(x) <- value} and 
   \code{width(x) <- value is discouraged}.
-    
+
   \describe{
     \item{}{
       \code{start(x)}, \code{start(x) <- value}:

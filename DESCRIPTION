@@ -54,3 +54,4 @@ Collate:
     'setops-methods.R'
     'tile-methods.R'
     'zzz.R'
+RoxygenNote: 5.0.0

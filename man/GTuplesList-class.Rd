@@ -42,7 +42,6 @@
 \alias{IPD,GTuplesList-method}
 \alias{size,GTuplesList-method}
 
-
 % Subsetting:
 \alias{[,GTuplesList,ANY-method}
 \alias{[<-,GTuplesList,ANY,ANY,ANY-method}
@@ -76,7 +75,7 @@
 \section{Accessors}{
   In the following code snippets, \code{x} is a \code{\link{GTuplesList}} 
   object.
-  
+
   \describe{
     \item{}{
       \code{length(x)}:

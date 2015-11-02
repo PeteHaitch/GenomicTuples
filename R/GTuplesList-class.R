@@ -71,7 +71,7 @@ GTuplesList <- function(...) {
     }
     unlistData <- suppressWarnings(do.call("c", unname(listData)))
   }
-  
+
   relist(unlistData, PartitioningByEnd(listData))
 }
 
@@ -169,7 +169,6 @@ setMethod("show",
             GenomicRanges:::showList(object, showGTuples, FALSE)
           }
 )
-
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Deconstruction/reconstruction of a GTuplesList into/from a GTuples
