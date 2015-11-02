@@ -28,8 +28,8 @@ As you will see, the functionality of the \Rpackage{GenomicTuples} package
 is based almost entirely on the wonderful \Biocpkg{GenomicRanges}
 package. Therefore, I have tried to keep the user interface as similar
 as possible. This vignette is also heavily based on the vignette ``An
-Introduction to Genomic Ranges Classes'', which is included with the
- \Biocpkg{GenomicRanges} package.
+Introduction to Genomic Ranges Classes'', which is included with the 
+\Biocpkg{GenomicRanges} package.
  
 \bioccomment{While not essential, familiarity with the \Biocpkg{GenomicRanges} 
 will be of benifit in understanding the \Rpackage{GenomicTuples} package.}
@@ -65,12 +65,6 @@ The \Rclass{GTuples} class represents a collection of genomic tuples,
 where each tuple has the same \Robject{size}. These objects can be
 created by using the \Rfunction{GTuples} constructor function. For example,
 
-% TODO: Remove once GenomicTuples package is installed
-<<prelim, echo = FALSE, eval = TRUE>>=
-library(GenomeInfoDb)
-@
-
-% TODO: Change from eval = FALSE to TRUE once GenomicTuples package is installed
 <<initialize, echo = TRUE, eval = TRUE>>=
 library(GenomicTuples)
 @
@@ -738,14 +732,14 @@ ranges}\label{definition-of-overlapping-tuples-and-ranges}
 Tuples are \textbf{always} treated as ranges when searching for overlaps
 between tuples and ranges.
 
-\subsection{Examples}\label{examples}
+\subsection{Examples}\label{examples-findOverlaps}
 
 It is easiest to understand the above definitions by studying a few
 examples.
 
 Firstly, for 1-tuples where the \Rclass{GTuples} methods use the
 \Rclass{GRanges} methods:
-<<1-tuples-examples, eval = TRUE, echo = TRUE>>=
+<<1-tuples-findOverlaps-examples, eval = TRUE, echo = TRUE>>=
 # Construct example 1-tuples
 gt1 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr2'), 
                tuples = matrix(c(10L, 10L, 10L, 10L), ncol = 1), 
@@ -778,7 +772,7 @@ findOverlaps(gt1, gt1, type = 'equal', ignore.strand = TRUE, select = 'last')
 
 Next, for 2-tuples where the \Rclass{GTuples} methods use the
 \Rclass{GRanges} methods:
-<<2-tuples-examples, eval = TRUE, echo = TRUE>>=
+<<2-tuples-findOverlaps-examples, eval = TRUE, echo = TRUE>>=
 # Construct example 2-tuples
 gt2 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
                tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, 
@@ -812,7 +806,7 @@ findOverlaps(gt2, gt2, type = 'equal', ignore.strand = TRUE, select = 'last')
 
 Finally, for m-tuples with $m > 2$ where \Rclass{GTuples} methods use the
 \Rclass{GRanges} methods \textbf{unless \Rcode{size = "equal"}}:
-<<3-tuples-examples, eval = TRUE, echo = TRUE>>=
+<<3-tuples-findOverlaps-examples, eval = TRUE, echo = TRUE>>=
 # Construct example 3-tuples
 gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
                tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, 
@@ -823,24 +817,28 @@ gr3 <- as(gt3, "GRanges")
 findOverlaps(gt3, gt3, type = 'any')
 # GTuples and GRanges methods identical
 identical(findOverlaps(gt3, gt3, type = 'any'), 
-          findOverlaps(gr3, gr3, type = 'any'))
+          findOverlaps(gr3, gr3, type = 'any')) # TRUE
+
 findOverlaps(gt3, gt3, type = 'start')
 # GTuples and GRanges methods identical
 identical(findOverlaps(gt3, gt3, type = 'start'), 
-          findOverlaps(gr3, gr3, type = 'start'))
+          findOverlaps(gr3, gr3, type = 'start')) # TRUE
+
 findOverlaps(gt3, gt3, type = 'end')
 # GTuples and GRanges methods identical
 identical(findOverlaps(gt3, gt3, type = 'end'), 
-          findOverlaps(gr3, gr3, type = 'end'))
+          findOverlaps(gr3, gr3, type = 'end')) # TRUE
+
 findOverlaps(gt3, gt3, type = 'within')
 # GTuples and GRanges methods identical
 identical(findOverlaps(gt3, gt3, type = 'within'), 
-          findOverlaps(gr3, gr3, type = 'within'))
-findOverlaps(gt3, gt3, type = 'equal') # TODO: Use as test
+          findOverlaps(gr3, gr3, type = 'within')) # TRUE
+
+findOverlaps(gt3, gt3, type = 'equal')
 # GTuples and GRanges methods **not** identical because  GRanges method ignores 
 # "internal positions".
 identical(findOverlaps(gt3, gt3, type = 'equal'), 
-          findOverlaps(gr3, gr3, type = 'equal'))
+          findOverlaps(gr3, gr3, type = 'equal')) # FALSE
 # Can pass other arguments, such as select and ignore.strand
 findOverlaps(gt3, gt3, type = 'equal', ignore.strand = TRUE, select = 'last')
 @
