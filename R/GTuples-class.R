@@ -105,7 +105,7 @@ GTuples <- function(seqnames = Rle(),
                     ..., 
                     seqlengths = NULL, 
                     seqinfo = NULL) {
-  
+
   # Only need to check the tuples, all others get checked by the GRanges 
   # constructor
   # Only check is numeric and later coerce to integer if necessary because of 
@@ -533,6 +533,13 @@ setReplaceMethod("[",
                           .slotList = as.list(x_ecs))
                  }
 )
+
+# TODO: Should I explicitly define this via callNextMethod() 
+# extractROWS works via inheritance because it handles extraColumnSlots 
+# (internalPos)
+
+# TODO: Should I explicitly define this via callNextMethod()
+# "[" works via inheritance because it calls extractROWS
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Show
