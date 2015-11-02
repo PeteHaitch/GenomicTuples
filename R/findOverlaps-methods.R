@@ -17,9 +17,21 @@
   # which this function should be called.
   type <- "equal"
   
+<<<<<<< HEAD
   # merge() also checks that 'query' and 'subject' are based on the
   # same reference genome.
   seqinfo <- merge(seqinfo(query), seqinfo(subject))
+=======
+  # Assumes size is identical for query and subject
+  # Create (size - 1) x 2-tuples (pairs) from the tuples as GRanges and 
+  # run findOverlaps with parameters chosen to select only equal matches. Then, 
+  # intersect the Hits objects from each pair to create the final Hits object.
+  # It's clunky, but it works.
+  
+  # Create all pairs and run findOverlaps
+  size <- size(query)
+  tuples_idx <- seq_len(size - 1L)
+>>>>>>> Fix findOverlaps-based methods for GTuples and clarified findOverlaps and findOverlaps-based methods for GTuples/GTuplesList signatures.
   
   q_len <- length(query)
   s_len <- length(subject)
@@ -41,6 +53,7 @@
     s_strand <- GenomicRanges:::.strandAsSignedNumber(strand(subject))
   }
   
+<<<<<<< HEAD
   common_seqlevels <- intersect(q_seqlevels_nonempty, s_seqlevels_nonempty)
   # Apply over seqlevels
   results <- lapply(common_seqlevels, function(seqlevel) {
@@ -78,6 +91,17 @@
     # Intersect the pair-wise hits to form the tuple-wise hits
     Reduce(intersect, pair_hits)
   })
+=======
+  pair_hits <- lapply(tuples_idx, function(i, q_seqnames, s_seqnames, q_strand, 
+                                           s_strand, q_tuples, s_tuples) {
+    query <- GRanges(q_seqnames, IRanges(q_tuples[, i], q_tuples[, i + 1]), 
+                     q_strand)
+    subject <- GRanges(s_seqnames, IRanges(s_tuples[, i], s_tuples[, i + 1]), 
+                       s_strand)
+    findOverlaps(query, subject, maxgap = 0L, minoverlap = 1L, type = "equal", 
+                 select = select)
+  }, q_seqnames , s_seqnames, q_strand, s_strand, q_tuples, s_tuples)
+>>>>>>> Fix findOverlaps-based methods for GTuples and clarified findOverlaps and findOverlaps-based methods for GTuples/GTuplesList signatures.
   
   # Combine the results.
   q_hits <- unlist(lapply(results, queryHits))
@@ -105,6 +129,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                    select = c("all", "first", "last", "arbitrary"),
                    algorithm = c("nclist", "intervaltree"),
                    ignore.strand = FALSE) {
+
 
             # Argument matching
             if (!isSingleNumber(maxgap) || maxgap < 0L) {
