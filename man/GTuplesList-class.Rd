@@ -44,14 +44,14 @@
 
 % TODO: Document these once implemented
 % Tuples methods:
-%\alias{tuples,GTuplesList-method}
-%\alias{tuples<-,GTuplesList-method}
-%\alias{start,GTuplesList-method}
-%\alias{start<-,GTuplesList-method}
-%\alias{end,GTuplesList-method}
-%\alias{end<-,GTuplesList-method}
-%\alias{width,GTuplesList-method}
-%\alias{width<-,GTuplesList-method}
+\alias{tuples,GTuplesList-method}
+\alias{tuples<-,GTuplesList-method}
+\alias{start,GTuplesList-method}
+\alias{start<-,GTuplesList-method}
+\alias{end,GTuplesList-method}
+\alias{end<-,GTuplesList-method}
+\alias{width,GTuplesList-method}
+\alias{width<-,GTuplesList-method}
 
 % Subsetting:
 \alias{[,GTuplesList,ANY-method}
