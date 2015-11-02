@@ -845,6 +845,10 @@ identical(findOverlaps(gt3, gt3, type = 'equal'),
 findOverlaps(gt3, gt3, type = 'equal', ignore.strand = TRUE, select = 'last')
 @
 
+\section{Comparison of \Rclass{GTuples}}
+
+\fixme{TODO: Document and give examples}
+
 \section{Session info}\label{session-info}
 <<sessionInfo, eval = TRUE, echo = TRUE, results = 'asis'>>=
 toLatex(sessionInfo())

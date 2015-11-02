@@ -305,4 +305,4 @@ test_that("sort works", {
   expect_identical(sort(q4), q4[order(q4)])
 })
 
-# TODO: More tests
+# TODO: More tests, make sure recycling works
