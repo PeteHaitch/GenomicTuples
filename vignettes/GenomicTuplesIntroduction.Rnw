@@ -1,4 +1,6 @@
 %\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{GenomicTuples: Classes and Methods}
+%\usepackage[utf8]{inputenc}
 \documentclass{article}
 <<style-knitr, eval = TRUE, echo = FALSE, results = "asis">>=
 BiocStyle::latex()
@@ -10,8 +12,6 @@ BiocStyle::latex()
 \author{Peter Hickey\footnote{peter.hickey@gmail.com}}
 
 \begin{document}
-
-% TODO: Active relevant codeblocks, i.e. eval = TRUE
 
 \maketitle
 
@@ -30,6 +30,9 @@ package. Therefore, I have tried to keep the user interface as similar
 as possible. This vignette is also heavily based on the vignette ``An
 Introduction to Genomic Ranges Classes'', which is included with the
  \Biocpkg{GenomicRanges} package.
+ 
+\bioccomment{While not essential, familiarity with the \Biocpkg{GenomicRanges} 
+will be of benifit in understanding the \Rpackage{GenomicTuples} package.}
  
 \subsection{What is a genomic tuple?}\label{what-is-a-genomic-tuple}
 
@@ -68,7 +71,7 @@ library(GenomeInfoDb)
 @
 
 % TODO: Change from eval = FALSE to TRUE once GenomicTuples package is installed
-<<initialize, echo = TRUE, eval = FALSE>>=
+<<initialize, echo = TRUE, eval = TRUE>>=
 library(GenomicTuples)
 @
 
@@ -101,7 +104,7 @@ while the latter uses \Robject{ranges} in the genomic coordinates.}
 
 For even more information on the \Rclass{GTuples} class be sure to
 consult the manual page:
-<<GTuples-help, eval = TRUE, echo = TRUE>>=
+<<GTuples-help, eval = FALSE, echo = TRUE>>=
 ?GTuples
 @
 
@@ -257,7 +260,7 @@ the \emph{internal positions} exceed the \Robject{seqlengths}:
 shift(gt3, 500)
 @
 
-<<shift-error, eval = TRUE, echo = TRUE, warning = TRUE, error = TRUE, purl = TRUE>>=
+<<shift-error, eval = TRUE, echo = TRUE, warning = TRUE, error = TRUE, purl = FALSE>>=
 # Raises warning due to tuple being outside of seqlength
 x <- shift(gt3[1], 999)
 x
