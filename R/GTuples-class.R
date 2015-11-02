@@ -534,12 +534,10 @@ setReplaceMethod("[",
                  }
 )
 
-# TODO: Should I explicitly define this via callNextMethod() 
-# extractROWS works via inheritance because it handles extraColumnSlots 
-# (internalPos)
+# extractROWS, "[", replaceROWS and "[<-" defined via inheritance to methods 
+# for GenomicRanges.
 
-# TODO: Should I explicitly define this via callNextMethod()
-# "[" works via inheritance because it calls extractROWS
+# TODO: Should I explicitly define these via callNextMethod()
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Show
