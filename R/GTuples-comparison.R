@@ -147,7 +147,6 @@ setMethod("compare",
   
   if (!identical(incomparables, FALSE)) {
     stop("\"duplicated\" method for '", class(x), "' objects ",
-         "only accepts 'incomparables = FALSE'")
   }
   
   method <- match.arg(method)
