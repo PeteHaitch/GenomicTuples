@@ -546,8 +546,97 @@ setReplaceMethod("[",
 
 # extractROWS, "[", replaceROWS and "[<-" defined via inheritance to methods 
 # for GenomicRanges.
-
 # TODO: Should I explicitly define these via callNextMethod()
+
+# TODO (copied from GenomicRanges/GenomicRanges-class.R): Refactor to use 
+# replaceROWS(). This will make the code much simpler and avoid a lot of 
+# duplication with the above "replaceROWS" method.
+# TODO: Once "[<-",GenomicRanges-method uses replaceROWS,GenomicRanges-method, 
+# then should be able to migrate to using "[<-",GTuples-method defined via 
+# inheritance to "[<-",GenomicRanges-method. Can't simply inherit via 
+# GenomicRanges because of the line 
+# "x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]", which breaks because
+# it tries to put a NULL in a NULL, i.e. it breaks if size(x) = 1 or 2. 
+setReplaceMethod("[", 
+                 "GTuples",
+                 function(x, i, j, ..., value) {
+                   if (!is(value, "GTuples")) {
+                     stop("replacement value must be a GTuples object")
+                   }
+                   # TODO: Necessary?
+                   if (!identical(size(x), size(value))) {
+                     stop("Cannot replace with tuples of a different size")
+                   }
+                   seqinfo(x) <- merge(seqinfo(x), seqinfo(value))
+                   seqnames <- seqnames(x)
+                   ranges <- ranges(x)
+                   internal_pos <- x@internalPos
+                   strand <- strand(x)
+                   ans_mcols <- mcols(x, FALSE)
+                   # A kludge to extract any non-internalPos extra column slots
+                   # from value as a DataFrame or return an appropriately sized 
+                   # empty DataFrame
+                   value_ec <- GenomicRanges:::extraColumnSlots(value)
+                   value_ec <- value_ec[names(value_ec) != "internalPos"]
+                   if (length(value_ec) > 0L) {
+                     value_ecs <- GenomicRanges:::extraColumnSlots(value)
+                     value_ecs <- DataFrame(value_ecs[names(value_ecs) != 
+                                                        "internalPos"])
+                   } else {
+                     value_ecs <- DataFrame()
+                     value_ecs@nrows <- length(value)
+                   }
+                   # A kludge to extract any non-internalPos extra column slots
+                   # from x as a DataFrame or return an appropriately sized 
+                   # empty DataFrame
+                   x_ec <- GenomicRanges:::extraColumnSlots(x)
+                   x_ec <- x_ec[names(x_ec) != "internalPos"]
+                   if (length(x_ec) > 0L) {
+                     x_ecs <- GenomicRanges:::extraColumnSlots(x)
+                     x_ecs <- DataFrame(x_ecs[names(x_ecs) != 
+                                                        "internalPos"])
+                   } else {
+                     x_ecs <- DataFrame()
+                     x_ecs@nrows <- length(x)
+                   }
+                   new_ecs <- value_ecs[!names(value_ecs) %in% names(x_ecs)]
+                   ecs_to_replace <- intersect(names(value_ecs), names(x_ecs))        
+                   if (missing(i)) {
+                     seqnames[] <- seqnames(value)
+                     ranges[] <- ranges(value)
+                     strand[] <- strand(value)
+                     if (missing(j))
+                       ans_mcols[ , ] <- mcols(value, FALSE)
+                     else
+                       ans_mcols[ , j] <- mcols(value, FALSE)
+                     if (length(new_ecs) > 0L)
+                       ans_mcols[names(new_ecs)] <- new_ecs
+                     x_ecs[ecs_to_replace] <- value_ecs[ecs_to_replace]
+                   } else {
+                     i <- extractROWS(setNames(seq_along(x), names(x)), i)
+                     seqnames[i] <- seqnames(value)
+                     ranges[i] <- ranges(value)
+                     strand[i] <- strand(value)
+                     internal_pos[i, ] <- value@internalPos
+                     if (missing(j)) {
+                       ans_mcols[i, ] <- mcols(value, FALSE)
+                     }
+                     else {
+                       ans_mcols[i, j] <- mcols(value, FALSE)
+                     }
+                     if (length(new_ecs) > 0L) {
+                       ans_mcols[i, names(new_ecs)] <- DataFrame(new_ecs)
+                     }
+                     if (length(ecs_to_replace) > 0L) {
+                       x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]
+                     }
+                   }
+                   update(x, seqnames = seqnames, ranges = ranges,
+                          strand = strand, elementMetadata = ans_mcols,
+                          internalPos = internal_pos,
+                          .slotList = as.list(x_ecs))
+                 }
+)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Show
