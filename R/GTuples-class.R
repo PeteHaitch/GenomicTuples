@@ -563,7 +563,6 @@ setReplaceMethod("[",
                    if (!is(value, "GTuples")) {
                      stop("replacement value must be a GTuples object")
                    }
-                   # TODO: Necessary?
                    if (!identical(size(x), size(value))) {
                      stop("Cannot replace with tuples of a different size")
                    }
