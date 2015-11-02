@@ -25,6 +25,9 @@
 ### shift()
 ###
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges shift
+#' 
 #' @export
 setMethod("shift", 
           "GTuples",
@@ -40,6 +43,9 @@ setMethod("shift",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges shift
+#' 
 #' @export
 setMethod("shift", 
           "GTuplesList",
@@ -49,7 +55,8 @@ setMethod("shift",
               shift <- as(shift, "List")
             shift <- S4Vectors:::VH_recycle(shift, x, "shift", "x")
             unlisted_shift <- unlist(shift, use.names = FALSE)
-            unlisted_ans <- shift(unlisted_x, shift = unlisted_shift, 
+            unlisted_ans <- shift(x = unlisted_x, 
+                                  shift = unlisted_shift, 
                                   use.names = use.names)
             relist(unlisted_ans, x)
           }
@@ -60,6 +67,9 @@ setMethod("shift",
 ###
 ### Method for GTuples defined via inheritance to GRanges
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges narrow
+#' 
 #' @export
 setMethod("narrow", 
           "GTuples", 
@@ -73,6 +83,9 @@ setMethod("narrow",
 ### flank()
 ###
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges flank
+#' 
 #' @export
 setMethod("flank", 
           "GTuples", 
@@ -83,6 +96,9 @@ setMethod("flank",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges flank
+#' 
 #' @export
 setMethod("flank", 
           "GTuplesList", 
@@ -97,6 +113,9 @@ setMethod("flank",
 ### promoters()
 ###
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges promoters
+#' 
 #' @export
 setMethod("promoters", 
           "GTuples", 
@@ -106,6 +125,9 @@ setMethod("promoters",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges promoters
+#' 
 #' @export
 setMethod("promoters", 
           "GTuplesList", 
@@ -126,6 +148,9 @@ setMethod("promoters",
 ### resize()
 ###
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges resize
+#' 
 #' @export
 setMethod("resize", 
           "GTuples", 
@@ -136,6 +161,9 @@ setMethod("resize",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges resize
+#' 
 #' @export
 setMethod("resize", 
           "GTuplesList", 
@@ -152,6 +180,10 @@ setMethod("resize",
 
 ## TODO: restrict,GTuples-method is currently defined via inheritance but can 
 ## return an invalid object.
+
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges restrict
+#' 
 #' @export
 setMethod("restrict", 
           "GTuplesList", 
@@ -179,6 +211,7 @@ setMethod("restrict",
 ### Zooming (symmetrically scales the width).
 ###
 
+#' @importFrom methods setMethod
 #' @export
 setMethod("Ops", 
           c("GTuples", "numeric"),

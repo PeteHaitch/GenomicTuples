@@ -3,6 +3,7 @@
 ### -------------------------------------------------------------------------
 ###
 
+#' @importFrom methods setClass
 #' @export
 setClass("GTuplesList",
          contains = c("GRangesList"),
@@ -24,21 +25,22 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
                          #"genome",
                          "start", "end", "width", "element",
                          "tuples", "internalPos", "size")
+
+#' @importFrom Biobase validMsg
 .valid.GTuplesList.mcols <- function(object) {
   msg <- NULL
   object_mcols <- object@elementMetadata
   if (nrow(object_mcols) != length(object)) {
-    msg <- Biobase::validMsg(msg, 
-                             "'mcols(object)' has an incorrect number of rows")
+    msg <- validMsg(msg, "'mcols(object)' has an incorrect number of rows")
   }
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
-    msg <- Biobase::validMsg(msg, 
-                             paste0("names of metadata columns cannot be one ", 
-                                    "of ", paste0("\"", INVALID.GT.COLNAMES, 
-                                                  "\"", collapse = ", ")))
+    msg <- validMsg(msg, 
+                    paste0("names of metadata columns cannot be one ", 
+                           "of ", paste0("\"", INVALID.GT.COLNAMES, 
+                                         "\"", collapse = ", ")))
   }
   if (!is.null(rownames(object_mcols))) {
-    msg <- Biobase::validMsg(msg, "'mcols(object)' cannot have row names")
+    msg <- validMsg(msg, "'mcols(object)' cannot have row names")
   }
   msg
 }
@@ -47,12 +49,15 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
   c(.valid.GTuplesList.mcols(x))
 }
 
+#' @importFrom S4Vectors setValidity2
 setValidity2("GTuplesList", .valid.GTuplesList)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Constructor
 ###
 
+#' @importFrom IRanges PartitioningByEnd
+#' 
 #' @export
 GTuplesList <- function(...) {
   listData <- list(...)
@@ -80,6 +85,9 @@ GTuplesList <- function(...) {
 ###
 
 #' @include AllGenerics.R
+#' 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("size", 
           "GTuplesList", 
@@ -88,6 +96,9 @@ setMethod("size",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importFrom S4Vectors List
+#' 
 #' @export
 setMethod("tuples",
           "GTuplesList",
@@ -103,6 +114,8 @@ setMethod("tuples",
           }
 )
 
+#' @importFrom methods setReplaceMethod
+#' 
 #' @export
 setReplaceMethod("tuples", 
                  "GTuplesList",
@@ -113,6 +126,7 @@ setReplaceMethod("tuples",
 )
 
 #' @include AllGenerics.R
+#' 
 #' @export
 setMethod("IPD", 
           "GTuplesList", 
@@ -126,6 +140,9 @@ setMethod("IPD",
 ### Coercion.
 ###
 
+#' @importClassesFrom GenomicRanges GRanges
+#' @importFrom GenomicRanges GRangesList
+#' @importFrom methods setAs
 setAs("GTuplesList", "GRangesList", 
       function(from) {
         if (length(from)) {
@@ -135,7 +152,10 @@ setAs("GTuplesList", "GRangesList",
       }
 )
 
+# TODO: Should I import as.data.frame(), as.list(), and stack()?
+
 # as.data.frame and as.list work via inheritance to GRangesList
+
 # TODO: grglist when method is implemented in GenomicRanges
 
 # stack defined via inheritance to GRangesList
@@ -150,6 +170,9 @@ setAs("GTuplesList", "GRangesList",
 ### Going from GTuples to GTuplesList with extractList() and family.
 ###
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges relistToClass
+#' 
 #' @export
 setMethod("relistToClass", 
           "GTuples", 
@@ -162,6 +185,8 @@ setMethod("relistToClass",
 ### show method.
 ###
 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("show", 
           "GTuplesList",

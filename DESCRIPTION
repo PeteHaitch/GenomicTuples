@@ -1,14 +1,9 @@
 Package: GenomicTuples
 Type: Package
-<<<<<<< HEAD
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.5.0
+Version: 1.5.5
 Date: 2015-04-11
-=======
 Title: Representation and manipulation of genomic tuples
-Version: 0.99.1
-Date: 2014-10-09
->>>>>>> Changes suggested by BioC code review
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
     person("Marcin", "Cieslik", role = "ctb",
@@ -29,11 +24,11 @@ Depends:
     R (>= 3.2.0),
     GenomicRanges (>= 1.19.47),
     GenomeInfoDb,
-    BiocGenerics,
-    methods
+    S4Vectors
 Imports:
+    methods,
+    BiocGenerics,
     Rcpp (>= 0.11.2),
-    S4Vectors,
     Biobase,
     IRanges
 Suggests:
@@ -55,7 +50,6 @@ Collate:
     'findOverlaps-methods.R'
     'inter-tuple-methods.R'
     'intra-tuple-methods.R'
-    'mapCoords-methods.R'
     'nearest-methods.R'
     'setops-methods.R'
     'tile-methods.R'

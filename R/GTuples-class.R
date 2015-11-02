@@ -3,8 +3,11 @@
 ### -------------------------------------------------------------------------
 ###
 
+#' @importFrom methods setClassUnion
 setClassUnion(name = "matrixOrNULL", members = c("matrix", "NULL"))
 
+#' @importFrom methods setClass
+#' 
 #' @export
 setClass("GTuples",
          contains = "GRanges",
@@ -20,6 +23,7 @@ setClass("GTuples",
 ### Validity
 ###
 
+#' @importFrom Biobase validMsg
 .valid.GTuples.pos <- function(object) {
   
   msg <- NULL
@@ -30,18 +34,17 @@ setClass("GTuples",
                object@internalPos, 
                object@ranges@start + object@ranges@width - 1L)
     ) {
-      msg <- Biobase::validMsg(msg, 
-                               paste0("positions in each tuple must be sorted ",
-                                      "in strictly increasing order, i.e. ",
-                                      "'pos1' < ... < ", 
-                                      paste0("'pos", object@size, "'")))
+      msg <- validMsg(msg, paste0("positions in each tuple must be sorted ",
+                                  "in strictly increasing order, i.e. ",
+                                  "'pos1' < ... < ", 
+                                  paste0("'pos", object@size, "'")))
     }
   } else if (isTRUE(object@size == 2L)) {
     if (isTRUE(any(object@ranges@width <= 1L))) {
-      msg <- Biobase::validMsg(msg, 
-                               paste0("positions in each tuple must be sorted in ", 
-                                      "strictly increasing order, i.e. 'pos1' < ", 
-                                      "'pos2'"))
+      msg <- validMsg(msg, 
+                      paste0("positions in each tuple must be sorted in ", 
+                             "strictly increasing order, i.e. 'pos1' < ", 
+                             "'pos2'"))
     }
   }
   
@@ -52,9 +55,9 @@ setClass("GTuples",
   if (!is.na(object@size) && length(object) != 0L) {
     if (min(object@ranges@start) < 0L || min(object@ranges@start + 
                                              object@ranges@width - 1L) < 0L) {
-      msg <- Biobase::validMsg(msg, 
-                               paste0("positions in each tuple must be ", 
-                                      "positive integers."))
+      msg <- validMsg(msg, 
+                      paste0("positions in each tuple must be ", 
+                             "positive integers."))
     }
   }
   
@@ -67,15 +70,16 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
                          "start", "end", "width", "element",
                          "tuples", "internalPos", "size")
 
+#' @importFrom Biobase validMsg
 .valid.GTuples.mcols <- function(object) {
 
   msg <- NULL
   
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
-    msg <- Biobase::validMsg(msg, 
-                             paste0("names of metadata columns cannot be one of ",
-                                    paste0("\"", INVALID.GT.COLNAMES, "\"", 
-                                           collapse = ", ")))
+    msg <- validMsg(msg, 
+                    paste0("names of metadata columns cannot be one of ",
+                           paste0("\"", INVALID.GT.COLNAMES, "\"", 
+                                  collapse = ", ")))
   }
   msg
 }
@@ -85,19 +89,25 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
   # Include all .valid.GTuples.* functions in this vector
   msg <- c(.valid.GTuples.pos(object), .valid.GTuples.mcols(object))
   
-  if (is.null(msg)){
+  if (is.null(msg)) {
     return(TRUE)
   } else{
     msg
   }
 }
 
+#' @importFrom S4Vectors setValidity2
 setValidity2("GTuples", .valid.GTuples)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Constructor
 ###
 
+#' @importFrom GenomicRanges GRanges
+#' @importFrom IRanges IRanges
+#' @importFrom methods new
+#' @importFrom S4Vectors Rle
+#' 
 #' @export
 GTuples <- function(seqnames = Rle(), 
                     tuples = matrix(), 
@@ -136,6 +146,7 @@ GTuples <- function(seqnames = Rle(),
     if (!all(is.na(tuples))) {
       warning("Converting 'tuples' to integer mode")
     }
+    # TODO: is mode() the same as storage.mode()?
     mode(tuples) <- "integer"
   }
   
@@ -176,6 +187,12 @@ GTuples <- function(seqnames = Rle(),
 ### Coercion
 ###
 
+# TODO: Without '@importMethodsFrom S4Vectors as.factor as.vector' there are 
+#       errors when testing the package.
+#' @importFrom methods setMethod
+#' @importMethodsFrom GenomeInfoDb seqnames
+#' @importMethodsFrom S4Vectors as.factor
+#' 
 #' @export
 setMethod("as.data.frame", 
           "GTuples", 
@@ -212,32 +229,20 @@ setMethod("as.data.frame",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom GenomicRanges granges
+#' @importMethodsFrom S4Vectors "mcols<-"
+#' 
 #' @export
 setMethod("granges", 
           "GTuples",
           function(x, use.mcols = FALSE) {
-            if (!isTRUEorFALSE(use.mcols)) {
-              stop("'use.mcols' must be TRUE or FALSE")
+            gr <- as(x, "GRanges")
+            if (!use.mcols) {
+              mcols(gr) <- NULL
             }
-            ans <- GRanges(seqnames = seqnames(x), 
-                           ranges = ranges(x), 
-                           strand = strand(x), 
-                           seqinfo = seqinfo(x))
-            if (use.mcols) {
-              extraColumns <- GenomicRanges:::extraColumnSlotsAsDF(x)
-              extraColumns <- extraColumns[colnames(extraColumns) != 
-                                             'internalPos']
-              mcols(ans) <- cbind(extraColumns, mcols(x))
-            }
-            ans
+            gr
           }
-)
-
-setAs("GTuples", 
-      "GRanges", 
-      function(from) {
-        granges(from)
-      }
 )
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -261,7 +266,17 @@ setAs("GTuples",
 ###
 
 ### Not exported. 'x' *must* be an unnamed list of length >= 1 (not checked).
+
+# TODO: Without '@importMethodsFrom GenomeInfoDb merge' this doesn't work; why? 
+#       This is despite merge being defined in base.
+#' @importClassesFrom S4Vectors DataFrame
+#' @importFrom methods new
+#' @importFrom S4Vectors isTRUEorFALSE
+#' @importMethodsFrom GenomeInfoDb merge seqinfo seqnames
+#' @importMethodsFrom IRanges ranges
+#' @importMethodsFrom S4Vectors mcols
 .unlist_list_of_GTuples <- function(x, ignore.mcols = FALSE) {
+  
   if (!isTRUEorFALSE(ignore.mcols)) {
     stop("'ignore.mcols' must be TRUE or FALSE")
   }
@@ -287,6 +302,8 @@ setAs("GTuples",
       internalPos = ans_internalPos)
 }
 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("c", 
           "GTuples", 
@@ -342,6 +359,9 @@ setMethod("c",
 
 # Via inheritance to split,Vector-method.
 
+#' @importMethodsFrom S4Vectors split
+NULL
+
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Setters
 ###
@@ -353,6 +373,9 @@ setMethod("c",
 ###
 
 #' @include AllGenerics.R
+#' 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("size", 
           "GTuples", 
@@ -362,6 +385,9 @@ setMethod("size",
 )
 
 #' @include AllGenerics.R
+#' 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("tuples", 
           "GTuples", 
@@ -380,6 +406,10 @@ setMethod("tuples",
           }
 )
 
+#' @importFrom methods setReplaceMethod
+#' @importFrom IRanges IRanges
+#' @importMethodsFrom IRanges update
+#' 
 #' @export
 setReplaceMethod("tuples", 
                  "GTuples", 
@@ -401,17 +431,20 @@ setReplaceMethod("tuples",
                    if (is.na(m)) {
                      x
                    } else if (m == 1L) {
-                     ranges <- IRanges(start = value[, 1], end = value[, 1])
+                     ranges <- IRanges(start = value[, 1L], end = value[, 1L])
                      internalPos <- NULL
                    } else if (m == 2L) {
-                     ranges <- IRanges(start = value[, 1], end = value[, 2])
+                     ranges <- IRanges(start = value[, 1L], end = value[, 2L])
                      internalPos <- NULL
                    } else if (m > 2L) {
                      ranges <- IRanges(start = value[, 1], end = value[, m])
-                     internalPos <- unname(value[, seq.int(from = 2, 
-                                                           to = m - 1, by = 1), 
+                     internalPos <- unname(value[, seq.int(from = 2L, 
+                                                           to = m - 1L, 
+                                                           by = 1L), 
                                                   drop = FALSE])
                    }
+                   # TODO: Is update() the correct method to call or should 
+                   #       it be something from BiocGenerics?
                    update(x, 
                           ranges = ranges, 
                           internalPos = internalPos,
@@ -420,6 +453,9 @@ setReplaceMethod("tuples",
 )
 
 #' @include AllGenerics.R
+#' 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("IPD", 
           "GTuples", 
@@ -431,11 +467,11 @@ setMethod("IPD",
               stop("It does not make sense to compute IPD when 'size' = 1.")
             } else if (isTRUE(size == 2L)) {
               ## width is not the same as distance ... at least for IRanges  
-              ipd <- matrix(width(x) - 1L, ncol=1)
+              ipd <- matrix(width(x) - 1L, ncol = 1L)
             } else {
               ipd <- .Call(Cpp_GenomicTuples_IPD, 
                            start(x), 
-                           matrix(x@internalPos, ncol = size - 2), 
+                           matrix(x@internalPos, ncol = size - 2L), 
                            end(x)
               )
             }
@@ -460,6 +496,13 @@ setMethod("IPD",
 # GenomicRanges because of the line 
 # "x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]", which breaks because
 # it tries to put a NULL in a NULL, i.e. it breaks if size(x) = 1 or 2.
+#' @importFrom methods setReplaceMethod
+#' @importFrom S4Vectors DataFrame
+#' @importFrom stats setNames
+#' @importMethodsFrom GenomeInfoDb seqinfo "seqinfo<-" seqnames
+#' @importMethodsFrom IRanges ranges update
+#' @importMethodsFrom S4Vectors extractROWS mcols
+#' 
 #' @export
 setReplaceMethod("[", 
                  "GTuples",
@@ -534,6 +577,8 @@ setReplaceMethod("[",
                        x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]
                      }
                    }
+                   # TODO: Is update() the correct method to call or should 
+                   #       it be something from BiocGenerics?
                    update(x, 
                           seqnames = seqnames, 
                           ranges = ranges,
@@ -641,9 +686,10 @@ setReplaceMethod("[",
 ### Show
 ###
 
+# NOTE: No '@importFrom methods setMethod' tag because roxygen2 chokes on it, 
+#       perhaps because I'm defining a method for a non-exported generic.
 # Ensure the internalPos matrix "sticks" during subsetting, etc.
-setMethod(GenomicRanges:::extraColumnSlotNames, 
-          "GTuples",
+setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
           function(x) {
             c("internalPos")
           }
@@ -652,6 +698,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
 # The show method is adapted from that of GRanges
 # TODO: Decide if I should support the print.classinfo argument?
 
+#' @importMethodsFrom S4Vectors mcols showAsCell
 .makeNakedMatFromGTuples <- function(x) {
   lx <- length(x)
   nc <- ncol(mcols(x))
@@ -661,10 +708,10 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
                    as.character(x@strand))
     } else if (x@size == 2L) {
       ans <- cbind(as.character(x@seqnames), x@ranges@start, 
-                   x@ranges@start + x@ranges@width - 1, as.character(x@strand))
+                   x@ranges@start + x@ranges@width - 1L, as.character(x@strand))
     } else {
       ans <- cbind(as.character(x@seqnames), x@ranges@start, 
-                   x@internalPos, x@ranges@start + x@ranges@width - 1, 
+                   x@internalPos, x@ranges@start + x@ranges@width - 1L, 
                    as.character(x@strand))
     }
     colnames(ans) <- c("seqnames", paste0('pos', seq_len(x@size)), "strand")
@@ -680,7 +727,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
                                    showAsCell)))
   }
   if (nc > 0L) {
-    tmp <- do.call(data.frame, c(lapply(mcols(x), S4Vectors::showAsCell), 
+    tmp <- do.call(data.frame, c(lapply(mcols(x), showAsCell), 
                                  list(check.names = FALSE)))
     ans <- cbind(ans, `|` = rep.int("|", lx), as.matrix(tmp))
   }
@@ -688,7 +735,9 @@ setMethod(GenomicRanges:::extraColumnSlotNames,
 }
 
 # TODO: Need to keep this up to date with the show,GRanges-method
-# E.g. summary(seqinfo(x)) is currently broken in GenomeInfoDb
+
+
+#' @importFrom GenomeInfoDb seqinfo
 showGTuples <- function(x, margin = "", print.classinfo = FALSE, 
                         print.seqinfo = FALSE) {
   if (!identical(print.classinfo, FALSE)) {
@@ -722,20 +771,22 @@ showGTuples <- function(x, margin = "", print.classinfo = FALSE,
   #    out <- rbind(classinfo, out)
   #}
   
-  if (nrow(out) != 0L){ 
+  if (nrow(out) != 0L) { 
     rownames(out) <- paste0(margin, rownames(out))
   }
   print(out, quote = FALSE, right = TRUE)
   if (print.seqinfo) {
     cat(margin, "---\n", sep = "")
-    cat(margin, "seqinfo: ", summary(seqinfo(x)), "\n", sep ="")
+    cat(margin, "seqinfo: ", summary(seqinfo(x)), "\n", sep = "")
   }
 }
 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("show", 
           "GTuples", 
           function(object) {
-            showGTuples(object, margin="  ", print.seqinfo = TRUE)
+            showGTuples(object, margin = "  ", print.seqinfo = TRUE)
           }
 )

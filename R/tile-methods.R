@@ -3,6 +3,9 @@
 ### -------------------------------------------------------------------------
 ###
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges tile
+#' 
 #' @export
 setMethod("tile", 
           "GTuples", 

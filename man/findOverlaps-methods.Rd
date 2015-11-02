@@ -7,7 +7,6 @@
 \alias{findOverlaps,GTuplesList,GTuples-method}
 \alias{findOverlaps,GTuples,GTuplesList-method}
 % GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
-\alias{findOverlaps,GTuples,GIntervalTree-method}
 \alias{findOverlaps,GTuplesList,GTuplesList-method}
 \alias{findOverlaps,RangesList,GTuples-method}
 \alias{findOverlaps,RangesList,GTuplesList-method}
@@ -103,9 +102,8 @@
   NOTE: The \code{\link[IRanges]{findOverlaps}} generic function and 
   methods for \link[IRanges]{Ranges} and \link[IRanges]{RangesList} objects
   are defined and documented in the \pkg{IRanges} package.
-  The methods for \link[GenomicRanges]{GenomicRanges},
-  \link[GenomicRanges]{GRangesList}, and
-  \link[GenomicRanges]{GIntervalTree} objects are defined and
+  The methods for \link[GenomicRanges]{GenomicRanges} and 
+  \link[GenomicRanges]{GRangesList} objects are defined and
   documented in the \pkg{GenomicRanges} package.
   The methods for \link[GenomicAlignments]{GAlignments},
   \link[GenomicAlignments]{GAlignmentPairs}, and
@@ -236,15 +234,6 @@
   objects, a feature is a list element containing a set of tuples. In the 
   results, the features are referred to by number, which run from 1 to 
   \code{length(query)}/\code{length(subject)}.
-
-  When the query is a \code{\link{GTuples}} or \code{\link{GTuplesList}} object 
-  then the \code{subject} can be a \link{GIntervalTree} object. For repeated 
-  queries against the same subject, it is more efficient to create a 
-  \code{GIntervalTree} once for the subject using the \link{GIntervalTree} 
-  constructor described below and then perform the queries against
-  the \code{GIntervalTree} instance. \strong{NOTE}: \code{\link{GIntervalTree}}
-  objects only support genomic ranges and not genomic tuples, and are not 
-  supported for circular genomes.
 }
 
 \value{
@@ -286,7 +275,6 @@ underlying the powerful \code{findOverlaps} functionality.}
     \item \code{\link{GTuplesList-class}}
     \item \code{\link[GenomicRanges]{GRanges-class}}
     \item \code{\link[GenomicRanges]{GRangesList-class}}
-    \item \code{\link[GenomicRanges]{GIntervalTree-class}}
   }
 }
 

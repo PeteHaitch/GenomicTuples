@@ -9,6 +9,8 @@
 ### union(), intersect(), setdiff()
 ###
 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("union", 
           c("GTuples", "GTuples"),
@@ -18,6 +20,8 @@ setMethod("union",
           }
 )
 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("intersect", 
           c("GTuples", "GTuples"),
@@ -27,6 +31,8 @@ setMethod("intersect",
           }
 )
 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("setdiff", 
           c("GTuples", "GTuples"),
@@ -40,6 +46,9 @@ setMethod("setdiff",
 ### Parallel set operations
 ### -------------------------------------------------------------------------
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges punion
+#' 
 #' @export
 setMethod("punion", 
           c("GTuples", "GTuples"),
@@ -49,6 +58,9 @@ setMethod("punion",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges punion
+#' 
 #' @export
 setMethod("punion", 
           c("GTuplesList", "GTuples"),
@@ -58,6 +70,9 @@ setMethod("punion",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges punion
+#' 
 #' @export
 setMethod("punion", c("GTuples", "GTuplesList"),
           function(x, y, fill.gap = FALSE, ...) {
@@ -66,6 +81,9 @@ setMethod("punion", c("GTuples", "GTuplesList"),
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges pintersect
+#' 
 #' @export
 setMethod("pintersect", 
           c("GTuples", "GTuples"),
@@ -76,6 +94,9 @@ setMethod("pintersect",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges pintersect
+#' 
 #' @export
 setMethod("pintersect", 
           c("GTuplesList", "GTuples"),
@@ -86,6 +107,9 @@ setMethod("pintersect",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges pintersect
+#' 
 #' @export
 setMethod("pintersect", 
           c("GTuples", "GTuplesList"),
@@ -96,6 +120,9 @@ setMethod("pintersect",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges pintersect
+#' 
 #' @export
 setMethod("pintersect", 
           c("GTuplesList", "GTuplesList"),
@@ -105,6 +132,9 @@ setMethod("pintersect",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges psetdiff
+#' 
 #' @export
 setMethod("psetdiff",
           c("GTuples", "GTuples"),
@@ -114,6 +144,9 @@ setMethod("psetdiff",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges psetdiff
+#' 
 #' @export
 setMethod("psetdiff", c
           ("GTuples", "GTuplesList"),
@@ -123,6 +156,9 @@ setMethod("psetdiff", c
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges psetdiff
+#' 
 #' @export
 setMethod("psetdiff", 
           c("GTuplesList", "GTuplesList"),
@@ -132,6 +168,9 @@ setMethod("psetdiff",
           }
 )
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges pgap
+#' 
 #' @export
 setMethod("pgap", 
           c("GTuples", "GTuples"),

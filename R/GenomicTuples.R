@@ -11,12 +11,9 @@
 #'
 #' @docType package
 #' @name GenomicTuples-package
-#' @useDynLib GenomicTuples, .registration = TRUE
-#' @import GenomicRanges
-#' @import GenomeInfoDb
-#' @import Rcpp
-#' @import methods
+# NOTE: For simplicity, just import the entire BiocGenerics package
 #' @import BiocGenerics
-#' @import S4Vectors
-#' @importFrom Biobase validMsg
+# Need these two tags to use Rcpp
+#' @useDynLib GenomicTuples, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
 NULL

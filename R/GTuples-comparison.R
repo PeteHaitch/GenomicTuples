@@ -55,6 +55,8 @@
 # is < 0, if the first tuple in the pair is "==" the second tuple then the 
 # return value is 0, and if the first tuple is ">" that the second tuple then 
 # the return value is > 0.
+#' @importMethodsFrom GenomeInfoDb seqlevels "seqlevels<-" seqinfo
+#' @importMethodsFrom GenomicRanges granges
 .GTuples.compare <- function(x, y) {
   
   # Different to comparing GRanges, I only allow comparison if x, y have same
@@ -85,7 +87,7 @@
     # sequences.
     seqinfo <- merge(seqinfo(x), seqinfo(y))
     seqlevels <- seqlevels(seqinfo)
-    if (any(diff(match(seqlevels(y), seqlevels)) < 0L)){
+    if (any(diff(match(seqlevels(y), seqlevels)) < 0L)) {
       stop("the 2 objects to compare have seqlevels in incompatible orders")
     }
     # This should only insert new seqlevels in the existing ones i.e. it
@@ -123,6 +125,9 @@
   }
 }
 
+#' @importFrom methods setMethod
+#' @importMethodsFrom S4Vectors compare
+#' 
 #' @export
 setMethod("compare", 
           c("GTuples", "GTuples"), 
@@ -142,6 +147,10 @@ setMethod("compare",
 ###
 ### unique() will work out-of-the-box on an GTuples object thanks to the 
 ### method for GRanges objects, which inherits from Vector objects.
+
+# TODO (longterm): While clever, this is a hack. There is likely a better way 
+#                  to do this.
+#' @importMethodsFrom GenomeInfoDb seqnames
 .duplicated.GTuples <- function(x, incomparables = FALSE, fromLast = FALSE, 
                                 method = c("hash", "base")) {
   
@@ -171,8 +180,8 @@ setMethod("compare",
     } else {
       # Create a hash of each row of mat by computing the inner product of mat 
       # with a vector of prime numbers.
-      # The choice of prime numbers is arbitrary and a better hash function could 
-      # be used.
+      # The choice of prime numbers is arbitrary and a better hash function 
+      # could be used.
       PRIMES <- c(139L, 7919L, 2129L, 557L, 6857L, 3677L, 761L, 3023L, 6863L, 
                   1361L, 6733L, 1811L, 1979L, 5573L, 1129L, 3659L, 3389L, 2383L, 
                   211L, 7603L, 7487L, 1171L, 3877L, 7649L, 3767L, 683L, 2819L, 
@@ -206,11 +215,14 @@ setMethod("compare",
 }
 
 # S3/S4 combo for duplicated.GTuples
+
 #' @export
 duplicated.GTuples <- function(x, incomparables = FALSE, ...) {
   .duplicated.GTuples(x, incomparables = incomparables, ...)
 }
 
+#' @importFrom methods setMethod
+#' 
 #' @export
 setMethod("duplicated", 
           "GTuples", 
@@ -224,6 +236,11 @@ setMethod("duplicated",
 ### objects thanks to the method for Vector objects.
 
 # Effectively just calls findOverlaps with type = equal.
+#' @importFrom methods setMethod
+#' @importFrom S4Vectors isSingleNumberOrNA isTRUEorFALSE
+#' @importMethodsFrom GenomeInfoDb seqinfo
+#' @importMethodsFrom IRanges findOverlaps
+#' 
 #' @export
 setMethod("match", 
           c("GTuples", "GTuples"), 
@@ -255,6 +272,9 @@ setMethod("match",
           }
 )
 
+# TODO: Need to explicitly import %in% otherwise not available; why?
+#' @importMethodsFrom S4Vectors %in%
+
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### order() and related methods.
 ###
@@ -266,12 +286,15 @@ setMethod("match",
 # data.table of seqnames, strand, pos1, ..., posn, and running 
 # data.table:::forder.
 
+#' @importFrom S4Vectors isTRUEorFALSE
+#' @importMethodsFrom GenomeInfoDb seqnames
+#' 
 #' @export
 setMethod("order", 
           "GTuples", 
           function(..., na.last = TRUE, decreasing = FALSE) {
             
-            if (!isTRUEorFALSE(decreasing)){
+            if (!isTRUEorFALSE(decreasing)) {
               stop("'decreasing' must be TRUE or FALSE")
             }
             
@@ -280,7 +303,7 @@ setMethod("order",
             size <- sapply(args, size)
             
             if (all(is.na(size))) {
-              integer(0)
+              integer(0L)
             } else {
               
               if (!.zero_range(size)) {
@@ -292,19 +315,19 @@ setMethod("order",
               
               order_args <- vector("list", (size + 2L) * length(args))
               idx <- (size + 2L) * seq_len(length(args))
-              order_args[seq.int(from = 1, to = max(idx), by = size + 2)] <- 
+              order_args[seq.int(from = 1L, to = max(idx), by = size + 2L)] <- 
                 lapply(args, function(x) {
                   as.factor(seqnames(x))
                 })
-              order_args[seq.int(from = 2, to = max(idx), by = size + 2)] <- 
+              order_args[seq.int(from = 2L, to = max(idx), by = size + 2L)] <- 
                 lapply(args, function(x) {
                   as.factor(strand(x))
                 })
-              order_args[seq.int(from = 3, to = max(idx), by = size + 2)] <- 
+              order_args[seq.int(from = 3L, to = max(idx), by = size + 2L)] <- 
                 lapply(args, start)
               if (size > 2L) {
                 ip_idx <- unlist(
-                  lapply(X = seq.int(from = 4, to = max(idx), by = size + 2), 
+                  lapply(X = seq.int(from = 4L, to = max(idx), by = size + 2L), 
                          FUN = function(x, y) {
                            x + y
                          }, 

@@ -2,12 +2,19 @@
 ### findOverlaps methods
 ### -------------------------------------------------------------------------
 
+# TODO: Re-factor based on changes to findOverlaps,GRanges,GRanges-method
 #' An internal function used by the findOverlaps,GTuples,GTuples-method when 
 #' type = "equal".
 #' 
 #' @param query A GTuples instance
 #' @param subject A GTuples instance
 #' @param maxgap
+#' 
+#' @importFrom IRanges IRanges
+#' @importFrom S4Vectors Hits remapHits selectHits
+#' @importMethodsFrom GenomeInfoDb isCircular seqinfo
+#' @importMethodsFrom IRanges splitRanges
+#' @importMethodsFrom S4Vectors extractROWS queryHits subjectHits
 #' 
 #' @keywords internal
 .findEqual.GTuples <- function(query, subject, maxgap, minoverlap, 
@@ -37,8 +44,8 @@
     q_strand <- rep.int(1L, q_len)
     s_strand <- rep.int(1L, s_len)
   } else {
-    q_strand <- GenomicRanges:::.strandAsSignedNumber(strand(query))
-    s_strand <- GenomicRanges:::.strandAsSignedNumber(strand(subject))
+    q_strand <- .strandAsSignedNumber(strand(query))
+    s_strand <- .strandAsSignedNumber(strand(subject))
   }
 
   common_seqlevels <- intersect(q_seqlevels_nonempty, s_seqlevels_nonempty)
@@ -97,7 +104,11 @@
 # the subject are GTuples objects. This is to allow for "equal" matching 
 # between GTuples. All other methods are defined via inheritance.
 # If either the subject or the query is not a GTuples object then it defers to 
-# the findOverlaps method defined for GRanges objects. 
+# the findOverlaps method defined for GRanges objects.
+#' @importFrom methods as setMethod
+#' @importFrom S4Vectors isSingleNumber
+#' @importMethodsFrom IRanges findOverlaps
+#' 
 #' @export
 setMethod("findOverlaps", signature = c("GTuples", "GTuples"), 
           function(query, subject, maxgap = 0L, minoverlap = 1L, 
@@ -118,12 +129,12 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             # Need to define these for tuples.
             if (type == 'equal') {
               if (isTRUE(maxgap != 0L)) {
-                stop(paste0("'maxgap' must be 0 when 'type = equal', ", 
-                            "other values not yet supported"))
+                stop("'maxgap' must be 0 when 'type = equal', other values ", 
+                     "not yet supported")
               } 
               if (isTRUE(minoverlap != 1L)) {
-                stop(paste0("'minoverlap' must be 1 when 'type = equal', ", 
-                            "other values not yet supported"))
+                stop("'minoverlap' must be 1 when 'type = equal', other ", 
+                     "values not yet supported")
               }
               # Second check is whether one, and only one, of query or subject 
               # have size NA.
@@ -136,9 +147,9 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             }
             
             if (isTRUE(size(query) >= 3) && type == 'equal') { 
-              .findEqual.GTuples(query, subject, maxgap, minoverlap, 
-                                 select, ignore.strand)
-            } else{
+              .findEqual.GTuples(query, subject, maxgap, minoverlap, select, 
+                                 ignore.strand)
+            } else {
               # TODO: Why doesn't callNextMethod() work?
               #callNextMethod()
               findOverlaps(query = as(query, "GRanges"), 
@@ -161,6 +172,9 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
 ### =========================================================================
 ### findOverlaps-based methods
 ### -------------------------------------------------------------------------
+#' @importFrom methods setMethod
+#' @importMethodsFrom IRanges countOverlaps
+#' 
 #' @export
 setMethod("countOverlaps", signature = c("GTuples", "GTuples"),
     GenomicRanges:::countOverlaps.definition

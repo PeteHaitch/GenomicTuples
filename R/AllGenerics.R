@@ -2,6 +2,8 @@
 ### size
 ###
 
+#' @importFrom methods setGeneric
+#' 
 #' @export
 setGeneric("size", function(x) {
   standardGeneric("size")
@@ -11,6 +13,8 @@ setGeneric("size", function(x) {
 ### IPD
 ###
 
+#' @importFrom methods setGeneric
+#' 
 #' @export
 setGeneric("IPD", function(x) {
   standardGeneric("IPD")
@@ -21,12 +25,16 @@ setGeneric("IPD", function(x) {
 ###
 
 # TODO: Perhaps tuples,GTuples-method should have a use.names argument?
+#' @importFrom methods setGeneric
+#' 
 #' @export
 setGeneric("tuples", function(x) {
 
   standardGeneric("tuples")
 })
 
+#' @importFrom methods setGeneric
+#' 
 #' @export
 setGeneric("tuples<-", function(x, ..., value) {
   standardGeneric("tuples<-")
