@@ -31,7 +31,7 @@
 \alias{reduce,GTuplesList-method}
 
 % mapCoords methods
-\alias{mapCoords,GTuples,GTuplesList-methods}
+\alias{mapCoords,GTuples,GTuplesList-method}
 
 % setops methods
 \alias{Ops,GTuples,numeric-method}
