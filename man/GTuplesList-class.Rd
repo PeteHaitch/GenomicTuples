@@ -26,10 +26,6 @@
 \alias{score<-,GTuplesList-method}
 
 % Coercion:
-<<<<<<< HEAD
-=======
-% TODO: Don't document because don't want to expose this functionality?
->>>>>>> Remove old TODOs and add new TODOs
 \alias{coerce,GTuplesList,GRangesList-method}
 \alias{coerce,GTuplesList,data.frame-method}
 \alias{coerce,GTuplesList,list-method}
@@ -121,15 +117,9 @@
     }
     \item{}{
       \code{tuples(x)}, \code{tuples(x) <- value}:
-<<<<<<< HEAD
       Get or set the tuples in the form of a 
       \code{\link[S4Vectors]{SimpleList}} of integer matrices. \code{value} can 
       be a a single integer matrix.
-=======
-      Get or set the tuples in the form of a SimpleList of integer matrices.
-      \code{value} can be a SimpleList of integer matrices or a single integer
-      matrix.
->>>>>>> Remove old TODOs and add new TODOs
     }
     \item{}{
       \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}: Get or 
@@ -235,10 +225,6 @@
       of integer matrices, \code{mvalue}, and use \code{tuples(x) <- mvalue}.
     }
     
-<<<<<<< HEAD
-=======
-    % TODO: Document
->>>>>>> Remove old TODOs and add new TODOs
     \item{}{
       \code{IPD(x)}: Get the intra-pair distances (\code{IPD}) in the form of a 
       \code{\link[S4Vectors]{SimpleList}} of integer matrices. \code{IPD} is 
