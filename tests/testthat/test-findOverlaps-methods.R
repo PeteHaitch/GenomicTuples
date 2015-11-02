@@ -1407,4 +1407,5 @@ test_that("Works on m-tuples, m > 3", {
                    gtl4)
   expect_identical(subsetByOverlaps(gtl4, gtl4, type = 'within'), 
                    gtl4)
+
 })
