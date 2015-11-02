@@ -1,91 +1,41 @@
 ---
-title: 'GenomicTuples: Classes and Methods'
+title: "GenomicTuples: Classes and Methods"
 author: "Peter Hickey"
-date: "Modified: 12 February 2015. Compiled: `r format(Sys.Date(), '%d %b %Y')`"
-output: 
-  BiocStyle::html_document:
-    toc: true
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{GenomicTuplesIntroduction}
+  %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\usepackage[utf8]{inputenc}
 ---
-
-```{r style, echo = FALSE, results = 'asis'}
-BiocStyle::markdown()
-```
-
-```{r, echo = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-```
-
+  
 # Introduction
 
-The `r Biocpkg("GenomicTuples")` R package defines general purpose containers
-for storing _genomic tuples_. It aims to provide functionality for
-tuples of genomic co-ordinates that are analogous to those available for
-genomic ranges in the `r Biocpkg("GenomicRanges")` Bioconductor package.
+The `GenomicTuples` package defines general purpose containers for storing _genomic tuples_. It aims to provide functionality for tuples of genomic co-ordinates that are analogous to those available for genomic ranges in the [`GenomicRanges` Bioconductor package](http://www.bioconductor.org/packages/release/bioc/html/GenomicRanges.html).
 
-As you will see, the functionality of the `r Biocpkg("GenomicTuples")` package
-is based almost entirely on the wonderful `r Biocpkg("GenomicRanges")`
-package. Therefore, I have tried to keep the user interface as similar
-as possible. This vignette is also heavily based on the vignette "An
-Introduction to Genomic Ranges Classes", which is included with the 
-`r Biocpkg("GenomicRanges")` package[^GenomicRanges]. While not essential, familiarity with the `r Biocpkg("GenomicRanges")` will be of benifit in understanding the `r Biocpkg("GenomicTuples")` package.
-
-[^GenomicRanges]: The `r Biocpkg("GenomicRanges")` vignette can be accessed 
-by typing` vignette("GenomicRangesIntroduction", package = "GenomicRanges")` at the R console.
+As you will see, the functionality of the `GenomicTuples` package is based almost entirely on the wonderful `GenomicRanges` package. Therefore, I have tried to keep the user interface as similar as possible.
 
 ## What is a genomic tuple?
 
-A genomic tuple is defined by a _sequence name_ (`seqnames`), a 
-_strand_ (`strand`) and a _tuple_ (`tuples`). All positions 
-in a genomic tuple must be on the same strand and sorted in ascending order. 
-Each tuple has an associated `size`, which is a positive integer. For example, 
-`chr1:+:{34, 39, 60}` is a 3-tuple (`size` = 3) of the 
-positions `chr1:34`, `chr1:39` and `chr1:60` on the 
-`+` strand.
+A genomic tuple is defined by a `seqname`, a `strand` and a `tuple`. All positions in a tuple must be on the same strand and sorted in ascending order. Each tuple has an associated `size`. For example, `chr1:+:{34, 39, 60}` is a 3-tuple (`size` = 3) of the positions `chr1:34`, `chr1:39` and `chr1:60` on the `+` strand.  The `size` of a tuple is an integer, $1, 2, \ldots$. 
 
-When referring to genomic tuples of a general (fixed) `size`, I
-will abbreviate these to $m$-tuples, where $m$ = `size`. I
-will refer to the first position as $pos_{1}$ (`pos1`), the second
-as $pos_{2}$ (`pos2`), $\ldots{}$, and the final position as
-$pos_{m}$ (`posm`).
+When talking about genomic tuples of a general (fixed) `size`, I will abbreviate these to _m-tuples_, where $m$ = `size`. I will refer to the first position as $pos_{1}$/`pos1`, the second as $pos_{2}$/`pos2`, ..., and the final position as $pos_{m}$/`posm`.
 
-The difference between a genomic tuple and a genomic range can be
-thought of as the difference between a set and an interval. For example,
-the genomic tuple `chr10:-:{800, 900}` only includes the
-positions `chr10:-:800` and `chr10:-:900` whereas the
-genomic range `chr10:-:[800, 900]` includes the positions
-`chr10:-:800`, `chr10:-:801`, `chr10:-:802`,
-$\ldots{}$, `chr10:-:900`.
+The difference between a genomic tuple and a genomic range can be thought of as the difference between a set and an interval. For example, the genomic tuple `chr10:-:{800, 900}` only includes the positions `chr10:-:800` and `chr10:-:900` whereas the genomic range `chr10:-:[800, 900]` includes the positions `chr10:-:800`, `chr10:-:801`, `chr10:-:802`, ..., `chr10:-:900`.
 
-## When might you need a genomic tuple?
+# `GTuples`
 
-In short, whenever the co-ordinates of your genomic data are better defined by 
-a set than by an interval.
+The `GTuples` class represents a collection of genomic tuples, where each tuple has the same `size`. These objects can be created by using the `GTuples` constructor function. For example,
 
-The original use case for the _GTuples_ class was to 
-store the genomic co-ordinates of "methylation patterns". I am currently 
-developing these ideas in a separate R package, 
-`r Githubpkg("PeteHaitch/MethylationTuples")`, which makes heavy use of the 
-_GTuples_ class. Other genomic data, such as long reads containing 
-multiple variants, may also be better conceptualised as genomic tuples rather 
-than as genomic ranges and therefore may benefit from the 
-`r Biocpkg("GenomicTuples")` infrastructure.
+```{r, eval = TRUE, echo = FALSE}
+library(GenomeInfoDb)
+```
 
-# _GTuples_
-
-The _GTuples_ class represents a collection of genomic tuples,
-where each tuple has the same `size`. These objects can be
-created by using the `GTuples` constructor function. For example, the following 
-code creates a _GTuples_ object with 10 genomic tuples:
-
-```{r initialize, echo = TRUE, eval = TRUE}
+```{r, eval = FALSE}
 library(GenomicTuples)
 ```
 
-```{r example-GTuples, echo = TRUE, eval = TRUE}
+```{r}
 seqinfo <- Seqinfo(paste0("chr", 1:3), c(1000, 2000, 1500), NA, "mock1")
 gt3 <- GTuples(seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"),
                               c(1, 3, 2, 4)),
@@ -97,125 +47,91 @@ names(gt3) <- letters[1:10]
 gt3
 ```
 
-The output of the _GTuples_ `show` method is very similar to that of the `show`
-method for _GenomicRanges::GRanges_ objects. Namely, it separates
-the information into a left and right hand region that are separated by
-`|` symbols. The genomic coordinates (`seqnames`,
-`tuples`, and `strand`) are located on the
-left-hand side and the metadata columns (annotation) are located on the
-right. For this example, the metadata is comprised of `score` and
-`GC` information, but almost anything can be stored in the
-metadata portion of a _GTuples_ object.
+creates a `GTuples` object with 10 genomic tuples. The output of the `GTuples` show method is very similar to that of the show method for `GenomicRanges::GRanges` objects. Namely, it separates the information into a left and right hand region that are separated by `|` symbols. The genomic coordinates (`seqnames`, __`tuples`__, and `strand`) are located on the left-hand side and the metadata columns (annotation) are located on the right. For this example, the metadata is comprised of `score` and `GC` information, but almost anything can be stored in the metadata portion of a `GTuples` object.
 
-The main difference between a _GTuples_ object and
-_GenomicRanges::GRanges_ object is that the former uses _tuples_
-while the latter uses _ranges_ in the genomic coordinates.
+The main difference between a `GTuples` and `GenomicRanges::GRanges` that we now have `tuples` rather than `ranges`.
 
-For even more information on the _GTuples_ class, be sure to
-consult the documentation:
+For even more information on the `GTuples` class be sure to consult the manual page.
 
-```{r GTuples-help, eval = FALSE, echo = TRUE}
+```{r, eval = FALSE}
 ?GTuples
 ```
 
-## _GTuples_ methods
+## Inherited methods
 
-Most methods defined for _GenomicRanges::GRanges_ are also
-defined for _GTuples_. Those that are not yet defined, which
-are those that make sense for ranges but generally not for tuples,
-return error messages.
+Most methods defined for `GenomicRanges::GRanges` are also applicable to `GTuples`. Those that are not yet defined, which are those that make sense for ranges but generally not for tuples, return error messages. 
 
-If you require a method that is not defined for _GTuples_ but is defined 
-for _GenomicRanges::GRanges_, then this can be achieved by first 
-coercing the _GTuples_ object to a _GenomicRanges::GRanges_ object; 
-__Warning: coercing a _GTuples_ object to a _GenomicRanges::GRanges_ is generally a destructive operation__.
+If a method that is not defined for `GTuples` but is defined for `GenomicRanges::GRanges` is truly required, then this can be achieved by first coercing the `GTuples` object to a `GenomicRanges::GRanges` object, noting that this is generally a destructive operation:
 
-```{r GTuples-coercion, eval = TRUE, echo = TRUE}
+```{r}
 as(gt3, "GRanges")
 ```
 
-### Basic _GTuples_ accessors
+### Basic `GTuples` accessors
 
-The components of the genomic coordinates within a _GTuples_
-object can be extracted using the `seqnames`,
-`tuples`, and `strand` accessor functions.
-__Warning: The `tuples` accessor should be used in place of the `ranges` accessor. While the `ranges` method is well-defined, namely it accesses $pos_{1}$ and $pos_{m}$ of the object, this is not generally what is desired or required.__
+The components of the genomic coordinates within a `GTuples` object can be extracted using the `seqnames`, __`tuples`__, and `strand` accessor functions. __The most important difference is that the `tuples` accessor should be used in place of the `ranges` accessor.__  While the `ranges` method is well-defined - namely it accesses $pos_{1}$ and $pos_{m}$ of the object - this is not generally what is required or required.
 
-```{r GTuples-accessors1, eval = TRUE, echo = TRUE}
+```{r}
 seqnames(gt3)
 tuples(gt3)
 strand(gt3)
 ```
 
-Stored annotations for these coordinates can be extracted as a
-_DataFrame_ object using the `mcols` accessor:
-
-```{r GTuples-accessors2, eval = TRUE, echo = TRUE}
+Stored annotations for these coordinates can be extracted as a `DataFrame` object using the `mcols` accessor:
+```{r}
 mcols(gt3)
 ```
 
-_Seqinfo_ can be extracted using the `seqinfo` accessor:
-
-```{r GTuples-accessors3, eval = TRUE, echo = TRUE}
+`Seqinfo` can be extracted using the `seqinfo` accessor:
+```{r}
 seqinfo(gt3)
 ```
 
-Methods for accessing the length and names are also defined:
-
-```{r GTuples-accessors4, eval = TRUE, echo = TRUE}
+Methods for accessing the length and names have also been defined:
+```{r}
 length(gt3)
 names(gt3)
 ```
 
-### Splitting and combining _GTuples_ objects}
+### Splitting and combining `GTuples` objects
 
-_GTuples_ objects can be divided into groups using the
-`split` method. This produces a _GTuplesList_ object, a
-class that will be discussed in detail in the next section:
+`GTuples` objects can be devided into groups using the `split` method. This produces a `GTuplesList` object, a class that will be discussed in detail in the next section.
 
-```{r split, eval = TRUE, echo = TRUE}
+```{r}
 sp <- split(gt3, rep(1:2, each=5))
 sp
 ```
 
-If you then grab the components of this `GenomicTuplesList`, they can also be 
-combined by using the `c` and `append` methods:
+If you then grab the components of this list, they can also be merged by using the `c` and `append` methods.
 
-```{r c, eval = TRUE, echo = TRUE}
+```{r}
 c(sp[[1]], sp[[2]])
 ```
 
-### Subsetting _GTuples_ objects
+### Subsetting `GTuples` objects
 
-The expected subsetting operations are also available for
-_GTuples_ objects:
+The expected subsetting operations are also available for `GTuples` objects.
 
-```{r subsetting-GTuples1, eval = TRUE, echo = TRUE}
+```{r}
 gt3[2:3]
 ```
 
-A second argument to the `[` subset operator can be used to
-specify which metadata columns to extract from the _GTuples_
-object. For example:
+A second argument to the `[` subset operator can be used to specify which metadata columns to extract from the `GTuples` object. For example,
 
-```{r subsetting-GTuples2, eval = TRUE, echo = TRUE}
+```{r}
 gt3[2:3, "GC"]
 ```
 
-You can also assign into elements of the _GTuples_ object. Here
-is an example where the 2nd row of a _GTuples_ object is replaced
-with the 1st row of `gt3`:
-
-```{r subsetting-GTuples3, eval = TRUE, echo = TRUE}
+You can also assign into elements of the `GTuples` object. Here is an example where the 2nd row of a `GTuples` object is replaced with the 1st row of `gt3`.
+```{r}
 gt3_mod <- gt3
 gt3_mod[2] <- gt3[1]
 head(gt3_mod, n = 3)
 ```
 
-There are also methods to repeat, reverse, or select specific portions
-of _GTuples_ objects:
+There are also methods to repeat, reverse, or select specific portions of `GTuples` objects.
 
-```{r subsetting-GTuples4, eval = TRUE, echo = TRUE}
+```{r}
 rep(gt3[2], times = 3)
 rev(gt3)
 head(gt3, n = 2)
@@ -223,13 +139,11 @@ tail(gt3, n = 2)
 window(gt3, start = 2, end = 4)
 ```
 
-### Basic tuple operations for _GTuples_ objects
+### Basic tuple operations for `GTuples` objects
 
-Basic tuple characteristics of _GTuples_ objects can be extracted
-using the `start`, `end`, and `tuples` methods.
-__Warning: While the `width` method is well-defined, namely as $pos_{m} - pos_{1} + 1$, this may not be what is required. Instead, please see the `IPD` method that will be discussed in the next section__.
+Basic tuple characteristics of `GTuples` objects can be extracted using the `start`, `end`, and `tuples` methods. __WARNING:__ While the `width` method is well-defined, namely as $pos_{m} - pos_{1} + 1$, this may not be what is required. Instead, please see the `IPD` method that will be discussed in the next section.
 
-```{r tuple-operations, eval = TRUE, echo = TRUE}
+```{r}
 start(gt3)
 end(gt3)
 tuples(gt3)
@@ -237,137 +151,99 @@ tuples(gt3)
 
 #### Intra-tuple operations
 
-Most of the intra-range methods defined for
-_GenomicRanges::GRanges_ objects are not currently defined via extension 
-for _GTuples_ objects due to the differences between _ranges_ and
-_tuples_. Those not currently defined, and which return an error message,
-are:
+Most of the intra-range methods defined for `GenomicRanges::GRanges` objects are not currently defined for `GTuples` objects due to the differences between ranges and tuples. Those not currently defined, and which return an error message, are:
 
-- `narrow`
-- `flank`
-- `promoters`
-- `resize`
-- `Ops`
+* `narrow`
+* `flank`
+* `promoters`
+* `resize`
+* `Ops`
 
-I am happy to add these methods if appropriate, so please contact me if
-you have suggestions for good definitions.
+I am happy to add these methods if appropriate, so please contact me if you have suggestions for good definitions. 
 
-Both the `trim` and `shift` methods are well-defined,
-although the former is somewhat limited since it will return an error if
-the _internal positions_ exceed the `seqlengths`:
-
-```{r shift, eval = TRUE, echo = TRUE}
+Both the `trim` and `shift` methods are well-defined, although the former is somewhat limited since it will return an error if the _internal positions_ exceed the `seqlength`:
+```{r}
 shift(gt3, 500)
 ```
-
-```{r hift-error, eval = TRUE, echo = TRUE, warning = TRUE, error = TRUE, purl = FALSE}
+```{r, warning = FALSE, error = FALSE}
 # Raises warning due to tuple being outside of seqlength
 x <- shift(gt3[1], 999)
 x
 
 # Returns an error because internal position exceeds sequence length, resulting 
-# in a malformed tuple when trimmed.
+# in a malformed tuple.
 trim(x)
 ```
 
 #### Inter-tuple operations
 
-None of the inter-range methods defined for
-_GenomicRanges::GRanges_ objects are currently defined via extension for
-_GTuples_ objects due to the differences between _ranges_ and
-_tuples_. Those not currently defined, and which return an error message,
-are:
+None of the inter-range methods defined for `GenomicRanges::GRanges` objects are currently defined for `GTuples` objects due to the differences between ranges and tuples. Those not currently defined, and which return an error message, are:
 
-- `range`
-- `reduce`
-- `gaps`
-- `disjoin`
-- `isDisjoint`
-- `disjointBins`
+* `range`
+* `reduce`
+* `gaps`
+* `disjoin`
+* `isDisjoint`
+* `disjointBins`
 
-I am happy to add these methods if appropriate, so please contact me if
-you have suggestions for good definitions.
+I am happy to add these methods if appropriate, so please contact me if you have suggestions for good definitions.
 
-#### Interval set operations for _GTuples_ objects
+## Methods unique to `GTuples`
 
-None of the interval set operations defined for
-_GenomicRanges::GRanges_ objects are currently defined via extension for
-_GTuples_ objects due to the differences between ranges and
-tuples. Those not currently defined, and which return an error message,
-are:
+`GTuples` have a few specifically defined methods that do not exist for `GenomicRanges::GRanges`. These are `tuples`, `size` and `IPD`. 
 
-- `union`
-- `intersect`
-- `setdiff`
-- `punion`
-- `pintersect`
-- `psetdiff`
-
-I am happy to add these methods if appropriate, so please contact me if
-you have suggestions for good definitions.
-
-### Additional methods unique to _GTuples_
-
-_GTuples_ have a few specifically defined methods that do not
-exist for _GenomicRanges::GRanges_. These are `tuples`,
-`size` and `IPD`.
-
-The `tuples` method we have already seen and is somewhat
-analagous to the `ranges` method for
-_GenomicRanges::GRanges_, although returning an integer matrix
-rather than an _IRanges::IRanges_ object:
-
-```{r tuples-method, eval = TRUE, echo = TRUE}
+The `tuples` method we have already seen and is somewhat analagous to the `ranges` method for `GenomicRanges::GRanges`, although returning an integer matrix rather than an `IRanges::IRanges` object:
+```{r}
 tuples(gt3)
 ```
 
-The `size` method returns the size of the tuples stored in the
-object:
-
-```{r size-method, eval = TRUE, echo = TRUE}
+The `size` method returns the size of the tuples stored in the object:
+```{r}
 size(gt3)
 ```
 
-Every m-tuple with $m \geq 2$ has an associated vector of intra-pair
-distances ($IPD$). This is defined as
-$IPD = (pos_{2} - pos_{1}, \ldots, pos_{m} - pos_{m - 1})$. The
-`IPD` method returns this as an integer matrix, where the $i^{th}$ 
-row contains the $IPD$ for the $i^{th}$ tuple:
+Every m-tuple with $m \geq 2$ has an associated vector of intra-pair distances ($IPD$). This is defined as $IPD = (pos_{2} - pos_{1}, \ldots, pos_{m} - pos_{m - 1}$. The `IPD` method returns this as an integer matrix:
 
-```{r IPD-method, eval = TRUE, echo = TRUE}
+```{r}
 IPD(gt3)
+x <- GTuples('chr1', matrix(c(10L, 20L, 50L, 100L), ncol = 4))
+IPD(x)
 ```
 
-## Implementation details
+## `findOverlaps`-based methods
 
-While the _GTuples_ class can be thought of as a matrix-link
-object, with the number of columns equal to the `size` of the
-tuples plus two (one for the `seqname` and one for the
-`strand`), internally, it extends the _GenomicRanges::GRanges_
-class. Specifically, the `ranges` slot stores an
-_IRanges::IRanges_ object containing $pos_{1}$ and $pos_{m}$ and,
-if `size` $> 2$, a matrix is used to store the co-ordinates of the  "internal 
-positions", $pos_{2}, \ldots, pos_{m - 1}$ in the `internalPos` slot. If
-`size` $\leq 2$ then the `internalPos` slot is set to `NULL`. The 
-`size` is stored as an integer in the `size` slot.
+`findOverlaps`-based methods are discussed in detail in a later section.
 
-While there are arguments for creating stand-alone _GTuples_ and
-_GTuplesList_ classes, by extending the _GenomicRanges::GRanges_ and
-_GenomicRanges::GRangesList_ classes we get a lot of very useful functionality
-"for free" via appropriately defined inheritance.
+## Interval set operations for `GTuples` objects
 
-# _GTuplesList_
+None of the interval set operations defined for `GenomicRanges::GRanges` objects are currently defined for `GTuples` objects due to the differences between ranges and tuples. Those not currently defined, and which return an error message, are:
 
-The _GTuplesList_ class is a container to store a _S4Vectors::List_
-of _GTuples_ objects. It extends the _GenomicRanges::GRangesList_ class.
+* `union`
+* `intersect`
+* `setdiff`
+* `punion`
+* `pintersect`
+* `psetdiff`
 
-Currently, all _GTuples_ in a _GTuplesList_ must have the
-same `size`[^size]. I expect that users will mostly use _GTuples_ objects and 
-have little need to directly use _GTuplesList_ objects.
+I am happy to add these methods if appropriate, so please contact me if you have suggestions for good definitions. 
 
-[^size]: This may be changed in future versions of `r Biocpkg("GenomicTuples")`. 
+## Implementation
 
-```{r GTuplesList, eval = TRUE, echo = TRUE}
+While the `GTuple` class can be thought of as a matrix-link object, with the number of columns equal to the `size` of the tuples plus two (one for the `seqname` and one for the `strand`[^ncol]), internally, it extends the `GenomicRanges::GRanges` class. Specifically, the `ranges` slot stores an `IRanges::IRanges` object containing $pos_{1}$ and $pos_{m}$ and, if required, a matrix is used to store the "internal" co-ordinates $pos_{2}, \ldots, pos_{m - 1}$ in the `internalPos` slot. If `size`$\leq 2$ then the `internalPos` slot is set to `NULL`. The `size` is stored as an integer in the `size` slot.
+
+[^ncol]: __WARNING:__ In order to be consistent with how `ncol` is defined for `GRanges` running `ncol(GTuples)` returns `NULL` rather than `size` + 2. Please use `size(GTuples)` to find the `size` of the genomic tuples stored in a `GTuples` instance.
+
+While there are arguments for creating stand-alone `GTuples` and `GTuplesList` classes, by extending the `GRanges` and `GRangesList` classes I get a lot of very useful functionality "for free" via appropriately defined inheritance.
+
+# `GTuplesList`
+
+The `GTuplesList` class is a container to store a `List` of `GTuples` objects. It extends the `GenomicRanges::GRangesList` class. 
+
+Currently, all `GTuples` in a `GTuplesList` must have the same `size`[^size]. I expect that users will mostly use `GTuples` objects and have little need to directly use `GTuplesList` objects.
+
+[^size]: This may be changed in future versions of `GenomicTuples`.
+
+```{r}
 seqinfo <- Seqinfo(paste0("chr", 1:3), c(1000, 2000, 1500), NA, "mock1")
 gt3 <- GTuples(seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"),
                               c(1, 3, 2, 4)),
@@ -379,142 +255,73 @@ gtl3 <- GTuplesList(A = gt3[1:5], B = gt3[6:10])
 gtl3
 ```
 
-For even more information on the _GTuplesList_ class, be sure to
-consult the documentation:
+## Inherited methods
 
-```{r GTuplesList-help, eval = FALSE, echo = TRUE}
-?GTuplesList
-```
+Most methods defined for `GenomicRanges::GRangesList` are also applicable to `GTuplesList`. Those that are not yet defined, which are those that make sense for ranges but generally not for tuples, return error messages. 
 
-## _GTuplesList_ methods
+If a method that is not defined for `GTuplesList` but is defined for `GenomicRanges::GRangesList` is truly required, then this can be achieved by first coercing the `GTuplesList` object to a `GenomicRanges::GRangesList` object, noting that this is generally a destructive operation:
 
-Most methods defined for _GenomicRanges::GRangesList_ are also
-applicable to _GTuplesList_. Those that are not yet defined,
-which are those that make sense for ranges but generally not for tuples,
-return error messages.
-
-If a method that is not defined for _GTuplesList_ but is defined
-for _GenomicRanges::GRangesList_ is truly required, then this can
-be achieved by first coercing the _GTuplesList_ object to a
-_GenomicRanges::GRangesList_ object, noting that this is
-generally a destructive operation:
-
-```{r GTuplesList-to-GRangesList, eval = TRUE, echo = TRUE}
+```{r}
 as(gtl3, "GRangesList")
 ```
 
-### Basic _GTuplesList_ accessors}
+### Basic `GTuplesList` accessors
 
-These are very similar to those available for _GTuples_ objects, except that 
-they typically return a list since the input is now essentially a list of 
-_GTuples_ objects:
+These are very similar to those available for `GTuples` objects, except that they typically return a list since the input is now essentially a list of `GTuples` objects.
 
-```{r basic-gtupleslist-accessors1, eval = TRUE, echo = TRUE}
+```{r}
 seqnames(gtl3)
 # Returns a list of integer matrices
 tuples(gtl3)
 tuples(gtl3)[[1]]
 strand(gtl3)
 ```
-
-The `length` and `names` methods will return the length and
-names of the list, respectively:
-
-```{r basic-gtupleslist-accessors2, eval = TRUE, echo = TRUE}
+The `length` and `names` methods will return the length or names of the list:
+```{r}
 length(gtl3)
 names(gtl3)
 ```
 
-_Seqinfo_ can be extracted using the `seqinfo` accessor:
-
-```{r basic-gtupleslist-accessors3, eval = TRUE, echo = TRUE}
+`Seqinfo` can be extracted using the `seqinfo` accessor:
+```{r}
 seqinfo(gtl3)
 ```
 
-The `elementLengths` method returns a list of integers
-corresponding to the result of calling `length` on each individual
-_GTuples_ object contained by the _GTuplesList_. This is a
-faster alternative to calling `lapply` on the _GTuplesList_:
-
-```{r basic-gtupleslist-accessors4, eval = TRUE, echo = TRUE}
+The `elementLengths` method returns a list of integers corresponding to the result of calling length on each individual `GTuples` object contained by the `GTuplesList`. This is a faster alternative to calling `lapply` on the `GTuplesList`.
+```{r}
 elementLengths(gtl3)
 ```
 
-You can also use `isEmpty` to test if a _GTuplesList_ object 
-contains anything:
-
-```{r basic-gtupleslist-accessors5, eval = TRUE, echo = TRUE}
+You can also use isEmpty to test if a `GTuplesList` object contains anything:
+```{r}
 isEmpty(gtl3)
 isEmpty(GTuplesList())
 ```
 
-Finally, in the context of a _GTuplesList_ object, the
-`mcols` method performs a similar operation to what it does on a
-_GTuples_ object. However, this metadata now refers to
-information at the list level instead of the level of the individual
-_GTuples_ objects:
-
-```{r basic-gtupleslist-accessors6, eval = TRUE, echo = TRUE}
-mcols(gtl3) <- c("Feature A", "Feature B")
+Finally, in the context of a `GTuplesList` object, the `mcols` method performs a similar operation to what it does on a `GTuples` object. However, this metadata now refers to information at the list level instead of the level of the individual `GTuples` objects:
+```{r}
+mcols(gtl3) <- c("Transcript A","Transcript B")
 mcols(gtl3)
 ```
 
-### Combining _GTuplesList_ objects
+### Combining `GTuplesList` objects
 
-_GTuplesList_ objects can be unlisted to combine the separate
-_GTuples_ objects that they contain as an expanded _GTuples_:
-
-```{r combining-GTuplesLists, eval = TRUE, echo = TRUE}
+`GTuplesList` objects can be unlisted to combine the separate `GTuples` objects that they contain as an
+expanded `GTuples`:
+```{r}
 ul <- unlist(gtl3)
 ul
 ```
 
-You can also combine _GTuplesList_ objects together using `append` or `c`.
+You can also append values together useing `append` or `c`.
 
-### Subsetting _GTuplesList_ objects
+### Basic tuple operations for `GTuplesList` objects
 
-Subsetting of _GTuplesList_ objects is identical to subsetting of
-_GenomicRanges::GRangesList_ objects:
+Basic tuple characteristics of `GTuplesList` objects can be extracted using the `start`, `end`, and `tuples` methods. These are very similar to those available for `GTuples` objects, except that they typically return a list since the input is now essentially a list of `GTuples` objects.
 
-```{r GTuplesList-subsetting1, echo = TRUE, eval = TRUE}
-gtl3[1]
-gtl3[[1]]
-gtl3["A"]
-gtl3$B
-```
+__WARNING:__ While the `width` method is well-defined, namely as an `IntegerList` of $pos_{m} - pos_{1} + 1$, this may not be what is required. Instead, please see the `IPD` method that will be discussed in the next section.
 
-When subsetting a _GTuplesList_, you can also pass in a second
-parameter (as with a _GTuples_ object) to again specify which of
-the metadata columns you wish to select:
-
-```{r GTuplesList-subsetting2, echo = TRUE, eval = TRUE}
-gtl3[1, "score"]
-gtl3["B", "GC"]
-```
-
-The `head`, `tail`, `rep`, `rev`, and `window` methods all behave as you would 
-expect them to for a _List_ object. For example, the elements referred to by 
-`window` are now list elements instead of _GTuples_ elements:
-
-```{r GTuplesList-subsetting3, echo = TRUE, eval = TRUE}
-rep(gtl3[[1]], times = 3)
-rev(gtl3)
-head(gtl3, n = 1)
-tail(gtl3, n = 1)
-window(gtl3, start = 1, end = 1)
-```
-
-### Basic tuple operations for _GTuplesList_ objects
-
-Basic tuple characteristics of _GTuplesList_ objects can be
-extracted using the `start`, `end`, and `tuples`
-methods. These are very similar to those available for _GTuples_
-objects, except that they typically return a list since the input is now
-essentially a list of _GTuples_ objects.
-
-__WARNING: While the `width` method is well-defined, namely it returns an _IntegerList_ of $pos_{m} - pos_{1} + 1$, this is not generally what is desired or required. Instead, please see the `IPD` method that is discussed later.__
-
-```{r GTuplesList-accessors, eval = TRUE, echo = TRUE}
+```{r}
 start(gtl3)
 end(gtl3)
 tuples(gtl3)
@@ -522,113 +329,37 @@ tuples(gtl3)
 
 #### Intra-tuple operations
 
-Most of the intra-range methods defined for _GenomicRanges::GRangesList_ 
-objects are not currently defined via extension for _GTuples_ objects due to 
-the differences between ranges and tuples. Those not currently defined, and 
-which return an error message, are:
+Most of the intra-range methods defined for `GenomicRanges::GRangesList` objects are not currently defined for `GTuples` objects due to the differences between ranges and tuples. Those not currently defined, and which return an error message, are:
 
-- `flank`
-- `promoters`
-- `resize`
-- `restrict`
+* `flank`
+* `promoters`
+* `resize`
+* `restrict`
 
-I am happy to add these methods if appropriate, so please contact me if
-you have suggestions for good definitions.
+I am happy to add these methods if appropriate, so please contact me if you have suggestions for good definitions. 
 
-The `shift` method is well-defined:
-
-```{r shift-GTuplesList, eval = TRUE, echo = TRUE}
+The`shift` method is well-defined:
+```{r}
 shift(gtl3, 500)
 shift(gtl3, IntegerList(A = 300L, B = 500L))
 ```
 
 #### Inter-tuple operations
 
-None of the inter-range methods defined for _GenomicRanges::GRangesList_ 
-objects are currently defined via extension for _GTuplesList_ objects due to 
-the differences between ranges and tuples. Those not currently defined, and 
-which return an error message, are:
+None of the inter-range methods defined for `GenomicRanges::GRangesList` objects are currently defined for `GTuplesList` objects due to the differences between ranges and tuples. Those not currently defined, and which return an error message, are:
 
-- `range`
-- `reduce`
-- `disjoin`
-- `isDisjoint`
+* `range`
+* `reduce`
+* `disjoin`
+* `isDisjoint`
 
-I am happy to add these methods if appropriate, so please contact me if
-you have suggestions for good definitions.
+I am happy to add these methods if appropriate, so please contact me if you have suggestions for good definitions. 
 
-#### Interval set operations for _GTuplesList_ objects
+## Methods unique to `GTuplesList`
 
-None of the interval set operations defined for
-_GenomicRanges::GRangesList_ objects are currently defined via extension 
-for _GTuplesList_ objects due to the differences between ranges and
-tuples. Those not currently defined, and which return an error message,
-are:
+Like `GTuples`, `GTuplesList` have a few specifically defined methods that do not exist for `GenomicRanges::GRangesList`. These are `tuples`, `size` and `IPD`. These are identical to the methods for `GTuples`, except that they typically return a list since the input is now essentially a list of `GTuples` objects.
 
-- `punion`
-- `pintersect`
-- `psetdiff`
-
-I am happy to add these methods if appropriate, so please contact me if
-you have suggestions for good definitions.
-
-### Looping over _GTuplesList_ objects
-
-Like for _GenomicRanges::GRangesList_ objects, for _GTuplesList_ objects there 
-is a family of apply methods. These include `lapply`, `sapply`, `mapply`, 
-`endoapply`, `mendoapply`, `Map`, and `Reduce`. The different looping methods 
-defined for _GTuplesList_ objects are useful for returning different kinds of
-results. The standard `lapply` and `sapply` behave according to convention, 
-with the `lapply` method returning a list and `sapply` returning a more 
-simplified output:
-
-```{r GTuplesList-looping1, echo = TRUE, eval = TRUE}
-lapply(gtl3, length)
-sapply(gtl3, length)
-```
-
-As with _GenomicRanges::GRangesList_ objects, there is also a multivariate
-version of `sapply`, called `mapply`, defined for _GTuplesList_ objects. And, 
-if you don't want the results simplified, you can call the `Map` method, which 
-does the same things as `mapply` but without simplifying the output:
-
-```{r GTuplesList-looping2, echo = TRUE, eval = TRUE}
-gtl3_shift <- shift(gtl3, 10)
-names(gtl3) <- c("shiftA", "shiftB")
-mapply(c, gtl3, gtl3_shift)
-Map(c, gtl3, gtl3_shift)
-```
-
-The `endoapply` method will return the results as a _GTuplesList_ object rather 
-than as a list:
-
-```{r GTuplesList-looping3, echo = TRUE, eval = TRUE}
-endoapply(gtl3, rev)
-```
-
-There is also a multivariate version of the `endoapply` method in the form of 
-the `mendoapply` method:
-
-```{r GTuplesList-looping4, echo = TRUE, eval = TRUE}
-mendoapply(c, gtl3, gtl3_shift)
-```
-
-Finally, the `Reduce` method will allow the _GTuples_ objects to be collapsed 
-across the whole of the _GTuplesList_ object:
-
-```{r GTuplesList-looping5, echo = TRUE, eval = TRUE}
-Reduce(c, gtl3)
-```
-
-### Additional methods unique to _GTuplesList_
-
-Like _GTuples_, _GTuplesList_ have a few specifically defined methods that do 
-not exist for _GenomicRanges::GRangesList_. These are `tuples`, `size` and 
-`IPD`. These are identical to the methods for _GTuples_, except that they 
-typically return a list since the input is now essentially a _List_ of _GTuples_ 
-objects.
-
-```{r unique-GTuplesList-methods, echo = TRUE, eval = TRUE}
+```{r}
 tuples(gtl3)
 tuples(gtl3)[[1]]
 size(gtl3)
@@ -636,269 +367,54 @@ IPD(gtl3)
 IPD(gtl3)[[1]]
 ```
 
-## Implementation details
+## `findOverlaps`-based methods
 
-The _GTuplesList_ class extends the _GenomicRanges::GRangesList_ class.
+`findOverlaps`-based methods are discussed in detail in a later section.
 
-# `findOverlaps`-based methods 
+## Interval set operations for `GTuplesList` objects
 
-The definition of what constitutes an "overlap" between genomic tuples, or 
-between genomic tuples and genomic ranges, lies at the heart of all 
-`findOverlaps`-based methods[^findOverlaps] for _GTuples_ and _GTuplesList_
-objects. 
+None of the interval set operations defined for `GenomicRanges::GRangesList` objects are currently defined for `GTuplesList` objects due to the differences between ranges and tuples. Those not currently defined, and which return an error message, are:
 
-[^findOverlaps]: The `findOverlaps`-based methods are `findOverlaps`, 
-`countOverlaps`, `overlapsAny` and `subsetByOverlaps`.
+* `punion`
+* `pintersect`
+* `psetdiff`
 
-I have chosen a definition that matches my intuition of what constitutes an "overlap" between genomic tuples or between genomic tuples and genomic 
-ranges. However, I am open to suggestions on amending or extending this 
-behaviour in future versions of `r Biocpkg("GenomicTuples")`.
+I am happy to add these methods if appropriate, so please contact me if you have suggestions for good definitions. 
 
-## Definition of overlapping genomic tuples
+### Subsetting `GTuplesList` objects
 
-I consider two genomic tuples to be _equal_ (`type = "equal"`) if they have 
-identical sequence names (`seqnames`), strands (`strand`) and tuples 
-(`tuples`). For 1-tuples and 2-tuples, this means we can simply
-defer to the `findOverlaps`-based methods for
-_GenomicRanges::GRanges_ and _GenomicRanges::GRangesList_
-objects via inheritance. However, we cannot do the same for m-tuples
-with $m > 2$ since this would ignore the "internal positions".
-Therefore, I have implemented a special case of the
-`findOverlaps` method for when `size` $> 2$ and
-`type = "equal"`, which ensures that the "internal positions" are also checked 
-for equality.
-
-__In all other cases genomic tuples are treated as genomic ranges.__ This 
-means that when `type = "any"`, `type = "start"`, `type = "end"` or 
-`type = "within"` then the genomic tuples are treated as if they were genomic 
-ranges. Specifically, _GTuples_ (resp. _GTuplesList_) are treated as though 
-they were _GenomicRanges::GRanges_ (resp. _GenomicRanges::GRangesList_) with 
-`pos1` = `start` and `posm` = `end`.
-
-## Definition of overlapping genomic tuples and ranges
-
-Genomic tuples are __always__ treated as genomic ranges when searching for overlaps between genomic tuples and genomic ranges.
-
-## Examples
-
-It is easiest to understand the above definitions by studying a few
-examples.
-
-Firstly, for 1-tuples where the _GTuples_ methods use the 
-_GenomicRanges::GRanges_ methods:
-
-```{r 1-tuples-findOverlaps-examples, eval = TRUE, echo = TRUE}
-# Construct example 1-tuples
-gt1 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr2'), 
-               tuples = matrix(c(10L, 10L, 10L, 10L), ncol = 1), 
-               strand = c('+', '-', '*', '+'))
-# GRanges version of gt1
-gr1 <- as(gt1, "GRanges")
-findOverlaps(gt1, gt1, type = 'any')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt1, gt1, type = 'any'), 
-          findOverlaps(gr1, gr1, type = 'any'))
-findOverlaps(gt1, gt1, type = 'start')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt1, gt1, type = 'start'), 
-          findOverlaps(gr1, gr1, type = 'start'))
-findOverlaps(gt1, gt1, type = 'end')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt1, gt1, type = 'end'), 
-          findOverlaps(gr1, gr1, type = 'end'))
-findOverlaps(gt1, gt1, type = 'within')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt1, gt1, type = 'within'), 
-          findOverlaps(gr1, gr1, type = 'within'))
-findOverlaps(gt1, gt1, type = 'equal')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt1, gt1, type = 'equal'), 
-          findOverlaps(gr1, gr1, type = 'equal'))
-# Can pass other arguments, such as select and ignore.strand
-findOverlaps(gt1, gt1, type = 'equal', ignore.strand = TRUE, select = 'last')
+Subsetting of `GTuplesList` objects is identical to subsetting of `GenomicRanges::GRangesList` objects:
+```{r}
+gtl3[1]
+gtl3[[1]]
+gtl3["A"]
+gtl3$B
 ```
 
-Next, for 2-tuples where the _GTuples_ methods use the
-_GenomicRanges::GRanges_ methods:
-
-```{r 2-tuples-findOverlaps-examples, eval = TRUE, echo = TRUE}
-# Construct example 2-tuples
-gt2 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
-               tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, 
-                                 20L), ncol = 2), 
-               strand = c('+', '-', '*', '+', '+'))
-# GRanges version of gt2
-gr2 <- as(gt2, "GRanges")
-findOverlaps(gt2, gt2, type = 'any')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt2, gt2, type = 'any'), 
-          findOverlaps(gr2, gr2, type = 'any'))
-findOverlaps(gt2, gt2, type = 'start')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt2, gt2, type = 'start'), 
-          findOverlaps(gr2, gr2, type = 'start'))
-findOverlaps(gt2, gt2, type = 'end')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt2, gt2, type = 'end'), 
-          findOverlaps(gr2, gr2, type = 'end'))
-findOverlaps(gt2, gt2, type = 'within')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt2, gt2, type = 'within'), 
-          findOverlaps(gr2, gr2, type = 'within'))
-findOverlaps(gt2, gt2, type = 'equal')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt2, gt2, type = 'equal'), 
-          findOverlaps(gr2, gr2, type = 'equal'))
-# Can pass other arguments, such as select and ignore.strand
-findOverlaps(gt2, gt2, type = 'equal', ignore.strand = TRUE, select = 'last')
+When subsetting a `GTuplesList`, you can also pass in a second parameter (as with a `GTuples` object) to again specify which of the metadata columns you wish to select:
+```{r}
+gtl3[1, "score"]
+gtl3["B", "GC"]
 ```
 
-Finally, for m-tuples with $m > 2$ where _GTuples_ methods use the
-_GenomicRanges::GRanges_ methods __unless `type = "equal"`__:
-
-```{r 3-tuples-findOverlaps-examples, eval = TRUE, echo = TRUE}
-# Construct example 3-tuples
-gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
-               tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, 
-                                 20L, 30L, 30L, 35L, 30L, 30L), ncol = 3), 
-               strand = c('+', '-', '*', '+', '+'))
-# GRanges version of gt3
-gr3 <- as(gt3, "GRanges")
-findOverlaps(gt3, gt3, type = 'any')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt3, gt3, type = 'any'), 
-          findOverlaps(gr3, gr3, type = 'any')) # TRUE
-
-findOverlaps(gt3, gt3, type = 'start')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt3, gt3, type = 'start'), 
-          findOverlaps(gr3, gr3, type = 'start')) # TRUE
-
-findOverlaps(gt3, gt3, type = 'end')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt3, gt3, type = 'end'), 
-          findOverlaps(gr3, gr3, type = 'end')) # TRUE
-
-findOverlaps(gt3, gt3, type = 'within')
-# GTuples and GRanges methods identical
-identical(findOverlaps(gt3, gt3, type = 'within'), 
-          findOverlaps(gr3, gr3, type = 'within')) # TRUE
-
-findOverlaps(gt3, gt3, type = 'equal')
-# GTuples and GRanges methods **not** identical because  GRanges method ignores 
-# "internal positions".
-identical(findOverlaps(gt3, gt3, type = 'equal'), 
-          findOverlaps(gr3, gr3, type = 'equal')) # FALSE
-# Can pass other arguments, such as select and ignore.strand
-findOverlaps(gt3, gt3, type = 'equal', ignore.strand = TRUE, select = 'last')
+The `head`, `tail`, `rep`, `rev`, and `window` methods all behave as you would expect them to for a list object. For example, the elements referred to by `window` are now list elements instead of `GTuples` elements:
+```{r}
+rep(gtl3[[1]], times = 3)
+rev(gtl3)
+head(gtl3, n = 1)
+tail(gtl3, n = 1)
+window(gtl3, start = 1, end = 1)
 ```
 
-# Comparison of genomic tuples
 
-I have chosen a definition that matches my intuition of what constitutes a  
-comparison between genomic tuples. However, I am open to suggestions 
-on amending or extending this behaviour in future versions of 
-`r Biocpkg("GenomicTuples")`.
+## Looping over GRangesList objects
 
-## Definition of comparison methods for genomic tuples
+__TODO: UP TO HERE__
 
-The comparison of two genomic tuples, `x` and `y`, is done by 
-first comparing the `seqnames(x)` to `seqnames(y)`, then 
-`strand(x)` to `strand(y)` and finally `tuples(x)` to `tuples(y)`. 
 
-Ordering of `seqnames` and `strand` is as implemented _GenomicRanges::GRanges_. 
-Ordering of `tuples` is element-wise, i.e. $pos_{1}, \ldots, pos_{m}$ are 
-compared in turn. For example, `chr1:+:10, 20, 30` is considered less than 
-`chr1:+:10, 20, 40`. This defines what I will refer to as the "natural order" 
-of genomic tuples.
+### Implementation
 
-The above is implemented in the `compare` method for 
-_GTuples_, which performs "generalized range-wise comparison" of two 
-_GTuples_ objects, `x` and `y`. That is, `compare(x, y)` returns an integer 
-vector where the $i^{th}$ element is a code describing how the $i^{th}$ element 
-in `x` is qualitatively positioned relatively to the $i^{th}$ element in `y`. 
-A code that is `< 0`, `= 0`, or `> 0`, corresponds to `x[i] < y[i]`, 
-`x[i] == y[i]`, or `x[i] > y[i]`, respectively.
-
-The 6 traditional binary comparison operators (`==`, `!=`, `<=`, `>=`, `<`, and 
-`>`), other comparison operators (`match`, `order`, `sort`, and `rank`) and 
-duplicate-based methods (`duplicated` and `unique`) all use this "natural 
-order".
-
-## Examples
-
-It is easiest to understand the above definitions by studying a few
-examples, here using 3-tuples:
-
-```{r 3-tuples-compare-examples, eval = TRUE, echo = TRUE}
-# Construct example 3-tuples
-gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2', 'chr1', 
-                            'chr1'), 
-               tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 5L, 10L, 20L, 20L, 
-                                 20L, 25L, 20L, 20L, 20L, 30L, 30L, 35L, 30L, 
-                                 30L, 30L, 35L), 
-                               ncol = 3), 
-               strand = c('+', '-', '*', '+', '+', '+', '+'))
-gt3
-
-# Compare each tuple to itself
-compare(gt3, gt3)
-gt3 < gt3
-gt3 > gt3
-gt3 == gt3
-
-# Compare the third tuple to all tuples
-compare(gt3[3], gt3)
-gt3[3] < gt3
-gt3[3] > gt3
-gt3[3] == gt3
-
-## Some comparisons where tuples differ only in one coordinate
-
-# Ordering of seqnames 
-# 'chr1' < 'chr2' for tuples with otherwise identical coordinates
-gt3[1] < gt3[5] # TRUE
-
-# Ordering of strands
-# '+' < '-' < '*' for tuples with otherwise identical coordiantes
-gt3[1] < gt3[2] # TRUE
-gt3[1] < gt3[2] # TRUE
-gt3[1] < unstrand(gt3[2]) # TRUE
-gt3[2] < unstrand(gt3[2]) # TRUE
-
-# Ordering of tuples
-# Tuples checked sequentially from pos1, ..., posm for tuples with otherwise
-# identical coordinates
-gt3[6] < gt3[1] # TRUE due to pos1
-gt3[2] < gt3[4] # TRUE due to pos2
-gt3[1] < gt3[7] # TRUE due to pos3
-
-# Sorting of tuples
-# Sorted first by seqnames, then by strand, then by tuples
-sort(gt3)
-
-# Duplicate tuples
-# Duplicate tuples must have identical seqnames, strand and positions (tuples)
-duplicated(c(gt3, gt3[1:3]))
-unique(c(gt3, gt3[1:3]))
-```
-
-# Acknowledgements
-
-I am very grateful to all the Bioconductor developers but particularly wish 
-to thank the developers of `r Biocpkg("GenomicRanges")` ([Lawrence, M. et al. Software for computing and annotating genomic ranges. PLoS Comput. Biol. 9, e1003118 (2013).](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003118)), which 
-`r Biocpkg("GenomicTuples")` uses heavily and is based upon. A special thanks to Hervé Pagès for his assistance and fixes when making upstream changes to `r Biocpkg("GenomicRanges")`.
+# `findOverlaps`-based methods
 
 # Session info
-
-Here is the output of `sessionInfo` on the system on which
-this document was compiled:
-
-```{r sessionInfo, eval = TRUE, echo = TRUE}
-sessionInfo()
-```
-
-# References
-
-- [Lawrence, M. et al. Software for computing and annotating genomic ranges. PLoS Comput. Biol. 9, e1003118 (2013).](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003118)
 
