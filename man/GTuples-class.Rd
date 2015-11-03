@@ -173,15 +173,10 @@
       \code{as(x, "GRanges"), granges(x)}: Creates a 
       \code{\link[GenomicRanges]{GRanges}} object from a
       \code{GTuples} object. \strong{WARNING:} This is generally a 
-      \emph{destructive} operation, as the original \code{GTuples} may not be 
-      re-creatable.
+      \emph{destructive} operation because all "internal" positions will be 
+      dropped.
     }
   }
-  % coercion to GRanges is possible but undocumented. I don't want to expose 
-  % this "feature" because it is destructive, i.e. can't generally recreate a 
-  % GTuples object from a GRanges object (unless size = 2).
-  % Similarly, coercion is defined for anything a GRanges can be coerced to due 
-  % to inheritance.
 }
 
 
