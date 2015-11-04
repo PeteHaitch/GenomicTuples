@@ -123,6 +123,12 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             }
             select <- match.arg(select)
             type <- match.arg(type)
+            # NOTE: The algorithm argument is not yet technically defunct in 
+            #       IRanges::findOverlaps nor GenomicRanges::findOverlaps 
+            #       (Bioc 3.3. devel). Rather, it calls a stop() if the 
+            #       algorithm argument is  not identical to "nclist". I defer 
+            #       to findOverlaps,GenomicRanges,GenomicRanges-method to catch 
+            #       the misuse of the algorithm argument.
             algorithm <- match.arg(algorithm)
             # TODO: Support maxgap and minoverlap when type = "equal" 
             # Need to define these for tuples.
@@ -149,9 +155,22 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             }
             
             if (isTRUE(size(query) >= 3) && type == 'equal') { 
+              # NOTE: The algorithm argument is not yet technically defunct in 
+              #       IRanges::findOverlaps nor GenomicRanges::findOverlaps 
+              #       (Bioc 3.3. devel). Rather, it calls a stop() if the 
+              #       algorithm argument is not identical to "nclist". I defer 
+              #       to findOverlaps,GenomicRanges,GenomicRanges-method to 
+              #       catch the misuse of the algorithm argument when size <= 2 
+              #       and raise my own identical error otherwise.
+              if (!identical(algorithm, "nclist")) {
+                stop("the 'algorithm' argument is defunct")
+              }
               .findEqual.GTuples(query, subject, maxgap, minoverlap, select, 
                                  ignore.strand)
             } else {
+              # NOTE: No warning that this in fact performs a coercion from 
+              #       GTuples to GRanges because from the user's perspective 
+              #       this does what they expect.
               callNextMethod()
             }
           }

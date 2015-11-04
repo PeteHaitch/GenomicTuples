@@ -1408,6 +1408,28 @@ test_that("Works on m-tuples, m > 3", {
   expect_identical(subsetByOverlaps(gtl4, gtl4, type = 'within'), 
                    gtl4)
 })
+
+test_that("Returns error if algorithm argument is not 'nclist'", {
+  # NOTE: The algorithm argument is not yet technically defunct in 
+  #       IRanges::findOverlaps nor GenomicRanges::findOverlaps (Bioc 3.3. 
+  #       devel). Rather, it calls a stop() if the algorithm argument is not 
+  #       identical to "nclist". I defer to 
+  #       findOverlaps,GenomicRanges,GenomicRanges-method to catch the misuse 
+  #       of the algorithm argument when size <= 2 and raise my own identical 
+  #       error otherwise.
+  expect_error(findOverlaps(gt1, gt1, type = "equal", 
+                            algorithm = "intervaltree"), 
+               "the 'algorithm' argument is defunct")
+  expect_error(findOverlaps(gt3, gt3, type = "equal", 
+                            algorithm = "intervaltree"), 
+               "the 'algorithm' argument is defunct")
+  error_1 <- try(findOverlaps(gt1, gt1, type = "equal", 
+                              algorithm = "intervaltree"), silent = TRUE)
+  error_3 <- try(findOverlaps(gt3, gt3, type = "equal", 
+                              algorithm = "intervaltree"), silent = TRUE)
+  expect_identical(error_1, error_3)
+})
+
 test_that("Warnings if 'type' is not 'equal'", {
   expect_warning(findOverlaps(gt1, gt1), 
                  paste0("'type' is not 'equal' so coercing 'query' and ", 

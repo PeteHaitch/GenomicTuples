@@ -50,7 +50,6 @@
 
 % extractList() and family:
 \alias{relistToClass,GTuples-method}
-\alias{splitAsListReturnedClass,GTuplesList-method}
 
 % show method:
 \alias{show,GTuplesList-method}
