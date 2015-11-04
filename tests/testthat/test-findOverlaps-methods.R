@@ -1408,3 +1408,17 @@ test_that("Works on m-tuples, m > 3", {
   expect_identical(subsetByOverlaps(gtl4, gtl4, type = 'within'), 
                    gtl4)
 })
+test_that("Warnings if 'type' is not 'equal'", {
+  expect_warning(findOverlaps(gt1, gt1), 
+                 paste0("'type' is not 'equal' so coercing 'query' and ", 
+                        "'subject' to 'GRanges' objects"))
+  expect_warning(findOverlaps(gt2, gt2), 
+                 paste0("'type' is not 'equal' so coercing 'query' and ", 
+                        "'subject' to 'GRanges' objects"))
+  expect_warning(findOverlaps(gt3, gt3), 
+                 paste0("'type' is not 'equal' so coercing 'query' and ", 
+                        "'subject' to 'GRanges' objects"))
+  expect_warning(findOverlaps(gt3, gt4), 
+                 paste0("'type' is not 'equal' so coercing 'query' and ", 
+                        "'subject' to 'GRanges' objects"))
+})

@@ -143,6 +143,9 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                      class(subject), "' with 'type = \"equal\"' if they have ",
                      "different 'size'.")
               }
+            } else {
+              warning("'type' is not 'equal' so coercing 'query' and 'subject' ", 
+                      "to 'GRanges' objects (see docs for details)")
             }
             
             if (isTRUE(size(query) >= 3) && type == 'equal') { 
