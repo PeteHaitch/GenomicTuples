@@ -149,16 +149,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
               .findEqual.GTuples(query, subject, maxgap, minoverlap, select, 
                                  ignore.strand)
             } else {
-              # TODO: Why doesn't callNextMethod() work?
-              #callNextMethod()
-              findOverlaps(query = as(query, "GRanges"), 
-                           subject = as(subject, "GRanges"), 
-                           maxgap = maxgap, 
-                           minoverlap = minoverlap,
-                           type = type,
-                           select = select,
-                           algorithm = algorithm,
-                           ignore.strand = ignore.strand)
+              callNextMethod()
             }
           }
 )
