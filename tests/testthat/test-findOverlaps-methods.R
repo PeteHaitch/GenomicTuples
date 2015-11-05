@@ -1,5 +1,8 @@
-# NB: Several objects used in testing are defined in 
-# tests/testthat/helper-make-test-data.R
+# NOTE: Several objects used in testing are defined in 
+#       tests/testthat/helper-make-test-data.R
+# NOTE: There are a large number of calls to suppressWarnings() in these tests 
+#       because findOverlaps() produces a warning whenever a GTuples object is 
+#       treated as a GRanges object.
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### findOverlaps
@@ -90,19 +93,19 @@ test_that("Works on 3-tuples", {
   hits <- findOverlaps(tmp3, tmp3, type = "equal")
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, 1:2)
-  hits <- findOverlaps(tmp3, tmp3, type = "any")
+  hits <- suppressWarnings(findOverlaps(tmp3, tmp3, type = "any"))
   expect_identical(length(hits), 4L)
   expect_identical(hits@queryHits, c(1L, 1L, 2L, 2L))
   expect_identical(hits@subjectHits, c(1L, 2L, 1L, 2L))
   expect_identical(findOverlaps(gt3, gt3, type = 'equal'), 
                    Hits(1:10, 1:10, 10L, 10L))
-  expect_identical(findOverlaps(q3, q3, type = 'any'),
+  expect_identical(suppressWarnings(findOverlaps(q3, q3, type = 'any')),
                    findOverlaps(q3_gr, q3_gr, type = 'any'))
-  expect_identical(findOverlaps(q3, q3, type = 'start'),
+  expect_identical(suppressWarnings(findOverlaps(q3, q3, type = 'start')),
                    findOverlaps(q3_gr, q3_gr, type = 'start'))
-  expect_identical(findOverlaps(q3, q3, type = 'end'),
+  expect_identical(suppressWarnings(findOverlaps(q3, q3, type = 'end')),
                    findOverlaps(q3_gr, q3_gr, type = 'end'))
-  expect_identical(findOverlaps(q3, q3, type = 'within'),
+  expect_identical(suppressWarnings(findOverlaps(q3, q3, type = 'within')),
                    findOverlaps(q3_gr, q3_gr, type = 'within'))
   expect_that(findOverlaps(q3, q3, type = 'equal'),
               not(is_identical_to(findOverlaps(q3_gr, q3_gr, 
@@ -143,19 +146,19 @@ test_that("Works on m-tuples, m > 3", {
   hits <- findOverlaps(tmp4, tmp4, type = "equal")
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, 1:2)
-  hits <- findOverlaps(tmp4, tmp4, type = "any")
+  hits <- suppressWarnings(findOverlaps(tmp4, tmp4, type = "any"))
   expect_identical(length(hits), 4L)
   expect_identical(hits@queryHits, c(1L, 1L, 2L, 2L))
   expect_identical(hits@subjectHits, c(1L, 2L, 1L, 2L))
   expect_identical(findOverlaps(gt4, gt4, type = 'equal'), 
                    Hits(1:10, 1:10, 10L, 10L))
-  expect_identical(findOverlaps(q4, q4, type = 'any'),
+  expect_identical(suppressWarnings(findOverlaps(q4, q4, type = 'any')),
                    findOverlaps(q4_gr, q4_gr, type = 'any'))
-  expect_identical(findOverlaps(q4, q4, type = 'start'),
+  expect_identical(suppressWarnings(findOverlaps(q4, q4, type = 'start')),
                    findOverlaps(q4_gr, q4_gr, type = 'start'))
-  expect_identical(findOverlaps(q4, q4, type = 'end'),
+  expect_identical(suppressWarnings(findOverlaps(q4, q4, type = 'end')),
                    findOverlaps(q4_gr, q4_gr, type = 'end'))
-  expect_identical(findOverlaps(q4, q4, type = 'within'),
+  expect_identical(suppressWarnings(findOverlaps(q4, q4, type = 'within')),
                    findOverlaps(q4_gr, q4_gr, type = 'within'))
   expect_that(findOverlaps(q4, q4, type = 'equal'),
               not(is_identical_to(findOverlaps(q4_gr, q4_gr, 
@@ -266,20 +269,20 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  hits <- findOverlaps(gt3, gtl3, type = "start")
+  hits <- suppressWarnings(findOverlaps(gt3, gtl3, type = "start"))
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 6L))
   expect_identical(hits@subjectHits, 1:2)
-  expect_identical(findOverlaps(gt3, gtl3, type = 'any'), 
+  expect_identical(suppressWarnings(findOverlaps(gt3, gtl3, type = 'any')), 
                    findOverlaps(gr3, grl3, 
                                 type = 'any'))
-  expect_identical(findOverlaps(gt3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(findOverlaps(gt3, gtl3, type = 'start')), 
                    findOverlaps(gr3, grl3, 
                                 type = 'start'))
-  expect_identical(findOverlaps(gt3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(findOverlaps(gt3, gtl3, type = 'end')), 
                    findOverlaps(gr3, grl3, 
                                 type = 'end'))
-  expect_identical(findOverlaps(gt3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(findOverlaps(gt3, gtl3, type = 'within')), 
                    findOverlaps(gr3, grl3, 
                                 type = 'within'))
 })
@@ -287,20 +290,20 @@ test_that("Works on 3-tuples", {
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  hits <- findOverlaps(gt4, gtl4, type = "start")
+  hits <- suppressWarnings(findOverlaps(gt4, gtl4, type = "start"))
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 6L))
   expect_identical(hits@subjectHits, 1:2)
-  expect_identical(findOverlaps(gt4, gtl4, type = 'any'), 
+  expect_identical(suppressWarnings(findOverlaps(gt4, gtl4, type = 'any')), 
                    findOverlaps(gr4, grl4, 
                                 type = 'any'))
-  expect_identical(findOverlaps(gt4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(findOverlaps(gt4, gtl4, type = 'start')), 
                    findOverlaps(gr4, grl4, 
                                 type = 'start'))
-  expect_identical(findOverlaps(gt4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(findOverlaps(gt4, gtl4, type = 'end')), 
                    findOverlaps(gr4, grl4, 
                                 type = 'end'))
-  expect_identical(findOverlaps(gt4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(findOverlaps(gt4, gtl4, type = 'within')), 
                    findOverlaps(gr4, grl4, 
                                 type = 'within'))
 })
@@ -373,20 +376,20 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  hits <- findOverlaps(gtl3, gt3, type = "start")
+  hits <- suppressWarnings(findOverlaps(gtl3, gt3, type = "start"))
   expect_identical(length(hits), 10L)
   expect_identical(hits@queryHits, rep(1:2, each = 5))
   expect_identical(hits@subjectHits, 1:10)
-  expect_identical(findOverlaps(gtl3, gt3, type = 'any'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gt3, type = 'any')), 
                    findOverlaps(grl3, gr3, 
                                 type = 'any'))
-  expect_identical(findOverlaps(gtl3, gt3, type = 'start'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gt3, type = 'start')), 
                    findOverlaps(grl3, gr3, 
                                 type = 'start'))
-  expect_identical(findOverlaps(gtl3, gt3, type = 'end'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gt3, type = 'end')), 
                    findOverlaps(grl3, gr3, 
                                 type = 'end'))
-  expect_identical(findOverlaps(gtl3, gt3, type = 'within'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gt3, type = 'within')), 
                    findOverlaps(grl3, gr3, 
                                 type = 'within'))
 })
@@ -394,20 +397,20 @@ test_that("Works on 3-tuples", {
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  hits <- findOverlaps(gtl4, gt4, type = "start")
+  hits <- suppressWarnings(findOverlaps(gtl4, gt4, type = "start"))
   expect_identical(length(hits), 10L)
   expect_identical(hits@queryHits, rep(1:2, each = 5))
   expect_identical(hits@subjectHits, 1:10)
-  expect_identical(findOverlaps(gtl4, gt4, type = 'any'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gt4, type = 'any')), 
                    findOverlaps(grl4, gr4, 
                                 type = 'any'))
-  expect_identical(findOverlaps(gtl4, gt4, type = 'start'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gt4, type = 'start')), 
                    findOverlaps(grl4, gr4, 
                                 type = 'start'))
-  expect_identical(findOverlaps(gtl4, gt4, type = 'end'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gt4, type = 'end')), 
                    findOverlaps(grl4, gr4, 
                                 type = 'end'))
-  expect_identical(findOverlaps(gtl4, gt4, type = 'within'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gt4, type = 'within')), 
                    findOverlaps(grl4, gr4, 
                                 type = 'within'))
 })
@@ -441,7 +444,7 @@ test_that("Works on empty GTuples", {
 test_that("Works on 1-tuples", {
   # Just need to test that output is the same as if the GTuplesList were 
   # GRangesList
-  hits <- findOverlaps(gtl1, gtl1, type = "start")
+  hits <- suppressWarnings(findOverlaps(gtl1, gtl1, type = "start"))
   expect_true(inherits(hits, "Hits"))
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
@@ -467,7 +470,7 @@ test_that("Works on 1-tuples", {
 test_that("Works on 2-tuples", {
   # Just need to test that output is the same as if the GTuplesList were 
   # GRangesList
-  hits <- findOverlaps(gtl2, gtl2, type = "start")
+  hits <- suppressWarnings(findOverlaps(gtl2, gtl2, type = "start"))
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
   expect_identical(hits@subjectHits, c(1L, 2L))
@@ -492,23 +495,23 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuplesList were 
   # GRangesList
-  hits <- findOverlaps(gtl3, gtl3, type = "start")
+  hits <- suppressWarnings(findOverlaps(gtl3, gtl3, type = "start"))
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
   expect_identical(hits@subjectHits, c(1L, 2L))
-  expect_identical(findOverlaps(gtl3, gtl3, type = 'any'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gtl3, type = 'any')), 
                    findOverlaps(grl3, 
                                 grl3, 
                                 type = 'any'))
-  expect_identical(findOverlaps(gtl3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gtl3, type = 'start')), 
                    findOverlaps(grl3, 
                                 grl3, 
                                 type = 'start'))
-  expect_identical(findOverlaps(gtl3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gtl3, type = 'end')), 
                    findOverlaps(grl3, 
                                 grl3, 
                                 type = 'end'))
-  expect_identical(findOverlaps(gtl3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl3, gtl3, type = 'within')), 
                    findOverlaps(grl3, 
                                 grl3, 
                                 type = 'within'))
@@ -517,23 +520,23 @@ test_that("Works on 3-tuples", {
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  hits <- findOverlaps(gtl4, gtl4, type = "start")
+  hits <- suppressWarnings(findOverlaps(gtl4, gtl4, type = "start"))
   expect_identical(length(hits), 2L)
   expect_identical(hits@queryHits, c(1L, 2L))
   expect_identical(hits@subjectHits, c(1L, 2L))
-  expect_identical(findOverlaps(gtl4, gtl4, type = 'any'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gtl4, type = 'any')), 
                    findOverlaps(grl4, 
                                 grl4, 
                                 type = 'any'))
-  expect_identical(findOverlaps(gtl4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gtl4, type = 'start')), 
                    findOverlaps(grl4, 
                                 grl4, 
                                 type = 'start'))
-  expect_identical(findOverlaps(gtl4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gtl4, type = 'end')), 
                    findOverlaps(grl4, 
                                 grl4, 
                                 type = 'end'))
-  expect_identical(findOverlaps(gtl4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(findOverlaps(gtl4, gtl4, type = 'within')), 
                    findOverlaps(grl4, 
                                 grl4, 
                                 type = 'within'))
@@ -596,13 +599,13 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # More complicated than 1- or 2-tuples. 
   # Specifically, need specialised tests if type = 'equal'
-  expect_identical(countOverlaps(gt3, gt3, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gt3, type = 'any')), 
                    countOverlaps(gr3, gr3, type = 'any'))
-  expect_identical(countOverlaps(gt3, gt3, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gt3, type = 'start')), 
                    countOverlaps(gr3, gr3, type = 'start'))
-  expect_identical(countOverlaps(gt3, gt3, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gt3, type = 'end')), 
                    countOverlaps(gr3, gr3, type = 'end'))
-  expect_identical(countOverlaps(gt3, gt3, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gt3, type = 'within')), 
                    countOverlaps(gr3, gr3, type = 'within'))
   expect_identical(countOverlaps(q3, q3, type = 'equal'), 
                    c(rep(3L, 3), rep(2L, 6)))
@@ -613,13 +616,13 @@ test_that("Works on 3-tuples", {
 test_that("Works on m-tuples, m > 3", {
   # More complicated than 1- or 2-tuples. 
   # Specifically, need specialised tests if type = 'equal'
-  expect_identical(countOverlaps(gt4, gt4, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gt4, type = 'any')), 
                    countOverlaps(gr4, gr4, type = 'any'))
-  expect_identical(countOverlaps(gt4, gt4, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gt4, type = 'start')), 
                    countOverlaps(gr4, gr4, type = 'start'))
-  expect_identical(countOverlaps(gt4, gt4, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gt4, type = 'end')), 
                    countOverlaps(gr4, gr4, type = 'end'))
-  expect_identical(countOverlaps(gt4, gt4, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gt4, type = 'within')), 
                    countOverlaps(gr4, gr4, type = 'within'))
   expect_identical(countOverlaps(q4, q4, type = 'equal'), 
                    c(rep(3L, 4), rep(2L, 8)))
@@ -671,26 +674,26 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(countOverlaps(gt3, gtl3, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gtl3, type = 'any')), 
                    countOverlaps(gr3, grl3, type = 'any'))
-  expect_identical(countOverlaps(gt3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gtl3, type = 'start')), 
                    countOverlaps(gr3, grl3, type = 'start'))
-  expect_identical(countOverlaps(gt3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gtl3, type = 'end')), 
                    countOverlaps(gr3, grl3, type = 'end'))
-  expect_identical(countOverlaps(gt3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gt3, gtl3, type = 'within')), 
                    countOverlaps(gr3, grl3, type = 'within'))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(countOverlaps(gt4, gtl4, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gtl4, type = 'any')), 
                    countOverlaps(gr4, grl4, type = 'any'))
-  expect_identical(countOverlaps(gt4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gtl4, type = 'start')), 
                    countOverlaps(gr4, grl4, type = 'start'))
-  expect_identical(countOverlaps(gt4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gtl4, type = 'end')), 
                    countOverlaps(gr4, grl4, type = 'end'))
-  expect_identical(countOverlaps(gt4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gt4, gtl4, type = 'within')), 
                    countOverlaps(gr4, grl4, type = 'within'))
 })
 
@@ -738,26 +741,26 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(countOverlaps(gtl3, gt3, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gt3, type = 'any')), 
                    countOverlaps(grl3, gr3, type = 'any'))
-  expect_identical(countOverlaps(gtl3, gt3, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gt3, type = 'start')), 
                    countOverlaps(grl3, gr3, type = 'start'))
-  expect_identical(countOverlaps(gtl3, gt3, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gt3, type = 'end')), 
                    countOverlaps(grl3, gr3, type = 'end'))
-  expect_identical(countOverlaps(gtl3, gt3, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gt3, type = 'within')), 
                    countOverlaps(grl3, gr3, type = 'within'))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(countOverlaps(gtl4, gt4, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gt4, type = 'any')), 
                    countOverlaps(grl4, gr4, type = 'any'))
-  expect_identical(countOverlaps(gtl4, gt4, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gt4, type = 'start')), 
                    countOverlaps(grl4, gr4, type = 'start'))
-  expect_identical(countOverlaps(gtl4, gt4, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gt4, type = 'end')), 
                    countOverlaps(grl4, gr4, type = 'end'))
-  expect_identical(countOverlaps(gtl4, gt4, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gt4, type = 'within')), 
                    countOverlaps(grl4, gr4, type = 'within'))
 })
 
@@ -805,26 +808,26 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuplesList were 
   # GRangesList 
-  expect_identical(countOverlaps(gtl3, gtl3, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gtl3, type = 'any')), 
                    countOverlaps(grl3, grl3, type = 'any'))
-  expect_identical(countOverlaps(gtl3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gtl3, type = 'start')), 
                    countOverlaps(grl3, grl3, type = 'start'))
-  expect_identical(countOverlaps(gtl3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gtl3, type = 'end')), 
                    countOverlaps(grl3, grl3, type = 'end'))
-  expect_identical(countOverlaps(gtl3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl3, gtl3, type = 'within')), 
                    countOverlaps(grl3, grl3, type = 'within'))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuplesList were 
   # GRangesList 
-  expect_identical(countOverlaps(gtl4, gtl4, type = 'any'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gtl4, type = 'any')), 
                    countOverlaps(grl4, grl4, type = 'any'))
-  expect_identical(countOverlaps(gtl4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gtl4, type = 'start')), 
                    countOverlaps(grl4, grl4, type = 'start'))
-  expect_identical(countOverlaps(gtl4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gtl4, type = 'end')), 
                    countOverlaps(grl4, grl4, type = 'end'))
-  expect_identical(countOverlaps(gtl4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(countOverlaps(gtl4, gtl4, type = 'within')), 
                    countOverlaps(grl4, grl4, type = 'within'))
 })
 
@@ -875,13 +878,13 @@ test_that("Works on 2-tuples", {
 
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges
-  expect_identical(overlapsAny(gt3, gt3, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gt3, type = 'any')), 
                    overlapsAny(gr3, gr3, type = 'any'))
-  expect_identical(overlapsAny(gt3, gt3, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gt3, type = 'start')), 
                    overlapsAny(gr3, gr3, type = 'start'))
-  expect_identical(overlapsAny(gt3, gt3, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gt3, type = 'end')), 
                    overlapsAny(gr3, gr3, type = 'end'))
-  expect_identical(overlapsAny(gt3, gt3, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gt3, type = 'within')), 
                    overlapsAny(gr3, gr3, type = 'within'))
   expect_identical(overlapsAny(q3, q3, type = 'equal'), 
                    rep(TRUE, 9))
@@ -891,13 +894,13 @@ test_that("Works on 3-tuples", {
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges
-  expect_identical(overlapsAny(gt4, gt4, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gt4, type = 'any')), 
                    overlapsAny(gr4, gr4, type = 'any'))
-  expect_identical(overlapsAny(gt4, gt4, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gt4, type = 'start')), 
                    overlapsAny(gr4, gr4, type = 'start'))
-  expect_identical(overlapsAny(gt4, gt4, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gt4, type = 'end')), 
                    overlapsAny(gr4, gr4, type = 'end'))
-  expect_identical(overlapsAny(gt4, gt4, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gt4, type = 'within')), 
                    overlapsAny(gr4, gr4, type = 'within'))
   expect_identical(overlapsAny(q4, q4, type = 'equal'), 
                    rep(TRUE, 12))
@@ -949,26 +952,26 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(overlapsAny(gt3, gtl3, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gtl3, type = 'any')), 
                    overlapsAny(gr3, grl3, type = 'any'))
-  expect_identical(overlapsAny(gt3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gtl3, type = 'start')), 
                    overlapsAny(gr3, grl3, type = 'start'))
-  expect_identical(overlapsAny(gt3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gtl3, type = 'end')), 
                    overlapsAny(gr3, grl3, type = 'end'))
-  expect_identical(overlapsAny(gt3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gt3, gtl3, type = 'within')), 
                    overlapsAny(gr3, grl3, type = 'within'))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(overlapsAny(gt4, gtl4, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gtl4, type = 'any')), 
                    overlapsAny(gr4, grl4, type = 'any'))
-  expect_identical(overlapsAny(gt4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gtl4, type = 'start')), 
                    overlapsAny(gr4, grl4, type = 'start'))
-  expect_identical(overlapsAny(gt4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gtl4, type = 'end')), 
                    overlapsAny(gr4, grl4, type = 'end'))
-  expect_identical(overlapsAny(gt4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gt4, gtl4, type = 'within')), 
                    overlapsAny(gr4, grl4, type = 'within'))
 })
 
@@ -1016,26 +1019,26 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(overlapsAny(gtl3, gt3, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gt3, type = 'any')), 
                    overlapsAny(grl3, gr3, type = 'any'))
-  expect_identical(overlapsAny(gtl3, gt3, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gt3, type = 'start')), 
                    overlapsAny(grl3, gr3, type = 'start'))
-  expect_identical(overlapsAny(gtl3, gt3, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gt3, type = 'end')), 
                    overlapsAny(grl3, gr3, type = 'end'))
-  expect_identical(overlapsAny(gtl3, gt3, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gt3, type = 'within')), 
                    overlapsAny(grl3, gr3, type = 'within'))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges 
   # and GTuplesList were GRangesList
-  expect_identical(overlapsAny(gtl4, gt4, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gt4, type = 'any')), 
                    overlapsAny(grl4, gr4, type = 'any'))
-  expect_identical(overlapsAny(gtl4, gt4, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gt4, type = 'start')), 
                    overlapsAny(grl4, gr4, type = 'start'))
-  expect_identical(overlapsAny(gtl4, gt4, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gt4, type = 'end')), 
                    overlapsAny(grl4, gr4, type = 'end'))
-  expect_identical(overlapsAny(gtl4, gt4, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gt4, type = 'within')), 
                    overlapsAny(grl4, gr4, type = 'within'))
 })
 
@@ -1083,26 +1086,26 @@ test_that("Works on 2-tuples", {
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuplesList were 
   # GRangesList 
-  expect_identical(overlapsAny(gtl3, gtl3, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gtl3, type = 'any')), 
                    overlapsAny(grl3, grl3, type = 'any'))
-  expect_identical(overlapsAny(gtl3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gtl3, type = 'start')), 
                    overlapsAny(grl3, grl3, type = 'start'))
-  expect_identical(overlapsAny(gtl3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gtl3, type = 'end')), 
                    overlapsAny(grl3, grl3, type = 'end'))
-  expect_identical(overlapsAny(gtl3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl3, gtl3, type = 'within')), 
                    overlapsAny(grl3, grl3, type = 'within'))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuplesList were 
   # GRangesList 
-  expect_identical(overlapsAny(gtl4, gtl4, type = 'any'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gtl4, type = 'any')), 
                    overlapsAny(grl4, grl4, type = 'any'))
-  expect_identical(overlapsAny(gtl4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gtl4, type = 'start')), 
                    overlapsAny(grl4, grl4, type = 'start'))
-  expect_identical(overlapsAny(gtl4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gtl4, type = 'end')), 
                    overlapsAny(grl4, grl4, type = 'end'))
-  expect_identical(overlapsAny(gtl4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(overlapsAny(gtl4, gtl4, type = 'within')), 
                    overlapsAny(grl4, grl4, type = 'within'))
 })
 
@@ -1147,13 +1150,13 @@ test_that("Works on 2-tuples", {
 })
 
 test_that("Works on 3-tuples", {
-  expect_identical(subsetByOverlaps(gt3, gt3[1:3], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gt3[1:3], type = 'any')), 
                    gt3[1:4])
-  expect_identical(subsetByOverlaps(gt3, gt3[1:3], type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gt3[1:3], type = 'start')), 
                    gt3[1:3])
-  expect_identical(subsetByOverlaps(gt3, gt3[1:3], type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gt3[1:3], type = 'end')), 
                    gt3[1:3])
-  expect_identical(subsetByOverlaps(gt3, gt3[1:3], type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gt3[1:3], type = 'within')), 
                    gt3[1:3])
   expect_identical(subsetByOverlaps(q3, q3[4:6], type = 'equal'), 
                    q3[1:6])
@@ -1163,13 +1166,13 @@ test_that("Works on 3-tuples", {
 })
 
 test_that("Works on m-tuples, m > 3", {
-  expect_identical(subsetByOverlaps(gt4, gt4[1:3], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gt4[1:3], type = 'any')), 
                    gt4[1:4])
-  expect_identical(subsetByOverlaps(gt4, gt4[1:3], type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gt4[1:3], type = 'start')), 
                    gt4[1:3])
-  expect_identical(subsetByOverlaps(gt4, gt4[1:3], type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gt4[1:3], type = 'end')), 
                    gt4[1:3])
-  expect_identical(subsetByOverlaps(gt4, gt4[1:3], type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gt4[1:3], type = 'within')), 
                    gt4[1:3])
   expect_identical(subsetByOverlaps(q4, q4[5:8], type = 'equal'), 
                    q4[1:8])
@@ -1218,24 +1221,24 @@ test_that("Works on 2-tuples", {
 })
 
 test_that("Works on 3-tuples", {
-  expect_identical(subsetByOverlaps(gt3, gtl3[1], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gtl3[1], type = 'any')), 
                    gt3[1:6])
-  expect_identical(subsetByOverlaps(gt3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gtl3, type = 'start')), 
                    gt3[c(1, 6)])
-  expect_identical(subsetByOverlaps(gt3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gtl3, type = 'end')), 
                    gt3[c(5, 10)])
-  expect_identical(subsetByOverlaps(gt3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt3, gtl3, type = 'within')), 
                    gt3)
 })
 
 test_that("Works on m-tuples, m > 3", {
-  expect_identical(subsetByOverlaps(gt4, gtl4[1], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gtl4[1], type = 'any')), 
                    gt4[1:6])
-  expect_identical(subsetByOverlaps(gt4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gtl4, type = 'start')), 
                    gt4[c(1, 6)])
-  expect_identical(subsetByOverlaps(gt4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gtl4, type = 'end')), 
                    gt4[c(5, 10)])
-  expect_identical(subsetByOverlaps(gt4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gt4, gtl4, type = 'within')), 
                    gt4)
 })
 
@@ -1302,11 +1305,11 @@ test_that("Works on 2-tuples", {
 })
 
 test_that("Works on 3-tuples", {
-  expect_identical(subsetByOverlaps(gtl3, gt3[1:4], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gt3[1:4], type = 'any')), 
                    gtl3[1])
-  expect_identical(subsetByOverlaps(gtl3, gt3, type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gt3, type = 'start')), 
                    gtl3)
-  expect_identical(subsetByOverlaps(gtl3, gt3, type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gt3, type = 'end')), 
                    gtl3)
   # Results of expect_equal(subsetByOverlaps(gtl3, gt3, type = 'within'),
   # GTuplesList()) is FALSE due to minor and (mostly) irrelevant 
@@ -1319,16 +1322,16 @@ test_that("Works on 3-tuples", {
   # size(gtl1) is 1, so the subset version of it should have the same size
   tmp@unlistData@size <- 3L
   tmp@unlistData@internalPos <- matrix(integer(0))
-  expect_identical(subsetByOverlaps(gtl3, gt3, type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gt3, type = 'within')), 
                    tmp)
 })
 
 test_that("Works on m-tuples, m > 3", {
-  expect_identical(subsetByOverlaps(gtl4, gt4[1:4], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gt4[1:4], type = 'any')), 
                    gtl4[1])
-  expect_identical(subsetByOverlaps(gtl4, gt4, type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gt4, type = 'start')), 
                    gtl4)
-  expect_identical(subsetByOverlaps(gtl4, gt4, type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gt4, type = 'end')), 
                    gtl4)
   # Results of expect_equal(subsetByOverlaps(gtl4, gt4, type = 'within'),
   # GTuplesList()) is FALSE due to minor and (mostly) irrelevant 
@@ -1341,7 +1344,7 @@ test_that("Works on m-tuples, m > 3", {
   # size(gtl1) is 1, so the subset version of it should have the same size
   tmp@unlistData@size <- 4L
   tmp@unlistData@internalPos <- matrix(integer(0), ncol = 2)
-  expect_identical(subsetByOverlaps(gtl4, gt4, type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gt4, type = 'within')), 
                    tmp)
 })
 
@@ -1388,24 +1391,24 @@ test_that("Works on 2-tuples", {
 })
 
 test_that("Works on 3-tuples", {
-  expect_identical(subsetByOverlaps(gtl3, gtl3[1], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gtl3[1], type = 'any')), 
                    gtl3)
-  expect_identical(subsetByOverlaps(gtl3, gtl3, type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gtl3, type = 'start')), 
                    gtl3)
-  expect_identical(subsetByOverlaps(gtl3, gtl3, type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gtl3, type = 'end')), 
                    gtl3)
-  expect_identical(subsetByOverlaps(gtl3, gtl3, type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl3, gtl3, type = 'within')), 
                    gtl3)
 })
 
 test_that("Works on m-tuples, m > 3", {
-  expect_identical(subsetByOverlaps(gtl4, gtl4[1], type = 'any'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gtl4[1], type = 'any')), 
                    gtl4)
-  expect_identical(subsetByOverlaps(gtl4, gtl4, type = 'start'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gtl4, type = 'start')), 
                    gtl4)
-  expect_identical(subsetByOverlaps(gtl4, gtl4, type = 'end'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gtl4, type = 'end')), 
                    gtl4)
-  expect_identical(subsetByOverlaps(gtl4, gtl4, type = 'within'), 
+  expect_identical(suppressWarnings(subsetByOverlaps(gtl4, gtl4, type = 'within')), 
                    gtl4)
 })
 
@@ -1415,28 +1418,22 @@ test_that("Returns error if algorithm argument is not 'nclist'", {
   #       devel). Rather, it calls a stop() if the algorithm argument is not 
   #       identical to "nclist". I defer to 
   #       findOverlaps,GenomicRanges,GenomicRanges-method to catch the misuse 
-  #       of the algorithm argument when size <= 2 and raise my own identical 
-  #       error otherwise.
+  #       of the algorithm argument when type != "equal" and raise my own 
+  #       identical error otherwise.
   expect_error(findOverlaps(gt1, gt1, type = "equal", 
                             algorithm = "intervaltree"), 
                "the 'algorithm' argument is defunct")
   expect_error(findOverlaps(gt3, gt3, type = "equal", 
                             algorithm = "intervaltree"), 
                "the 'algorithm' argument is defunct")
-  error_1 <- try(findOverlaps(gt1, gt1, type = "equal", 
+  error_1 <- try(findOverlaps(gt3, gt3, type = "start", 
                               algorithm = "intervaltree"), silent = TRUE)
   error_3 <- try(findOverlaps(gt3, gt3, type = "equal", 
                               algorithm = "intervaltree"), silent = TRUE)
   expect_identical(error_1, error_3)
 })
 
-test_that("Warnings if 'type' is not 'equal'", {
-  expect_warning(findOverlaps(gt1, gt1), 
-                 paste0("'type' is not 'equal' so coercing 'query' and ", 
-                        "'subject' to 'GRanges' objects"))
-  expect_warning(findOverlaps(gt2, gt2), 
-                 paste0("'type' is not 'equal' so coercing 'query' and ", 
-                        "'subject' to 'GRanges' objects"))
+test_that("Warnings if 'type' is not 'equal' and size > 2", {
   expect_warning(findOverlaps(gt3, gt3), 
                  paste0("'type' is not 'equal' so coercing 'query' and ", 
                         "'subject' to 'GRanges' objects"))

@@ -2,16 +2,19 @@
 \title{GenomicTuples News}
 \encoding{UTF-8}
 
-\section{Version 1.5.2}{
+\section{Version 1.5.x}{
+
 \itemize{
 
+\item New findOverlaps,GTuples,GTuples-method when type = "equal" gives 10-100x 
+      speedup by using data.table.
 \item After being deprecated from GenomicRanges in BioC 3.1, mapCoords() and 
       pmapCoords() are now defunct.
 \item After being deprecated in BioC 3.1, the "intervaltree" algorithm in 
       findOverlaps() is now defunct.
 }}
 
-\section{Version 1.1.14}{
+\section{Version 1.1.x}{
 
 \itemize{
 

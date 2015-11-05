@@ -78,3 +78,17 @@
   runValue(x) <- tmp
   as.vector(x)
 }
+
+#' Convert a GTuples object to a data.table.
+#' 
+#' @param gt A GTuples object
+#'
+#' @importFrom data.table as.data.table data.table
+#' @importMethodsFrom GenomeInfoDb seqnames
+#'        
+#' @keywords internal
+.GT2DT <- function(gt) {
+  cbind(data.table("seqnames" = S4Vectors:::decodeRle(seqnames(gt)),
+                   "strand" = S4Vectors:::decodeRle(strand(gt))),
+        as.data.table(tuples(gt)))
+}

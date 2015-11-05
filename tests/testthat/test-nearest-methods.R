@@ -3,6 +3,10 @@
 ### -------------------------------------------------------------------------
 ###
 
+# NOTE: There are a number of calls to suppressWarnings() in these tests 
+#       because nearest() and distanceToNearest() produce a warning whenever a 
+#       GTuples object is treated as a GRanges object.
+
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### precede() and follow()
 ###
@@ -95,14 +99,14 @@ test_that("Works on 2-tuples", {
 
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges
-  expect_identical(nearest(gt3), nearest(gr3))
-  expect_identical(nearest(gt3, gt4), nearest(gr3, gr4))
+  expect_identical(suppressWarnings(nearest(gt3)), nearest(gr3))
+  expect_identical(suppressWarnings(nearest(gt3, gt4)), nearest(gr3, gr4))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges
-  expect_identical(nearest(gt4), nearest(gr4))
-  expect_identical(nearest(gt4, gt3), nearest(gr4, gr3))
+  expect_identical(suppressWarnings(nearest(gt4)), nearest(gr4))
+  expect_identical(suppressWarnings(nearest(gt4, gt3)), nearest(gr4, gr3))
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -160,12 +164,16 @@ test_that("Works on 2-tuples", {
 
 test_that("Works on 3-tuples", {
   # Just need to test that output is the same as if the GTuples were GRanges
-  expect_identical(distanceToNearest(gt3), distanceToNearest(gr3))
-  expect_identical(distanceToNearest(gt3, gt4), distanceToNearest(gr3, gr4))
+  expect_identical(suppressWarnings(distanceToNearest(gt3)), 
+                   distanceToNearest(gr3))
+  expect_identical(suppressWarnings(distanceToNearest(gt3, gt4)), 
+                   distanceToNearest(gr3, gr4))
 })
 
 test_that("Works on m-tuples, m > 3", {
   # Just need to test that output is the same as if the GTuples were GRanges
-  expect_identical(distanceToNearest(gt4), distanceToNearest(gr4))
-  expect_identical(distanceToNearest(gt4, gt3), distanceToNearest(gr4, gr3))
+  expect_identical(suppressWarnings(distanceToNearest(gt4)), 
+                   distanceToNearest(gr4))
+  expect_identical(suppressWarnings(distanceToNearest(gt4, gt3)), 
+                   distanceToNearest(gr4, gr3))
 })

@@ -2,103 +2,60 @@
 ### findOverlaps methods
 ### -------------------------------------------------------------------------
 
-# TODO: Re-factor based on changes to findOverlaps,GRanges,GRanges-method
 #' An internal function used by the findOverlaps,GTuples,GTuples-method when 
 #' type = "equal".
 #' 
 #' @param query A GTuples instance
 #' @param subject A GTuples instance
-#' @param maxgap
+#' @param select See \code{findOverlaps} in the IRanges package for a 
+#' description of this argument.
+#' @param When set to \code{TRUE}, the strand information is ignored in the 
+#' overlap calculations.
 #' 
-#' @importFrom IRanges IRanges
-#' @importFrom S4Vectors Hits remapHits selectHits
-#' @importMethodsFrom GenomeInfoDb isCircular seqinfo
-#' @importMethodsFrom IRanges splitRanges
-#' @importMethodsFrom S4Vectors extractROWS queryHits subjectHits
+#' @importFrom data.table := .I setkeyv
+#' @importFrom S4Vectors Hits selectHits
+#' @importFrom utils globalVariables
+#' @importMethodsFrom GenomeInfoDb isCircular seqinfo seqlengths seqnames
+#' @importMethodsFrom IRanges which
 #' 
 #' @keywords internal
-.findEqual.GTuples <- function(query, subject, maxgap, minoverlap, 
-                               select, ignore.strand) {
+.findEqual.GTuples <- function(query, subject, select, ignore.strand) {
   
-  # Type is effectively hard-coded to 'equal' since this is the only value for
-  # which this function should be called.
-  type <- "equal"
-  
-  # merge() also checks that 'query' and 'subject' are based on the
-  # same reference genome.
-  seqinfo <- merge(seqinfo(query), seqinfo(subject))
-  
-  q_len <- length(query)
-  s_len <- length(subject)
-  q_seqnames <- seqnames(query)
-  s_seqnames <- seqnames(subject)
-  q_splitranges <- splitRanges(q_seqnames)
-  s_splitranges <- splitRanges(s_seqnames)
-  q_seqlevels_nonempty <- names(q_splitranges)[
-    sapply(q_splitranges, length) > 0]
-  s_seqlevels_nonempty <- names(s_splitranges)[
-    sapply(s_splitranges, length) > 0]
-  q_tuples <- unname(tuples(query))
-  s_tuples <- unname(tuples(subject))
+  si <- merge(seqinfo(query), seqinfo(subject))
+  # Put the tuples on circular seqlevels on the [1, seqlength]
+  # NOTE: Not the most efficient code, but since this is a rare scenario it'll 
+  #       probably do.
+  ic <- isCircular(si)
+  circular <- names(ic[!is.na(ic) & ic])
+  for (c in circular) {
+    q_circ <- which(seqnames(query) == c)
+    s_circ <- which(seqnames(subject) == c)
+    tuples(query[q_circ]) <- tuples(query[q_circ]) %% seqlengths(si)[c]
+    tuples(subject[s_circ]) <- tuples(subject[s_circ]) %% seqlengths(si)[c]
+  }
+
   if (ignore.strand) {
-    q_strand <- rep.int(1L, q_len)
-    s_strand <- rep.int(1L, s_len)
+    hits_filter <- quote(!is.na(q_idx))
   } else {
-    q_strand <- .strandAsSignedNumber(strand(query))
-    s_strand <- .strandAsSignedNumber(strand(subject))
+    hits_filter <- quote(!is.na(q_idx) & 
+                          (strand == "*" | i.strand == "*" | strand == i.strand))
   }
-  
-  common_seqlevels <- intersect(q_seqlevels_nonempty, s_seqlevels_nonempty)
-  # Apply over seqlevels
-  results <- lapply(common_seqlevels, function(seqlevel) {
-    if (isCircular(seqinfo)[seqlevel] %in% TRUE) {
-      circle.length <- seqlengths(seqinfo)[seqlevel]
-    } else {
-      circle.length <- NA
-    }
-    q_idx <- q_splitranges[[seqlevel]]
-    s_idx <- s_splitranges[[seqlevel]]
-    # Apply over the (m - 1) x 2-tuples in an m-tuple, where m = size
-    pair_hits <- lapply(seq_len(size(query) - 1L), function(i) {
-      q_matrix <- extractROWS(q_tuples, q_idx)[, seq.int(i, i + 1, 1), 
-                                               drop = FALSE]
-      q_ranges <- IRanges(start = q_matrix[, 1L], end = q_matrix[, 2L])
-      s_matrix <- extractROWS(s_tuples, s_idx)[, seq.int(i, i + 1, 1), 
-                                               drop = FALSE]
-      s_ranges <- IRanges(start = s_matrix[, 1L], end = s_matrix[, 2L])
-      min.score <- IRanges:::min_overlap_score(maxgap, minoverlap)
-      hits <- IRanges:::findOverlaps_NCList(q_ranges, s_ranges,
-                                            min.score = min.score,
-                                            type = type, select = "all",
-                                            circle.length = circle.length)
-      q_hits <- queryHits(hits)
-      s_hits <- subjectHits(hits)
-      compatible_strand <-
-        extractROWS(q_strand, q_idx)[q_hits] *
-        extractROWS(s_strand, s_idx)[s_hits] != -1L
-      hits <- hits[compatible_strand]
-      remapHits(hits, query.map = as.integer(q_idx),
-                new.queryLength = q_len,
-                subject.map = as.integer(s_idx),
-                new.subjectLength = s_len)
-    })
-    # Intersect the pair-wise hits to form the tuple-wise hits
-    Reduce(intersect, pair_hits)
-  })
-  
-  # Combine the results.
-  q_hits <- unlist(lapply(results, queryHits))
-  if (is.null(q_hits)) {
-    q_hits <- integer(0)
-  }
-  
-  s_hits <- unlist(lapply(results, subjectHits))
-  if (is.null(s_hits)) {
-    s_hits <- integer(0)
-  }
- 
-  selectHits(Hits(q_hits, s_hits, q_len, s_len), select = select)
+  q <- .GT2DT(query)[, q_idx := .I]
+  s <- .GT2DT(subject)[, s_idx := .I]
+  keycols <- c("seqnames", paste0("pos", seq_len(size(query))))
+  setkeyv(q, keycols)
+  setkeyv(s, keycols)
+  hits <- q[s, allow.cartesian = TRUE][eval(hits_filter), list(q_idx, s_idx)]
+  selectHits(Hits(queryHits = hits[, q_idx], 
+                  subjectHits = hits[, s_idx], 
+                  queryLength = nrow(q), 
+                  subjectLength = nrow(s)),
+             select = select)
 }
+# To avoid WARNINGs about "Undefined global functions or variables" in
+# R CMD check caused by the .findEqual.GTuples() function.
+#' @importFrom utils globalVariables
+globalVariables(c("q_idx", "s_idx"))
 
 # There is a specially defined method for findOverlaps when both the query and 
 # the subject are GTuples objects. This is to allow for "equal" matching 
@@ -106,7 +63,7 @@
 # If either the subject or the query is not a GTuples object then it defers to 
 # the findOverlaps method defined for GRanges objects.
 #' @importFrom methods as setMethod
-#' @importFrom S4Vectors isSingleNumber
+#' @importFrom S4Vectors isSingleNumber selectHits
 #' @importMethodsFrom IRanges findOverlaps
 #' 
 #' @export
@@ -117,60 +74,56 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                    algorithm = c("nclist", "intervaltree"),
                    ignore.strand = FALSE) {
             
-            # Argument matching
-            if (!isSingleNumber(maxgap) || maxgap < 0L) {
-              stop("'maxgap' must be a non-negative integer")
-            }
-            select <- match.arg(select)
+            # NOTE: Other arguments are checked by the method called by 
+            #       callNextMethod() or otherwise do not need to be explicitly 
+            #       checked.
             type <- match.arg(type)
-            # NOTE: The algorithm argument is not yet technically defunct in 
-            #       IRanges::findOverlaps nor GenomicRanges::findOverlaps 
-            #       (Bioc 3.3. devel). Rather, it calls a stop() if the 
-            #       algorithm argument is  not identical to "nclist". I defer 
-            #       to findOverlaps,GenomicRanges,GenomicRanges-method to catch 
-            #       the misuse of the algorithm argument.
+            select <- match.arg(select)
             algorithm <- match.arg(algorithm)
-            # TODO: Support maxgap and minoverlap when type = "equal" 
-            # Need to define these for tuples.
-            if (type == 'equal') {
-              if (isTRUE(maxgap != 0L)) {
-                stop("'maxgap' must be 0 when 'type = equal', other values ", 
-                     "not yet supported")
-              } 
-              if (isTRUE(minoverlap != 1L)) {
-                stop("'minoverlap' must be 1 when 'type = equal', other ", 
-                     "values not yet supported")
-              }
-              # Second check is whether one, and only one, of query or subject 
-              # have size NA.
-              if ((isTRUE(size(query) != size(subject))) || 
-                    (is.na(size(query)) + is.na(size(subject))) == 1) {
-                stop("Cannot findOverlaps between '", class(query), "' and '", 
-                     class(subject), "' with 'type = \"equal\"' if they have ",
-                     "different 'size'.")
-              }
-            } else {
-              warning("'type' is not 'equal' so coercing 'query' and 'subject' ", 
-                      "to 'GRanges' objects (see docs for details)")
+            if (!isTRUEorFALSE(ignore.strand)) {
+              stop("'ignore.strand' must be TRUE or FALSE")
             }
-            
-            if (isTRUE(size(query) >= 3) && type == 'equal') { 
+
+            if (identical(type, "equal")) {
               # NOTE: The algorithm argument is not yet technically defunct in 
               #       IRanges::findOverlaps nor GenomicRanges::findOverlaps 
               #       (Bioc 3.3. devel). Rather, it calls a stop() if the 
               #       algorithm argument is not identical to "nclist". I defer 
               #       to findOverlaps,GenomicRanges,GenomicRanges-method to 
-              #       catch the misuse of the algorithm argument when size <= 2 
-              #       and raise my own identical error otherwise.
+              #       catch the misuse of the algorithm argument when 
+              #       type != "equal" and raise my own identical error 
+              #       otherwise.
               if (!identical(algorithm, "nclist")) {
                 stop("the 'algorithm' argument is defunct")
               }
-              .findEqual.GTuples(query, subject, maxgap, minoverlap, select, 
-                                 ignore.strand)
+              
+              if (!isTRUE(maxgap == 0L)) {
+                stop("'maxgap' must be 0 when 'type = equal', other values ", 
+                     "not yet supported")
+              } 
+              if (!isTRUE(minoverlap == 1L)) {
+                stop("'minoverlap' must be 1 when 'type = equal', other ", 
+                     "values not yet supported")
+              }
+              if (is.na(size(query)) && is.na(size(subject))) {
+                # NOTE: A GTuples with NA-size is the same as a GRanges object 
+                #       with no ranges.
+                return(selectHits(Hits(), select = select))
+              } 
+              if (!isTRUE(size(query) == size(subject))) {
+                stop("Cannot findOverlaps between '", class(query), "' and '", 
+                     class(subject), "' with 'type = \"equal\"' if they have ",
+                     "different 'size'.")
+              }
+              .findEqual.GTuples(query, subject, select, ignore.strand)
             } else {
-              # NOTE: No warning that this in fact performs a coercion from 
-              #       GTuples to GRanges because from the user's perspective 
-              #       this does what they expect.
+              if (isTRUE(size(query) > 2)) {
+                # NOTE: No warning is given if size < 3 even though this in 
+                #       fact performs a coercion from GTuples to GRanges (
+                #       GTuples with size = 1 or 2 are basically GRanges).
+                warning("'type' is not 'equal' so coercing 'query' and ", 
+                        "'subject' to 'GRanges' objects (see docs for details)")
+              }
               callNextMethod()
             }
           }
