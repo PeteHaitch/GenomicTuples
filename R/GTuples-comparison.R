@@ -57,6 +57,7 @@
 # the return value is > 0.
 #' @importMethodsFrom GenomeInfoDb seqlevels "seqlevels<-" seqinfo
 #' @importMethodsFrom GenomicRanges granges
+#' @importMethodsFrom S4Vectors compare
 .GTuples.compare <- function(x, y) {
   
   # Different to comparing GRanges, I only allow comparison if x, y have same
@@ -149,71 +150,13 @@ setMethod("compare",
 ### unique() will work out-of-the-box on an GTuples object thanks to the 
 ### method for GRanges objects, which inherits from Vector objects.
 
-# TODO (longterm): While clever, this is a hack. There is likely a better way 
-#                  to do this.
-#' @importMethodsFrom GenomeInfoDb seqnames
-.duplicated.GTuples <- function(x, incomparables = FALSE, fromLast = FALSE, 
-                                method = c("hash", "base")) {
-  
-  if (!identical(incomparables, FALSE)) {
-    stop("\"duplicated\" method for '", class(x), "' objects ",
-         "only accepts 'incomparables = FALSE'")
-  }
-  
-  method <- match.arg(method)
-  
-  # Store tuples as integer matrix
-  if (is.na(size(x))) {
-    val <- logical(0)
-  } else {
-    if (size(x) == 1L) { 
-      mat <- c(as.integer(seqnames(x)), as.integer(strand(x)), start(x))
-      dim(mat) <- c(length(x), 2 + size(x))
-    } else {
-      mat <- c(as.integer(seqnames(x)), as.integer(strand(x)), start(x),
-               x@internalPos, end(x))
-      dim(mat) <- c(length(x), 2 + size(x))
-    }
-    
-    if (method == "base") {
-      # base::duplicated.array is slow for large matrices.
-      val <- duplicated.array(mat, incomparables = incomparables, MARGIN = 1, 
-                              fromLast = fromLast)
-    } else {
-      # Create a hash of each row of mat by computing the inner product of mat 
-      # with a vector of prime numbers.
-      # The choice of prime numbers is arbitrary and a better hash function 
-      # could be used.
-      PRIMES <- c(139L, 7919L, 2129L, 557L, 6857L, 3677L, 761L, 3023L, 6863L, 
-                  1361L, 6733L, 1811L, 1979L, 5573L, 1129L, 3659L, 3389L, 2383L, 
-                  211L, 7603L, 7487L, 1171L, 3877L, 7649L, 3767L, 683L, 2819L, 
-                  2161L, 5237L, 6737L, 1279L, 7547L, 1913L, 4787L, 2593L, 1063L, 
-                  17L, 4657L, 5659L, 6269L, 2141L, 5693L, 5L, 5399L, 3529L, 
-                  5189L, 509L, 3329L, 6197L, 4817L, 1741L, 6869L)
-      
-      # Use the first "2 + size(x)" elements of PRIMES in the inner product
-      # If "size(x)" is large then resample from PRIMES; don't expect this to be 
-      # required since "length(PRIMES)" is 52, which can handle up to 50-tuples.
-      if (size(x) <= length(PRIMES) - 2) {
-        primes <- PRIMES[seq_len(2 + size(x))]
-      } else {
-        primes <- c(PRIMES, sample(PRIMES, 
-                                   size(x) - length(PRIMES), replace = TRUE))
-      }
-      
-      hash <- mat %*% primes
-      
-      # Check the hash for duplicates, which identified **candidate** duplicate 
-      # tuples. Need to check from start and end to make sure I get all copies 
-      # of any duplicates.
-      val <- duplicated(hash) | duplicated(hash, fromLast = TRUE)
-      
-      # Check whether the candidates are truly duplicates
-      val[val] <- duplicated.array(mat[val, ], incomparables = incomparables, 
-                                   MARGIN = 1, fromLast = fromLast)
-    }
-  }  
-  as.vector(val)
+# NOTE: Don't explicitly import duplicated.data.table but rely on the method 
+#       being available since the S3 generic is available via base.
+.duplicated.GTuples <- function(x, incomparables = FALSE, fromLast = FALSE) {
+  if (!identical(incomparables, FALSE)) 
+    stop("\"duplicated\" method for '", class(x), "' objects only accepts ", 
+         "'incomparables = FALSE'")
+  duplicated(.GT2DT(x), incomparables = incomparables, fromLast = fromLast)
 }
 
 # S3/S4 combo for duplicated.GTuples
@@ -278,7 +221,7 @@ setMethod("match",
           }
 )
 
-# TODO: Need to explicitly import %in% otherwise not available; why?
+# NOTE: Need to explicitly import %in%.
 #' @importMethodsFrom S4Vectors %in%
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -286,12 +229,95 @@ setMethod("match",
 ###
 ### The order() and rank() methods for GTuples objects are consistent with the 
 ### order implied by compare().
+### is.unsorted() is a quick/cheap way of checking whether a GTuples
+### object is already sorted, e.g., called prior to a costly sort.
 ### sort is defined via inheritance to GRanges
 
-# TODO: Might be able to use data.table's blazing fast sorts by creating a 
-# data.table of seqnames, strand, pos1, ..., posn, and running 
-# data.table:::forder.
+.GTuples.asIntegerTuples <- function(x, ignore.strand = FALSE) {
+  a <- S4Vectors:::decodeRle(seqnames(x))
+  if (ignore.strand) {
+    b <- integer(length(x))
+  } else {
+    b <- S4Vectors:::decodeRle(strand(x))
+  }
+  c <- start(x)
+  if (size(x) > 2L) {
+    ipd <- IPD(x)
+    # NOTE: This is somewhat inefficient since it constructs the matrix and then
+    #       splits it into a list of vectors. 
+    # TODO (longterm): Do this without the aforementioned overhead.
+    rest <- split(ipd, rep(seq_len(ncol(ipd)), each = nrow(ipd)))
+  } else {
+    rest <- list()
+  }
+  c(list(a, b, c), rest)
+}
 
+#' @importFrom data.table := .GRP 
+#' @importFrom methods callNextMethod setMethod
+#' @importFrom S4Vectors isTRUEorFALSE
+#' 
+#' @export
+setMethod("is.unsorted", "GTuples", 
+          function(x, na.rm = FALSE, strictly = FALSE, ignore.strand = FALSE) {
+            
+            if (!identical(na.rm, FALSE)) {
+              warning("\"is.unsorted\" method for '", class(x), "' objects ",
+                      "ignores the 'na.rm' argument")
+            }
+            if (!isTRUEorFALSE(strictly)) {
+              stop("'strictly' must be TRUE of FALSE")
+            }
+            if (is.na(size(x))) {
+              return(FALSE)
+            }
+            
+            if (size(x) < 3L) {
+              callNextMethod()
+            } else {
+              # NOTE: This actually sorts the object (or, rather, the 
+              #       data.table representation of the object). Despite this, 
+              #       it's still very fast because data.table is so fast.
+              key <- c("seqnames", "strand", paste0("pos", seq_len(size(x))))
+              y <- .GT2DT(x, ignore.strand = ignore.strand)
+              is.unsorted(y[, grp := .GRP, keyby = key][, grp], 
+                          strictly = strictly)
+            }
+          }
+)
+#' @importFrom utils globalVariables
+globalVariables("grp")
+
+#' @importFrom data.table := .I setorderv
+#' @importFrom S4Vectors isTRUEorFALSE
+.order.GTuples <- function(x, decreasing = FALSE, ignore.strand = FALSE) {
+  if (!isTRUEorFALSE(decreasing)) {
+    stop("'decreasing' must be TRUE or FALSE")
+  }
+  key <- c("seqnames", "strand", paste0("pos", seq_len(size(x))))
+  dt <- .GT2DT(x, ignore.strand)[, idx := .I]
+  if (decreasing) {
+    order <- -1L
+  } else {
+    order <- 1L
+  }
+  setorderv(dt, key, order = order)
+  dt[, idx]
+  # TODO: Use this slightly faster version once data.table:::forderv() is 
+  #       exported.
+  # data.table:::forderv(.GT2DT(x, ignore.strand), 
+  #                      by = c("seqnames", "strand", paste0("pos", seq_len(size(x)))), 
+  #                      sort = TRUE, 
+  #                      retGrp = FALSE, 
+  #                      order = order), 
+  #                      na.last = na.last)
+}
+#' @importFrom utils globalVariables
+globalVariables("idx")
+
+# TODO: Support the 'ignore.strand' argument once order,GenomicRanges-method 
+#       does.
+#' @importFrom methods setMethod
 #' @importFrom S4Vectors isTRUEorFALSE
 #' @importMethodsFrom GenomeInfoDb seqnames
 #' 
@@ -309,49 +335,50 @@ setMethod("order",
             size <- sapply(args, size)
             
             if (all(is.na(size))) {
-              integer(0L)
+              return(integer(0L))
+            }
+            
+            if (!.zero_range(size)) {
+              stop(paste0("All '", class(args[[1]]), "' objects must have ", 
+                          "the same 'size'."))
+            }
+            
+            if (length(args) == 1L) {
+              return(.order.GTuples(args[[1L]], decreasing))
             } else {
-              
-              if (!.zero_range(size)) {
-                stop(paste0("All '", class(args[[1]]), "' objects must have ", 
-                            "the same 'size'."))
-              } else{
-                size <- size[1]
-              }
-              
-              order_args <- vector("list", (size + 2L) * length(args))
-              idx <- (size + 2L) * seq_len(length(args))
-              order_args[seq.int(from = 1L, to = max(idx), by = size + 2L)] <- 
-                lapply(args, function(x) {
-                  as.factor(seqnames(x))
-                })
-              order_args[seq.int(from = 2L, to = max(idx), by = size + 2L)] <- 
-                lapply(args, function(x) {
-                  as.factor(strand(x))
-                })
-              order_args[seq.int(from = 3L, to = max(idx), by = size + 2L)] <- 
-                lapply(args, start)
-              if (size > 2L) {
-                ip_idx <- unlist(
-                  lapply(X = seq.int(from = 4L, to = max(idx), by = size + 2L), 
-                         FUN = function(x, y) {
-                           x + y
-                         }, 
-                         y = seq.int(from = 0L, to = size - 3L, by = 1L) 
-                  )
-                )
-                order_args[ip_idx] <- unlist(lapply(args, function(x) {
-                  x <- x@internalPos
-                  lapply(seq_len(ncol(x)), function(i) {
-                    x[, i]
-                  })
-                }), recursive = FALSE)
-              }
-              if (size > 1L) {
-                order_args[idx] <- lapply(args, function(x){end(x)})
-              }
-              do.call(order, c(order_args, list(na.last = na.last, 
-                                                decreasing = decreasing)))
+              # TODO: Pass ignore.strand to .GTuples.asIntegerTuples once 
+              #       order() supports this argument.
+              order_args <- c(unlist(lapply(args, .GTuples.asIntegerTuples),
+                                     recursive = FALSE, use.names = FALSE),
+                              list(na.last = na.last, 
+                                   decreasing = decreasing))
+              do.call(order, order_args)
             }
           }
 )
+
+# NOTE: Need to (temporarily?) redefine sort,GTuples-method (see 
+#       https://github.com/PeteHaitch/GenomicTuples/issues/31)
+#' @importMethodsFrom S4Vectors extractROWS
+.sort.GTuples <- function(x, decreasing = FALSE, ignore.strand = FALSE, by) {
+  if (is.na(size(x))) {
+    return(x)
+  }
+  if (missing(by)) {
+    oo <- .order.GTuples(x, decreasing, ignore.strand)
+  } else {
+    if (!identical(ignore.strand, FALSE)) {
+      warning("'ignore.strand' ignored when 'by' is specified")
+    }
+    oo <- S4Vectors:::orderBy(by, x, decreasing = decreasing)
+  }
+  extractROWS(x, oo)
+}
+### S3/S4 combo for sort.GenomicRanges
+#' @rawNamespace S3method(sort, GTuples)
+sort.GTuples <- function(x, decreasing = FALSE, ...)
+  .sort.GTuples(x, decreasing = decreasing, ...)
+#' @importFrom methods setMethod
+#' 
+#' @export
+setMethod("sort", "GTuples", .sort.GTuples)

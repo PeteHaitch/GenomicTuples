@@ -14,7 +14,6 @@
 #' 
 #' @importFrom data.table := .I setkeyv
 #' @importFrom S4Vectors Hits selectHits
-#' @importFrom utils globalVariables
 #' @importMethodsFrom GenomeInfoDb isCircular seqinfo seqlengths seqnames
 #' @importMethodsFrom IRanges which
 #' 
@@ -34,18 +33,15 @@
     tuples(subject[s_circ]) <- tuples(subject[s_circ]) %% seqlengths(si)[c]
   }
 
-  if (ignore.strand) {
-    hits_filter <- quote(!is.na(q_idx))
-  } else {
-    hits_filter <- quote(!is.na(q_idx) & 
-                          (strand == "*" | i.strand == "*" | strand == i.strand))
-  }
-  q <- .GT2DT(query)[, q_idx := .I]
-  s <- .GT2DT(subject)[, s_idx := .I]
+  q <- .GT2DT(query, ignore.strand = ignore.strand)[, q_idx := .I]
+  s <- .GT2DT(subject, ignore.strand = ignore.strand)[, s_idx := .I]
   keycols <- c("seqnames", paste0("pos", seq_len(size(query))))
   setkeyv(q, keycols)
   setkeyv(s, keycols)
-  hits <- q[s, allow.cartesian = TRUE][eval(hits_filter), list(q_idx, s_idx)]
+  # Find between query and subject allowing for strand.
+  hits <- q[s, allow.cartesian = TRUE][
+    !is.na(q_idx) & (strand == "*" | i.strand == "*" | strand == i.strand), 
+    list(q_idx, s_idx)]
   selectHits(Hits(queryHits = hits[, q_idx], 
                   subjectHits = hits[, s_idx], 
                   queryLength = nrow(q), 
@@ -55,7 +51,7 @@
 # To avoid WARNINGs about "Undefined global functions or variables" in
 # R CMD check caused by the .findEqual.GTuples() function.
 #' @importFrom utils globalVariables
-globalVariables(c("q_idx", "s_idx"))
+globalVariables(c("q_idx", "s_idx", "i.strand"))
 
 # There is a specially defined method for findOverlaps when both the query and 
 # the subject are GTuples objects. This is to allow for "equal" matching 

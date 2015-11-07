@@ -248,6 +248,44 @@ test_that("%in% works", {
 ###
 context("order,GTuples-method and related methods")
 
+test_that("is.unsorted works", {
+  expect_false(is.unsorted(gt0))
+  expect_true(is.unsorted(gt1))
+  expect_false(is.unsorted(sort(gt1)))
+  expect_true(is.unsorted(gt2))
+  expect_false(is.unsorted(sort(gt2)))
+  expect_true(is.unsorted(gt3))
+  expect_false(is.unsorted(sort(gt3)))
+  expect_true(is.unsorted(gt4))
+  expect_false(is.unsorted(sort(gt4)))
+  q3 <- c(gt3[1], gt3[1])
+  strand(q3) <- c("-", "+")
+  expect_true(is.unsorted(q3))
+  expect_false(is.unsorted(q3, ignore.strand = TRUE))
+  strand(q3) <- "*"
+  expect_false(is.unsorted(q3))
+  expect_true(is.unsorted(q3, strictly = TRUE))
+  expect_warning(is.unsorted(gt2, na.rm = TRUE),
+                 paste0("\"is.unsorted\" method for 'GTuples' objects ignores ", 
+                        "the 'na.rm' argument"))
+  q3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
+                tuples = matrix(c(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, 
+                                  20L, 30L, 30L, 35L, 30L, 30L), ncol = 3), 
+                strand = c('+', '-', '*', '+', '+'))
+  q3 <- c(q3, rev(q3[3:5]))
+  expect_false(is.unsorted(q3, ignore.strand = TRUE))
+  expect_true(is.unsorted(sort(q3, ignore.strand = TRUE)))
+  expect_false(is.unsorted(sort(q3, ignore.strand = TRUE), 
+                           ignore.strand = TRUE))
+})
+
+test_that("order signature has ignore.strand", {
+  # NOTE: see https://github.com/PeteHaitch/GenomicTuples/issues/31
+  generic <- getGeneric(order)
+  method <- getMethod(order, "GTuples")
+  expect_identical(formals(generic), formals(method))
+})
+
 test_that("order works with single argument", {
   expect_identical(order(gt0), order(gr0))
   expect_identical(order(gt1), 

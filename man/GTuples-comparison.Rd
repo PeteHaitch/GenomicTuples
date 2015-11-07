@@ -13,6 +13,7 @@
 \alias{sort,GTuples-method}
 \alias{sort.GTuples}
 \alias{rank,GTuples-method}
+\alias{is.unsorted,GTuples-method}
 
 \title{Comparing and ordering genomic tuples}
 
@@ -25,8 +26,7 @@
 ## duplicated()
 ## ------------
 
-\S4method{duplicated}{GTuples}(x, incomparables = FALSE, fromLast = FALSE,
-           method = c("hash", "base"))
+\S4method{duplicated}{GTuples}(x, incomparables = FALSE, fromLast = FALSE)
 
 ## match()
 ## -------
@@ -43,6 +43,8 @@
 
 \S4method{rank}{GTuples}(x, na.last = TRUE,
      ties.method = c("average", "first", "random", "max", "min"))
+     
+\S4method{is.unsorted}{GTuples}(x, na.rm=FALSE, strictly=FALSE, ignore.strand = FALSE)
 
 ## Generalized element-wise (aka "parallel") comparison of 2 GTuples
 ## objects
@@ -57,11 +59,6 @@
   }
   \item{incomparables}{
     Not supported.
-  }
-  \item{method}{
-    There are two methods implemented: \code{hash} (default) and \code{base}. 
-    The \code{base} method is not recommended as it is much slower when the 
-    \code{GTuples} object contains a large number of tuples.
   }
   \item{fromLast, nomatch}{
     See \code{?`\link[GenomicRanges]{GenomicRanges-comparison}`} in the IRanges
@@ -89,6 +86,14 @@
     the resulting variables are passed to \code{order} to generate the
     ordering permutation.
   }
+  \item{na.rm}{
+    logical. Should missing values be removed before checking? WARNING: This
+    currently has no effect and is ignored.
+  }
+  \item{strictly}{
+    logical indicating if the check should be for \emph{strictly} increasing
+    values.
+  }
 }
 
 \details{
@@ -102,8 +107,8 @@
   \eqn{pos_{1}, \ldots, pos_{m}}.
   This way, the space of genomic tuples is totally ordered.
 
-  \code{order()}, \code{sort()}, and \code{rank()} on a \code{\link{GTuples}}
-  object are using this "natural order".
+  \code{order()}, \code{sort()}, \code{is.unsorted()}, and \code{rank()} on a 
+  \code{\link{GTuples}} object are using this "natural order".
 
   Also \code{==}, \code{!=}, \code{<=}, \code{>=}, \code{<} and \code{>}
   on \code{\link{GTuples}} objects are using this "natural order".
@@ -260,9 +265,15 @@ countMatches(gt3_levels, gt3)
 ## ---------------------------------------------------------------------
 ## E. order() AND RELATED METHODS
 ## ---------------------------------------------------------------------
+is.unsorted(gt3)
 order(gt3)
 sort(gt3)
-sort(gt3, ignore.strand = TRUE)
+is.unsorted(sort(gt3))
+
+is.unsorted(gt3, ignore.strand=TRUE)
+gt3_2 <- sort(gt3, ignore.strand=TRUE)
+is.unsorted(gt3_2)  # TRUE
+is.unsorted(gt3_2, ignore.strand=TRUE)  # FALSE
 
 ## TODO (TODO copied from GenomicRanges): Broken. Please fix!
 #sort(gt3, by = ~ seqnames + start + end) # equivalent to (but slower than) above

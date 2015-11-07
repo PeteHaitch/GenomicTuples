@@ -82,13 +82,28 @@
 #' Convert a GTuples object to a data.table.
 #' 
 #' @param gt A GTuples object
-#'
+#' @param When set to \code{TRUE}, the strand is set to "*".
 #' @importFrom data.table as.data.table data.table
 #' @importMethodsFrom GenomeInfoDb seqnames
 #'        
 #' @keywords internal
-.GT2DT <- function(gt) {
-  cbind(data.table("seqnames" = S4Vectors:::decodeRle(seqnames(gt)),
-                   "strand" = S4Vectors:::decodeRle(strand(gt))),
-        as.data.table(tuples(gt)))
+.GT2DT <- function(gt, ignore.strand = FALSE) {
+  
+  if (length(gt) == 0L) {
+    return(data.table())
+  }
+  
+  if (!isTRUEorFALSE(ignore.strand)) {
+    stop("'ignore.strand' must be TRUE of FALSE")
+  }
+  seqnames <- S4Vectors:::decodeRle(seqnames(gt))
+  if (ignore.strand) {
+    strand <- strand(rep("*", length(gt)))
+  } else {
+    strand <- S4Vectors:::decodeRle(strand(gt))
+  }
+  tuples <- as.data.table(tuples(gt))
+  cbind(data.table("seqnames" = seqnames,
+                   "strand" = strand),
+        tuples)
 }
