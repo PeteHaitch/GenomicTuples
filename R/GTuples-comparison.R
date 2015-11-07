@@ -218,7 +218,12 @@ setMethod("compare",
 
 # S3/S4 combo for duplicated.GTuples
 
-#' @export
+# NOTE: This should really just use the @export tag. However, because 
+#       BiocGenerics redefines duplicated as an S4 generic, roxygen2 doesn't 
+#       see this as an S3 method but rather as a function, and so adds 
+#       export(duplicated.GTuples) to the NAMESPACE rather than 
+#       S3method(duplicated, GTuples).
+#' @rawNamespace S3method(duplicated, GTuples)
 duplicated.GTuples <- function(x, incomparables = FALSE, ...) {
   .duplicated.GTuples(x, incomparables = incomparables, ...)
 }
