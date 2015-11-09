@@ -15,8 +15,7 @@
 setMethod("union", 
           c("GTuples", "GTuples"),
           function(x, y, ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " do not currently support the 'union' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'union' method.")
           }
 )
 
@@ -26,8 +25,7 @@ setMethod("union",
 setMethod("intersect", 
           c("GTuples", "GTuples"),
           function(x, y, ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " do not currently support the 'intersect' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'intersect' method.")
           }
 )
 
@@ -37,8 +35,7 @@ setMethod("intersect",
 setMethod("setdiff", 
           c("GTuples", "GTuples"),
           function(x, y, ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " do not currently support the 'setdiff' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'setdiff' method.")
           }
 )
 
@@ -53,8 +50,8 @@ setMethod("setdiff",
 setMethod("punion", 
           c("GTuples", "GTuples"),
           function(x, y, fill.gap = FALSE, ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'punion' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'punion' method.")
           }
 )
 
@@ -65,8 +62,8 @@ setMethod("punion",
 setMethod("punion", 
           c("GTuplesList", "GTuples"),
           function(x, y, fill.gap = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'punion' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'punion' method.")
           }
 )
 
@@ -76,8 +73,8 @@ setMethod("punion",
 #' @export
 setMethod("punion", c("GTuples", "GTuplesList"),
           function(x, y, fill.gap = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'punion' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'punion' method.")
           }
 )
 
@@ -89,8 +86,8 @@ setMethod("pintersect",
           c("GTuples", "GTuples"),
           function(x, y, resolve.empty = c("none", "max.start", "start.x"), 
                    ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'pintersect' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'pintersect' method.")
           }
 )
 
@@ -102,8 +99,8 @@ setMethod("pintersect",
           c("GTuplesList", "GTuples"),
           function(x, y, resolve.empty = c("none", "max.start", "start.x"), 
                    ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'pintersect' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'pintersect' method.")
           }
 )
 
@@ -115,8 +112,8 @@ setMethod("pintersect",
           c("GTuples", "GTuplesList"),
           function(x, y, resolve.empty = c("none", "max.start", "start.x"), 
                    ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'pintersect' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'pintersect' method.")
           }
 )
 
@@ -127,8 +124,8 @@ setMethod("pintersect",
 setMethod("pintersect", 
           c("GTuplesList", "GTuplesList"),
           function(x, y, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'pintersect' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'pintersect' method.")
           }
 )
 
@@ -139,8 +136,8 @@ setMethod("pintersect",
 setMethod("psetdiff",
           c("GTuples", "GTuples"),
           function(x, y, ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'psetdiff' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'psetdiff' method.")
           }
 )
 
@@ -151,8 +148,8 @@ setMethod("psetdiff",
 setMethod("psetdiff", c
           ("GTuples", "GTuplesList"),
           function(x, y, ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'psetdiff' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'psetdiff' method.")
           }
 )
 
@@ -163,8 +160,8 @@ setMethod("psetdiff", c
 setMethod("psetdiff", 
           c("GTuplesList", "GTuplesList"),
           function(x, y, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'psetdiff' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'psetdiff' method.")
           }
 )
 
@@ -175,7 +172,7 @@ setMethod("psetdiff",
 setMethod("pgap", 
           c("GTuples", "GTuples"),
           function(x, y, ignore.strand = FALSE, ...) {
-            stop(paste0(class(x), " and ", class(y), " do not currently ", 
-                        "support the 'pgap' method."))
+            stop(class(x), " and ", class(y), " do not currently support the ", 
+                 "'pgap' method.")
           }
 )

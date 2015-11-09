@@ -344,8 +344,8 @@ setMethod("order",
             }
             
             if (!.zero_range(size)) {
-              stop(paste0("All '", class(args[[1]]), "' objects must have ", 
-                          "the same 'size'."))
+              stop("All '", class(args[[1]]), "' objects must have the same ", 
+                   "'size'.")
             }
             
             if (length(args) == 1L) {

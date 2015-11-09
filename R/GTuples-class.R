@@ -330,20 +330,18 @@ setMethod("c",
             } else {
               args <- unname(list(x, ...))
             }
-            # "c" will error if there is no common class, e.g. c(GRanges(), "1")
-            # The following commented-out error makes this explicit to the user 
-            # for c,GTuples-method
-            #             if (!isTRUE(all(sapply(args, inherits, "GTuples")))) {
-            #                 stop(paste0("Cannot combine ", 
-            #                             paste0(unique(sapply(args, class)), 
-            #                                    collapse = ' and '), 
-            #                             " objects"))
-            #             }
+            # NOTE: "c" will error if there is no common class, e.g. 
+            #        c(GRanges(), "1"). The following commented-out error makes 
+            #        this explicit to the user for c,GTuples-method
+            # if (!isTRUE(all(sapply(args, inherits, "GTuples")))) {
+            #   stop("Cannot combine ", paste0(unique(sapply(args, class)),
+            #                                  collapse = ' and '), " objects")
+            # }
             if (!.zero_range(sapply(args, size)) && 
                 !isTRUE(all(is.na(sapply(args, size))))) {
-              stop(paste0("Cannot combine ", paste0(unique(sapply(args, class)), 
-                                                    collapse = ' and '), 
-                          " containing tuples of different 'size'."))
+              stop("Cannot combine ", paste0(unique(sapply(args, class)), 
+                                             collapse = ' and '), 
+                   " containing tuples of different 'size'.")
             }
             # "c" silently coerces to lowest common class, e.g., c(1, "next")
             # The following commented-out warning makes this explicit to the 
@@ -443,8 +441,8 @@ setReplaceMethod("tuples",
                    }
                    m <- ncol(value)
                    if (m != size(x)) {
-                     stop(paste0("Size of tuples in 'x' ", size(x), " not ", 
-                                 "equal to size of tuples in 'value' ", m))
+                     stop("Size of tuples in 'x' ", size(x), " not equal to ", 
+                          "size of tuples in 'value' ", m)
                    }
                    if (is.na(m)) {
                      x

@@ -74,8 +74,7 @@ setMethod("shift",
 setMethod("narrow", 
           "GTuples", 
           function(x, start = NA, end = NA, width = NA, use.names = TRUE) {
-            stop(paste0(class(x), " do not currently support the 'narrow' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'narrow' method.")
           }
 )
 
@@ -91,8 +90,7 @@ setMethod("flank",
           "GTuples", 
           function(x, width, start = TRUE, both = FALSE, use.names = TRUE, 
                    ignore.strand = FALSE) {
-            stop(paste0(class(x), " do not currently support the 'flank' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'flank' method.")
           }
 )
 
@@ -104,8 +102,7 @@ setMethod("flank",
           "GTuplesList", 
           function(x, width, start = TRUE, both = FALSE, use.names = TRUE, 
                    ignore.strand=FALSE) { 
-            stop(paste0(class(x), " do not currently support the 'flank' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'flank' method.")
           }
 )
 
@@ -120,8 +117,7 @@ setMethod("flank",
 setMethod("promoters", 
           "GTuples", 
           function(x, upstream = 2000, downstream = 200, ...) {
-            stop(paste0(class(x), " do not currently support the 'promoters' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'promoters' method.")
           }
 )
 
@@ -132,8 +128,7 @@ setMethod("promoters",
 setMethod("promoters", 
           "GTuplesList", 
           function(x, upstream = 2000, downstream = 200, ...) { 
-            stop(paste0(class(x), " do not currently support the 'promoters' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'promoters' method.")
           }
 )
 
@@ -156,8 +151,7 @@ setMethod("resize",
           "GTuples", 
           function(x, width, fix = "start", use.names = TRUE, 
                    ignore.strand = FALSE) {
-            stop(paste0(class(x), " do not currently support the 'resize' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'resize' method.")
           }
 )
 
@@ -169,8 +163,7 @@ setMethod("resize",
           "GTuplesList", 
           function(x, width, fix = "start", use.names = TRUE, 
                    ignore.strand = FALSE) {
-            stop(paste0(class(x), " do not currently support the 'resize' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'resize' method.")
           }
 )
 
@@ -186,8 +179,7 @@ setMethod("restrict",
           "GTuplesList", 
           function(x, start = NA, end = NA, keep.all.ranges = FALSE, 
                    use.names = TRUE) { 
-            stop(paste0(class(x), " do not currently support the 'restrict' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'restrict' method.")
           }
 )
 
@@ -206,7 +198,6 @@ setMethod("restrict",
 setMethod("Ops", 
           c("GTuples", "numeric"),
           function(e1, e2) {
-            stop(paste0(class(e1), " do not currently support the 'zoom' ", 
-                        "method."))
+            stop(class(e1), " do not currently support the 'zoom' method.")
           }
 )

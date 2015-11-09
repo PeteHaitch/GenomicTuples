@@ -25,8 +25,7 @@
 setMethod("range", 
           "GTuples", 
           function(x, ..., ignore.strand = FALSE, na.rm = FALSE) {
-            stop(paste0(class(x), " do not currently support the 'range' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'range' method.")
           }
 )
 
@@ -36,8 +35,7 @@ setMethod("range",
 setMethod("range", 
           "GTuplesList", 
           function(x, ..., ignore.strand = FALSE, na.rm = FALSE) { 
-            stop(paste0(class(x), " do not currently support the 'range' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'range' method.")
           }
 )
 
@@ -54,8 +52,7 @@ setMethod("reduce",
           function(x, drop.empty.ranges = FALSE, min.gapwidth = 1L, 
                    with.revmap = FALSE, with.mapping = FALSE, 
                    with.inframe.attrib = FALSE, ignore.strand = FALSE) { 
-            stop(paste0(class(x), " do not currently support the 'reduce' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'reduce' method.")
           }
 )
 
@@ -68,8 +65,7 @@ setMethod("reduce",
           function(x, drop.empty.ranges = FALSE, min.gapwidth = 1L, 
                    with.revmap = FALSE, with.mapping = FALSE, 
                    with.inframe.attrib = FALSE, ignore.strand = FALSE) {
-            stop(paste0(class(x), " do not currently support the 'reduce' ",  
-                        "method."))
+            stop(class(x), " do not currently support the 'reduce' method.")
           }
 )
 
@@ -85,8 +81,7 @@ setMethod("reduce",
 setMethod("gaps", 
           "GTuples", 
           function(x, start = 1L, end = seqlengths(x)) {
-            stop(paste0(class(x), " do not currently support the 'gaps' ",
-                        "method."))
+            stop(class(x), " do not currently support the 'gaps' method.")
           }
 )
 
@@ -101,8 +96,7 @@ setMethod("gaps",
 setMethod("disjoin", 
           "GTuples", 
           function(x, start = 1L, end = seqlengths(x)) {
-            stop(paste0(class(x), " do not currently support the 'disjoin' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'disjoin' method.")
           }
 )
 
@@ -113,8 +107,7 @@ setMethod("disjoin",
 setMethod("disjoin", 
           "GTuplesList", 
           function(x, start = 1L, end = seqlengths(x)) {
-            stop(paste0(class(x), " do not currently support the 'disjoin' ", 
-                        "method."))
+            stop(class(x), " do not currently support the 'disjoin' method.")
           }
 )
 
@@ -129,8 +122,7 @@ setMethod("disjoin",
 setMethod("isDisjoint", 
           "GTuples", 
           function(x, ignore.strand = FALSE) {
-            stop(paste0(class(x), " do not currently support the ", 
-                        "'isDisjoint' method."))
+            stop(class(x), " do not currently support the 'isDisjoint' method.")
           }
 )
 
@@ -141,8 +133,7 @@ setMethod("isDisjoint",
 setMethod("isDisjoint", 
           "GTuplesList",
           function(x, ignore.strand = FALSE) {
-            stop(paste0(class(x), " do not currently support the ", 
-                        "'isDisjoint' method."))
+            stop(class(x), " do not currently support the 'isDisjoint' method.")
           }
 )
 
@@ -156,7 +147,7 @@ setMethod("isDisjoint",
 setMethod("disjointBins", 
           "GTuples", 
           function(x, ignore.strand = FALSE) {
-            stop(paste0(class(x), " do not currently support the ", 
-                        "'disjointBins' method."))
+            stop(class(x), " do not currently support the 'disjointBins' ", 
+                 "method.")
           }
 )
