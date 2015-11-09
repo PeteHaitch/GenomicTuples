@@ -23,10 +23,7 @@ setClass("GTuples",
 ### Validity
 ###
 
-#' @importFrom Biobase validMsg
 .valid.GTuples.pos <- function(object) {
-  
-  msg <- NULL
   
   # Check tuples are sorted; only required if m > 1.
   if (isTRUE(object@size > 2L) && length(object) != 0L) {
@@ -34,17 +31,14 @@ setClass("GTuples",
                object@internalPos, 
                object@ranges@start + object@ranges@width - 1L)
     ) {
-      msg <- validMsg(msg, paste0("positions in each tuple must be sorted ",
-                                  "in strictly increasing order, i.e. ",
-                                  "'pos1' < ... < ", 
-                                  paste0("'pos", object@size, "'")))
+      return(paste0("positions in each tuple must be sorted in strictly ", 
+                    "increasing order, i.e. 'pos1' < ... < ", 
+                    paste0("'pos", object@size, "'")))
     }
   } else if (isTRUE(object@size == 2L)) {
     if (isTRUE(any(object@ranges@width <= 1L))) {
-      msg <- validMsg(msg, 
-                      paste0("positions in each tuple must be sorted in ", 
-                             "strictly increasing order, i.e. 'pos1' < ", 
-                             "'pos2'"))
+      return(paste0("positions in each tuple must be sorted in strictly ", 
+                    "increasing order, i.e. 'pos1' < 'pos2'"))
     }
   }
   
@@ -55,30 +49,23 @@ setClass("GTuples",
   if (!is.na(object@size) && length(object) != 0L) {
     if (min(object@ranges@start) < 0L || min(object@ranges@start + 
                                              object@ranges@width - 1L) < 0L) {
-      msg <- validMsg(msg, 
-                      paste0("positions in each tuple must be ", 
-                             "positive integers."))
+      return("positions in each tuple must be positive integers.")
     }
   }
   
-  msg
+  NULL
 }
 
 INVALID.GT.COLNAMES <- c(GenomicRanges:::INVALID.GR.COLNAMES, 
                          "tuples", "internalPos", "size")
 
-#' @importFrom Biobase validMsg
 .valid.GTuples.mcols <- function(object) {
   
-  msg <- NULL
-  
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
-    msg <- validMsg(msg, 
-                    paste0("names of metadata columns cannot be one of ",
-                           paste0("\"", INVALID.GT.COLNAMES, "\"", 
-                                  collapse = ", ")))
+    return(paste0("names of metadata columns cannot be one of ",
+                  paste0("\"", INVALID.GT.COLNAMES, "\"", collapse = ", ")))
   }
-  msg
+  NULL
 }
 
 .valid.GTuples <- function(object) {

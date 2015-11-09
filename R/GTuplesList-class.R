@@ -26,23 +26,20 @@ INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
                          "start", "end", "width", "element",
                          "tuples", "internalPos", "size")
 
-#' @importFrom Biobase validMsg
 .valid.GTuplesList.mcols <- function(object) {
-  msg <- NULL
+  
   object_mcols <- object@elementMetadata
   if (nrow(object_mcols) != length(object)) {
-    msg <- validMsg(msg, "'mcols(object)' has an incorrect number of rows")
+    return("'mcols(object)' has an incorrect number of rows")
   }
   if (any(INVALID.GT.COLNAMES %in% colnames(mcols(object)))) {
-    msg <- validMsg(msg, 
-                    paste0("names of metadata columns cannot be one ", 
-                           "of ", paste0("\"", INVALID.GT.COLNAMES, 
-                                         "\"", collapse = ", ")))
+    return("names of metadata columns cannot be one of ", 
+           paste0("\"", INVALID.GT.COLNAMES, "\"", collapse = ", "))
   }
   if (!is.null(rownames(object_mcols))) {
-    msg <- validMsg(msg, "'mcols(object)' cannot have row names")
+    return("'mcols(object)' cannot have row names")
   }
-  msg
+  NULL
 }
 
 .valid.GTuplesList <- function(x) {
