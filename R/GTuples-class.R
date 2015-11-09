@@ -64,10 +64,7 @@ setClass("GTuples",
   msg
 }
 
-INVALID.GT.COLNAMES <- c("seqnames", "ranges", "strand",
-                         "seqlevels", "seqlengths", "isCircular",
-                         #"genome",
-                         "start", "end", "width", "element",
+INVALID.GT.COLNAMES <- c(GenomicRanges:::INVALID.GR.COLNAMES, 
                          "tuples", "internalPos", "size")
 
 #' @importFrom Biobase validMsg
@@ -177,11 +174,39 @@ GTuples <- function(seqnames = Rle(),
 ### Coercion
 ###
 
-# TODO: Without '@importMethodsFrom S4Vectors as.factor as.vector' there are 
-#       errors when testing the package.
+#' @importFrom methods setMethod
+#' @importFrom S4Vectors isTRUEorFALSE
+#' @importFrom stats setNames
+setMethod("as.character", "GTuples", 
+          function(x, ignore.strand = FALSE) {
+            if (!isTRUEorFALSE(ignore.strand)) {
+              stop("'ignore.strand' must be TRUE or FALSE")
+            }
+            if (length(x) == 0L) {
+              return(setNames(character(0), names(x)))
+            }
+            ans <- paste0(seqnames(x), ":", 
+                          apply(X = tuples(x), FUN = paste, MARGIN = 1, 
+                                collapse = ","))
+            names(ans) <- names(x)
+            if (ignore.strand) {
+              return(ans)
+            }
+            x_strand <- strand(x)
+            if (all(x_strand == "*")) {
+              return(ans)
+            }
+            setNames(paste0(ans, ":", x_strand), names(x))
+          }
+)
+
+# NOTE: as.factor() via inheritance to GenomicRanges, which is okay because 
+#       it calls the above as.character().
+#' @importMethodsFrom S4Vectors as.factor
+NULL
+
 #' @importFrom methods setMethod
 #' @importMethodsFrom GenomeInfoDb seqnames
-#' @importMethodsFrom S4Vectors as.factor
 #' 
 #' @export
 setMethod("as.data.frame", 
@@ -209,9 +234,9 @@ setMethod("as.data.frame",
                                                'internalPos']
                 mcols_df <- cbind(as.data.frame(extraColumns, ...), mcols_df)
               }
-              data.frame(seqnames = as.factor(seqnames(x)), 
+              data.frame(seqnames = S4Vectors:::decodeRle(seqnames(x)), 
                          as.data.frame(tuples), 
-                         strand = as.factor(strand(x)), 
+                         strand = S4Vectors:::decodeRle(strand(x)), 
                          mcols_df, 
                          row.names = row.names, 
                          stringsAsFactors = FALSE)
@@ -356,6 +381,10 @@ NULL
 ### Setters
 ###
 
+#' @importMethodsFrom GenomeInfoDb seqinfo<- seqnames<-
+#' @importMethodsFrom IRanges ranges<-
+NULL
+
 # Defined via inheritance to GRanges or implemented in Tuples methods
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -475,7 +504,6 @@ setMethod("IPD",
 
 # extractROWS, "[" and replaceROWS defined via inheritance to methods 
 # for GenomicRanges.
-# TODO: Should I explicitly define these via callNextMethod()
 
 # TODO (copied from GenomicRanges/GenomicRanges-class.R): Refactor to use 
 # replaceROWS(). This will make the code much simpler and avoid a lot of 
@@ -579,6 +607,15 @@ setReplaceMethod("[",
                  }
 )
 
+#' @importMethodsFrom S4Vectors replaceROWS
+NULL
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### $ and $<- methods
+###
+
+# NOTE: Defined via inheritance to GenomicRanges method
+
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Show
 ###
@@ -631,7 +668,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
 }
 
 # TODO: Need to keep this up to date with the show,GRanges-method
-#' @importFrom GenomeInfoDb seqinfo
+#' @importMethodsFrom GenomeInfoDb seqinfo
 showGTuples <- function(x, margin = "", print.classinfo = FALSE, 
                         print.seqinfo = FALSE) {
   if (!identical(print.classinfo, FALSE)) {

@@ -206,4 +206,3 @@ setMethod("show",
 # Can use GenomicRanegs:::deconstructGRLintoGR and 
 # GenomicRanges:::reconstructGRLfromGR via inheritance should these be 
 # required.
-# TODO: Should I explicitly define these via callNextMethod()

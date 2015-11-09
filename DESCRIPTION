@@ -1,8 +1,8 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.5.11
-Date: 2015-11-07
+Version: 1.5.13
+Date: 2015-11-10
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
     person("Marcin", "Cieslik", role = "ctb",

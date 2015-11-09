@@ -124,11 +124,12 @@ test_that("GRangesList inherited accessors work", {
                                             "B" = integer()))
   expect_identical(width(gtl1), IntegerList("A" = width(gtl1[[1]]), 
                                             "B" = width(gtl1[[2]])))
-  expect_identical(strand(gtl0), RleList("A" = Rle(as.factor(strand())), 
-                                         "B" = Rle(as.factor(strand()))))
+  expect_identical(strand(gtl0), 
+                   RleList("A" = Rle(factor(levels = c("+", "-", "*"))), 
+                           "B" = Rle(factor(levels = c("+", "-", "*")))))
   expect_identical(strand(gtl1), 
-                   RleList("A" = Rle(as.factor(strand(gtl1[[1]]))), 
-                           "B" = Rle(as.factor(strand(gtl1[[2]])))))
+                   RleList("A" = Rle(S4Vectors:::decodeRle(strand(gtl1[[1]]))), 
+                           "B" = Rle(S4Vectors:::decodeRle(strand(gtl1[[2]])))))
   DF0 <- DataFrame()
   DF0@nrows <- 2L
   expect_identical(mcols(gtl0), DF0)

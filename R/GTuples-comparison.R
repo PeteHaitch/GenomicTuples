@@ -166,6 +166,11 @@ setMethod("compare",
 #       see this as an S3 method but rather as a function, and so adds 
 #       export(duplicated.GTuples) to the NAMESPACE rather than 
 #       S3method(duplicated, GTuples).
+# NOTE: Both export and define duplicated.GTuples as an S3 method so that (a) 
+#       it can be called directly, (b) tab-completion on the name of the generic 
+#       shows it, and (c) methods() doesn't asterisk it (based on advice 
+#       from GenomicRanges' NAMESPACE).
+#' @export
 #' @rawNamespace S3method(duplicated, GTuples)
 duplicated.GTuples <- function(x, incomparables = FALSE, ...) {
   .duplicated.GTuples(x, incomparables = incomparables, ...)
@@ -375,7 +380,12 @@ setMethod("order",
   extractROWS(x, oo)
 }
 ### S3/S4 combo for sort.GenomicRanges
+# NOTE: Both export and define sort.GTuples as an S3 method so that (a) it can 
+#       be called directly, (b) tab-completion on the name of the generic 
+#       shows it, and (c) methods() doesn't asterisk them (based on advice 
+#       from GenomicRanges' NAMESPACE).
 #' @rawNamespace S3method(sort, GTuples)
+#' @export
 sort.GTuples <- function(x, decreasing = FALSE, ...)
   .sort.GTuples(x, decreasing = decreasing, ...)
 #' @importFrom methods setMethod

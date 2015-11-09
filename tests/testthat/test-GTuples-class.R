@@ -123,41 +123,56 @@ test_that("GTuples constructor returns errors on bad input", {
 ###
 context("GTuples coercion")
 
+test_that("as.character works", {
+  expect_identical(as.character(gt0), character())
+  expect_identical(as.character(gt1[1:2]), 
+                   c("chr1:1:-", "chr2:2:+"))
+  expect_identical(as.character(gt1[1:2], ignore.strand = TRUE), 
+                   c("chr1:1", "chr2:2"))
+  expect_identical(as.character(gt4[1:2]),
+                   c("chr1:1,2,3,4:-", "chr2:2,3,4,5:+"))
+  expect_identical(as.character(gt4[1:2], ignore.strand = TRUE),
+                   c("chr1:1,2,3,4", "chr2:2,3,4,5"))
+})
+
+test_that("as.factor works", {
+  expect_identical(as.factor(gt0), factor(character()))
+  expect_identical(as.factor(gt1[1:2]), 
+                   factor(c("chr1:1:-", "chr2:2:+")))
+  expect_identical(as.factor(gt4[1:2]),
+                   factor(c("chr1:1,2,3,4:-", "chr2:2,3,4,5:+")))
+})
+
 test_that("as.data.frame works", {
   expect_identical(as.data.frame(gt0), data.frame())
   expect_identical(as.data.frame(gt1), 
-                   data.frame(seqnames = as.factor(seqnames(gt1)),
+                   data.frame(seqnames = S4Vectors:::decodeRle(seqnames(gt1)),
                               pos1 = start(gt1),
-                              strand = as.factor(strand(gt1)),
-                              score = mcols(gt1)$score
-                   )
-  )
+                              strand = S4Vectors:::decodeRle(strand(gt1)),
+                              score = mcols(gt1)$score))
   expect_identical(as.data.frame(gt2), 
-                   data.frame(seqnames = as.factor(seqnames(gt4)),
+                   data.frame(seqnames = S4Vectors:::decodeRle(seqnames(gt4)),
                               pos1 = start(gt1),
                               pos2 = end(gt2),
-                              strand = as.factor(strand(gt2)),
-                              score = mcols(gt2)$score
-                   )
+                              strand = S4Vectors:::decodeRle(strand(gt2)),
+                              score = mcols(gt2)$score)
   )
   expect_identical(as.data.frame(gt3), 
-                   data.frame(seqnames = as.factor(seqnames(gt3)),
+                   data.frame(seqnames = S4Vectors:::decodeRle(seqnames(gt3)),
                               pos1 = start(gt3),
                               pos2 = gt3@internalPos,
                               pos3 = end(gt3),
-                              strand = as.factor(strand(gt3)),
-                              score = mcols(gt1)$score
-                   )
+                              strand = S4Vectors:::decodeRle(strand(gt3)),
+                              score = mcols(gt1)$score)
   )
   expect_identical(as.data.frame(gt4), 
-                   data.frame(seqnames = as.factor(seqnames(gt4)),
+                   data.frame(seqnames = S4Vectors:::decodeRle(seqnames(gt4)),
                               pos1 = start(gt4),
                               pos2 = gt4@internalPos[, 1],
                               pos3 = gt4@internalPos[, 2],
                               pos4 = end(gt4),
-                              strand = as.factor(strand(gt4)),
-                              score = mcols(gt4)$score
-                   )
+                              strand = S4Vectors:::decodeRle(strand(gt4)),
+                              score = mcols(gt4)$score)
   )
 })
 

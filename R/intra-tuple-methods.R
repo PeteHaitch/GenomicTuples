@@ -200,7 +200,6 @@ setMethod("restrict",
 
 ### Method for GTuples defined via inheritance to GRanges
 
-# TODO: Should I explicitly define this via callNextMethod()?
 # TODO: If trim is required, i.e. the ranges are out of bounds, then the 
 # warning messages references GRanges rather than GTuples. Can this be changed 
 # to reference the actual class?

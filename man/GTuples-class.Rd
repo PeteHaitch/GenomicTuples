@@ -27,6 +27,8 @@
 
 % Coercion:
 \alias{coerce,GRanges,GTuples-method}
+\alias{as.character,GTuples-method}
+\alias{as.factor,GTuples-method}
 \alias{as.data.frame,GTuples-method}
 \alias{granges,GTuples-method}
 
@@ -158,6 +160,24 @@
   In the code snippets below, \code{x} is a GTuples object.
 
   \describe{
+  % TODO: Uncomment once implemented
+%    \item{}{
+%      \code{as(from, "GTuples")}: Creates a GTuples object from a character
+%      vector, or a factor.
+%
+%      When \code{from} is a character vector (or a factor), each element
+%      in it must represent a genomic tuples in format \code{chr1:100,109,115}
+%      (unstranded tuple) or \code{chr1:100,109,115:+} (stranded range).
+%      \code{..} is also supported as a separator between the start and end
+%      positions. Strand can be \code{+}, \code{-}, \code{*}, or missing.
+%      The names on \code{from} are propagated to the returned GTuples object.
+%      See \code{as.character()} and \code{as.factor()} below for the
+%      reverse transformations.
+%
+       % NOTE: There is no makeGTuplesFromDataFrame()
+%      Coercing a data.frame or DataFrame into a GRanges object is also
+%      supported. See \code{\link{makeGRangesFromDataFrame}} for the details.
+%    }
     \item{}{
       \code{as.data.frame(x, row.names = NULL, optional = FALSE, ...)}:
       Creates a data.frame with columns \code{seqnames} (factor), 
@@ -167,8 +187,28 @@
       override the default conversions for the metadata columns in 
       \code{mcols(x)}.
     }
-  }
-  \describe{
+    \item{}{
+      \code{as.character(x, ignore.strand=FALSE)}:
+      Turn GTuples object \code{x} into a character vector where each
+      tuples in \code{x} is represented by a string in format
+      \code{chr1:100,109,115:+}. If \code{ignore.strand} is TRUE or if
+      \emph{all} the ranges in \code{x} are unstranded (i.e. their strand
+      is set to \code{*}), then all the strings in the output are in
+      format \code{chr1:100,109,115}.
+
+      The names on \code{x} are propagated to the returned character vector.
+      Its metadata (\code{metadata(x)}) and metadata columns (\code{mcols(x)})
+      are ignored.
+
+      % TODO: Uncomment when implemented. 
+      % See \code{as(from, "GTuples")} above for the reverse transformation.
+    }
+    \item{}{
+      \code{as.factor(x)}:
+      Equivalent to
+\preformatted{  factor(as.character(x), levels=as.character(sort(unique(x))))
+}
+    }
     \item{}{
       \code{as(x, "GRanges"), granges(x)}: Creates a 
       \code{\link[GenomicRanges]{GRanges}} object from a
