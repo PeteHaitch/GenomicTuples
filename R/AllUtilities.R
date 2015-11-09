@@ -48,37 +48,6 @@
   z
 }
 
-# Function not currently required but may be useful; see c,GTuples-method
-# TODO: Unit tests
-# # Find the lowest common class of a list of objects
-# # @keywords internal
-# # @param ... A list of objects to be compared
-# # @value The lowest common class if there is one, an error if there isn't one.
-# .lcc <- function(...) {
-#   args <- list(...)
-#   classes <- lapply(args, is)
-#   common_classes <- Reduce(f = "intersect", x = classes)
-#   if (identical(common_classes, numeric(0))) {
-#     stop("No common class")
-#   } else {
-#     common_classes[1]
-#   }
-# }
-
-# TODO: This function was removed from GenomicRanges 
-# https://github.com/Bioconductor-mirror/GenomicRanges/commit/1d92e78d85bb5ec859585c7b6ba14e65c71929b3)
-# I have temporarily re-added it in order to get the package to build properly. 
-# The proper fix is to update findOverlaps()-based methods for GTuples and 
-# GTuplesList.
-#' @importMethodsFrom S4Vectors runValue "runValue<-"
-.strandAsSignedNumber <- function(x) {
-  tmp <- as.integer(runValue(x))
-  idx <- tmp >= 2L
-  tmp[idx] <- tmp[idx] - 3L
-  runValue(x) <- tmp
-  as.vector(x)
-}
-
 #' Convert a GTuples object to a data.table.
 #' 
 #' @param gt A GTuples object

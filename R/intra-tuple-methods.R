@@ -141,8 +141,8 @@ setMethod("promoters",
 ### reflect()
 ###
 
-### TODO: Investigate "reflect" method for GTuples objects once it's added for 
-### GenomicRanges
+### NOTE: Not currently implemented for GenomicRanges and therefore not 
+###       implemented for GTuples.
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### resize()
@@ -178,9 +178,6 @@ setMethod("resize",
 ### restrict()
 ###
 
-## TODO: restrict,GTuples-method is currently defined via inheritance but can 
-## return an invalid object.
-
 #' @importFrom methods setMethod
 #' @importMethodsFrom IRanges restrict
 #' 
@@ -198,13 +195,7 @@ setMethod("restrict",
 ### trim()
 ###
 
-### Method for GTuples defined via inheritance to GRanges
-
-# TODO: If trim is required, i.e. the ranges are out of bounds, then the 
-# warning messages references GRanges rather than GTuples. Can this be changed 
-# to reference the actual class?
-# TODO: Currently trim is not defined for GRangesList but if this changes then 
-# trim will also be defined via inheritance for GTuplesList.
+# NOTE: trim for GTuples defined via inheritance to GenomicRanges.
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Zooming (symmetrically scales the width).

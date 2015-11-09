@@ -24,7 +24,6 @@ setGeneric("IPD", function(x) {
 ### tuples
 ###
 
-# TODO: Perhaps tuples,GTuples-method should have a use.names argument?
 #' @importFrom methods setGeneric
 #' 
 #' @export

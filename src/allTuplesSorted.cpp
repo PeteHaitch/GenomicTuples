@@ -1,11 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// TODO: Does passing (pos1, internal_pos, posm) involve copying? If so, make 
-// this work with the GTuples object, i.e. .allTuplesSorted(GTuples).
-// This will return correctly return FALSE if internal_pos or posm contains NAs 
-// but may return TRUE if pos1 contains NAs, e.g. 
-// .allTuplesSorted(NA_integer_, matrix(3L), 10L) evaluates to TRUE.
+// allTuplesSorted(NA_integer_, matrix(3L), 10L) evaluates to TRUE.
 //' An internal helper function to check that each tuple is sorted in 
 //' increasing order; only used for tuples of size > 2.
 //' 

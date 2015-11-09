@@ -152,13 +152,9 @@ setAs("GTuplesList", "GRangesList",
       }
 )
 
-# TODO: Should I import as.data.frame(), as.list(), and stack()?
+# TODO (longterm): grglist when method is implemented in GenomicRanges
 
-# as.data.frame and as.list work via inheritance to GRangesList
-
-# TODO: grglist when method is implemented in GenomicRanges
-
-# stack defined via inheritance to GRangesList
+# NOTE: as.list, stack defined via inheritance to GRangesList.
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Subsetting.

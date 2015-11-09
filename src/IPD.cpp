@@ -1,8 +1,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// TODO: Does passing (pos1, internal_pos, posm) involve copying? If so, make 
-// this work with the GTuples object, i.e. .IPD(GTuples).
 //' An internal function to compute the IPD of a GTuples; ; only used for 
 //' tuples of size > 2.
 //' 

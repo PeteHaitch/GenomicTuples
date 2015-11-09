@@ -133,8 +133,7 @@ GTuples <- function(seqnames = Rle(),
     if (!all(is.na(tuples))) {
       warning("Converting 'tuples' to integer mode")
     }
-    # TODO: is mode() the same as storage.mode()?
-    mode(tuples) <- "integer"
+    storage.mode(tuples) <- "integer"
   }
   
   # Get size of tuples
@@ -282,7 +281,7 @@ setMethod("granges",
 
 ### Not exported. 'x' *must* be an unnamed list of length >= 1 (not checked).
 
-# TODO: Without '@importMethodsFrom GenomeInfoDb merge' this doesn't work; why? 
+# NOTE: Without '@importMethodsFrom GenomeInfoDb merge' this doesn't work. 
 #       This is despite merge being defined in base.
 #' @importClassesFrom S4Vectors DataFrame
 #' @importFrom methods new
@@ -462,8 +461,6 @@ setReplaceMethod("tuples",
                                                            by = 1L), 
                                                   drop = FALSE])
                    }
-                   # TODO: Is update() the correct method to call or should 
-                   #       it be something from BiocGenerics?
                    update(x, 
                           ranges = ranges, 
                           internalPos = internalPos,
@@ -505,15 +502,16 @@ setMethod("IPD",
 # extractROWS, "[" and replaceROWS defined via inheritance to methods 
 # for GenomicRanges.
 
-# TODO (copied from GenomicRanges/GenomicRanges-class.R): Refactor to use 
-# replaceROWS(). This will make the code much simpler and avoid a lot of 
-# duplication with the above "replaceROWS" method.
+# TODO: Refactor to use replaceROWS(). This will make the code much simpler and 
+#       avoid a lot of duplication with the above "replaceROWS" method 
+#       (copied from GenomicRanges/GenomicRanges-class.R).
 # TODO: Once "[<-",GenomicRanges-method uses replaceROWS,GenomicRanges-method, 
-# then should be able to migrate to using "[<-",GTuples-method defined via 
-# inheritance to "[<-",GenomicRanges-method. Can't simply inherit via 
-# GenomicRanges because of the line 
-# "x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]", which breaks because
-# it tries to put a NULL in a NULL, i.e. it breaks if size(x) = 1 or 2.
+#       then should be able to migrate to using "[<-",GTuples-method defined 
+#       via inheritance to "[<-",GenomicRanges-method. Currently, can't simply 
+#       inherit via GenomicRanges because of the line 
+#       "x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]", which breaks 
+#       because it tries to put a NULL in a NULL, i.e. it breaks if size(x) = 1 
+#       or 2.
 #' @importFrom methods setReplaceMethod
 #' @importFrom S4Vectors DataFrame
 #' @importFrom stats setNames
@@ -595,8 +593,6 @@ setReplaceMethod("[",
                        x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]
                      }
                    }
-                   # TODO: Is update() the correct method to call or should 
-                   #       it be something from BiocGenerics?
                    update(x, 
                           seqnames = seqnames, 
                           ranges = ranges,
@@ -630,7 +626,6 @@ setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
 )
 
 # The show method is adapted from that of GRanges
-# TODO: Decide if I should support the print.classinfo argument?
 #' @importMethodsFrom S4Vectors mcols showAsCell
 .makeNakedMatFromGTuples <- function(x) {
   lx <- length(x)
@@ -667,7 +662,8 @@ setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
   ans
 }
 
-# TODO: Need to keep this up to date with the show,GRanges-method
+# NOTE: Unlike GenomicRanges:::showGenomicRanges(), this does not implement 
+#       the print.classinfo argument.
 #' @importMethodsFrom GenomeInfoDb seqinfo
 showGTuples <- function(x, margin = "", print.classinfo = FALSE, 
                         print.seqinfo = FALSE) {
@@ -688,20 +684,7 @@ showGTuples <- function(x, margin = "", print.classinfo = FALSE,
   }
   
   out <- S4Vectors:::makePrettyMatrixForCompactPrinting(x, .makeNakedMatFromGTuples)
-  # TODO: Try to implement 'print.classinfo', although low priority.
-  ## These lines commented out because classinfo is more complicated for GTuples 
-  ## objects than GRanges objects. For example, some of the `pos` information 
-  ## is stored in an IRanges object while some is stored in a matrix.
-  #if (print.classinfo) {
-  #    .COL2CLASS <- c(seqnames = "Rle", ranges = "IRanges", 
-  #        strand = "Rle")
-  #    extraColumnNames <- extraColumnSlotNames(x)
-  #    .COL2CLASS <- c(.COL2CLASS, getSlots(class(x))[extraColumnNames])
-  #    classinfo <- makeClassinfoRowForCompactPrinting(x, .COL2CLASS)
-  #    stopifnot(identical(colnames(classinfo), colnames(out)))
-  #    out <- rbind(classinfo, out)
-  #}
-  
+
   if (nrow(out) != 0L) { 
     rownames(out) <- paste0(margin, rownames(out))
   }

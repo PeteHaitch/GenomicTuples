@@ -2,8 +2,8 @@
 ### Set operations
 ### -------------------------------------------------------------------------
 
-### TODO: What's the impact of circularity on the set operations? This TODO 
-### comes from the GenomicRanges/R/setops-methods.R
+### TODO: What's the impact of circularity on the set operations (this comes 
+###       from the GenomicRanges/R/setops-methods.R)
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### union(), intersect(), setdiff()

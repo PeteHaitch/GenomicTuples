@@ -1,9 +1,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// TODO: Work with the GTuples objects themselves to avoid creating 
-// intermediate vectors and matrices, i.e. .compareGTuplesCpp(x, y).
-
 //' An internal function used to compare GTuples.
 //' 
 //' @details 
