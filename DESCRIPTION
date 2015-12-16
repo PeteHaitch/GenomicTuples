@@ -1,7 +1,7 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.5.14
+Version: 1.5.15
 Date: 2015-11-10
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
@@ -21,14 +21,14 @@ biocViews: Infrastructure, DataRepresentation, Sequencing
 VignetteBuilder: knitr
 Depends:
     R (>= 3.3.0),
-    GenomicRanges (>= 1.19.47),
+    GenomicRanges (>= 1.23.7),
     GenomeInfoDb (>= 1.7.2),
     S4Vectors (>= 0.9.6)
 Imports:
     methods,
     BiocGenerics (>= 0.17.0),
     Rcpp (>= 0.11.2),
-    IRanges (>= 2.5.5),
+    IRanges (>= 2.5.17),
     data.table
 Suggests:
     testthat,

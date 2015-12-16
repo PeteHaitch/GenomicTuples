@@ -67,7 +67,6 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
           function(query, subject, maxgap = 0L, minoverlap = 1L, 
                    type = c("any", "start", "end", "within", "equal"), 
                    select = c("all", "first", "last", "arbitrary"),
-                   algorithm = c("nclist", "intervaltree"),
                    ignore.strand = FALSE) {
             
             # NOTE: Other arguments are checked by the method called by 
@@ -75,24 +74,11 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             #       checked.
             type <- match.arg(type)
             select <- match.arg(select)
-            algorithm <- match.arg(algorithm)
             if (!isTRUEorFALSE(ignore.strand)) {
               stop("'ignore.strand' must be TRUE or FALSE")
             }
 
             if (identical(type, "equal")) {
-              # NOTE: The algorithm argument is not yet technically defunct in 
-              #       IRanges::findOverlaps nor GenomicRanges::findOverlaps 
-              #       (Bioc 3.3. devel). Rather, it calls a stop() if the 
-              #       algorithm argument is not identical to "nclist". I defer 
-              #       to findOverlaps,GenomicRanges,GenomicRanges-method to 
-              #       catch the misuse of the algorithm argument when 
-              #       type != "equal" and raise my own identical error 
-              #       otherwise.
-              if (!identical(algorithm, "nclist")) {
-                stop("the 'algorithm' argument is defunct")
-              }
-              
               if (!isTRUE(maxgap == 0L)) {
                 stop("'maxgap' must be 0 when 'type = equal', other values ", 
                      "not yet supported")
