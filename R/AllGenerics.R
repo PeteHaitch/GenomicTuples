@@ -5,9 +5,7 @@
 #' @importFrom methods setGeneric
 #' 
 #' @export
-setGeneric("size", function(x) {
-  standardGeneric("size")
-})
+setGeneric("size", function(x) standardGeneric("size"))
 
 ### -------------------------------------------------------------------------
 ### IPD
@@ -16,9 +14,7 @@ setGeneric("size", function(x) {
 #' @importFrom methods setGeneric
 #' 
 #' @export
-setGeneric("IPD", function(x) {
-  standardGeneric("IPD")
-})
+setGeneric("IPD", function(x) standardGeneric("IPD"))
 
 ### -------------------------------------------------------------------------
 ### tuples
@@ -27,16 +23,12 @@ setGeneric("IPD", function(x) {
 #' @importFrom methods setGeneric
 #' 
 #' @export
-setGeneric("tuples", function(x) {
-  standardGeneric("tuples")
-})
+setGeneric("tuples", function(x) standardGeneric("tuples"))
 
 #' @importFrom methods setGeneric
 #' 
 #' @export
-setGeneric("tuples<-", function(x, ..., value) {
-  standardGeneric("tuples<-")
-})
+setGeneric("tuples<-", function(x, ..., value) standardGeneric("tuples<-"))
 
 ### -------------------------------------------------------------------------
 ### gtuples
@@ -50,9 +42,7 @@ setGeneric("tuples<-", function(x, ..., value) {
 #' @importFrom methods setGeneric
 #' 
 #' @export
-setGeneric("gtuples", function(x, use.mcols = FALSE, ...) {
-  standardGeneric("gtuples")
-})
+setGeneric("gtuples", function(x, use.mcols = FALSE, ...) standardGeneric("gtuples"))
 
 ### -------------------------------------------------------------------------
 ### gtlist
@@ -66,6 +56,4 @@ setGeneric("gtuples", function(x, use.mcols = FALSE, ...) {
 #' @importFrom methods setGeneric
 #' 
 #' @export
-setGeneric("gtlist", function(x, use.mcols = FALSE, ...) {
-  standardGeneric("gtlist")
-})
+setGeneric("gtlist", function(x, use.mcols = FALSE, ...) standardGeneric("gtlist"))
