@@ -1412,6 +1412,20 @@ test_that("Works on m-tuples, m > 3", {
                    gtl4)
 })
 
+test_that("Returns error if algorithm argument is not 'nclist'", {
+  expect_error(findOverlaps(gt1, gt1, type = "equal", 
+                            algorithm = "intervaltree"), 
+               "unused argument \\(algorithm = \"intervaltree\"\\)")
+  expect_error(findOverlaps(gt3, gt3, type = "equal", 
+                            algorithm = "intervaltree"), 
+               "unused argument \\(algorithm = \"intervaltree\"\\)")
+  error_1 <- try(findOverlaps(gt3, gt3, type = "start", 
+                              algorithm = "intervaltree"), silent = TRUE)
+  error_3 <- try(findOverlaps(gt3, gt3, type = "equal", 
+                              algorithm = "intervaltree"), silent = TRUE)
+  expect_identical(error_1, error_3)
+})
+
 test_that("Warnings if 'type' is not 'equal' and size > 2", {
   expect_warning(findOverlaps(gt3, gt3), 
                  paste0("'type' is not 'equal' so coercing 'query' and ", 
