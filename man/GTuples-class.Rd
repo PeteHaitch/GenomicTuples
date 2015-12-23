@@ -49,7 +49,7 @@
 % Vector methods:
 \alias{length,GTuples-method}
 \alias{[,GTuples-method}
-\alias{[<-,GTuples,ANY,ANY,ANY-method}
+\alias{[<-,GTuples-method}
 \alias{c,GTuples-method}
 \alias{window,GTuples-method}
 
