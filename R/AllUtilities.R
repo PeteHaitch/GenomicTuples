@@ -48,6 +48,7 @@
   z
 }
 
+<<<<<<< 475edacb3dfd3b80654842c50fcd9c9a984de33f
 #' Convert a GTuples object to a data.table.
 #' 
 #' @param gt A GTuples object
