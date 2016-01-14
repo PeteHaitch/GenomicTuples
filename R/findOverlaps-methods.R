@@ -106,7 +106,6 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
                 warning("'type' is not 'equal' so coercing 'query' and ", 
                         "'subject' to 'GRanges' objects (see docs for details)")
               }
-              callNextMethod()
             }
           }
 )
