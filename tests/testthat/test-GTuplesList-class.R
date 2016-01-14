@@ -246,7 +246,12 @@ test_that("tuples<- works", {
 context("GTuplesList coercion")
 
 test_that("as.data.frame works", {
-  expect_identical(as.data.frame(gtl0), data.frame())
+  expect_identical(as.data.frame(gtl0), 
+                   data.frame(group = integer(0),
+                              group_name = character(0),
+                              seqnames = factor(levels = paste0("chr", 1:3)),
+                              strand = factor(levels = c("+", "-", "*")),
+                              stringsAsFactors = FALSE))
   expect_identical(as.data.frame(gtl1), 
                    cbind(data.frame(group = c(rep(1L, 5), rep(2L, 5)),
                                     group_name = c(rep("A", 5), rep("B", 5)), 

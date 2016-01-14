@@ -199,7 +199,9 @@ setMethod("as.data.frame",
           "GTuples", 
           function(x, row.names = NULL, optional = FALSE, ...) {
             if (is.na(size(x))) {
-              data.frame()
+              return(data.frame(seqnames = S4Vectors:::decodeRle(seqnames(x)),
+                                strand = S4Vectors:::decodeRle(strand(x)),
+                                stringsAsFactors = FALSE))
             } else {
               tuples <- tuples(x)
               if (missing(row.names)) {

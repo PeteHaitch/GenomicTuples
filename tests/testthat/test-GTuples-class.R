@@ -144,7 +144,9 @@ test_that("as.factor works", {
 })
 
 test_that("as.data.frame works", {
-  expect_identical(as.data.frame(gt0), data.frame())
+  expect_identical(as.data.frame(gt0), 
+                   data.frame(seqnames = factor(levels = paste0("chr", 1:3)),
+                              strand = factor(levels = c("+", "-", "*"))))
   expect_identical(as.data.frame(gt1), 
                    data.frame(seqnames = S4Vectors:::decodeRle(seqnames(gt1)),
                               pos1 = start(gt1),
