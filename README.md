@@ -1,7 +1,6 @@
 # GenomicTuples
 
-[[![Bioconductor devel build status](http://bioconductor.org/shields/build/devel/bioc/GenomicTuples.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/GenomicTuples/)
->>>>>>> Merge branch 'master' into devel
+[![Bioconductor devel build status](http://bioconductor.org/shields/build/devel/bioc/GenomicTuples.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/GenomicTuples/)
 [![Linux Build Status](https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master)](https://travis-ci.org/PeteHaitch/GenomicTuples)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/PeteHaitch/GenomicTuples?svg=true)](https://ci.appveyor.com/project/PeteHaitch/GenomicTuples)
 [![Bioconductor downloads](http://bioconductor.org/shields/downloads/GenomicTuples.svg)](http://bioconductor.org/packages/stats/bioc/GenomicTuples.html)
