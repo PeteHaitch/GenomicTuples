@@ -1,7 +1,7 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.5.18
+Version: 1.5.19
 Date: 2016-01-18
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
@@ -23,7 +23,7 @@ Depends:
     R (>= 3.3.0),
     GenomicRanges (>= 1.23.7),
     GenomeInfoDb (>= 1.7.2),
-    S4Vectors (>= 0.9.6)
+    S4Vectors (>= 0.9.25)
 Imports:
     methods,
     BiocGenerics (>= 0.17.0),

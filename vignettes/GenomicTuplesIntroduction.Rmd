@@ -431,13 +431,13 @@ _Seqinfo_ can be extracted using the `seqinfo` accessor:
 seqinfo(gtl3)
 ```
 
-The `elementLengths` method returns a list of integers
+The `elementNROWS` method returns a list of integers
 corresponding to the result of calling `length` on each individual
 _GTuples_ object contained by the _GTuplesList_. This is a
 faster alternative to calling `lapply` on the _GTuplesList_:
 
 ```{r basic-gtupleslist-accessors4, eval = TRUE, echo = TRUE}
-elementLengths(gtl3)
+elementNROWS(gtl3)
 ```
 
 You can also use `isEmpty` to test if a _GTuplesList_ object 

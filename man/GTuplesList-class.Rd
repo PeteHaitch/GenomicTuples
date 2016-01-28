@@ -86,7 +86,7 @@
       Get or set the names on \code{x}.
     }
     \item{}{
-      \code{elementLengths(x)}:
+      \code{elementNROWS(x)}:
       Get the \code{length} of each of the list elements.
     }
     \item{}{
@@ -424,7 +424,7 @@ class and methods.}
   gtl4
   
   ## Summarizing elements:
-  elementLengths(gtl4)
+  elementNROWS(gtl4)
   table(seqnames(gtl4))
   
   ## Extracting subsets:

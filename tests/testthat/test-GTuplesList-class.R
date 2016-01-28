@@ -98,7 +98,7 @@ test_that("GRangesList inherited accessors work", {
   expect_identical(length(gtl3), 2L)
   expect_identical(length(gtl4), 2L)
   expect_identical(names(gtl3), c("A", "B"))
-  expect_identical(elementLengths(gtl3), c("A" = 5L, "B" = 5L))
+  expect_identical(elementNROWS(gtl3), c("A" = 5L, "B" = 5L))
   expect_true(isEmpty(gtl0))
   expect_false(isEmpty(gtl1))
   expect_false(isEmpty(gtl2))
