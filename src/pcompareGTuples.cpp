@@ -25,10 +25,10 @@ using namespace Rcpp;
 //' @keywords internal
 //'
 //' 
-// [[Rcpp::export(".compareGTuplesCpp")]]
-IntegerVector compareGTuples(IntegerVector int_seqnames, 
-                             IntegerVector int_strand, 
-                             IntegerMatrix int_pos) {
+// [[Rcpp::export(".pcompareGTuplesCpp")]]
+IntegerVector pcompareGTuples(IntegerVector int_seqnames, 
+                              IntegerVector int_strand, 
+                              IntegerMatrix int_pos) {
   int n = int_seqnames.size();
   IntegerVector val(n);
   int nc = int_pos.ncol();

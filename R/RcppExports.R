@@ -47,8 +47,8 @@
 #' @keywords internal
 #'
 #' 
-.compareGTuplesCpp <- function(int_seqnames, int_strand, int_pos) {
-    .Call('GenomicTuples_compareGTuples', PACKAGE = 'GenomicTuples', int_seqnames, int_strand, int_pos)
+.pcompareGTuplesCpp <- function(int_seqnames, int_strand, int_pos) {
+    .Call('GenomicTuples_pcompareGTuples', PACKAGE = 'GenomicTuples', int_seqnames, int_strand, int_pos)
 }
 
 #' An internal function to compute the IPD of a GTuples; ; only used for 

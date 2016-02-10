@@ -2,22 +2,22 @@
 # tests/testthat/helper-make-test-data.R
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### compare() and related methods.
+### pcompare() and related methods.
 ###
-context("compare,GTuples,GTuples-method and related methods")
+context("pcompare,GTuples,GTuples-method and related methods")
 
 test_that("Returns errors on bad input", {
     # empty fails
-    expect_error(compare(gt0, gt0), "Cannot compare empty 'GTuples'.")
+    expect_error(pcompare(gt0, gt0), "Cannot compare empty 'GTuples'.")
     expect_error(gt0 == gt0, "Cannot compare empty 'GTuples'.")
-    expect_error(compare(gt0, gt1), "Cannot compare empty 'GTuples'.")
-    expect_error(compare(gt1, gt2), 
+    expect_error(pcompare(gt0, gt1), "Cannot compare empty 'GTuples'.")
+    expect_error(pcompare(gt1, gt2), 
                  "Cannot compare 'GTuples' objects of different 'size'.")
-    expect_error(compare(gt2, gt3), 
+    expect_error(pcompare(gt2, gt3), 
                  "Cannot compare 'GTuples' objects of different 'size'.")
-    expect_error(compare(gt3, gt4), 
+    expect_error(pcompare(gt3, gt4), 
                  "Cannot compare 'GTuples' objects of different 'size'.")
-    expect_error(compare(gt3[1], gt4[1]), 
+    expect_error(pcompare(gt3[1], gt4[1]), 
                  "Cannot compare 'GTuples' objects of different 'size'.")
 
     # switching chromosome names
@@ -39,18 +39,18 @@ test_that("Returns errors on bad input", {
     )   
 })
 
-test_that("compare works", {
-  expect_identical(compare(gt1, gt1), rep(0L, length(gt1)))
-  expect_identical(compare(gt1, gt1[1]), 
+test_that("pcompare works", {
+  expect_identical(pcompare(gt1, gt1), rep(0L, length(gt1)))
+  expect_identical(pcompare(gt1, gt1[1]), 
                    c(0L, 31L, 32L, 58L, 19L, -7L, 32L, 32L, 45L, 45L))
-  expect_identical(compare(gt2, gt2), rep(0L, length(gt2)))
-  expect_identical(compare(gt2, gt2[1]), 
+  expect_identical(pcompare(gt2, gt2), rep(0L, length(gt2)))
+  expect_identical(pcompare(gt2, gt2[1]), 
                    c(0L, 30L, 31L, 58L, 19L, -7L, 32L, 32L, 45L, 45L))
-  expect_identical(compare(q3, q3), rep(0L, length(q3)))
-  expect_identical(compare(q3, q3[1]), 
+  expect_identical(pcompare(q3, q3), rep(0L, length(q3)))
+  expect_identical(pcompare(q3, q3[1]), 
                    c(0L, 2L, 2L, -2L, -2L, -2L, -1L, -1L, -1L))
-  expect_identical(compare(q4, q4), rep(0L, length(q4)))
-  expect_identical(compare(q4, q4[1]), 
+  expect_identical(pcompare(q4, q4), rep(0L, length(q4)))
+  expect_identical(pcompare(q4, q4[1]), 
                    c(0L, 2L, 2L, 4L, -2L, -2L, -2L, -2L, -1L, -1L, -1L, -1L))
 })
 

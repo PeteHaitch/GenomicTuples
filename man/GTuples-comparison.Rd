@@ -2,7 +2,7 @@
 
 \alias{GTuples-comparison}
 
-\alias{compare,GTuples,GTuples-method}
+\alias{pcompare,GTuples,GTuples-method}
 
 \alias{duplicated,GTuples-method}
 \alias{duplicated.GTuples}
@@ -50,7 +50,7 @@
 ## objects
 ## -----------------------------------------------------------------------------
 
-\S4method{compare}{GTuples,GTuples}(x, y)
+\S4method{pcompare}{GTuples,GTuples}(x, y)
 }
 
 \arguments{
@@ -115,7 +115,7 @@
   
   \describe{
     \item{}{
-      \code{compare(x, y)}:
+      \code{pcompare(x, y)}:
       Performs "generalized range-wise comparison" of \code{x} and \code{y},
       that is, returns an integer vector where the i-th element is a code
       describing how the i-th element in \code{x} is qualitatively positioned
@@ -189,7 +189,7 @@
 }
 
 \value{
-  For \code{compare}: see Details section above.
+  For \code{pcompare}: see Details section above.
 
   For \code{selfmatch}: an integer vector of the same length as \code{x}.
 
@@ -288,7 +288,7 @@ rank(gt3)
 ## ---------------------------------------------------------------------
 ## F. GENERALIZED ELEMENT-WISE COMPARISON OF 2 GTuples OBJECTS
 ## ---------------------------------------------------------------------
-compare(gt3[3], gt3)
+pcompare(gt3[3], gt3)
 
 }
 \keyword{methods}

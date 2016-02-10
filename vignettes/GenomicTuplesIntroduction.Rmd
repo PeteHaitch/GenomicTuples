@@ -812,9 +812,9 @@ compared in turn. For example, `chr1:+:10, 20, 30` is considered less than
 `chr1:+:10, 20, 40`. This defines what I will refer to as the "natural order" 
 of genomic tuples.
 
-The above is implemented in the `compare` method for 
+The above is implemented in the `pcompare` method for 
 _GTuples_, which performs "generalized range-wise comparison" of two 
-_GTuples_ objects, `x` and `y`. That is, `compare(x, y)` returns an integer 
+_GTuples_ objects, `x` and `y`. That is, `pcompare(x, y)` returns an integer 
 vector where the $i^{th}$ element is a code describing how the $i^{th}$ element 
 in `x` is qualitatively positioned relatively to the $i^{th}$ element in `y`. 
 A code that is `< 0`, `= 0`, or `> 0`, corresponds to `x[i] < y[i]`, 
@@ -830,7 +830,7 @@ order".
 It is easiest to understand the above definitions by studying a few
 examples, here using 3-tuples:
 
-```{r 3-tuples-compare-examples, eval = TRUE, echo = TRUE}
+```{r 3-tuples-pcompare-examples, eval = TRUE, echo = TRUE}
 # Construct example 3-tuples
 gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2', 'chr1', 
                             'chr1'), 
@@ -842,13 +842,13 @@ gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2', 'chr1',
 gt3
 
 # Compare each tuple to itself
-compare(gt3, gt3)
+pcompare(gt3, gt3)
 gt3 < gt3
 gt3 > gt3
 gt3 == gt3
 
 # Compare the third tuple to all tuples
-compare(gt3[3], gt3)
+pcompare(gt3[3], gt3)
 gt3[3] < gt3
 gt3[3] > gt3
 gt3[3] == gt3

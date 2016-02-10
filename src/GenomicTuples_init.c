@@ -6,12 +6,12 @@
 #include <R_ext/Rdynload.h>
 
 SEXP GenomicTuples_allTuplesSorted(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP);
-SEXP GenomicTuples_compareGTuples(SEXP int_seqnamesSEXP, SEXP int_strandSEXP, SEXP int_posSEXP);
+SEXP GenomicTuples_pcompareGTuples(SEXP int_seqnamesSEXP, SEXP int_strandSEXP, SEXP int_posSEXP);
 SEXP GenomicTuples_IPD(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP);
 
 R_CallMethodDef callMethods[]  = {
   {"Cpp_GenomicTuples_allTuplesSorted", (DL_FUNC) &GenomicTuples_allTuplesSorted, 3},
-  {"Cpp_GenomicTuples_compareGTuples", (DL_FUNC) &GenomicTuples_compareGTuples, 3},
+  {"Cpp_GenomicTuples_pcompareGTuples", (DL_FUNC) &GenomicTuples_pcompareGTuples, 3},
   {"Cpp_GenomicTuples_IPD", (DL_FUNC) &GenomicTuples_IPD, 3},
   {NULL, NULL, 0}
 };

@@ -39,17 +39,17 @@
 ### be TRUE.
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### compare() and related methods.
+### pcompare() and related methods.
 ###
-### compare() is based on the method defined for GRanges objects but cannot 
+### pcompare() is based on the method defined for GRanges objects but cannot 
 ### explicity inherit the method due to the internalPos slot in GTuples 
-### objects. However, unlike the compare() method defined for GRanges, the 
-### compare() method for GTuples requires that both x and y have the same 
+### objects. However, unlike the pcompare() method defined for GRanges, the 
+### pcompare() method for GTuples requires that both x and y have the same 
 ### length. I also define the element wise (aka "parallel") operators '<=' and 
 ### '=='. The other element wise operators (`!=`, `>=`, `<`, `>`) work 
 ### out-of-the-box on GTuples objects via inheritance from GRanges -> Vector.
 
-# .GTuples.compare is adapted from GenomicRanges:::.GenomicRanges.compare.
+# .pcompare_GTuples is adapted from GenomicRanges:::.pcompare_GenomicRanges.
 # On 2 GTuples objects, it returns one of the 3 codes: If the first tuple in 
 # the pair is "<" than the second tuple then the return value for that element 
 # is < 0, if the first tuple in the pair is "==" the second tuple then the 
@@ -57,15 +57,15 @@
 # the return value is > 0.
 #' @importMethodsFrom GenomeInfoDb seqlevels "seqlevels<-" seqinfo
 #' @importMethodsFrom GenomicRanges granges
-#' @importMethodsFrom S4Vectors compare
-.GTuples.compare <- function(x, y) {
+#' @importMethodsFrom S4Vectors pcompare
+.pcompare_GTuples <- function(x, y) {
   
   # Different to comparing GRanges, I only allow comparison if x, y have same
   # length.
   # shortened error message because a long error trigger line formatting
   # that breaks the testthat error parser.
 
-  # This is where .GTuples.compare really differs from .GenomicRanges.compare
+  # This is where .pcompare_GTuples really differs from .pcompare_GenomicRanges
   # NOTE: moved this up because the next 'if' will fail on NA != NA
   if (is.na(size(x)) || is.na(size(y))) {
     stop("Cannot compare empty '", class(x), "'.")
@@ -80,7 +80,7 @@
     # Use the GRanges comparison method 
     # Can't use callNextMethod() because it breaks "<=", "<", etc.
     #callNextMethod()
-    compare(granges(x), granges(y))
+    pcompare(granges(x), granges(y))
   } else {
     # Otherwise, use method specifically written for m-tuples (m > 2)
     
@@ -97,7 +97,7 @@
     seqlevels(x) <- seqlevels(y) <- seqlevels
     
     if (size(x) == 1L) {
-      val <- .Call(Cpp_GenomicTuples_compareGTuples, 
+      val <- .Call(Cpp_GenomicTuples_pcompareGTuples, 
                    as.integer(seqnames(x)) - as.integer(seqnames(y)), 
                    as.integer(strand(x)) - as.integer(strand(y)), 
                    as.matrix(start(x) - start(y))
@@ -105,7 +105,7 @@
     } else if (size(x) > 1L) {
       # If lengths are equal then no need to recycle, which is faster.
       if (isTRUE(length(x) == length(y))) {
-        val <- .Call(Cpp_GenomicTuples_compareGTuples, 
+        val <- .Call(Cpp_GenomicTuples_pcompareGTuples, 
                      as.integer(seqnames(x)) - as.integer(seqnames(y)),
                      as.integer(strand(x)) - as.integer(strand(y)),
                      cbind(start(x) - start(y), x@internalPos - y@internalPos, 
@@ -115,7 +115,7 @@
         # Lengths are not equal so must recycle, which is slower.
         int_internal_pos <- .matrixDiffWithRecycling(x@internalPos, 
                                                      y@internalPos)
-        val <- .Call(Cpp_GenomicTuples_compareGTuples, 
+        val <- .Call(Cpp_GenomicTuples_pcompareGTuples, 
                      as.integer(seqnames(x)) - as.integer(seqnames(y)), 
                      as.integer(strand(x)) - as.integer(strand(y)),
                      cbind(start(x) - start(y), int_internal_pos, 
@@ -128,13 +128,13 @@
 }
 
 #' @importFrom methods setMethod
-#' @importMethodsFrom S4Vectors compare
+#' @importMethodsFrom S4Vectors pcompare
 #' 
 #' @export
-setMethod("compare", 
+setMethod("pcompare", 
           c("GTuples", "GTuples"), 
           function(x, y) {
-            .GTuples.compare(x, y)
+            .pcompare_GTuples(x, y)
           }
 )
 
@@ -233,7 +233,7 @@ setMethod("match",
 ### order() and related methods.
 ###
 ### The order() and rank() methods for GTuples objects are consistent with the 
-### order implied by compare().
+### order implied by pcompare().
 ### is.unsorted() is a quick/cheap way of checking whether a GTuples
 ### object is already sorted, e.g., called prior to a costly sort.
 ### sort is defined via inheritance to GRanges
