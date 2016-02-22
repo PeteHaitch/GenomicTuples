@@ -45,7 +45,8 @@
   selectHits(Hits(queryHits = hits[, q_idx], 
                   subjectHits = hits[, s_idx], 
                   queryLength = nrow(q), 
-                  subjectLength = nrow(s)),
+                  subjectLength = nrow(s),
+                  sort.by.query = TRUE),
              select = select)
 }
 # To avoid WARNINGs about "Undefined global functions or variables" in
@@ -90,7 +91,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
               if (is.na(size(query)) && is.na(size(subject))) {
                 # NOTE: A GTuples with NA-size is the same as a GRanges object 
                 #       with no ranges.
-                return(selectHits(Hits(), select = select))
+                return(selectHits(Hits(sort.by.query = TRUE), select = select))
               } 
               if (!isTRUE(size(query) == size(subject))) {
                 stop("Cannot findOverlaps between '", class(query), "' and '", 

@@ -157,53 +157,61 @@ test_that("match works", {
 
 test_that("findMatches works", {
   expect_identical(findMatches(gt0, gt0), 
-                   Hits())
+                   Hits(sort.by.query = TRUE))
   table <- gt1[4:6]
   strand(table) <- '-'
   expect_identical(findMatches(gt1, table), 
                    Hits(queryHits = 4:5,
                         subjectHits = 1:2,
                         queryLength = 10L,
-                        subjectLength = 3L))
+                        subjectLength = 3L,
+                        sort.by.query = TRUE))
   expect_identical(findMatches(gt1, table, ignore.strand = TRUE), 
                    Hits(queryHits = 4:6,
                         subjectHits = 1:3,
                         queryLength = 10L,
-                        subjectLength = 3L))
+                        subjectLength = 3L,
+                        sort.by.query = TRUE))
   table <- gt2[4:6]
   strand(table) <- '-'
   expect_identical(findMatches(gt2, table), 
                    Hits(queryHits = 4:5,
                         subjectHits = 1:2,
                         queryLength = 10L,
-                        subjectLength = 3L))
+                        subjectLength = 3L,
+                        sort.by.query = TRUE))
   expect_identical(findMatches(gt2, table, ignore.strand = TRUE), 
                    Hits(queryHits = 4:6,
                         subjectHits = 1:3,
                         queryLength = 10L,
-                        subjectLength = 3L))
+                        subjectLength = 3L,
+                        sort.by.query = TRUE))
   table <- q3[4:6]
   expect_identical(findMatches(q3, table), 
                    Hits(queryHits = 1:6,
                         subjectHits = rep(1:3, times = 2),
                         queryLength = 9L,
-                        subjectLength = 3L))
+                        subjectLength = 3L,
+                        sort.by.query = TRUE))
   expect_identical(findMatches(q3, table, ignore.strand = TRUE), 
                    Hits(queryHits = 1:9,
                         subjectHits = rep(1:3, times = 3),
                         queryLength = 9L,
-                        subjectLength = 3L))
+                        subjectLength = 3L,
+                        sort.by.query = TRUE))
   table <- q4[5:8]
   expect_identical(findMatches(q4, table), 
                    Hits(queryHits = 1:8, 
                         subjectHits = rep(1:4, times = 2), 
                         queryLength = 12L,
-                        subjectLength = 4L))
+                        subjectLength = 4L,
+                        sort.by.query = TRUE))
   expect_identical(findMatches(q4, table, ignore.strand = TRUE), 
                    Hits(queryHits = 1:12, 
                         subjectHits = rep(1:4, times = 3), 
                         queryLength = 12L,
-                        subjectLength = 4L))
+                        subjectLength = 4L,
+                        sort.by.query = TRUE))
 })
 
 test_that("countMatches works", {

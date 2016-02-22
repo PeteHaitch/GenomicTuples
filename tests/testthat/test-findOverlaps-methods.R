@@ -98,7 +98,7 @@ test_that("Works on 3-tuples", {
   expect_identical(queryHits(hits), c(1L, 1L, 2L, 2L))
   expect_identical(subjectHits(hits), c(1L, 2L, 1L, 2L))
   expect_identical(findOverlaps(gt3, gt3, type = 'equal'), 
-                   Hits(1:10, 1:10, 10L, 10L))
+                   Hits(1:10, 1:10, 10L, 10L, sort.by.query = TRUE))
   expect_identical(suppressWarnings(findOverlaps(q3, q3, type = 'any')),
                    findOverlaps(q3_gr, q3_gr, type = 'any'))
   expect_identical(suppressWarnings(findOverlaps(q3, q3, type = 'start')),
@@ -115,7 +115,8 @@ test_that("Works on 3-tuples", {
                           6L, 6L, 7L, 7L, 8L, 8L, 9L, 9L), 
                         c(1L, 4L, 7L, 2L, 5L, 8L, 3L, 6L, 9L, 1L, 4L, 2L, 5L, 
                           3L, 6L, 1L, 7L, 2L, 8L, 3L, 9L), 
-                        9L, 9L))
+                        9L, 9L,
+                        sort.by.query = TRUE))
   expect_identical(findOverlaps(q3, q3, type = 'equal', select = 'first'), 
                    rep(1:3, 3))
   expect_identical(findOverlaps(q3, q3, type = 'equal', select = 'last'), 
@@ -126,7 +127,8 @@ test_that("Works on 3-tuples", {
                                 ignore.strand = TRUE), 
                    Hits(c(rep(1:9, each = 3)), 
                         rep(c(1L, 4L, 7L, 2L, 5L, 8L, 3L, 6L, 9L), times = 3),
-                        9L, 9L))
+                        9L, 9L,
+                        sort.by.query = TRUE))
   q3c <- q3
   seqinfo(q3c) <- Seqinfo('chr1', 100, isCircular = TRUE)
   expect_identical(findOverlaps(q3c, q3c, type = 'equal'), 
@@ -151,7 +153,7 @@ test_that("Works on m-tuples, m > 3", {
   expect_identical(queryHits(hits), c(1L, 1L, 2L, 2L))
   expect_identical(subjectHits(hits), c(1L, 2L, 1L, 2L))
   expect_identical(findOverlaps(gt4, gt4, type = 'equal'), 
-                   Hits(1:10, 1:10, 10L, 10L))
+                   Hits(1:10, 1:10, 10L, 10L, sort.by.query = TRUE))
   expect_identical(suppressWarnings(findOverlaps(q4, q4, type = 'any')),
                    findOverlaps(q4_gr, q4_gr, type = 'any'))
   expect_identical(suppressWarnings(findOverlaps(q4, q4, type = 'start')),
@@ -170,7 +172,8 @@ test_that("Works on m-tuples, m > 3", {
                         c(1L, 5L, 9L, 2L, 6L, 10L, 3L, 7L, 11L, 4L, 8L, 12L, 
                           1L, 5L, 2L, 6L, 3L, 7L, 4L, 8L, 1L, 9L, 2L, 10L, 
                           3L, 11L, 4L, 12L), 
-                        12L, 12L))
+                        12L, 12L,
+                        sort.by.query = TRUE))
   expect_identical(findOverlaps(q4, q4, type = 'equal', select = 'first'), 
                    rep(1:4, 3))
   expect_identical(findOverlaps(q4, q4, type = 'equal', select = 'last'), 
@@ -182,7 +185,8 @@ test_that("Works on m-tuples, m > 3", {
                    Hits(rep(1:12, each = 3), 
                         rep(c(1L, 5L, 9L, 2L, 6L, 10L, 3L, 7L, 11L, 
                               4L, 8L, 12L), times = 3), 
-                        12L, 12L))
+                        12L, 12L,
+                        sort.by.query = TRUE))
   q4c <- q4
   seqinfo(q4c) <- Seqinfo('chr1', 100, isCircular = TRUE)
   expect_identical(findOverlaps(q4c, q4c, type = 'equal'), 

@@ -23,7 +23,7 @@ Depends:
     R (>= 3.3.0),
     GenomicRanges (>= 1.23.15),
     GenomeInfoDb (>= 1.7.2),
-    S4Vectors (>= 0.9.29)
+    S4Vectors (>= 0.9.38)
 Imports:
     methods,
     BiocGenerics (>= 0.17.0),
