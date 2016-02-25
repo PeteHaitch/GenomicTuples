@@ -23,7 +23,26 @@
     .Call('GenomicTuples_allTuplesSorted', PACKAGE = 'GenomicTuples', pos1, internal_pos, posm)
 }
 
-#' An internal function used to compare GTuples.
+#' An internal function to compute the IPD of a GTuples; ; only used for 
+#' tuples of size > 2.
+#' 
+#' @param pos1 An integer vector.
+#' @param internal_pos An integer matrix.
+#' @param posm An integer vector.
+#' 
+#' @keywords internal
+#'
+#' @return An integer matrix with the same number of rows as internal_pos and 
+#' number of columns equal to size - 1.
+#' 
+#' @note This function silently coerces numeric matrices to integer matrices
+#' and does integer subtraction. \emph{This will give unexpected results but
+#' it's not a problem for me since I only use it on integer matrices.}
+.IPDCpp <- function(pos1, internal_pos, posm) {
+    .Call('GenomicTuples_IPD', PACKAGE = 'GenomicTuples', pos1, internal_pos, posm)
+}
+
+#' An internal function used to pcompare GTuples.
 #' 
 #' @details 
 #' The tuples should have already been converted to integer representations,
@@ -49,24 +68,5 @@
 #' 
 .pcompareGTuplesCpp <- function(int_seqnames, int_strand, int_pos) {
     .Call('GenomicTuples_pcompareGTuples', PACKAGE = 'GenomicTuples', int_seqnames, int_strand, int_pos)
-}
-
-#' An internal function to compute the IPD of a GTuples; ; only used for 
-#' tuples of size > 2.
-#' 
-#' @param pos1 An integer vector.
-#' @param internal_pos An integer matrix.
-#' @param posm An integer vector.
-#' 
-#' @keywords internal
-#'
-#' @return An integer matrix with the same number of rows as internal_pos and 
-#' number of columns equal to size - 1.
-#' 
-#' @note This function silently coerces numeric matrices to integer matrices
-#' and does integer subtraction. \emph{This will give unexpected results but
-#' it's not a problem for me since I only use it on integer matrices.}
-.IPDCpp <- function(pos1, internal_pos, posm) {
-    .Call('GenomicTuples_IPD', PACKAGE = 'GenomicTuples', pos1, internal_pos, posm)
 }
 

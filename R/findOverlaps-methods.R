@@ -42,10 +42,10 @@
   hits <- q[s, allow.cartesian = TRUE][
     !is.na(q_idx) & (strand == "*" | i.strand == "*" | strand == i.strand), 
     list(q_idx, s_idx)]
-  selectHits(Hits(queryHits = hits[, q_idx], 
-                  subjectHits = hits[, s_idx], 
-                  queryLength = nrow(q), 
-                  subjectLength = nrow(s),
+  selectHits(Hits(from = hits[, q_idx], 
+                  to = hits[, s_idx], 
+                  nLnode = nrow(q), 
+                  nRnode = nrow(s),
                   sort.by.query = TRUE),
              select = select)
 }
@@ -122,16 +122,16 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
 ### -------------------------------------------------------------------------
 
 # NOTE: Copy of GenomicRanges::countOverlaps.definition (GenomicRanges v1.23.10)
-#' @importMethodsFrom S4Vectors queryHits
+#' @importMethodsFrom S4Vectors from
 .countOverlaps.definition <- function(query, subject,
                            maxgap = 0L, minoverlap = 1L, 
                            type = c("any", "start", "end", "within", "equal"), 
                            ignore.strand = FALSE)	{ 
-  counts <- queryHits(findOverlaps(query, subject, 
-                                   maxgap = maxgap, 
-                                   minoverlap = minoverlap,	
-                                   type = match.arg(type),
-                                   ignore.strand = ignore.strand))
+  counts <- from(findOverlaps(query, subject, 
+                              maxgap = maxgap, 
+                              minoverlap = minoverlap,	
+                              type = match.arg(type),
+                              ignore.strand = ignore.strand))
   structure(tabulate(counts, NROW(query)), names = names(query))
 }		
 

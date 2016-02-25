@@ -30,7 +30,7 @@
 ###       of the other. (B) is saying that this subset should be a subsequence.
 ### Pre-comparison step: if (A) and (B) are satisfied, then the 2 seqinfo() are
 ### merged and the seqlevels() of the result is assigned back to each object
-### to compare. This is a way to have 2 objects with identical seqlevels()
+### to pcompare. This is a way to have 2 objects with identical seqlevels()
 ### before the comparison can actually be performed and meaningful.
 ### The reason (B) is required for the pre-comparison step is because we want
 ### this step to preserve the original order of the seqlevels() in *both*
@@ -68,12 +68,12 @@
   # This is where .pcompare_GTuples really differs from .pcompare_GenomicRanges
   # NOTE: moved this up because the next 'if' will fail on NA != NA
   if (is.na(size(x)) || is.na(size(y))) {
-    stop("Cannot compare empty '", class(x), "'.")
+    stop("Cannot pcompare empty '", class(x), "'.")
   }
   
   # Check 'size' is identical
   if (size(x) != size(y)) {
-    stop("Cannot compare '", class(x), "' objects of different 'size'.")
+    stop("Cannot pcompare '", class(x), "' objects of different 'size'.")
   }
   
   if (size(x) <= 2L) {
@@ -90,7 +90,7 @@
     seqinfo <- merge(seqinfo(x), seqinfo(y))
     seqlevels <- seqlevels(seqinfo)
     if (any(diff(match(seqlevels(y), seqlevels)) < 0L)) {
-      stop("the 2 objects to compare have seqlevels in incompatible orders")
+      stop("the 2 objects to pcompare have seqlevels in incompatible orders")
     }
     # This should only insert new seqlevels in the existing ones i.e. it
     # should NEVER drop or reorder existing levels

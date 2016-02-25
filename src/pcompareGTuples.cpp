@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' An internal function used to compare GTuples.
+//' An internal function used to pcompare GTuples.
 //' 
 //' @details 
 //' The tuples should have already been converted to integer representations,

@@ -148,8 +148,8 @@
   \code{select = "all"}.
 
   For \code{distanceToNearest}, a \link[S4Vectors]{Hits} object with a
-  column for the \code{query} index (queryHits), \code{subject} index
-  (subjectHits) and the \code{distance} between the pair.
+  column for the \code{query} index (from), \code{subject} index
+  (to) and the \code{distance} between the pair.
 
   For \code{distance}, an integer vector of distances between the tuples/ranges
   in \code{x} and \code{y}.

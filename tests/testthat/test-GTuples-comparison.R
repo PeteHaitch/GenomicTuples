@@ -8,17 +8,17 @@ context("pcompare,GTuples,GTuples-method and related methods")
 
 test_that("Returns errors on bad input", {
     # empty fails
-    expect_error(pcompare(gt0, gt0), "Cannot compare empty 'GTuples'.")
-    expect_error(gt0 == gt0, "Cannot compare empty 'GTuples'.")
-    expect_error(pcompare(gt0, gt1), "Cannot compare empty 'GTuples'.")
+    expect_error(pcompare(gt0, gt0), "Cannot pcompare empty 'GTuples'.")
+    expect_error(gt0 == gt0, "Cannot pcompare empty 'GTuples'.")
+    expect_error(pcompare(gt0, gt1), "Cannot pcompare empty 'GTuples'.")
     expect_error(pcompare(gt1, gt2), 
-                 "Cannot compare 'GTuples' objects of different 'size'.")
+                 "Cannot pcompare 'GTuples' objects of different 'size'.")
     expect_error(pcompare(gt2, gt3), 
-                 "Cannot compare 'GTuples' objects of different 'size'.")
+                 "Cannot pcompare 'GTuples' objects of different 'size'.")
     expect_error(pcompare(gt3, gt4), 
-                 "Cannot compare 'GTuples' objects of different 'size'.")
+                 "Cannot pcompare 'GTuples' objects of different 'size'.")
     expect_error(pcompare(gt3[1], gt4[1]), 
-                 "Cannot compare 'GTuples' objects of different 'size'.")
+                 "Cannot pcompare 'GTuples' objects of different 'size'.")
 
     # switching chromosome names
     seqinfo <- Seqinfo(paste0("chr", 3:1), c(1000, 2000, 1500), NA, "mock1")
@@ -161,56 +161,56 @@ test_that("findMatches works", {
   table <- gt1[4:6]
   strand(table) <- '-'
   expect_identical(findMatches(gt1, table), 
-                   Hits(queryHits = 4:5,
-                        subjectHits = 1:2,
-                        queryLength = 10L,
-                        subjectLength = 3L,
+                   Hits(from = 4:5,
+                        to = 1:2,
+                        nLnode = 10L,
+                        nRnode = 3L,
                         sort.by.query = TRUE))
   expect_identical(findMatches(gt1, table, ignore.strand = TRUE), 
-                   Hits(queryHits = 4:6,
-                        subjectHits = 1:3,
-                        queryLength = 10L,
-                        subjectLength = 3L,
+                   Hits(from = 4:6,
+                        to = 1:3,
+                        nLnode = 10L,
+                        nRnode = 3L,
                         sort.by.query = TRUE))
   table <- gt2[4:6]
   strand(table) <- '-'
   expect_identical(findMatches(gt2, table), 
-                   Hits(queryHits = 4:5,
-                        subjectHits = 1:2,
-                        queryLength = 10L,
-                        subjectLength = 3L,
+                   Hits(from = 4:5,
+                        to = 1:2,
+                        nLnode = 10L,
+                        nRnode = 3L,
                         sort.by.query = TRUE))
   expect_identical(findMatches(gt2, table, ignore.strand = TRUE), 
-                   Hits(queryHits = 4:6,
-                        subjectHits = 1:3,
-                        queryLength = 10L,
-                        subjectLength = 3L,
+                   Hits(from = 4:6,
+                        to = 1:3,
+                        nLnode = 10L,
+                        nRnode = 3L,
                         sort.by.query = TRUE))
   table <- q3[4:6]
   expect_identical(findMatches(q3, table), 
-                   Hits(queryHits = 1:6,
-                        subjectHits = rep(1:3, times = 2),
-                        queryLength = 9L,
-                        subjectLength = 3L,
+                   Hits(from = 1:6,
+                        to = rep(1:3, times = 2),
+                        nLnode = 9L,
+                        nRnode = 3L,
                         sort.by.query = TRUE))
   expect_identical(findMatches(q3, table, ignore.strand = TRUE), 
-                   Hits(queryHits = 1:9,
-                        subjectHits = rep(1:3, times = 3),
-                        queryLength = 9L,
-                        subjectLength = 3L,
+                   Hits(from = 1:9,
+                        to = rep(1:3, times = 3),
+                        nLnode = 9L,
+                        nRnode = 3L,
                         sort.by.query = TRUE))
   table <- q4[5:8]
   expect_identical(findMatches(q4, table), 
-                   Hits(queryHits = 1:8, 
-                        subjectHits = rep(1:4, times = 2), 
-                        queryLength = 12L,
-                        subjectLength = 4L,
+                   Hits(from = 1:8, 
+                        to = rep(1:4, times = 2), 
+                        nLnode = 12L,
+                        nRnode = 4L,
                         sort.by.query = TRUE))
   expect_identical(findMatches(q4, table, ignore.strand = TRUE), 
-                   Hits(queryHits = 1:12, 
-                        subjectHits = rep(1:4, times = 3), 
-                        queryLength = 12L,
-                        subjectLength = 4L,
+                   Hits(from = 1:12, 
+                        to = rep(1:4, times = 3), 
+                        nLnode = 12L,
+                        nRnode = 4L,
                         sort.by.query = TRUE))
 })
 

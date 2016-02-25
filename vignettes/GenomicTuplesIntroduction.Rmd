@@ -841,13 +841,13 @@ gt3 <- GTuples(seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2', 'chr1',
                strand = c('+', '-', '*', '+', '+', '+', '+'))
 gt3
 
-# Compare each tuple to itself
+# pcompare each tuple to itself
 pcompare(gt3, gt3)
 gt3 < gt3
 gt3 > gt3
 gt3 == gt3
 
-# Compare the third tuple to all tuples
+# pcompare the third tuple to all tuples
 pcompare(gt3[3], gt3)
 gt3[3] < gt3
 gt3[3] > gt3
