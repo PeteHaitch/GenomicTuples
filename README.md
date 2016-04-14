@@ -4,7 +4,7 @@
 [![Linux Build Status](https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master)](https://travis-ci.org/PeteHaitch/GenomicTuples)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/PeteHaitch/GenomicTuples?svg=true)](https://ci.appveyor.com/project/PeteHaitch/GenomicTuples)
 [![Bioconductor downloads](http://bioconductor.org/shields/downloads/GenomicTuples.svg)](http://bioconductor.org/packages/stats/bioc/GenomicTuples.html)
-[![Coverage Status](https://coveralls.io/repos/PeteHaitch/GenomicTuples/badge.svg?branch=master)](https://coveralls.io/r/PeteHaitch/GenomicTuples?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/PeteHaitch/GenomicTuples/master.svg)](https://codecov.io/github/PeteHaitch/GenomicTuples?branch=master)
 
 ---
 
