@@ -1,7 +1,4 @@
 language: r
-r:
-  - devel
-sudo: false
+r: bioc-devel
 cache: packages
-bioc_required: true
 warnings_are_errors: false
