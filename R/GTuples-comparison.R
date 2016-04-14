@@ -230,6 +230,26 @@ setMethod("match",
 #' @importMethodsFrom S4Vectors %in%
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+### selfmatch()
+###
+
+# Can't defer to selfMatch,GenomicRanges-method introduced in 
+# https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/GenomicRanges@116115 
+# so include this kludge to restore previous behaviour
+#' @importFrom methods setMethod
+#' @importFrom S4Vectors selfmatch
+#' @export
+setMethod("selfmatch", 
+          "GTuples",
+          function(x, ignore.strand = FALSE, ...) {
+            if (!isTRUEorFALSE(ignore.strand)) {
+              stop("'ignore.strand' must be TRUE or FALSE")
+            }
+            match(x, x, ignore.strand = ignore.strand, ...)
+          }
+)
+
+### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### order() and related methods.
 ###
 ### The order() and rank() methods for GTuples objects are consistent with the 
@@ -329,7 +349,8 @@ globalVariables("idx")
 #' @export
 setMethod("order", 
           "GTuples", 
-          function(..., na.last = TRUE, decreasing = FALSE) {
+          function(..., na.last = TRUE, decreasing = FALSE, 
+                   method = c("shell", "radix")) {
             
             if (!isTRUEorFALSE(decreasing)) {
               stop("'decreasing' must be TRUE or FALSE")

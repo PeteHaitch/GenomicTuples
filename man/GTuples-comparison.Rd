@@ -8,6 +8,7 @@
 \alias{duplicated.GTuples}
 
 \alias{match,GTuples,GTuples-method}
+\alias{selfmatch,GTuples-method}
 
 \alias{order,GTuples-method}
 \alias{sort,GTuples-method}
@@ -28,16 +29,17 @@
 
 \S4method{duplicated}{GTuples}(x, incomparables = FALSE, fromLast = FALSE)
 
-## match()
+## match() and selfmatch()
 ## -------
 
 \S4method{match}{GTuples,GTuples}(x, table, nomatch = NA_integer_, 
       incomparables = NULL, ignore.strand = FALSE)
+\S4method{selfmatch}{GTuples}(x, ignore.strand = FALSE, ...)
 
 ## order() and related methods
 ## -----------------------------------------------------------------------------
 
-\S4method{order}{GTuples}(..., na.last = TRUE, decreasing = FALSE)
+\S4method{order}{GTuples}(..., na.last = TRUE, decreasing = FALSE, method = c("shell", "radix"))
 
 \S4method{sort}{GTuples}(x, decreasing = FALSE, ignore.strand = FALSE, by)
 
@@ -60,16 +62,17 @@
   \item{incomparables}{
     Not supported.
   }
-  \item{fromLast, nomatch}{
-    See \code{?`\link[GenomicRanges]{GenomicRanges-comparison}`} in the IRanges
-    package for a description of these arguments.
+  \item{fromLast, method, nomatch}{
+    See \code{?`\link[GenomicRanges]{GenomicRanges-comparison}`} in the 
+    \pkg{GenomicRanges} package for a description of these arguments.
   }
   \item{ignore.strand}{
     Whether or not the strand should be ignored when comparing 2 genomic
     tuples.
   }
   \item{...}{
-    Additional \code{\link{GTuples}} objects used for breaking ties.
+    One or more \link{GTuples} objects. The \link{GTuples} objects after the 
+    first one are used to break ties
   }
   \item{na.last}{
     Ignored.
