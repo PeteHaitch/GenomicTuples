@@ -6,3 +6,7 @@
 .coveralls.R
 ^CHANGELOG\.md$
 ^appveyor\.yml$
+^LICENSE$
+^paper\.bib$
+^paper\.json$
+^paper\.md$

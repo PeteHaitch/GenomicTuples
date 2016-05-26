@@ -1,0 +1,23 @@
+{
+  "@context": "https://raw.githubusercontent.com/mbjones/codemeta/master/codemeta.jsonld",
+  "@type": "Code",
+  "author": [
+    {
+      "@id": "http://orcid.org/0000-0002-8153-6258",
+      "@type": "Person",
+      "email": "peter.hickey@gmail.com",
+      "name": "Peter Hickey",
+      "affiliation": "Department of Biostatistics, Johns Hopkins Bloomberg School of Public Health"
+    }
+  ],
+  "identifier": "http://dx.doi.org/10.5281/zenodo.51498",
+  "codeRepository": "https://github.com/PeteHaitch/GenomicTuples",
+  "datePublished": "2016-05-17",
+  "dateModified": "2016-05-17",
+  "dateCreated": "2016-05-17",
+  "description": "Representation and Manipulation of Genomic Tuples in R",
+  "keywords": "bioinformatics, computational biology, R, Bioconductor, genomic tuples",
+  "license": "Artistic-2.0",
+  "title": "GenomicTuples",
+  "version": "v1.7.2"
+}
