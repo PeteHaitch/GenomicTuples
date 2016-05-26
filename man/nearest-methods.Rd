@@ -12,7 +12,7 @@
 \alias{distanceToNearest,GTuples,GTuples-method}
 \alias{distanceToNearest,GTuples,missing-method}
 
-\title{Finding the nearest genomic tuple/range neighbor}
+\title{Finding the nearest genomic tuple/range neighbour}
 
 \description{
   The \code{nearest}, \code{precede}, \code{follow}, \code{distance}
@@ -55,7 +55,7 @@
   \item{x}{The query \link{GTuples} instance.
   }
   \item{subject}{The subject \link{GTuples} instance
-    within which the nearest neighbors are found. Can be missing,
+    within which the nearest neighbours are found. Can be missing,
     in which case \code{x} is also the subject. 
   }
   \item{y}{For the \code{distance} method, a \code{GTuples} or \code{GRanges} 
@@ -82,10 +82,10 @@
 \details{
   \itemize{
     \item{nearest: }{
-      Performs conventional nearest neighbor finding.
-      Returns an integer vector containing the index of the nearest neighbor 
+      Performs conventional nearest neighbour finding.
+      Returns an integer vector containing the index of the nearest neighbour 
       tuple/range in \code{subject} for each range in \code{x}. If there is no 
-      nearest neighbor \code{NA} is returned. For details of the algorithm
+      nearest neighbour \code{NA} is returned. For details of the algorithm
       see the man page in IRanges, ?\code{nearest}. 
     }
     \item{precede: }{
@@ -107,7 +107,7 @@
       is 5' to 3', consistent with the direction of translation. 
       Because positional numbering along a chromosome is from left to 
       right and transcription takes place from 5' to 3', \code{precede} and 
-      \code{follow} can appear to have `opposite' behavior on the \code{+}
+      \code{follow} can appear to have `opposite' behaviour on the \code{+}
       and \code{-} strand. Using positions 5 and 6 as an example, 5 precedes 
       6 on the \code{+} strand but follows 6 on the \code{-} strand.
 
@@ -132,11 +132,11 @@
       }
     }
     \item{distanceToNearest: }{Returns the distance for each tuple/range in 
-    \code{x} to its nearest neighbor in the \code{subject}. 
+    \code{x} to its nearest neighbour in the \code{subject}. 
     }
     \item{distance: }{
       Returns the distance for each tuple/range in \code{x} to the range in 
-      \code{y}. The behavior of \code{distance} has changed in Bioconductor 
+      \code{y}. The behaviour of \code{distance} has changed in Bioconductor 
       2.12. See the man page \code{?distance} in IRanges for details.  
     }
   }

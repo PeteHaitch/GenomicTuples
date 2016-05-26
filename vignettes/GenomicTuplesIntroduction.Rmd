@@ -31,7 +31,7 @@ is based almost entirely on the wonderful `r Biocpkg("GenomicRanges")`
 package. Therefore, I have tried to keep the user interface as similar
 as possible. This vignette is also heavily based on the vignette "An
 Introduction to Genomic Ranges Classes", which is included with the 
-`r Biocpkg("GenomicRanges")` package[^GenomicRanges]. While not essential, familiarity with the `r Biocpkg("GenomicRanges")` will be of benifit in understanding the `r Biocpkg("GenomicTuples")` package.
+`r Biocpkg("GenomicRanges")` package[^GenomicRanges]. While not essential, familiarity with the `r Biocpkg("GenomicRanges")` will be of benefit in understanding the `r Biocpkg("GenomicTuples")` package.
 
 [^GenomicRanges]: The `r Biocpkg("GenomicRanges")` vignette can be accessed 
 by typing` vignette("GenomicRangesIntroduction", package = "GenomicRanges")` at the R console.
@@ -313,7 +313,7 @@ exist for _GenomicRanges::GRanges_. These are `tuples`,
 `size` and `IPD`.
 
 The `tuples` method we have already seen and is somewhat
-analagous to the `ranges` method for
+analogous to the `ranges` method for
 _GenomicRanges::GRanges_, although returning an integer matrix
 rather than an _IRanges::IRanges_ object:
 

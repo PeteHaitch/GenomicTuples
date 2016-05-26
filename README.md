@@ -84,7 +84,7 @@ subsetByOverlaps(x, y, type = "equal", ignore.strand = TRUE)
 # Note that if were to mistakenly treat these as genomic ranges, then the set 
 # of 'equal' genomic tuples would be incorrect since treating these tuples as 
 # ranges ignores the "internal positions" (pos2).
-# The set of overlaps when correctly treated as genomic tupels:
+# The set of overlaps when correctly treated as genomic tuples:
 findOverlaps(x, y, type = "equal")
 #> Hits object with 3 hits and 0 metadata columns:
 #>       queryHits subjectHits
@@ -107,7 +107,7 @@ findOverlaps(as(x, "GRanges"), as(y, "GRanges"), type = 'equal')
 #>   queryLength: 5 / subjectLength: 3
 ```
 
-The **GenomicTuples** includes extensive documentation available through the R help system:
+**GenomicTuples** includes extensive documentation available through the R help system:
 
 ``` r
 # See all documentation for the package

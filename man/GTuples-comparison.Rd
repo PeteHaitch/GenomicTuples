@@ -101,7 +101,7 @@
 
 \details{
   Two elements of a \code{\link{GTuples}} object (i.e. two genomic tuples) are
-  considered equal iff they are on the same underlying sequence and strand,
+  considered equal if and only if they are on the same underlying sequence and strand,
   and have the same positions (\code{\link{tuples}}). \code{duplicated()} and 
   \code{unique()} on a \code{\link{GTuples}} object are conforming to this.
 

@@ -175,7 +175,7 @@
       (\code{\link{tuples,GTuples-method}}) and strand (\code{\link{strand}}) 
       to determine which tuples from the \code{query} exactly match those in 
       the \code{subject}, where a \code{strand} value of \code{"*"} is treated 
-      as occuring on both the \code{"+"} and \code{"-"} strand. An overlap is 
+      as occurring on both the \code{"+"} and \code{"-"} strand. An overlap is 
       recorded when a tuple in the \code{query} and a tuple in the
       \code{subject} have the same sequence name, have a compatible pairing of 
       strands (e.g. \code{"+"}/\code{"+"}, \code{"-"}/\code{"-"}, 
