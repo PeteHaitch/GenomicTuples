@@ -10,3 +10,4 @@
 ^paper\.bib$
 ^paper\.json$
 ^paper\.md$
+README.Rmd
