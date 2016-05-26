@@ -68,7 +68,7 @@ subsetByOverlaps(x, y, type = "equal", ignore.strand = TRUE)
 # Note that if were to mistakenly treat these as genomic ranges, then the set 
 # of 'equal' genomic tuples would be incorrect since treating these tuples as 
 # ranges ignores the "internal positions" (pos2).
-# The set of overlaps when correctly treated as genomic tupels:
+# The set of overlaps when correctly treated as genomic tuples:
 findOverlaps(x, y, type = "equal")
 # The set of overlaps when incorrected treated as genomic ranges:
 findOverlaps(as(x, "GRanges"), as(y, "GRanges"), type = 'equal')
