@@ -74,7 +74,7 @@ findOverlaps(x, y, type = "equal")
 findOverlaps(as(x, "GRanges"), as(y, "GRanges"), type = 'equal')
 ```
 
-The __GenomicTuples__ includes extensive documentation available through the R help system:
+__GenomicTuples__ includes extensive documentation available through the R help system:
 
 ```{r, eval = FALSE}
 # See all documentation for the package
