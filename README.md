@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Bioconductor devel build status](http://bioconductor.org/shields/build/devel/bioc/GenomicTuples.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/GenomicTuples/) [![Linux Build Status](https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master)](https://travis-ci.org/PeteHaitch/GenomicTuples) [![Bioconductor downloads](http://bioconductor.org/shields/downloads/GenomicTuples.svg)](http://bioconductor.org/packages/stats/bioc/GenomicTuples.html) [![Coverage Status](https://img.shields.io/codecov/c/github/PeteHaitch/GenomicTuples/master.svg)](https://codecov.io/github/PeteHaitch/GenomicTuples?branch=master) [![DOI](https://zenodo.org/badge/22085/PeteHaitch/GenomicTuples.svg)](https://zenodo.org/badge/latestdoi/22085/PeteHaitch/GenomicTuples)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Bioconductor devel build status](http://bioconductor.org/shields/build/devel/bioc/GenomicTuples.svg)](http://bioconductor.org/checkResults/devel/bioc-LATEST/GenomicTuples/) [![Linux Build Status](https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master)](https://travis-ci.org/PeteHaitch/GenomicTuples) [![Bioconductor downloads](http://bioconductor.org/shields/downloads/GenomicTuples.svg)](http://bioconductor.org/packages/stats/bioc/GenomicTuples.html) [![Coverage Status](https://img.shields.io/codecov/c/github/PeteHaitch/GenomicTuples/master.svg)](https://codecov.io/github/PeteHaitch/GenomicTuples?branch=master) [![JOSS](http://joss.theoj.org/papers/10.21105/joss.00020/status.svg)](http://dx.doi.org/10.21105/joss.00020) [![DOI](https://zenodo.org/badge/22085/PeteHaitch/GenomicTuples.svg)](https://zenodo.org/badge/latestdoi/22085/PeteHaitch/GenomicTuples)
 
 R package: GenomicTuples
 ------------------------
@@ -128,6 +128,35 @@ Need help or want to get involved?
 I recommend that questions seeking support in using the software are posted to the Bioconductor support forum - <https://support.bioconductor.org/> - where they will attract not only my attention but that of the wider Bioconductor community.
 
 Code contributions, bug reports (and fixes!), and feature requests are most welcome. Please make any pull requests against the master branch at <https://github.com/PeteHaitch/GenomicTuples> and file issues at <https://github.com/PeteHaitch/GenomicTuples/issues>
+
+Citation
+--------
+
+**GenomicTuples** has been published in The Journal of Open Source Software, <http://joss.theoj.org/papers/10.21105/joss.00020>.
+
+If you use **GenomicTuples**, please cite the paper and software version. This can be done as follows:
+
+``` r
+citation("GenomicTuples")
+#> 
+#> To cite GenomicTuples in publications, please use:
+#> 
+#>   Peter F Hickey, (2016) Representation and Manipulation of
+#>   Genomic Tuples in R. JOSS: doi:10.21105/joss.00020
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     title = {Representation and Manipulation of Genomic Tuples in R},
+#>     author = {Peter F Hickey},
+#>     year = {2016},
+#>     journal = {The Journal of Open Source Software},
+#>     doi = {http://dx.doi.org/10.21105/joss.00020},
+#>     url = {http://joss.theoj.org/papers/64b99f363d24b8a7e9025188183e9865},
+#>   }
+packageVersion("GenomicTuples")
+#> [1] '1.7.4'
+```
 
 License
 -------

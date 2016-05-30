@@ -1,0 +1,11 @@
+citHeader("To cite GenomicTuples in publications, please use:")
+
+citEntry(entry="article",
+         title = "Representation and Manipulation of Genomic Tuples in R",
+         author = personList( as.person("Peter F Hickey" )),
+         year = 2016,
+         journal = "The Journal of Open Source Software",
+         doi = "http://dx.doi.org/10.21105/joss.00020",
+         url = "http://joss.theoj.org/papers/64b99f363d24b8a7e9025188183e9865",
+         textVersion = 
+           "Peter F Hickey, (2016) Representation and Manipulation of Genomic Tuples in R. JOSS: doi:10.21105/joss.00020" )

@@ -12,6 +12,10 @@
 #' @name GenomicTuples-package
 # NOTE: For simplicity, just import the entire BiocGenerics package
 #' @import BiocGenerics
+#' @references 
+#' Peter F Hickey (2016). 
+#' Representation and Manipulation of Genomic Tuples in R. 
+#' \emph{JOSS}. URL \url{http://dx.doi.org/10.21105/joss.00020}
 # Need these two tags to use Rcpp
 #' @useDynLib GenomicTuples, .registration = TRUE
 #' @importFrom Rcpp sourceCpp

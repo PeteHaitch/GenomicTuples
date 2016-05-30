@@ -9,6 +9,7 @@ output: github_document
 [![Linux Build Status](https://travis-ci.org/PeteHaitch/GenomicTuples.svg?branch=master)](https://travis-ci.org/PeteHaitch/GenomicTuples)
 [![Bioconductor downloads](http://bioconductor.org/shields/downloads/GenomicTuples.svg)](http://bioconductor.org/packages/stats/bioc/GenomicTuples.html)
 [![Coverage Status](https://img.shields.io/codecov/c/github/PeteHaitch/GenomicTuples/master.svg)](https://codecov.io/github/PeteHaitch/GenomicTuples?branch=master)
+[![JOSS](http://joss.theoj.org/papers/10.21105/joss.00020/status.svg)](http://dx.doi.org/10.21105/joss.00020)
 [![DOI](https://zenodo.org/badge/22085/PeteHaitch/GenomicTuples.svg)](https://zenodo.org/badge/latestdoi/22085/PeteHaitch/GenomicTuples)
 
 ```{r, echo = FALSE}
@@ -94,6 +95,17 @@ vignette("GenomicTuplesIntroduction", package = "GenomicTuples")
 I recommend that questions seeking support in using the software are posted to the Bioconductor support forum - [https://support.bioconductor.org/](https://support.bioconductor.org/) - where they will attract not only my attention but that of the wider Bioconductor community.
 
 Code contributions, bug reports (and fixes!), and feature requests are most welcome. Please make any pull requests against the master branch at [https://github.com/PeteHaitch/GenomicTuples](https://github.com/PeteHaitch/GenomicTuples) and file issues at [https://github.com/PeteHaitch/GenomicTuples/issues](https://github.com/PeteHaitch/GenomicTuples/issues)
+
+## Citation
+
+__GenomicTuples__ has been published in The Journal of Open Source Software, [http://joss.theoj.org/papers/10.21105/joss.00020](http://joss.theoj.org/papers/10.21105/joss.00020).
+
+If you use __GenomicTuples__, please cite the paper and software version. This can be done as follows: 
+
+```{r, citation}
+citation("GenomicTuples")
+packageVersion("GenomicTuples")
+```
 
 ## License
 
