@@ -350,7 +350,7 @@ globalVariables("idx")
 setMethod("order", 
           "GTuples", 
           function(..., na.last = TRUE, decreasing = FALSE, 
-                   method = c("shell", "radix")) {
+                   method = c("auto", "shell", "radix")) {
             
             if (!isTRUEorFALSE(decreasing)) {
               stop("'decreasing' must be TRUE or FALSE")

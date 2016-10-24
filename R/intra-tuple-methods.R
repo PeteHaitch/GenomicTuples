@@ -43,7 +43,7 @@ setMethod("shift",
           }
 )
 
-#' @importFrom methods setMethod
+#' @importFrom methods is setMethod
 #' @importMethodsFrom IRanges shift
 #' 
 #' @export
@@ -193,6 +193,7 @@ setMethod("restrict",
 ### Zooming (symmetrically scales the width).
 ###
 
+#' @importMethodsFrom methods Ops
 #' @importFrom methods setMethod
 #' @export
 setMethod("Ops", 

@@ -54,6 +54,7 @@ setValidity2("GTuplesList", .valid.GTuplesList)
 ###
 
 #' @importFrom IRanges PartitioningByEnd
+#' @importFrom methods is
 #' 
 #' @export
 GTuplesList <- function(...) {
@@ -139,13 +140,14 @@ setMethod("IPD",
 
 #' @importClassesFrom GenomicRanges GRanges
 #' @importFrom GenomicRanges GRangesList
-#' @importFrom methods setAs
+#' @importFrom methods setAs as
 setAs("GTuplesList", "GRangesList", 
       function(from) {
         if (length(from)) {
           GRangesList(lapply(from, as, "GRanges"))
-        } else
+        } else {
           GRangesList()
+        }
       }
 )
 
@@ -178,6 +180,7 @@ setMethod("relistToClass",
 ### show method.
 ###
 
+#' @importMethodsFrom methods show
 #' @importFrom methods setMethod
 #' 
 #' @export
@@ -187,7 +190,6 @@ setMethod("show",
             GenomicRanges:::showList(object, showGTuples, FALSE)
           }
 )
-
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ### Deconstruction/reconstruction of a GTuplesList into/from a GTuples

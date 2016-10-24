@@ -401,17 +401,17 @@ setMethod("tuples",
               ans <- matrix()
             } else if (size(x) == 1L) {
               ans <- matrix(start(x), 
-                            dimnames = list(NULL, paste0('pos', 
+                            dimnames = list(NULL, paste0("pos", 
                                                          seq_len(size(x)))))
             } else{
               ans <- cbind(start(x), x@internalPos, end(x))
-              colnames(ans) <- paste0('pos', seq_len(size(x)))
+              colnames(ans) <- paste0("pos", seq_len(size(x)))
             }
             ans
           }
 )
 
-#' @importFrom methods setReplaceMethod
+#' @importFrom methods is setReplaceMethod
 #' @importFrom IRanges IRanges
 #' @importMethodsFrom IRanges update
 #' 

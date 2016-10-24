@@ -39,7 +39,7 @@
 ## order() and related methods
 ## -----------------------------------------------------------------------------
 
-\S4method{order}{GTuples}(..., na.last = TRUE, decreasing = FALSE, method = c("shell", "radix"))
+\S4method{order}{GTuples}(..., na.last = TRUE, decreasing = FALSE, method = c("auto", "shell", "radix"))
 
 \S4method{sort}{GTuples}(x, decreasing = FALSE, ignore.strand = FALSE, by)
 
