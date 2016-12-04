@@ -305,8 +305,16 @@ setMethod("is.unsorted", "GTuples",
               #       it's still very fast because data.table is so fast.
               key <- c("seqnames", "strand", paste0("pos", seq_len(size(x))))
               y <- .GT2DT(x, ignore.strand = ignore.strand)
-              is.unsorted(y[, grp := .GRP, keyby = key][, grp], 
-                          strictly = strictly)
+	      # TODO: This used to mimic behaviour of 
+              #       is.unsorted(setkeyv(y[, grp := .GRP, by = key], key)[, 
+              #        grp], strictly = strictly)
+              #       but no longer seems to; why?
+              #       Some clues at 
+              #       https://github.com/Rdatatable/data.table/issues/1880
+              # is.unsorted(y[, grp := .GRP, keyby = key][, grp], 
+              #             strictly = strictly)
+              is.unsorted(setkeyv(y[, grp := .GRP, by = key], 
+                                  key)[, grp], strictly = strictly)
             }
           }
 )
