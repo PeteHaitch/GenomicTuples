@@ -281,7 +281,7 @@ test_that("is.unsorted works", {
                                   20L, 30L, 30L, 35L, 30L, 30L), ncol = 3), 
                 strand = c('+', '-', '*', '+', '+'))
   q3 <- c(q3, rev(q3[3:5]))
-  expect_false(is.unsorted(q3, ignore.strand = TRUE))
+  expect_true(is.unsorted(q3, ignore.strand = TRUE))
   expect_true(is.unsorted(sort(q3, ignore.strand = TRUE)))
   expect_false(is.unsorted(sort(q3, ignore.strand = TRUE), 
                            ignore.strand = TRUE))
