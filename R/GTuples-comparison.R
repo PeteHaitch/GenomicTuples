@@ -192,10 +192,10 @@ setMethod("duplicated",
 
 # Effectively just calls findOverlaps with type = equal.
 #' @importFrom methods setMethod
-#' @importFrom S4Vectors isSingleNumberOrNA isTRUEorFALSE
+#' @importFrom S4Vectors isSingleNumberOrNA isTRUEorFALSE selectHits
 #' @importMethodsFrom GenomeInfoDb seqinfo
 #' @importMethodsFrom IRanges findOverlaps
-#' 
+#' @importMethodsFrom S4Vectors from to
 #' @export
 setMethod("match", 
           c("GTuples", "GTuples"), 
@@ -227,11 +227,13 @@ setMethod("match",
                                ignore.strand = ignore.strand)
             if (!ignore.strand) {
               # Only keep those matches where the strands are identical
-              x_strand <- strand(x)[queryHits(ol)]
-              table_strand <- strand(table)[subjectHits(ol)]
+              x_strand <- strand(x)[from(ol)]
+              table_strand <- strand(table)[to(ol)]
               ol <- ol[x_strand == table_strand]
             }
-            selectHits(ol, "first")
+            val <- selectHits(ol, "first")
+            val[is.na(val)] <- nomatch
+            val
           }
 )
 

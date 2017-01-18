@@ -159,11 +159,20 @@ test_that("match works", {
   expect_identical(match(q3, table, ignore.strand = TRUE), rep(1:3, times = 3))
 })
 
+test_that("match works with nomatch argument", {
+  expect_identical(match(q4[1], q4[2]), NA_integer_)
+  expect_identical(match(q4[1], q4[2], nomatch = 99L), 99L)
+  expect_error(match(q4[1], q4[2], nomatch = 1:2), 
+               "'nomatch' must be a single number or NA")
+  expect_error(match(q4[1], q4[2], nomatch = "kraken"), 
+               "'nomatch' must be a single number or NA")
+})
+
 test_that("findMatches works", {
   expect_identical(findMatches(gt0, gt0), 
                    Hits(sort.by.query = TRUE))
   table <- gt1[4:6]
-  strand(table) <- '-'
+  strand(table) <- '*'
   expect_identical(findMatches(gt1, table), 
                    Hits(from = 4:5,
                         to = 1:2,
@@ -177,7 +186,7 @@ test_that("findMatches works", {
                         nRnode = 3L,
                         sort.by.query = TRUE))
   table <- gt2[4:6]
-  strand(table) <- '-'
+  strand(table) <- '*'
   expect_identical(findMatches(gt2, table), 
                    Hits(from = 4:5,
                         to = 1:2,
@@ -192,8 +201,8 @@ test_that("findMatches works", {
                         sort.by.query = TRUE))
   table <- q3[4:6]
   expect_identical(findMatches(q3, table), 
-                   Hits(from = 1:6,
-                        to = rep(1:3, times = 2),
+                   Hits(from = 4:6,
+                        to = 1:3,
                         nLnode = 9L,
                         nRnode = 3L,
                         sort.by.query = TRUE))
@@ -205,8 +214,8 @@ test_that("findMatches works", {
                         sort.by.query = TRUE))
   table <- q4[5:8]
   expect_identical(findMatches(q4, table), 
-                   Hits(from = 1:8, 
-                        to = rep(1:4, times = 2), 
+                   Hits(from = 5:8, 
+                        to = 1:4, 
                         nLnode = 12L,
                         nRnode = 4L,
                         sort.by.query = TRUE))
@@ -218,29 +227,30 @@ test_that("findMatches works", {
                         sort.by.query = TRUE))
 })
 
+# TODO: FIXME
 test_that("countMatches works", {
   expect_identical(countMatches(gt0, gt0), 
                    integer(0))
   table <- gt1[4:6]
-  strand(table) <- '-'
+  strand(table) <- '*'
   expect_identical(countMatches(gt1, table), 
                    c(rep(0L, 3), rep(1L, 2), rep(0L, 5)))
   expect_identical(countMatches(gt1, table, ignore.strand = TRUE), 
                    c(rep(0L, 3), rep(1L, 3), rep(0L, 4)))
   table <- gt2[4:6]
-  strand(table) <- '-'
+  strand(table) <- '*'
   expect_identical(countMatches(gt2, table), 
                    c(rep(0L, 3), rep(1L, 2), rep(0L, 5)))
   expect_identical(countMatches(gt2, table, ignore.strand = TRUE), 
                    c(rep(0L, 3), rep(1L, 3), rep(0L, 4)))
   table <- q3[4:6]
   expect_identical(countMatches(q3, table), 
-                   c(rep(1L, 6), rep(0L, 3)))
+                   c(rep(0L, 3), rep(1L, 3), rep(0L, 3)))
   expect_identical(countMatches(q3, table, ignore.strand = TRUE), 
                    rep(1L, 9))
   table <- q4[5:8]
   expect_identical(countMatches(q4, table), 
-                   c(rep(1L, 8), rep(0L, 4)))
+                   c(rep(0L, 4), rep(1L, 4), rep(0L, 4)))
   expect_identical(countMatches(q4, table, ignore.strand = TRUE), 
                    rep(1L, 12))
 })
