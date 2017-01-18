@@ -108,7 +108,7 @@ test_that("Works on 3-tuples", {
   expect_identical(suppressWarnings(findOverlaps(q3, q3, type = 'within')),
                    findOverlaps(q3_gr, q3_gr, type = 'within'))
   expect_that(findOverlaps(q3, q3, type = 'equal'),
-              negate(is_identical_to(findOverlaps(q3_gr, q3_gr, 
+              not(is_identical_to(findOverlaps(q3_gr, q3_gr, 
                                                type = 'equal'))))
   expect_identical(findOverlaps(q3, q3, type = 'equal', select = 'all'),
                    Hits(c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L, 4L, 4L, 5L, 5L, 
@@ -163,7 +163,7 @@ test_that("Works on m-tuples, m > 3", {
   expect_identical(suppressWarnings(findOverlaps(q4, q4, type = 'within')),
                    findOverlaps(q4_gr, q4_gr, type = 'within'))
   expect_that(findOverlaps(q4, q4, type = 'equal'),
-              negate(is_identical_to(findOverlaps(q4_gr, q4_gr, 
+              not(is_identical_to(findOverlaps(q4_gr, q4_gr, 
                                                type = 'equal'))))
   expect_identical(findOverlaps(q4, q4, type = 'equal', select = 'all'),
                    Hits(c(1L, 1L, 1L, 2L, 2L, 2L, 3L, 3L, 3L, 4L, 4L, 4L, 
