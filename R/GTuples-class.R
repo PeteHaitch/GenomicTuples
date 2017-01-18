@@ -289,7 +289,7 @@ setMethod("granges",
   ans_ranges <- do.call(c, lapply(x, ranges))
   ans_strand <- do.call(c, lapply(x, strand))
   ans_internalPos <- do.call(rbind, lapply(x, function(xx) xx@internalPos))
-  ans_size <- sapply(x, size)[1]
+  ans_size <- size(x[[1L]])
   if (ignore.mcols) {
     ans_mcols <- new("DataFrame", nrows = length(ans_ranges))
   } else {
@@ -326,10 +326,11 @@ setMethod("c",
             #   stop("Cannot combine ", paste0(unique(sapply(args, class)),
             #                                  collapse = ' and '), " objects")
             # }
-            if (!.zero_range(sapply(args, size)) && 
-                !isTRUE(all(is.na(sapply(args, size))))) {
-              stop("Cannot combine ", paste0(unique(sapply(args, class)), 
-                                             collapse = ' and '), 
+            sizes <- vapply(args, size, integer(1L))
+            if (!.zero_range(sizes) && !isTRUE(all(is.na(sizes)))) {
+              stop("Cannot combine ", 
+                   paste0(unique(vapply(args, class, character(1L))), 
+                          collapse = ' and '), 
                    " containing tuples of different 'size'.")
             }
             # "c" silently coerces to lowest common class, e.g., c(1, "next")

@@ -217,12 +217,21 @@ setMethod("match",
             }
             ## Calling merge() is the way to check that 'x' and 'table' are 
             ## based on the same reference genome.
+            ## That is, it's called for its side-effect (generally, not a good 
+            ## programming strategy)
             merge(seqinfo(x), seqinfo(table))
             
-            val <- findOverlaps(x, table, type = "equal", select = "first", 
-                          ignore.strand = ignore.strand)
-            val[is.na(val)] <- nomatch
-            val
+            ol <- findOverlaps(query = x,
+                               subject = table,
+                               type = "equal", 
+                               ignore.strand = ignore.strand)
+            if (!ignore.strand) {
+              # Only keep those matches where the strands are identical
+              x_strand <- strand(x)[queryHits(ol)]
+              table_strand <- strand(table)[subjectHits(ol)]
+              ol <- ol[x_strand == table_strand]
+            }
+            selectHits(ol, "first")
           }
 )
 
@@ -389,13 +398,13 @@ setMethod("order",
             
             args <- list(...)
             
-            size <- sapply(args, size)
-            
-            if (all(is.na(size))) {
+            sizes <- vapply(args, size, integer(1L))
+
+            if (all(is.na(sizes))) {
               return(integer(0L))
             }
             
-            if (!.zero_range(size)) {
+            if (!.zero_range(sizes)) {
               stop("All '", class(args[[1]]), "' objects must have the same ", 
                    "'size'.")
             }

@@ -34,8 +34,9 @@ test_that("Returns errors on bad input", {
                  "sequences chr1, chr3 have incompatible seqlengths")
     # GRanges fails the same way
     expect_equal(
-      tryCatch(gt3 == gt3_fake, error=function(e) as.character(e)),
-      tryCatch(granges(gt3) == granges(gt3_fake), error=function(e) as.character(e))
+      tryCatch(gt3 == gt3_fake, error = function(e) as.character(e)),
+      tryCatch(granges(gt3) == granges(gt3_fake), 
+               error = function(e) as.character(e))
     )   
 })
 
@@ -142,8 +143,10 @@ test_that("match works", {
   expect_identical(match(gt0, gt0), integer(0))
   expect_identical(match(gt1, gt1), seq_len(length(gt1)))
   expect_identical(match(gt2, gt2), seq_len(length(gt2)))
-  expect_identical(match(q3, q3), rep(1:3, times = 3))
-  expect_identical(match(q4, q4), rep(1:4, times = 3))
+  expect_identical(match(q3, q3), 1:9)
+  expect_identical(match(q3, q3, ignore.strand = TRUE), rep(1:3, times = 3))
+  expect_identical(match(q4, q4), 1:12)
+  expect_identical(match(q4, q4, ignore.strand = TRUE), rep(1:4, times = 3))
   expect_error(match(gt1, gt2), 
                paste0("Cannot findOverlaps between 'GTuples' and 'GTuples' ", 
                       "with 'type = \"equal\"' if they have different 'size'."))
@@ -151,7 +154,8 @@ test_that("match works", {
                paste0("\"match\" method for GenomicRanges objects only ", 
                       "accepts 'incomparables = NULL'"))
   table <- q3[4:6]
-  expect_identical(match(q3, table), c(rep(1:3, times = 2), rep(NA, 3)))
+  expect_identical(match(q3, table), 
+                   c(NA, NA, NA, 1L, 2L, 3L, NA, NA, NA))
   expect_identical(match(q3, table, ignore.strand = TRUE), rep(1:3, times = 3))
 })
 
@@ -329,18 +333,96 @@ test_that("order works with multiple arguments", {
                    rev(c(5:12, 1:4)))
 })
 
-test_that("rank works", {
-  expect_identical(rank(gt0), rank(gr0))
-  expect_identical(rank(sort(gt0)), seq_along(gt0))
-  expect_identical(rank(gt1), rank(gr1))
-  expect_identical(rank(sort(gt1)), seq_along(gt1))
-  expect_identical(rank(gt2), rank(gr2))
-  expect_identical(rank(sort(gt2)), seq_along(gt2))
-  expect_identical(rank(q3), c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
-  expect_identical(rank(sort(q3)), seq_len(length(q3)))
-  expect_identical(rank(q4), 
+test_that("rank(..., ties.method = 'average') is the default", {
+  expect_identical(rank(q3), rank(q3, ties.method = "average"))
+})
+
+test_that("rank(sort(x)) returns seq_along(x)", {
+  expect_equal(rank(sort(gt0)), seq_along(gt0))
+  expect_equal(rank(sort(gt1)), seq_along(gt1))
+  expect_equal(rank(sort(gt2)), seq_along(gt2))
+  expect_equal(rank(sort(gt3)), seq_along(gt3))
+  expect_equal(rank(sort(gt4)), seq_along(gt4))
+})
+
+test_that("rank() works for different sized tuples and `ties.method` values", {
+  # NOTE: GTuples with size < 3 are basically GRanges
+  Map(function(gt, gr) {
+    lapply(c("average", "first", "last", "random", "max", "min"), function(tm) {
+      expect_identical(rank(gt, ties.method = tm), rank(gr, ties.method = tm))
+    })
+  }, gt = list(gt0, gt1, gt2), gr = list(gr0, gr1, gr2))
+  # 3-tuples
+  expect_identical(rank(q3), c(2, 5, 8, 2, 5, 8, 2, 5, 8))
+  expect_identical(rank(q3, ties.method = "first"), 
+                   c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
+  expect_identical(rank(q3, ties.method = "last"),
+                   c(3L, 6L, 9L, 2L, 5L, 8L, 1L, 4L, 7L))
+  set.seed(666)
+  expect_identical(rank(q3, ties.method = "random"), 
+                   c(2L, 4L, 9L, 1L, 5L, 8L, 3L, 6L, 7L))
+  expect_identical(rank(q3, ties.method = "max"), 
+                   c(3L, 6L, 9L, 3L, 6L, 9L, 3L, 6L, 9L))
+  expect_identical(rank(q3, ties.method = "min"), 
+                   c(7L, 8L, 9L, 7L, 8L, 9L, 7L, 8L, 9L))
+  expect_identical(rank(sort(q3), ties.method = "first"), seq_len(length(q3)))
+  # 4-tuples
+  expect_identical(rank(q4, ties.method = "average"),
+                   c(2, 5, 8, 11, 2, 5, 8, 11, 2, 5, 8, 11))
+  expect_identical(rank(q4, ties.method = "first"), 
                    c(9L, 10L, 11L, 12L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L))
-  expect_identical(rank(sort(q4)), seq_len(length(q4)))
+  expect_identical(rank(q4, ties.method = "last"),
+                   c(3L, 6L, 9L, 12L, 2L, 5L, 8L, 11L, 1L, 4L, 7L, 10L))
+  set.seed(666)
+  expect_identical(rank(q4, ties.method = "random"),
+                   c(3L, 4L, 8L, 11L, 2L, 6L, 9L, 12L, 1L, 5L, 7L, 10L))
+  expect_identical(rank(q4, ties.method = "max"),
+                   c(3L, 6L, 9L, 12L, 3L, 6L, 9L, 12L, 3L, 6L, 9L, 12L))
+  expect_identical(rank(q4, ties.method = "min"),
+                   c(9L, 10L, 11L, 12L, 9L, 10L, 11L, 12L, 9L, 10L, 11L, 12L))
+  expect_identical(rank(sort(q4), ties.method = "first"), seq_len(length(q4)))
+})
+
+test_that("rank() works when ties are present", {
+  q2 <- c(gt2[1], gt2[1], gt2[1])
+  expect_identical(rank(q2), c(2, 2, 2))
+  expect_identical(rank(q2, ties.method = "first"), c(1L, 2L, 3L))
+  expect_identical(rank(q2, ties.method = "last"), c(3L, 2L, 1L))
+  set.seed(666)
+  expect_identical(rank(q2, ties.method = "random"), c(2L, 1L, 3L))
+  expect_identical(rank(q2, ties.method = "max"), c(3L, 3L, 3L))
+  expect_identical(rank(q2, ties.method = "min"), c(1L, 1L, 1L))
+})
+
+test_that("rank(..., ignore.strand = TRUE) works", {
+  q2 <- c(gt2[1], gt2[1], gt2[1])
+  strand(q2) <- rev(levels(strand()))
+  expect_identical(rank(q2, ties.method = "average", ignore.strand = FALSE),
+                   c(3, 2, 1))
+  expect_identical(rank(q2, ties.method = "average", ignore.strand = TRUE), 
+                   c(2, 2, 2))
+  expect_identical(rank(q2, ties.method = "first", ignore.strand = FALSE),
+                   c(3L, 2L, 1L))
+  expect_identical(rank(q2, ties.method = "first", ignore.strand = TRUE), 
+                   c(1L, 2L, 3L))
+  expect_identical(rank(q2, ties.method = "last", ignore.strand = FALSE),
+                   c(3L, 2L, 1L))
+  expect_identical(rank(q2, ties.method = "last", ignore.strand = TRUE), 
+                   c(3L, 2L, 1L))
+  set.seed(666)
+  expect_identical(rank(q2, ties.method = "random", ignore.strand = FALSE),
+                   c(3L, 2L, 1L))
+  set.seed(666)
+  expect_identical(rank(q2, ties.method = "random", ignore.strand = TRUE), 
+                   c(2L, 1L, 3L))
+  expect_identical(rank(q2, ties.method = "max", ignore.strand = FALSE),
+                   c(3L, 2L, 1L))
+  expect_identical(rank(q2, ties.method = "max", ignore.strand = TRUE), 
+                   c(3L, 3L, 3L))
+  expect_identical(rank(q2, ties.method = "min", ignore.strand = FALSE),
+                   c(3L, 2L, 1L))
+  expect_identical(rank(q2, ties.method = "min", ignore.strand = TRUE), 
+                   c(1L, 1L, 1L))
 })
 
 test_that("sort works", {
@@ -349,4 +431,13 @@ test_that("sort works", {
   expect_identical(sort(gt2), gt2[order(gt2)])
   expect_identical(sort(q3), q3[order(q3)])
   expect_identical(sort(q4), q4[order(q4)])
+  expect_identical(gt0, sort(gt0, decreasing = TRUE))
+  expect_identical(sort(gt1, decreasing = TRUE), 
+                   gt1[order(gt1, decreasing = TRUE)])
+  expect_identical(sort(gt2, decreasing = TRUE), 
+                   gt2[order(gt2, decreasing = TRUE)])
+  expect_identical(sort(q3, decreasing = TRUE), 
+                   q3[order(q3, decreasing = TRUE)])
+  expect_identical(sort(q4, decreasing = TRUE), 
+                   q4[order(q4, decreasing = TRUE)])
 })

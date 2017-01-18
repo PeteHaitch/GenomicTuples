@@ -65,11 +65,11 @@ GTuplesList <- function(...) {
     if (length(listData) == 1L && is.list(listData[[1L]])) {
       listData <- listData[[1L]]
     }
-    if (!all(sapply(listData, is, "GTuples"))) {
+    if (!all(vapply(listData, is, logical(1L), "GTuples"))) {
       stop("all elements in '...' must be GTuples objects")
     }
-    if (!.zero_range(sapply(listData, size)) && 
-          !isTRUE(all(is.na(sapply(listData, size))))) {
+    sizes <- vapply(listData, size, integer(1L))
+    if (!.zero_range(sizes) && !isTRUE(all(is.na(sizes)))) {
       stop("all GTuples in '...' must have the same 'size'")
     }
     unlistData <- suppressWarnings(do.call("c", unname(listData)))
