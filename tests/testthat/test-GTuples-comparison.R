@@ -260,9 +260,9 @@ test_that("%in% works", {
   expect_identical(gt1 %in% gt1[-1], c(FALSE, rep(TRUE, length(gt1) - 1)))
   expect_identical(gt2 %in% gt2[-1], c(FALSE, rep(TRUE, length(gt2) - 1)))
   expect_identical(q3 %in% q3[-c(1:6)], 
-                   c(rep(TRUE, 3), rep(FALSE, 3), rep(TRUE, 3)))
+                   c(rep(FALSE, 6), rep(TRUE, 3)))
   expect_identical(q4 %in% q4[-c(1:8)], 
-                   c(rep(TRUE, 4), rep(FALSE, 4), rep(TRUE, 4)))
+                   c(rep(FALSE, 8), rep(TRUE, 4)))
 })
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -363,33 +363,33 @@ test_that("rank() works for different sized tuples and `ties.method` values", {
     })
   }, gt = list(gt0, gt1, gt2), gr = list(gr0, gr1, gr2))
   # 3-tuples
-  expect_identical(rank(q3), c(2, 5, 8, 2, 5, 8, 2, 5, 8))
+  expect_identical(rank(q3), c(7, 8, 9, 1, 2, 3, 4, 5, 6))
   expect_identical(rank(q3, ties.method = "first"), 
                    c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
   expect_identical(rank(q3, ties.method = "last"),
-                   c(3L, 6L, 9L, 2L, 5L, 8L, 1L, 4L, 7L))
+                   c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
   set.seed(666)
   expect_identical(rank(q3, ties.method = "random"), 
-                   c(2L, 4L, 9L, 1L, 5L, 8L, 3L, 6L, 7L))
+                   c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
   expect_identical(rank(q3, ties.method = "max"), 
-                   c(3L, 6L, 9L, 3L, 6L, 9L, 3L, 6L, 9L))
+                   c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
   expect_identical(rank(q3, ties.method = "min"), 
-                   c(7L, 8L, 9L, 7L, 8L, 9L, 7L, 8L, 9L))
+                   c(7L, 8L, 9L, 1L, 2L, 3L, 4L, 5L, 6L))
   expect_identical(rank(sort(q3), ties.method = "first"), seq_len(length(q3)))
   # 4-tuples
   expect_identical(rank(q4, ties.method = "average"),
-                   c(2, 5, 8, 11, 2, 5, 8, 11, 2, 5, 8, 11))
+                   c(9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8))
   expect_identical(rank(q4, ties.method = "first"), 
                    c(9L, 10L, 11L, 12L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L))
   expect_identical(rank(q4, ties.method = "last"),
-                   c(3L, 6L, 9L, 12L, 2L, 5L, 8L, 11L, 1L, 4L, 7L, 10L))
+                   c(9L, 10L, 11L, 12L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L))
   set.seed(666)
   expect_identical(rank(q4, ties.method = "random"),
-                   c(3L, 4L, 8L, 11L, 2L, 6L, 9L, 12L, 1L, 5L, 7L, 10L))
+                   c(9L, 10L, 11L, 12L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L))
   expect_identical(rank(q4, ties.method = "max"),
-                   c(3L, 6L, 9L, 12L, 3L, 6L, 9L, 12L, 3L, 6L, 9L, 12L))
+                   c(9L, 10L, 11L, 12L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L))
   expect_identical(rank(q4, ties.method = "min"),
-                   c(9L, 10L, 11L, 12L, 9L, 10L, 11L, 12L, 9L, 10L, 11L, 12L))
+                   c(9L, 10L, 11L, 12L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L))
   expect_identical(rank(sort(q4), ties.method = "first"), seq_len(length(q4)))
 })
 
