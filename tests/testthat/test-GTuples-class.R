@@ -8,7 +8,7 @@ context("GTuples validity methods")
 
 test_that(".valid.GTuples.pos works for 1-tuples", {
   expect_that(GTuples('chr1', tuples = matrix(12:1, ncol = 1)), 
-              not(throws_error()))
+              negate(throws_error()))
 })
 test_that(".valid.GTuples.pos works for 2-tuples", {
   expect_error(GTuples('chr1', tuples = matrix(12:1, ncol = 2)), 
