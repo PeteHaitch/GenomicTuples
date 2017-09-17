@@ -134,10 +134,10 @@ test_that("Works on 3-tuples", {
   expect_identical(findOverlaps(q3c, q3c, type = 'equal'), 
                    findOverlaps(q3c, shift(q3c, 100L), type = 'equal'))
   expect_error(findOverlaps(q3, q3, type = 'equal', minoverlap = 10L), 
-               paste0("'minoverlap' must be 1 when 'type = equal', other ", 
+               paste0("'minoverlap' must be 0 when 'type = equal', other ", 
                       "values not yet supported"))
   expect_error(findOverlaps(q3, q3, type = 'equal', maxgap = 10L), 
-               paste0("'maxgap' must be 0 when 'type = equal', other ", 
+               paste0("'maxgap' must be -1 when 'type = equal', other ", 
                       "values not yet supported"))
 })
 
@@ -192,10 +192,10 @@ test_that("Works on m-tuples, m > 3", {
   expect_identical(findOverlaps(q4c, q4c, type = 'equal'), 
                    findOverlaps(q4c, shift(q4c, 100L), type = 'equal'))
   expect_error(findOverlaps(q4, q4, type = 'equal', minoverlap = 10L), 
-               paste0("'minoverlap' must be 1 when 'type = equal', other ", 
+               paste0("'minoverlap' must be 0 when 'type = equal', other ", 
                       "values not yet supported"))
   expect_error(findOverlaps(q4, q4, type = 'equal', maxgap = 10L), 
-               paste0("'maxgap' must be 0 when 'type = equal', other ", 
+               paste0("'maxgap' must be -1 when 'type = equal', other ", 
                       "values not yet supported"))
 })
 

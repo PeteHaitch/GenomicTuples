@@ -19,4 +19,3 @@ Peter F Hickey (2016).
 Representation and Manipulation of Genomic Tuples in R. 
 \emph{JOSS}. URL \url{http://dx.doi.org/10.21105/joss.00020}
 }
-

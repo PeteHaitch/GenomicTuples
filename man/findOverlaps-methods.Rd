@@ -113,23 +113,23 @@
 
 \usage{
 \S4method{findOverlaps}{GTuples,GTuples}(query, subject,
-    maxgap = 0L, minoverlap = 1L,
+    maxgap = -1L, minoverlap = 0L,
     type = c("any", "start", "end", "within", "equal"),
     select = c("all", "first", "last", "arbitrary"),
     ignore.strand = FALSE)
 
 \S4method{countOverlaps}{GTuples,GTuples}(query, subject,
-    maxgap = 0L, minoverlap = 1L,
+    maxgap = -1L, minoverlap = 0L,
     type = c("any", "start", "end", "within", "equal"),
     ignore.strand = FALSE)
 
 \S4method{overlapsAny}{GTuples,GTuples}(query, subject,
-    maxgap = 0L, minoverlap = 1L,
+    maxgap = -1L, minoverlap = 0L,
     type = c("any", "start", "end", "within", "equal"),
     ignore.strand = FALSE)
 
 \S4method{subsetByOverlaps}{GTuples,GTuples}(query, subject,
-    maxgap = 0L, minoverlap = 1L,
+    maxgap = -1L, minoverlap = 0L,
     type = c("any", "start", "end", "within", "equal"),
     ignore.strand = FALSE)
 }
@@ -145,15 +145,18 @@
   \item{type}{
     See details below.
   }
-  \item{maxgap, minoverlap}{
+  \item{maxgap}{
     See \code{\link[IRanges]{findOverlaps}} in the IRanges package for
-    a description of these arguments. These arguments have no effect if both 
-    \code{query} and \code{subject} are \code{\link{GTuples}} objects and 
-    \code{type = "equal"}.
+    a description of this argument.
+  }
+  \item{minoverlap}{
+    See \code{\link[IRanges]{findOverlaps}} in the IRanges package for
+    a description of this argument.
   }
   \item{select}{
     See \code{\link[IRanges]{findOverlaps}} in the IRanges package for
-    a description of this argument.}
+    a description of this argument.
+  }
   \item{ignore.strand}{
     When set to \code{TRUE}, the strand information is ignored in the
     overlap calculations.

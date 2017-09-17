@@ -65,7 +65,7 @@ globalVariables(c("q_idx", "s_idx", "i.strand"))
 #' 
 #' @export
 setMethod("findOverlaps", signature = c("GTuples", "GTuples"), 
-          function(query, subject, maxgap = 0L, minoverlap = 1L, 
+          function(query, subject, maxgap = -1L, minoverlap = 0L, 
                    type = c("any", "start", "end", "within", "equal"), 
                    select = c("all", "first", "last", "arbitrary"),
                    ignore.strand = FALSE) {
@@ -80,12 +80,12 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
             }
 
             if (identical(type, "equal")) {
-              if (!isTRUE(maxgap == 0L)) {
-                stop("'maxgap' must be 0 when 'type = equal', other values ", 
+              if (!isTRUE(maxgap == -1L)) {
+                stop("'maxgap' must be -1 when 'type = equal', other values ", 
                      "not yet supported")
               } 
-              if (!isTRUE(minoverlap == 1L)) {
-                stop("'minoverlap' must be 1 when 'type = equal', other ", 
+              if (!isTRUE(minoverlap == 0L)) {
+                stop("'minoverlap' must be 0 when 'type = equal', other ", 
                      "values not yet supported")
               }
               if (is.na(size(query)) && is.na(size(subject))) {
@@ -124,7 +124,7 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
 # NOTE: Copy of GenomicRanges::countOverlaps.definition (GenomicRanges v1.23.10)
 #' @importMethodsFrom S4Vectors from
 .countOverlaps.definition <- function(query, subject,
-                           maxgap = 0L, minoverlap = 1L, 
+                           maxgap = -1L, minoverlap = 0L, 
                            type = c("any", "start", "end", "within", "equal"), 
                            ignore.strand = FALSE)	{ 
   counts <- from(findOverlaps(query, subject, 
@@ -148,4 +148,5 @@ setMethod("countOverlaps", signature = c("GTuples", "GTuples"),
 ### =========================================================================
 ### findOverlaps-based methods with GTuples/GTuplesList signatures 
 ### -------------------------------------------------------------------------
+
 # These all inherit from the appropriate GRanges/GRangesList method
