@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // allTuplesSorted
 bool allTuplesSorted(IntegerVector pos1, IntegerMatrix internal_pos, IntegerVector posm);
-RcppExport SEXP GenomicTuples_allTuplesSorted(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
+RcppExport SEXP _GenomicTuples_allTuplesSorted(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // IPD
 IntegerMatrix IPD(IntegerVector pos1, IntegerMatrix internal_pos, IntegerVector posm);
-RcppExport SEXP GenomicTuples_IPD(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
+RcppExport SEXP _GenomicTuples_IPD(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -33,7 +33,7 @@ END_RCPP
 }
 // pcompareGTuples
 IntegerVector pcompareGTuples(IntegerVector int_seqnames, IntegerVector int_strand, IntegerMatrix int_pos);
-RcppExport SEXP GenomicTuples_pcompareGTuples(SEXP int_seqnamesSEXP, SEXP int_strandSEXP, SEXP int_posSEXP) {
+RcppExport SEXP _GenomicTuples_pcompareGTuples(SEXP int_seqnamesSEXP, SEXP int_strandSEXP, SEXP int_posSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,4 +43,16 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(pcompareGTuples(int_seqnames, int_strand, int_pos));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_GenomicTuples_allTuplesSorted", (DL_FUNC) &_GenomicTuples_allTuplesSorted, 3},
+    {"_GenomicTuples_IPD", (DL_FUNC) &_GenomicTuples_IPD, 3},
+    {"_GenomicTuples_pcompareGTuples", (DL_FUNC) &_GenomicTuples_pcompareGTuples, 3},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_GenomicTuples(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

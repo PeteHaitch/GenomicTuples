@@ -64,7 +64,7 @@
   # length.
   # shortened error message because a long error trigger line formatting
   # that breaks the testthat error parser.
-
+  
   # This is where .pcompare_GTuples really differs from .pcompare_GenomicRanges
   # NOTE: moved this up because the next 'if' will fail on NA != NA
   if (is.na(size(x)) || is.na(size(y))) {
@@ -97,29 +97,29 @@
     seqlevels(x) <- seqlevels(y) <- seqlevels
     
     if (size(x) == 1L) {
-      val <- .Call(Cpp_GenomicTuples_pcompareGTuples, 
-                   as.integer(seqnames(x)) - as.integer(seqnames(y)), 
-                   as.integer(strand(x)) - as.integer(strand(y)), 
-                   as.matrix(start(x) - start(y))
+      val <- .pcompareGTuplesCpp(
+        int_seqnames = as.integer(seqnames(x)) - as.integer(seqnames(y)), 
+        int_strand = as.integer(strand(x)) - as.integer(strand(y)), 
+        int_pos = as.matrix(start(x) - start(y))
       )
     } else if (size(x) > 1L) {
       # If lengths are equal then no need to recycle, which is faster.
       if (isTRUE(length(x) == length(y))) {
-        val <- .Call(Cpp_GenomicTuples_pcompareGTuples, 
-                     as.integer(seqnames(x)) - as.integer(seqnames(y)),
-                     as.integer(strand(x)) - as.integer(strand(y)),
-                     cbind(start(x) - start(y), x@internalPos - y@internalPos, 
-                           end(x) - end(y))
+        val <- .pcompareGTuplesCpp(
+          int_seqnames = as.integer(seqnames(x)) - as.integer(seqnames(y)),
+          int_strand = as.integer(strand(x)) - as.integer(strand(y)),
+          int_pos = cbind(start(x) - start(y), x@internalPos - y@internalPos, 
+                          end(x) - end(y))
         )
       } else {
         # Lengths are not equal so must recycle, which is slower.
         int_internal_pos <- .matrixDiffWithRecycling(x@internalPos, 
                                                      y@internalPos)
-        val <- .Call(Cpp_GenomicTuples_pcompareGTuples, 
-                     as.integer(seqnames(x)) - as.integer(seqnames(y)), 
-                     as.integer(strand(x)) - as.integer(strand(y)),
-                     cbind(start(x) - start(y), int_internal_pos, 
-                           end(x) - end(y))
+        val <- .pcompareGTuplesCpp(
+          int_seqnames = as.integer(seqnames(x)) - as.integer(seqnames(y)), 
+          int_strand = as.integer(strand(x)) - as.integer(strand(y)),
+          int_pos = cbind(start(x) - start(y), int_internal_pos, 
+                          end(x) - end(y))
         )
       }
     }
@@ -401,7 +401,7 @@ setMethod("order",
             args <- list(...)
             
             sizes <- vapply(args, size, integer(1L))
-
+            
             if (all(is.na(sizes))) {
               return(integer(0L))
             }

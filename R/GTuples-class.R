@@ -27,9 +27,10 @@ setClass("GTuples",
   
   # Check tuples are sorted; only required if m > 1.
   if (isTRUE(object@size > 2L) && length(object) != 0L) {
-    if (!.Call(Cpp_GenomicTuples_allTuplesSorted, object@ranges@start, 
-               object@internalPos, 
-               object@ranges@start + object@ranges@width - 1L)
+    if (!.allTuplesSortedCpp(
+      pos1 = start(object), 
+      internal_pos = object@internalPos, 
+      posm = end(object))
     ) {
       return(paste0("positions in each tuple must be sorted in strictly ", 
                     "increasing order, i.e. 'pos1' < ... < ", 
@@ -473,10 +474,10 @@ setMethod("IPD",
               ## width is not the same as distance ... at least for IRanges  
               ipd <- matrix(width(x) - 1L, ncol = 1L)
             } else {
-              ipd <- .Call(Cpp_GenomicTuples_IPD, 
-                           start(x), 
-                           matrix(x@internalPos, ncol = size - 2L), 
-                           end(x)
+              ipd <- .IPDCpp(
+                pos1 = start(x), 
+                internal_pos = matrix(x@internalPos, ncol = size - 2L), 
+                posm = end(x)
               )
             }
             ipd

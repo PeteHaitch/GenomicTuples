@@ -20,7 +20,7 @@
 #' @keywords internal
 #' 
 .allTuplesSortedCpp <- function(pos1, internal_pos, posm) {
-    .Call('GenomicTuples_allTuplesSorted', PACKAGE = 'GenomicTuples', pos1, internal_pos, posm)
+    .Call(`_GenomicTuples_allTuplesSorted`, pos1, internal_pos, posm)
 }
 
 #' An internal function to compute the IPD of a GTuples; ; only used for 
@@ -39,7 +39,7 @@
 #' and does integer subtraction. \emph{This will give unexpected results but
 #' it's not a problem for me since I only use it on integer matrices.}
 .IPDCpp <- function(pos1, internal_pos, posm) {
-    .Call('GenomicTuples_IPD', PACKAGE = 'GenomicTuples', pos1, internal_pos, posm)
+    .Call(`_GenomicTuples_IPD`, pos1, internal_pos, posm)
 }
 
 #' An internal function used to pcompare GTuples.
@@ -67,6 +67,6 @@
 #'
 #' 
 .pcompareGTuplesCpp <- function(int_seqnames, int_strand, int_pos) {
-    .Call('GenomicTuples_pcompareGTuples', PACKAGE = 'GenomicTuples', int_seqnames, int_strand, int_pos)
+    .Call(`_GenomicTuples_pcompareGTuples`, int_seqnames, int_strand, int_pos)
 }
 
