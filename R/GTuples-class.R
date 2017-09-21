@@ -48,8 +48,7 @@ setClass("GTuples",
   # pos1 < internalPos < posm
   # NB: min(x) < 0 is faster than any(x < 0)
   if (!is.na(object@size) && length(object) != 0L) {
-    if (min(object@ranges@start) < 0L || min(object@ranges@start + 
-                                             object@ranges@width - 1L) < 0L) {
+    if (min(start(object)) < 0L || min(end(object)) < 0L) {
       return("positions in each tuple must be positive integers.")
     }
   }
@@ -619,21 +618,19 @@ setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
 .makeNakedMatFromGTuples <- function(x) {
   lx <- length(x)
   nc <- ncol(mcols(x))
-  if (!is.na(x@size)) {
-    if (x@size == 1L) {
-      ans <- cbind(as.character(x@seqnames), x@ranges@start, 
-                   as.character(x@strand))
-    } else if (x@size == 2L) {
-      ans <- cbind(as.character(x@seqnames), x@ranges@start, 
-                   x@ranges@start + x@ranges@width - 1L, as.character(x@strand))
+  if (!is.na(size(x))) {
+    if (size(x) == 1L) {
+      ans <- cbind(as.character(seqnames(x)), start(x), as.character(strand(x)))
+    } else if (size(x) == 2L) {
+      ans <- cbind(as.character(seqnames(x)), start(x), end(x), 
+                   as.character(strand(x)))
     } else {
-      ans <- cbind(as.character(x@seqnames), x@ranges@start, 
-                   x@internalPos, x@ranges@start + x@ranges@width - 1L, 
-                   as.character(x@strand))
+      ans <- cbind(as.character(seqnames(x)), start(x), x@internalPos, end(x), 
+                   as.character(strand(x)))
     }
-    colnames(ans) <- c("seqnames", paste0('pos', seq_len(x@size)), "strand")
+    colnames(ans) <- c("seqnames", paste0('pos', seq_len(size(x))), "strand")
   } else{
-    ans <- cbind(as.character(x@seqnames), as.character(x@strand))
+    ans <- cbind(as.character(seqnames(x)), as.character(strand(x)))
     colnames(ans) <- c("seqnames", "strand")
   }
   extraColumnNames <- GenomicRanges:::extraColumnSlotNames(x)
@@ -662,9 +659,9 @@ showGTuples <- function(x, margin = "", print.classinfo = FALSE,
   lx <- length(x)
   nc <- ncol(mcols(x))
   
-  if (!is.na(x@size)) {
+  if (!is.na(size(x))) {
     cat(class(x), " object with ", lx, " x ", 
-        ifelse(lx == 1L, paste0(x@size, "-tuple"), 
+        ifelse(lx == 1L, paste0(size(x), "-tuple"), 
                paste0(x@size, "-tuples")), 
         " and ", nc, " metadata ", ifelse(nc == 1L, "column", "columns"), 
         ":\n", sep = "")
