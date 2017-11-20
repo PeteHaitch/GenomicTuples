@@ -151,6 +151,13 @@ setAs("GTuplesList", "GRangesList",
       }
 )
 
+#' @importClassesFrom S4Vectors List
+#' @importFrom methods setAs as
+setAs("GTuples", "GTuplesList", function(from) as(from, "List"))
+
+setAs("list", "GTuplesList",
+      function(from) do.call(GTuplesList, from))
+
 # TODO (longterm): grglist when method is implemented in GenomicRanges
 
 # NOTE: as.list, stack defined via inheritance to GRangesList.
