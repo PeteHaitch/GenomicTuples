@@ -8,14 +8,10 @@
 \alias{findOverlaps,GTuples,GTuplesList-method}
 % GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
 \alias{findOverlaps,GTuplesList,GTuplesList-method}
-\alias{findOverlaps,RangesList,GTuples-method}
-\alias{findOverlaps,RangesList,GTuplesList-method}
-\alias{findOverlaps,GTuples,RangesList-method}
-\alias{findOverlaps,GTuplesList,RangesList-method}
-\alias{findOverlaps,RangedData,GTuples-method}
-\alias{findOverlaps,RangedData,GTuplesList-method}
-\alias{findOverlaps,GTuples,RangedData-method}
-\alias{findOverlaps,GTuplesList,RangedData-method}
+\alias{findOverlaps,IntegerRangesList,GTuples-method}
+\alias{findOverlaps,IntegerRangesList,GTuplesList-method}
+\alias{findOverlaps,GTuples,IntegerRangesList-method}
+\alias{findOverlaps,GTuplesList,IntegerRangesList-method}
 \alias{findOverlaps,GTuples,GenomicRanges-method}
 \alias{findOverlaps,GenomicRanges,GTuples-method}
 \alias{findOverlaps,GTuplesList,GenomicRanges-method}
@@ -52,14 +48,10 @@
 \alias{overlapsAny,GTuples,GTuplesList-method}
 \alias{overlapsAny,GTuplesList,GtuplesList-method}
 % GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
-\alias{overlapsAny,RangesList,GTuples-method}
-\alias{overlapsAny,RangesList,GTuplesList-method}
-\alias{overlapsAny,GTuples,RangesList-method}
-\alias{overlapsAny,GTuplesList,RangesList-method}
-\alias{overlapsAny,RangedData,GTuples-method}
-\alias{overlapsAny,RangedData,GTuplesList-method}
-\alias{overlapsAny,GTuples,RangedData-method}
-\alias{overlapsAny,GTuplesList,RangedData-method}
+\alias{overlapsAny,IntegerRangesList,GTuples-method}
+\alias{overlapsAny,IntegerRangesList,GTuplesList-method}
+\alias{overlapsAny,GTuples,IntegerRangesList-method}
+\alias{overlapsAny,GTuplesList,IntegerRangesList-method}
 \alias{overlapsAny,GTuples,GRanges-method}
 \alias{overlapsAny,GRanges,GTuples-method}
 \alias{overlapsAny,GTuples,GRangesList-method}
@@ -76,14 +68,10 @@
 \alias{subsetByOverlaps,GTuples,GTuplesList-method}
 \alias{subsetByOverlaps,GTuplesList,GTuplesList-method}
 % GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
-\alias{subsetByOverlaps,RangesList,GTuples-method}
-\alias{subsetByOverlaps,RangesList,GTuplesList-method}
-\alias{subsetByOverlaps,GTuples,RangesList-method}
-\alias{subsetByOverlaps,GTuplesList,RangesList-method}
-\alias{subsetByOverlaps,RangedData,GTuples-method}
-\alias{subsetByOverlaps,RangedData,GTuplesList-method}
-\alias{subsetByOverlaps,GTuples,RangedData-method}
-\alias{subsetByOverlaps,GTuplesList,RangedData-method}
+\alias{subsetByOverlaps,IntegerRangesList,GTuples-method}
+\alias{subsetByOverlaps,IntegerRangesList,GTuplesList-method}
+\alias{subsetByOverlaps,GTuples,IntegerRangesList-method}
+\alias{subsetByOverlaps,GTuplesList,IntegerRangesList-method}
 \alias{subsetByOverlaps,GTuples,GRanges-method}
 \alias{subsetByOverlaps,GRanges,GTuples-method}
 \alias{subsetByOverlaps,GTuples,GRangesList-method}
@@ -100,8 +88,9 @@
   and another object containing tuples or ranges.
   
   NOTE: The \code{\link[IRanges]{findOverlaps}} generic function and 
-  methods for \link[IRanges]{Ranges} and \link[IRanges]{RangesList} objects
-  are defined and documented in the \pkg{IRanges} package.
+  methods for \link[IRanges]{IntegerRanges} and
+  \link[IRanges]{IntegerRangesList} objects are defined and
+  documented in the \pkg{IRanges} package.
   The methods for \link[GenomicRanges]{GenomicRanges} and 
   \link[GenomicRanges]{GRangesList} objects are defined and
   documented in the \pkg{GenomicRanges} package.
@@ -138,8 +127,8 @@
   \item{query, subject}{
     A \code{\link{GTuples}} or \code{\link{GTuplesList}} object. 
     \code{\link[GenomicRanges]{GRanges}}, 
-    \code{\link[GenomicRanges]{GRangesList}}, \code{\link[IRanges]{RangesList}} 
-    and \code{\link[IRanges]{RangedData}} are also accepted for one of 
+    \code{\link[GenomicRanges]{GRangesList}}, and
+    \code{\link[IRanges]{IntegerRangesList}} are also accepted for one of
     \code{query} or \code{subject}.
   }
   \item{type}{
@@ -246,11 +235,8 @@
   For \code{subsetByOverlaps} an object of the same class as \code{query}
   containing the subset that overlapped at least one entity in \code{subject}.
 
-  For \code{RangedData} and \code{RangesList}, with the exception of
-  \code{subsetByOverlaps}, the results align to the unlisted
-  form of the object. This turns out to be fairly convenient for
-  \code{RangedData} (not so much for \code{RangesList}, but something
-  has to give).
+  For \code{IntegerRangesList}, with the exception of \code{subsetByOverlaps},
+  the results align to the unlisted form of the object.
 }
 
 \author{Peter Hickey for methods involving \code{\link{GTuples}} and 

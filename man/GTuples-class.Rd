@@ -248,7 +248,7 @@
    \item{}{
     \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}: Get or set 
     the ranges in the form of a CompressedIRangesList. \code{value} can be a 
-    RangesList object.
+    IntegerRangesList object.
     
     \strong{WARNING}: The use of \code{ranges} with \code{GTuples} objects is 
     \strong{strongly} discouraged. It will only get/set \eqn{pos_{1}} and 
@@ -548,7 +548,7 @@
   \code{\link[GenomeInfoDb]{seqinfo}},
   \code{\link[S4Vectors]{Vector-class}},
   \code{\link[S4Vectors]{Rle-class}},
-  \code{\link[IRanges]{Ranges-class}},
+  \code{\link[IRanges]{IntegerRanges-class}},
   \code{\link[S4Vectors]{DataFrame}},
   \code{\link[GenomicRanges]{GRanges-class}},
   \code{\link{intra-tuple-methods}},

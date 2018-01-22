@@ -129,8 +129,8 @@
       respectively.
       
       \strong{WARNING:} These predefined codes are not as detailed as those for 
-      \code{\link[IRanges]{Ranges-comparison}}. Specifically, only the sign of 
-      the code matters, not the actual value.
+      \code{\link[IRanges]{IntegerRanges-comparison}}. Specifically, only the
+      sign of the code matters, not the actual value.
     }
     \item{}{
       \code{match(x, table, nomatch = NA_integer_)}:
