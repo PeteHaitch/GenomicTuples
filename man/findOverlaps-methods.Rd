@@ -78,8 +78,8 @@
   The \code{findOverlaps}-based methods involving genomic tuples, 
   either through \code{\link{GTuples}} or \code{\link{GTuplesList}} objects, 
   can search for \emph{tuple-tuple}, \emph{tuple-range} and \emph{range-tuple} 
-  overlaps. Each of these are described below, with attention paid to 
-  the important special case of finding "equal tuple-tuple overlaps".
+  overlaps. Each of these are described below, with attention paid to the 
+  important special case of finding "equal tuple-tuple overlaps".
       
   \describe{
     \item{Equal tuple-tuple overlaps}{
