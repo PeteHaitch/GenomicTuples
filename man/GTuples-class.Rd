@@ -248,7 +248,7 @@
    \item{}{
     \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}: Get or set 
     the ranges in the form of a CompressedIRangesList. \code{value} can be a 
-    RangesList object.
+    IntegerRangesList object.
     
     \strong{WARNING}: The use of \code{ranges} with \code{GTuples} objects is 
     \strong{strongly} discouraged. It will only get/set \eqn{pos_{1}} and 
@@ -624,6 +624,4 @@
   ## Returns error
   c(gt4, gt1)
   }
-  
-  
 }
