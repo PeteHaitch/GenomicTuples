@@ -548,7 +548,6 @@
   \code{\link[GenomeInfoDb]{seqinfo}},
   \code{\link[S4Vectors]{Vector-class}},
   \code{\link[S4Vectors]{Rle-class}},
-  \code{\link[IRanges]{Ranges-class}},
   \code{\link[S4Vectors]{DataFrame}},
   \code{\link[GenomicRanges]{GRanges-class}},
   \code{\link{intra-tuple-methods}},

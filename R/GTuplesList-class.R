@@ -3,7 +3,6 @@
 ### -------------------------------------------------------------------------
 ###
 
-#' @importFrom methods setClass
 #' @export
 setClass("GTuplesList",
          contains = c("GRangesList"),
@@ -54,7 +53,6 @@ setValidity2("GTuplesList", .valid.GTuplesList)
 ###
 
 #' @importFrom IRanges PartitioningByEnd
-#' @importFrom methods is
 #' 
 #' @export
 GTuplesList <- function(...) {
@@ -84,8 +82,6 @@ GTuplesList <- function(...) {
 
 #' @include AllGenerics.R
 #' 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("size", 
           "GTuplesList", 
@@ -94,7 +90,6 @@ setMethod("size",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importFrom S4Vectors List
 #' 
 #' @export
@@ -112,8 +107,6 @@ setMethod("tuples",
           }
 )
 
-#' @importFrom methods setReplaceMethod
-#' 
 #' @export
 setReplaceMethod("tuples", 
                  "GTuplesList",
@@ -140,7 +133,6 @@ setMethod("IPD",
 
 #' @importClassesFrom GenomicRanges GRanges
 #' @importFrom GenomicRanges GRangesList
-#' @importFrom methods setAs as
 setAs("GTuplesList", "GRangesList", 
       function(from) {
         if (length(from)) {
@@ -152,7 +144,6 @@ setAs("GTuplesList", "GRangesList",
 )
 
 #' @importClassesFrom S4Vectors List
-#' @importFrom methods setAs as
 setAs("GTuples", "GTuplesList", function(from) as(from, "List"))
 
 setAs("list", "GTuplesList",
@@ -172,7 +163,6 @@ setAs("list", "GTuplesList",
 ### Going from GTuples to GTuplesList with extractList() and family.
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges relistToClass
 #' 
 #' @export
@@ -187,9 +177,6 @@ setMethod("relistToClass",
 ### show method.
 ###
 
-#' @importMethodsFrom methods show
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("show", 
           "GTuplesList",

@@ -3,11 +3,8 @@
 ### -------------------------------------------------------------------------
 ###
 
-#' @importFrom methods setClassUnion
 setClassUnion(name = "matrixOrNULL", members = c("matrix", "NULL"))
 
-#' @importFrom methods setClass
-#' 
 #' @export
 setClass("GTuples",
          contains = "GRanges",
@@ -89,7 +86,6 @@ setValidity2("GTuples", .valid.GTuples)
 
 #' @importFrom GenomicRanges GRanges
 #' @importFrom IRanges IRanges
-#' @importFrom methods new
 #' @importFrom S4Vectors Rle
 #' 
 #' @export
@@ -160,7 +156,6 @@ GTuples <- function(seqnames = Rle(),
 ### Coercion
 ###
 
-#' @importFrom methods setMethod
 #' @importFrom S4Vectors isTRUEorFALSE
 #' @importFrom stats setNames
 setMethod("as.character", "GTuples", 
@@ -191,7 +186,6 @@ setMethod("as.character", "GTuples",
 #' @importMethodsFrom S4Vectors as.factor
 NULL
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom GenomeInfoDb seqnames
 #' 
 #' @export
@@ -232,7 +226,6 @@ setMethod("as.data.frame",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom GenomicRanges granges
 #' @importMethodsFrom S4Vectors "mcols<-"
 #' 
@@ -273,7 +266,6 @@ setMethod("granges",
 # NOTE: Without '@importMethodsFrom GenomeInfoDb merge' this doesn't work. 
 #       This is despite merge being defined in base.
 #' @importClassesFrom S4Vectors DataFrame
-#' @importFrom methods new
 #' @importFrom S4Vectors isTRUEorFALSE
 #' @importMethodsFrom GenomeInfoDb merge seqinfo seqnames
 #' @importMethodsFrom IRanges ranges
@@ -305,8 +297,6 @@ setMethod("granges",
       internalPos = ans_internalPos)
 }
 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("c", 
           "GTuples", 
@@ -380,8 +370,6 @@ NULL
 
 #' @include AllGenerics.R
 #' 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("size", 
           "GTuples", 
@@ -391,8 +379,6 @@ setMethod("size",
 )
 
 #' @include AllGenerics.R
-#' 
-#' @importFrom methods setMethod
 #' 
 #' @export
 setMethod("tuples", 
@@ -412,7 +398,6 @@ setMethod("tuples",
           }
 )
 
-#' @importFrom methods is setReplaceMethod
 #' @importFrom IRanges IRanges
 #' @importMethodsFrom IRanges update
 #' 
@@ -458,8 +443,6 @@ setReplaceMethod("tuples",
 
 #' @include AllGenerics.R
 #' 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("IPD", 
           "GTuples", 
@@ -500,7 +483,6 @@ setMethod("IPD",
 #       "x_ecs[i, ecs_to_replace] <- value_ecs[ecs_to_replace]", which breaks 
 #       because it tries to put a NULL in a NULL, i.e. it breaks if size(x) = 1 
 #       or 2.
-#' @importFrom methods setReplaceMethod
 #' @importFrom S4Vectors DataFrame
 #' @importFrom stats setNames
 #' @importMethodsFrom GenomeInfoDb seqinfo "seqinfo<-" seqnames
@@ -604,8 +586,6 @@ NULL
 ### Show
 ###
 
-# NOTE: No '@importFrom methods setMethod' tag because roxygen2 chokes on it, 
-#       perhaps because I'm defining a method for a non-exported generic.
 # Ensure the internalPos matrix "sticks" during subsetting, etc.
 setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
           function(x) {
@@ -681,8 +661,6 @@ showGTuples <- function(x, margin = "", print.classinfo = FALSE,
   }
 }
 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("show", 
           "GTuples", 

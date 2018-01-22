@@ -2,8 +2,6 @@
 ### size
 ###
 
-#' @importFrom methods setGeneric
-#' 
 #' @export
 setGeneric("size", function(x) standardGeneric("size"))
 
@@ -11,8 +9,6 @@ setGeneric("size", function(x) standardGeneric("size"))
 ### IPD
 ###
 
-#' @importFrom methods setGeneric
-#' 
 #' @export
 setGeneric("IPD", function(x) standardGeneric("IPD"))
 
@@ -20,13 +16,9 @@ setGeneric("IPD", function(x) standardGeneric("IPD"))
 ### tuples
 ###
 
-#' @importFrom methods setGeneric
-#' 
 #' @export
 setGeneric("tuples", function(x) standardGeneric("tuples"))
 
-#' @importFrom methods setGeneric
-#' 
 #' @export
 setGeneric("tuples<-", function(x, ..., value) standardGeneric("tuples<-"))
 
@@ -39,8 +31,6 @@ setGeneric("tuples<-", function(x, ..., value) standardGeneric("tuples<-"))
 # NOTE: No methods are implemented in the GenomicTuples package but might be 
 #       implemented in a package for which there is a class that uses a 
 #       GTuples object as a slot.
-#' @importFrom methods setGeneric
-#' 
 #' @export
 setGeneric("gtuples", function(x, use.mcols = FALSE, ...) standardGeneric("gtuples"))
 
@@ -53,7 +43,5 @@ setGeneric("gtuples", function(x, use.mcols = FALSE, ...) standardGeneric("gtupl
 # NOTE: No methods are implemented in the GenomicTuples package but might be 
 #       implemented in a package for which there is a class that uses a 
 #       GTuplesList object as a slot.
-#' @importFrom methods setGeneric
-#' 
 #' @export
 setGeneric("gtlist", function(x, use.mcols = FALSE, ...) standardGeneric("gtlist"))

@@ -59,7 +59,6 @@ globalVariables(c("q_idx", "s_idx", "i.strand"))
 # between GTuples. All other methods are defined via inheritance.
 # If either the subject or the query is not a GTuples object then it defers to 
 # the findOverlaps method defined for GRanges objects.
-#' @importFrom methods as setMethod
 #' @importFrom S4Vectors isSingleNumber selectHits
 #' @importMethodsFrom IRanges findOverlaps
 #' 
@@ -135,7 +134,6 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
   structure(tabulate(counts, NROW(query)), names = names(query))
 }		
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges countOverlaps
 #'
 #' @export

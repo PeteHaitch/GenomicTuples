@@ -19,4 +19,5 @@
 # Need these two tags to use Rcpp
 #' @useDynLib GenomicTuples, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
+#' @import methods
 NULL

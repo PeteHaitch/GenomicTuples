@@ -4,111 +4,36 @@
 % Special treatment
 \alias{findOverlaps}
 \alias{findOverlaps,GTuples,GTuples-method}
-\alias{findOverlaps,GTuplesList,GTuples-method}
-\alias{findOverlaps,GTuples,GTuplesList-method}
-% GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
-\alias{findOverlaps,GTuplesList,GTuplesList-method}
-\alias{findOverlaps,RangesList,GTuples-method}
-\alias{findOverlaps,RangesList,GTuplesList-method}
-\alias{findOverlaps,GTuples,RangesList-method}
-\alias{findOverlaps,GTuplesList,RangesList-method}
-\alias{findOverlaps,RangedData,GTuples-method}
-\alias{findOverlaps,RangedData,GTuplesList-method}
-\alias{findOverlaps,GTuples,RangedData-method}
-\alias{findOverlaps,GTuplesList,RangedData-method}
-\alias{findOverlaps,GTuples,GenomicRanges-method}
-\alias{findOverlaps,GenomicRanges,GTuples-method}
-\alias{findOverlaps,GTuplesList,GenomicRanges-method}
-\alias{findOverlaps,GenomicRanges,GTuplesList-method}
-\alias{findOverlaps,GTuples,GRangesList-method}
-\alias{findOverlaps,GRangesList,GTuples-method}
-\alias{findOverlaps,GTuplesList,GRangesList-method}
-\alias{findOverlaps,GRangesList,GTuplesList-method}
 
-% Special treatment
 \alias{countOverlaps}
+% Special treatment
 \alias{countOverlaps,GTuples,GTuples-method}
-\alias{countOverlaps,GTuplesList,GTuplesList-method}
-\alias{countOverlaps,GTuples,GTuplesList-method}
-\alias{countOverlaps,GTuplesList,GTuples-method}
-% GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
-\alias{countOverlaps,GTuples,Vector-method}
-\alias{countOverlaps,Vector,GTuples-method}
-\alias{countOverlaps,GTuplesList,Vector-method}
-\alias{countOverlaps,Vector,GTuplesList-method}
-\alias{countOverlaps,GTuples,GenomicRanges-method}
-\alias{countOverlaps,GenomicRanges,GTuples-method}
-\alias{countOverlaps,GTuples,GenomicRangesList-method}
-\alias{countOverlaps,GenomicRangesList,GTuples-method}
-\alias{countOverlaps,GTuplesList,GenomicRanges-method}
-\alias{countOverlaps,GenomicRanges,GTuplesList-method}
-\alias{countOverlaps,GTuplesList,GenomicRangesList-method}
-\alias{countOverlaps,GenomicRangesList,GTuplesList-method}
 
-% Special treatment
 \alias{overlapsAny}
-\alias{overlapsAny,GTuples,GTuples-method}
-\alias{overlapsAny,GTuplesList,GTuples-method}
-\alias{overlapsAny,GTuples,GTuplesList-method}
-\alias{overlapsAny,GTuplesList,GtuplesList-method}
-% GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
-\alias{overlapsAny,RangesList,GTuples-method}
-\alias{overlapsAny,RangesList,GTuplesList-method}
-\alias{overlapsAny,GTuples,RangesList-method}
-\alias{overlapsAny,GTuplesList,RangesList-method}
-\alias{overlapsAny,RangedData,GTuples-method}
-\alias{overlapsAny,RangedData,GTuplesList-method}
-\alias{overlapsAny,GTuples,RangedData-method}
-\alias{overlapsAny,GTuplesList,RangedData-method}
-\alias{overlapsAny,GTuples,GRanges-method}
-\alias{overlapsAny,GRanges,GTuples-method}
-\alias{overlapsAny,GTuples,GRangesList-method}
-\alias{overlapsAny,GRangesList,GTuples-method}
-\alias{overlapsAny,GTuplesList,GRanges-method}
-\alias{overlapsAny,GRanges,GTuplesList-method}
-\alias{overlapsAny,GTuplesList,GRangesList-method}
-\alias{overlapsAny,GRangesList,GTuplesList-method}
-
 % Special treatment
+\alias{overlapsAny,GTuples,GTuples-method}
+
 \alias{subsetByOverlaps}
+% Special treatment
 \alias{subsetByOverlaps,GTuples,GTuples-method}
-\alias{subsetByOverlaps,GTuplesList,GTuples-method}
-\alias{subsetByOverlaps,GTuples,GTuplesList-method}
-\alias{subsetByOverlaps,GTuplesList,GTuplesList-method}
-% GTuples treated as GenomicRanges (resp. GTuplesList as GRangesList)
-\alias{subsetByOverlaps,RangesList,GTuples-method}
-\alias{subsetByOverlaps,RangesList,GTuplesList-method}
-\alias{subsetByOverlaps,GTuples,RangesList-method}
-\alias{subsetByOverlaps,GTuplesList,RangesList-method}
-\alias{subsetByOverlaps,RangedData,GTuples-method}
-\alias{subsetByOverlaps,RangedData,GTuplesList-method}
-\alias{subsetByOverlaps,GTuples,RangedData-method}
-\alias{subsetByOverlaps,GTuplesList,RangedData-method}
-\alias{subsetByOverlaps,GTuples,GRanges-method}
-\alias{subsetByOverlaps,GRanges,GTuples-method}
-\alias{subsetByOverlaps,GTuples,GRangesList-method}
-\alias{subsetByOverlaps,GRangesList,GTuples-method}
-\alias{subsetByOverlaps,GTuplesList,GRanges-method}
-\alias{subsetByOverlaps,GRanges,GTuplesList-method}
-\alias{subsetByOverlaps,GTuplesList,GRangesList-method}
-\alias{subsetByOverlaps,GRangesList,GTuplesList-method}
 
 \title{Finding overlapping genomic tuples}
 
 \description{
-  Finds tuple overlaps between a \link{GTuples} or \link{GTuplesList} object, 
-  and another object containing tuples or ranges.
+  Various methods for finding/counting overlaps between objects containing
+  genomic tuples. This man page describes the methods that operate on
+  \link{GTuples} and \link{GTuplesList} objects.
   
-  NOTE: The \code{\link[IRanges]{findOverlaps}} generic function and 
-  methods for \link[IRanges]{Ranges} and \link[IRanges]{RangesList} objects
-  are defined and documented in the \pkg{IRanges} package.
-  The methods for \link[GenomicRanges]{GenomicRanges} and 
-  \link[GenomicRanges]{GRangesList} objects are defined and
-  documented in the \pkg{GenomicRanges} package.
-  The methods for \link[GenomicAlignments]{GAlignments},
-  \link[GenomicAlignments]{GAlignmentPairs}, and
-  \link[GenomicAlignments]{GAlignmentsList} objects are defined and
-  documented in the \pkg{GenomicAlignments} package.
+  NOTE: The \code{\link[IRanges]{findOverlaps}} generic function is defined and 
+  documented in the \pkg{IRanges} package. The \code{findOverlaps} method for 
+  \link[GenomicRanges]{GenomicRanges} and \link[GenomicRanges]{GRangesList} 
+  objects are defined and documented in the \pkg{GenoicRanges} package.
+  
+  \link{GTuples} and \link{GTuplesList} objects also support
+  \code{countOverlaps}, \code{overlapsAny}, and \code{subsetByOverlaps} 
+  thanks to the default methods defined in the \pkg{IRanges} package and
+  to the \code{findOverlaps} and \code{countOverlaps} methods defined in
+  this package and documented below.
 }
 
 \usage{
@@ -122,40 +47,26 @@
     maxgap = -1L, minoverlap = 0L,
     type = c("any", "start", "end", "within", "equal"),
     ignore.strand = FALSE)
-
-\S4method{overlapsAny}{GTuples,GTuples}(query, subject,
-    maxgap = -1L, minoverlap = 0L,
-    type = c("any", "start", "end", "within", "equal"),
-    ignore.strand = FALSE)
-
-\S4method{subsetByOverlaps}{GTuples,GTuples}(query, subject,
-    maxgap = -1L, minoverlap = 0L,
-    type = c("any", "start", "end", "within", "equal"),
-    ignore.strand = FALSE)
 }
 
 \arguments{
   \item{query, subject}{
     A \code{\link{GTuples}} or \code{\link{GTuplesList}} object. 
-    \code{\link[GenomicRanges]{GRanges}}, 
-    \code{\link[GenomicRanges]{GRangesList}}, \code{\link[IRanges]{RangesList}} 
-    and \code{\link[IRanges]{RangedData}} are also accepted for one of 
-    \code{query} or \code{subject}.
   }
   \item{type}{
     See details below.
   }
-  \item{maxgap}{
-    See \code{\link[IRanges]{findOverlaps}} in the IRanges package for
-    a description of this argument.
-  }
-  \item{minoverlap}{
-    See \code{\link[IRanges]{findOverlaps}} in the IRanges package for
-    a description of this argument.
+  \item{maxgap, minoverlap}{
+    See \code{?\link[IRanges]{findOverlaps}} in the \pkg{IRanges} package
+    for a description of these arguments.
   }
   \item{select}{
-    See \code{\link[IRanges]{findOverlaps}} in the IRanges package for
-    a description of this argument.
+    When \code{select} is \code{"all"} (the default), the results are
+    returned as a \link[S4Vectors]{Hits} object.
+    Otherwise the returned value is an integer vector parallel to \code{query}
+    (i.e. same length) containing the first, last, or arbitrary overlapping
+    interval in \code{subject}, with \code{NA} indicating intervals that did
+    not overlap any intervals in \code{subject}.
   }
   \item{ignore.strand}{
     When set to \code{TRUE}, the strand information is ignored in the
@@ -233,10 +144,10 @@
 }
 
 \value{
-  For \code{findOverlaps} either a \link[S4Vectors]{Hits} object when
+  For \code{findOverlaps}, either a \link[S4Vectors]{Hits} object when
   \code{select = "all"} or an integer vector otherwise. 
 
-  For \code{countOverlaps} an integer vector containing the tabulated
+  For \code{countOverlaps}, an integer vector containing the tabulated
   query overlap hits.
 
   For \code{overlapsAny} a logical vector of length equal to the number of
@@ -245,12 +156,6 @@
 
   For \code{subsetByOverlaps} an object of the same class as \code{query}
   containing the subset that overlapped at least one entity in \code{subject}.
-
-  For \code{RangedData} and \code{RangesList}, with the exception of
-  \code{subsetByOverlaps}, the results align to the unlisted
-  form of the object. This turns out to be fairly convenient for
-  \code{RangedData} (not so much for \code{RangesList}, but something
-  has to give).
 }
 
 \author{Peter Hickey for methods involving \code{\link{GTuples}} and 

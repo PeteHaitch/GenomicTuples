@@ -3,7 +3,6 @@
 ### -------------------------------------------------------------------------
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges coverage
 #'
 #' @export
@@ -15,8 +14,6 @@ setMethod("coverage",
           }
 )
 
-#' @importFrom methods setMethod
-#' 
 #' @importMethodsFrom IRanges coverage
 #'
 #' @export

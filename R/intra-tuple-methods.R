@@ -25,7 +25,6 @@
 ### shift()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges shift
 #' 
 #' @export
@@ -43,7 +42,6 @@ setMethod("shift",
           }
 )
 
-#' @importFrom methods is setMethod
 #' @importMethodsFrom IRanges shift
 #' 
 #' @export
@@ -67,7 +65,6 @@ setMethod("shift",
 ###
 ### Method for GTuples defined via inheritance to GRanges
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges narrow
 #' 
 #' @export
@@ -82,7 +79,6 @@ setMethod("narrow",
 ### flank()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges flank
 #' 
 #' @export
@@ -94,7 +90,6 @@ setMethod("flank",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges flank
 #' 
 #' @export
@@ -110,7 +105,6 @@ setMethod("flank",
 ### promoters()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges promoters
 #' 
 #' @export
@@ -121,7 +115,6 @@ setMethod("promoters",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges promoters
 #' 
 #' @export
@@ -143,7 +136,6 @@ setMethod("promoters",
 ### resize()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges resize
 #' 
 #' @export
@@ -155,7 +147,6 @@ setMethod("resize",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges resize
 #' 
 #' @export
@@ -171,7 +162,6 @@ setMethod("resize",
 ### restrict()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges restrict
 #' 
 #' @export
@@ -193,8 +183,6 @@ setMethod("restrict",
 ### Zooming (symmetrically scales the width).
 ###
 
-#' @importMethodsFrom methods Ops
-#' @importFrom methods setMethod
 #' @export
 setMethod("Ops", 
           c("GTuples", "numeric"),

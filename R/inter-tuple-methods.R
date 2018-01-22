@@ -18,9 +18,6 @@
 ### range()
 ###
 
-
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("range", 
           "GTuples", 
@@ -29,8 +26,6 @@ setMethod("range",
           }
 )
 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("range", 
           "GTuplesList", 
@@ -43,7 +38,6 @@ setMethod("range",
 ### reduce()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges reduce
 #' 
 #' @export
@@ -56,7 +50,6 @@ setMethod("reduce",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges reduce
 #' 
 #' @export
@@ -73,7 +66,6 @@ setMethod("reduce",
 ### gaps()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges gaps
 #' @importMethodsFrom GenomeInfoDb seqlengths
 #' 
@@ -89,7 +81,6 @@ setMethod("gaps",
 ### disjoin()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges disjoin
 #' 
 #' @export
@@ -100,7 +91,6 @@ setMethod("disjoin",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges disjoin
 #' 
 #' @export
@@ -115,7 +105,6 @@ setMethod("disjoin",
 ### isDisjoint()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges isDisjoint
 #' 
 #' @export
@@ -126,7 +115,6 @@ setMethod("isDisjoint",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges isDisjoint
 #' 
 #' @export
@@ -141,7 +129,6 @@ setMethod("isDisjoint",
 ### disjointBins()
 ###
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges disjointBins
 #' @export
 setMethod("disjointBins", 

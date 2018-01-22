@@ -9,8 +9,6 @@
 ### union(), intersect(), setdiff()
 ###
 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("union", 
           c("GTuples", "GTuples"),
@@ -19,8 +17,6 @@ setMethod("union",
           }
 )
 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("intersect", 
           c("GTuples", "GTuples"),
@@ -29,8 +25,6 @@ setMethod("intersect",
           }
 )
 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("setdiff", 
           c("GTuples", "GTuples"),
@@ -43,7 +37,6 @@ setMethod("setdiff",
 ### Parallel set operations
 ### -------------------------------------------------------------------------
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges punion
 #' 
 #' @export
@@ -55,7 +48,6 @@ setMethod("punion",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges punion
 #' 
 #' @export
@@ -67,7 +59,6 @@ setMethod("punion",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges punion
 #' 
 #' @export
@@ -78,7 +69,6 @@ setMethod("punion", c("GTuples", "GTuplesList"),
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges pintersect
 #' 
 #' @export
@@ -91,7 +81,6 @@ setMethod("pintersect",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges pintersect
 #' 
 #' @export
@@ -104,7 +93,6 @@ setMethod("pintersect",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges pintersect
 #' 
 #' @export
@@ -117,7 +105,6 @@ setMethod("pintersect",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges pintersect
 #' 
 #' @export
@@ -129,7 +116,6 @@ setMethod("pintersect",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges psetdiff
 #' 
 #' @export
@@ -141,7 +127,6 @@ setMethod("psetdiff",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges psetdiff
 #' 
 #' @export
@@ -153,7 +138,6 @@ setMethod("psetdiff", c
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges psetdiff
 #' 
 #' @export
@@ -165,7 +149,6 @@ setMethod("psetdiff",
           }
 )
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom IRanges pgap
 #' 
 #' @export

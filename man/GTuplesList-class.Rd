@@ -111,7 +111,7 @@
       \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}: Get or 
       set the ranges in the form of a 
       \code{\link[IRanges]{CompressedIRangesList}}. \code{value} can be a 
-      \code{\link[IRanges]{RangesList}} object.
+      \code{\link[IRanges]{IntegerRangesList}} object.
       
       \strong{WARNING}: The use of \code{ranges} with \code{GTuplesList} 
       objects is \strong{strongly} discouraged. It will only get/set 
@@ -405,7 +405,7 @@ class and methods.}
   \code{\link[GenomeInfoDb]{seqinfo}},
   \link[GenomicRanges]{GRangesList-class},
   \link[S4Vectors]{Vector-class},
-  \link[IRanges]{RangesList-class},
+  \link[IRanges]{IntegerRangesList-class},
   \link[IRanges]{RleList-class},
   \link[IRanges]{DataFrameList-class},
   \link{findOverlaps-methods}

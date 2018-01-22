@@ -127,7 +127,6 @@
   }
 }
 
-#' @importFrom methods setMethod
 #' @importMethodsFrom S4Vectors pcompare
 #' 
 #' @export
@@ -176,8 +175,6 @@ duplicated.GTuples <- function(x, incomparables = FALSE, ...) {
   .duplicated.GTuples(x, incomparables = incomparables, ...)
 }
 
-#' @importFrom methods setMethod
-#' 
 #' @export
 setMethod("duplicated", 
           "GTuples", 
@@ -191,7 +188,6 @@ setMethod("duplicated",
 ### objects thanks to the method for Vector objects.
 
 # Effectively just calls findOverlaps with type = equal.
-#' @importFrom methods setMethod
 #' @importFrom S4Vectors isSingleNumberOrNA isTRUEorFALSE selectHits
 #' @importMethodsFrom GenomeInfoDb seqinfo
 #' @importMethodsFrom IRanges findOverlaps
@@ -247,7 +243,6 @@ setMethod("match",
 # Can't defer to selfMatch,GenomicRanges-method introduced in 
 # https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/GenomicRanges@116115 
 # so include this kludge to restore previous behaviour
-#' @importFrom methods setMethod
 #' @importFrom S4Vectors selfmatch
 #' @export
 setMethod("selfmatch", 
@@ -290,7 +285,6 @@ setMethod("selfmatch",
 }
 
 #' @importFrom data.table := .GRP 
-#' @importFrom methods callNextMethod setMethod
 #' @importFrom S4Vectors isTRUEorFALSE
 #' 
 #' @export
@@ -384,7 +378,6 @@ globalVariables("idx")
 
 # TODO: Support the 'ignore.strand' argument once order,GenomicRanges-method 
 #       does.
-#' @importFrom methods setMethod
 #' @importFrom S4Vectors isTRUEorFALSE
 #' @importMethodsFrom GenomeInfoDb seqnames
 #' 
@@ -451,7 +444,6 @@ setMethod("order",
 #' @export
 sort.GTuples <- function(x, decreasing = FALSE, ...)
   .sort.GTuples(x, decreasing = decreasing, ...)
-#' @importFrom methods setMethod
-#' 
+
 #' @export
 setMethod("sort", "GTuples", .sort.GTuples)
