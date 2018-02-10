@@ -164,7 +164,7 @@ powerful nearest methods.}
     \item The \link{GTuples} and \link{GRanges} classes.
     \item The \link[GenomicRanges]{GenomicRanges} and 
       \link[GenomicRanges]{GRanges} classes in the \pkg{GenomicRanges} package.
-    \item The \link[IRanges]{IntegerRanges} class in the \pkg{IRanges} package.
+    \item The \link[IRanges]{IPosRanges} class in the \pkg{IRanges} package.
     \item The \link[S4Vectors]{Hits} class in the \pkg{S4Vectors} package.
     \item The \link[GenomicRanges]{nearest-methods} man page in the 
       \pkg{GenomicRanges} package.
