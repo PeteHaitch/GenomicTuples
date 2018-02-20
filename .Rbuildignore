@@ -11,3 +11,4 @@
 ^paper\.json$
 ^paper\.md$
 README.Rmd
+^docs$
