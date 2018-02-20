@@ -27,7 +27,7 @@ __GenomicTuples__ is an R/Bioconductor package that defines general purpose cont
 
 ## Installation
 
-Most users will want to install __GenomicTuples__ using the current release of Bioconductor (3.3) using:
+Most users will want to install __GenomicTuples__ using the current release of Bioconductor using:
 
 ```{r, eval = FALSE}
 ## try http:// if https:// URLs are not supported
@@ -35,7 +35,7 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("GenomicTuples")
 ```
 
-The master branch of this repository is the development version of the package. The development version of __GenomicTuples__ can only be installed using the development version of Bioconductor (3.4). Please first read these [instructions on installing the development version of Bioconductor](http://www.bioconductor.org/developers/how-to/useDevel/); __GenomicTuples__ can then be installed by:
+The master branch of this repository is the development version of the package. The development version of __GenomicTuples__ can only be installed using the development version of Bioconductor. Please first read these [instructions on installing the development version of Bioconductor](http://www.bioconductor.org/developers/how-to/useDevel/); __GenomicTuples__ can then be installed by:
 
 ```r
 source("http://bioconductor.org/biocLite.R")
