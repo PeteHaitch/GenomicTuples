@@ -68,9 +68,14 @@
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<section id="r-package-genomictuples" class="level2"><h2>R package: GenomicTuples</h2>
+<div id="r-package-genomictuples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#r-package-genomictuples" class="anchor"></a>R package: GenomicTuples</h2>
 <p><strong>GenomicTuples</strong> is an R/Bioconductor package that defines general purpose containers for storing and manipulating <em>genomic tuples</em>. A genomic tuple of size <code>m</code> is of the form <code>chromosome:strand:{pos_1, pos_2, ..., pos_m}</code> where <code>pos_1</code> &lt; <code>pos_2</code> &lt; <code>...</code> &lt; <code>pos_m</code> are positions along the chromosome. <strong>GenomicTuples</strong> aims to provide functionality for tuples of genomic co-ordinates that are analogous to those available for genomic ranges in the <a href="http://bioconductor.org/packages/GenomicRanges/"><strong>GenomicRanges</strong></a> R/Bioconductor package.</p>
-</section><section id="installation" class="level2"><h2>Installation</h2>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p>Most users will want to install <strong>GenomicTuples</strong> using the current release of Bioconductor using:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">## try http:// if https:// URLs are not supported</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">source</span>(<span class="st">"https://bioconductor.org/biocLite.R"</span>)</a>
@@ -79,13 +84,16 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">source</span>(<span class="st">"http://bioconductor.org/biocLite.R"</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">useDevel</span>()</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">biocLite</span>(<span class="st">"GenomicTuples"</span>)</a></code></pre></div>
-</section><section id="quick-demo" class="level2"><h2>Quick demo</h2>
+</div>
+<div id="quick-demo" class="section level2">
+<h2 class="hasAnchor">
+<a href="#quick-demo" class="anchor"></a>Quick demo</h2>
 <p>Here we use the <strong>GenomicTuples</strong> package to define two <em>GTuples</em> objects, one containing 5 3-tuples and one containing 3 3-tuples, demonstrate how to identify ‘equal’ genomic tuples, and how this calculation would be incorrect if we were to mistakenly treat these genomic tuples as genomic ranges:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Load the package</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">library</span>(GenomicTuples)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># Create a GTuples object containing 5 3-tuples</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw">GTuples</span>(<span class="dt">seqnames =</span> <span class="kw">c</span>(<span class="st">'chr1'</span>, <span class="st">'chr1'</span>, <span class="st">'chr1'</span>, <span class="st">'chr1'</span>, <span class="st">'chr2'</span>), </a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/GenomicTuples/topics/GTuples-class">GTuples</a></span>(<span class="dt">seqnames =</span> <span class="kw">c</span>(<span class="st">'chr1'</span>, <span class="st">'chr1'</span>, <span class="st">'chr1'</span>, <span class="st">'chr1'</span>, <span class="st">'chr2'</span>), </a>
 <a class="sourceLine" id="cb3-6" data-line-number="6">               <span class="dt">tuples =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(10L, 10L, 10L, 10L, 10L, 20L, 20L, 20L, 25L, </a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">                                 20L, 30L, 30L, 35L, 30L, 30L), <span class="dt">ncol =</span> <span class="dv">3</span>), </a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">               <span class="dt">strand =</span> <span class="kw">c</span>(<span class="st">'+'</span>, <span class="st">'-'</span>, <span class="st">'*'</span>, <span class="st">'+'</span>, <span class="st">'+'</span>))</a>
@@ -161,10 +169,16 @@
 <a class="sourceLine" id="cb4-4" data-line-number="4">?GTuples</a></code></pre></div>
 <p>The package also includes a comprehensive vignette that explains in greater detail the different between a genomic tuple and a genomic range, when genomic tuples may be useful, and common operations on genomic tuples. The vignette can be viewed at <a href="http://bioconductor.org/packages/release/bioc/vignettes/GenomicTuples/inst/doc/GenomicTuplesIntroduction.html" class="uri">http://bioconductor.org/packages/release/bioc/vignettes/GenomicTuples/inst/doc/GenomicTuplesIntroduction.html</a> or accessed from R using:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">vignette</span>(<span class="st">"GenomicTuplesIntroduction"</span>, <span class="dt">package =</span> <span class="st">"GenomicTuples"</span>)</a></code></pre></div>
-</section><section id="need-help-or-want-to-get-involved" class="level2"><h2>Need help or want to get involved?</h2>
+</div>
+<div id="need-help-or-want-to-get-involved" class="section level2">
+<h2 class="hasAnchor">
+<a href="#need-help-or-want-to-get-involved" class="anchor"></a>Need help or want to get involved?</h2>
 <p>I recommend that questions seeking support in using the software are posted to the Bioconductor support forum - <a href="https://support.bioconductor.org/" class="uri">https://support.bioconductor.org/</a> - where they will attract not only my attention but that of the wider Bioconductor community.</p>
 <p>Code contributions, bug reports (and fixes!), and feature requests are most welcome. Please make any pull requests against the master branch at <a href="https://github.com/PeteHaitch/GenomicTuples" class="uri">https://github.com/PeteHaitch/GenomicTuples</a> and file issues at <a href="https://github.com/PeteHaitch/GenomicTuples/issues" class="uri">https://github.com/PeteHaitch/GenomicTuples/issues</a></p>
-</section><section id="citation" class="level2"><h2>Citation</h2>
+</div>
+<div id="citation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h2>
 <p><strong>GenomicTuples</strong> has been published in The Journal of Open Source Software, <a href="http://joss.theoj.org/papers/10.21105/joss.00020" class="uri">http://joss.theoj.org/papers/10.21105/joss.00020</a>.</p>
 <p>If you use <strong>GenomicTuples</strong>, please cite the paper and software version. This can be done as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">citation</span>(<span class="st">"GenomicTuples"</span>)</a>
@@ -186,9 +200,12 @@
 <a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt;   }</span></a>
 <a class="sourceLine" id="cb6-18" data-line-number="18"><span class="kw">packageVersion</span>(<span class="st">"GenomicTuples"</span>)</a>
 <a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; [1] '1.13.4'</span></a></code></pre></div>
-</section><section id="license" class="level2"><h2>License</h2>
+</div>
+<div id="license" class="section level2">
+<h2 class="hasAnchor">
+<a href="#license" class="anchor"></a>License</h2>
 <p><strong>GenomicTuples</strong> is licensed under <a href="https://www.r-project.org/Licenses/Artistic-2.0">Artistic 2.0</a>.</p>
-</section>
+</div>
 </div>
   </div>
 
