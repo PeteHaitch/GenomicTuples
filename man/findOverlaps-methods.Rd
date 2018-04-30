@@ -160,7 +160,7 @@
 
 \author{Peter Hickey for methods involving \code{\link{GTuples}} and 
 \code{\link{GTuplesList}}. P. Aboyoun, S. Falcon, M. Lawrence, 
-N. Gopalakrishnan, H. Pages and H. Corrada Bravo for all the real work 
+N. Gopalakrishnan, H. Pagès and H. Corrada Bravo for all the real work 
 underlying the powerful \code{findOverlaps} functionality.}
 
 \seealso{

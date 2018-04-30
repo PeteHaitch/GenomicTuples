@@ -397,7 +397,7 @@
 }
 
 \author{Peter Hickey for \code{GTuplesList} definition and methods. P. Aboyoun 
-& H. Pages for all the real work underlying the powerful \code{GRangesList} 
+& H. Pagès for all the real work underlying the powerful \code{GRangesList} 
 class and methods.}
 
 \seealso{
