@@ -399,7 +399,7 @@ setMethod("tuples",
 )
 
 #' @importFrom IRanges IRanges
-#' @importMethodsFrom IRanges update
+#' @importMethodsFrom stats4 update
 #' 
 #' @export
 setReplaceMethod("tuples", 
@@ -486,7 +486,8 @@ setMethod("IPD",
 #' @importFrom S4Vectors DataFrame
 #' @importFrom stats setNames
 #' @importMethodsFrom GenomeInfoDb seqinfo "seqinfo<-" seqnames
-#' @importMethodsFrom IRanges ranges update
+#' @importMethodsFrom IRanges ranges
+#' @importMethodsFrom stats4 update
 #' @importMethodsFrom S4Vectors extractROWS mcols
 #' 
 #' @export
