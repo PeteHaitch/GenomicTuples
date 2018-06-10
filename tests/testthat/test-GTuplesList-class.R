@@ -132,8 +132,8 @@ test_that("GRangesList inherited accessors work", {
                            "B" = Rle(S4Vectors:::decodeRle(strand(gtl1[[2]])))))
   DF0 <- DataFrame()
   DF0@nrows <- 2L
-  expect_identical(mcols(gtl0), DF0)
-  expect_identical(mcols(gtl1), DF0)
+  expect_identical(mcols(gtl0, use.names = FALSE), DF0)
+  expect_identical(mcols(gtl1, use.names = FALSE), DF0)
   expect_identical(elementMetadata(gtl0), DF0)
   expect_identical(elementMetadata(gtl1), DF0)
   expect_identical(seqinfo(gtl0), seqinfo(gtl0[[1]]))
