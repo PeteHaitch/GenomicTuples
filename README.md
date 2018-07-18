@@ -33,9 +33,8 @@ Most users will want to install **GenomicTuples** using the current
 release of Bioconductor using:
 
 ``` r
-## try http:// if https:// URLs are not supported
-source("https://bioconductor.org/biocLite.R")
-biocLite("GenomicTuples")
+install.packages("BiocManager")
+BiocManager::install("GenomicTuples")
 ```
 
 The master branch of this repository is the development version of the
@@ -46,9 +45,8 @@ Bioconductor](http://www.bioconductor.org/developers/how-to/useDevel/);
 **GenomicTuples** can then be installed by:
 
 ``` r
-source("http://bioconductor.org/biocLite.R")
-useDevel()
-biocLite("GenomicTuples")
+install.packages("BiocManager")
+BiocManager::install("GenomicTuples", version = "devel")
 ```
 
 ## Quick demo
@@ -195,7 +193,7 @@ citation("GenomicTuples")
 #>     url = {http://joss.theoj.org/papers/64b99f363d24b8a7e9025188183e9865},
 #>   }
 packageVersion("GenomicTuples")
-#> [1] '1.13.4'
+#> [1] '1.15.1'
 ```
 
 ## License
