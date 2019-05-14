@@ -51,9 +51,6 @@
 % extractList() and family:
 \alias{relistToClass,GTuples-method}
 
-% show method:
-\alias{show,GTuplesList-method}
-
 \title{GTuplesList objects}
 
 \description{

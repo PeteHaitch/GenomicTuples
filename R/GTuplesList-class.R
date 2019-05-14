@@ -5,7 +5,7 @@
 
 #' @export
 setClass("GTuplesList",
-         contains = c("GRangesList"),
+         contains = "CompressedGRangesList",
          slots = list(
            unlistData = "GTuples",
            elementMetadata = "DataFrame"
@@ -131,16 +131,27 @@ setMethod("IPD",
 ### Coercion.
 ###
 
+# We want 'as(GTuplesList, "GRangesList", strict=FALSE)' to do the
+# right thing (i.e. be a no-op) but, unfortunately, as() won't do that
+# if a coerce,GTuplesList,GRangesList method is defined, because, in this
+# case, as() will **always** call the method, EVEN WHEN strict=FALSE AND
+# THE OBJECT TO COERCE ALREADY DERIVES FROM THE TARGET CLASS! (This is a
+# serious flaw in as() current design/implementation.) A workaround is to
+# support the 'strict=FALSE' case at the level of the coerce() method itself.
+# However setAs() doesn't let us do that so this is why we use
+# setMethod("coerce", ...) to define the method.
 #' @importClassesFrom GenomicRanges GRanges
 #' @importFrom GenomicRanges GRangesList
-setAs("GTuplesList", "GRangesList", 
-      function(from) {
-        if (length(from)) {
-          GRangesList(lapply(from, as, "GRanges"))
-        } else {
-          GRangesList()
-        }
-      }
+setMethod("coerce", c("GTuplesList", "GRangesList"),
+          function(from, to="GRangesList", strict=TRUE) {
+            if (strict) {
+              if (length(from)) {
+                GRangesList(lapply(from, as, "GRanges"))
+              } else {
+                GRangesList()
+              }
+            } else from
+          }
 )
 
 #' @importClassesFrom S4Vectors List
@@ -170,18 +181,6 @@ setMethod("relistToClass",
           "GTuples", 
           function(x) {
             "GTuplesList"
-          }
-)
-
-### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-### show method.
-###
-
-#' @export
-setMethod("show", 
-          "GTuplesList",
-          function(object) {
-            GenomicRanges:::showList(object, showGTuples, FALSE)
           }
 )
 
