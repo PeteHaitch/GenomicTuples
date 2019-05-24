@@ -54,7 +54,7 @@ test_that(".valid.GTuples.mcols works", {
                "names of metadata columns cannot be one of")
   expect_error(GTuples(seqnames = 'chr1', tuples = matrix(1:10), strand = '+',
                        seqlengths = letters[1:10]), 
-               "length of supplied 'seqlengths' must equal the number of")
+               "'seqlengths' must have names")
   expect_error(GTuples(seqnames = 'chr1', tuples = matrix(1:10), strand = '+',
                        isCircular = letters[1:10]), 
                "names of metadata columns cannot be one of")
