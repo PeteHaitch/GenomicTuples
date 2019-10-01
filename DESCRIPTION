@@ -1,8 +1,8 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.19.3
-Date: 2019-05-24
+Version: 1.19.4
+Date: 2019-10-01
 Encoding: UTF-8
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
@@ -55,4 +55,4 @@ Collate:
     'setops-methods.R'
     'tile-methods.R'
     'zzz.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
