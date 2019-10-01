@@ -5,19 +5,6 @@
 
 using namespace Rcpp;
 
-// allTuplesSorted
-bool allTuplesSorted(IntegerVector pos1, IntegerMatrix internal_pos, IntegerVector posm);
-RcppExport SEXP _GenomicTuples_allTuplesSorted(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type pos1(pos1SEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type internal_pos(internal_posSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type posm(posmSEXP);
-    rcpp_result_gen = Rcpp::wrap(allTuplesSorted(pos1, internal_pos, posm));
-    return rcpp_result_gen;
-END_RCPP
-}
 // IPD
 IntegerMatrix IPD(IntegerVector pos1, IntegerMatrix internal_pos, IntegerVector posm);
 RcppExport SEXP _GenomicTuples_IPD(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
@@ -28,6 +15,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerMatrix >::type internal_pos(internal_posSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type posm(posmSEXP);
     rcpp_result_gen = Rcpp::wrap(IPD(pos1, internal_pos, posm));
+    return rcpp_result_gen;
+END_RCPP
+}
+// allTuplesSorted
+bool allTuplesSorted(IntegerVector pos1, IntegerMatrix internal_pos, IntegerVector posm);
+RcppExport SEXP _GenomicTuples_allTuplesSorted(SEXP pos1SEXP, SEXP internal_posSEXP, SEXP posmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type pos1(pos1SEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type internal_pos(internal_posSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type posm(posmSEXP);
+    rcpp_result_gen = Rcpp::wrap(allTuplesSorted(pos1, internal_pos, posm));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -46,8 +46,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_GenomicTuples_allTuplesSorted", (DL_FUNC) &_GenomicTuples_allTuplesSorted, 3},
     {"_GenomicTuples_IPD", (DL_FUNC) &_GenomicTuples_IPD, 3},
+    {"_GenomicTuples_allTuplesSorted", (DL_FUNC) &_GenomicTuples_allTuplesSorted, 3},
     {"_GenomicTuples_pcompareGTuples", (DL_FUNC) &_GenomicTuples_pcompareGTuples, 3},
     {NULL, NULL, 0}
 };
