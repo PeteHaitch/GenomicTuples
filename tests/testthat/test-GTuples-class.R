@@ -12,7 +12,7 @@ test_that(".valid.GTuples.pos works for 1-tuples", {
 })
 test_that(".valid.GTuples.pos works for 2-tuples", {
   expect_error(GTuples('chr1', tuples = matrix(12:1, ncol = 2)), 
-               "negative widths are not allowed")
+               "In range 1: 'end' must be >= 'start' - 1.")
   expect_error(GTuples('chr1', tuples = cbind(11:20, 11:20)), 
                "positions in each tuple must be sorted")
   expect_error(GTuples('chr1', tuples = cbind(11:20, c(12:20, 20L))), 
@@ -20,13 +20,13 @@ test_that(".valid.GTuples.pos works for 2-tuples", {
 })
 test_that(".valid.GTuples.pos works for m-tuples (m > 2)", {
   expect_error(GTuples('chr1', tuples = matrix(12:1, ncol = 3)), 
-               "negative widths are not allowed")
+               "In range 1: 'end' must be >= 'start' - 1.")
   expect_error(GTuples('chr1', tuples = cbind(11:20, 1:10, 31:40)), 
                "positions in each tuple must be sorted")
   expect_error(GTuples('chr1', tuples = cbind(11:20, c(12:20, 20L), 31:40)), 
                "positions in each tuple must be sorted")
   expect_error(GTuples('chr1', tuples = matrix(12:1, ncol = 4)), 
-               "negative widths are not allowed")
+               "In range 1: 'end' must be >= 'start' - 1.")
   expect_error(GTuples('chr1', tuples = cbind(11:20, 1:10, 31:40, 41:50)), 
                "positions in each tuple must be sorted")
   expect_error(GTuples('chr1', tuples = cbind(11:20, 31:40, 1:10, 41:50)), 
