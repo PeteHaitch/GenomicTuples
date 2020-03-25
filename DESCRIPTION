@@ -1,7 +1,7 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.21.3
+Version: 1.21.4
 Date: 2019-10-01
 Encoding: UTF-8
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
@@ -9,9 +9,6 @@ Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     person("Marcin", "Cieslik", role = "ctb",
     email = "marcin.cieslik@gmail.com"),
     person("Hervé", "Pagès", role = "ctb"))
-Author: Peter Hickey <peter.hickey@gmail.com>, with contributions from Marcin
-    Cieslik and Hervé Pagès.
-Maintainer: Peter Hickey <peter.hickey@gmail.com>
 Description: GenomicTuples defines general purpose containers for storing
     genomic tuples. It aims to provide functionality for tuples of genomic
     co-ordinates that are analogous to those available for genomic ranges in
@@ -21,7 +18,7 @@ BugReports: https://github.com/PeteHaitch/GenomicTuples/issues
 biocViews: Infrastructure, DataRepresentation, Sequencing
 VignetteBuilder: knitr
 Depends:
-    R (>= 3.3.0),
+    R (>= 4.0),
     GenomicRanges (>= 1.37.4),
     GenomeInfoDb (>= 1.15.2),
     S4Vectors (>= 0.17.25)
