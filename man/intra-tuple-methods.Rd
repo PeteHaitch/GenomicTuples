@@ -32,9 +32,6 @@
   \item{shift, use.names}{
     See \code{?`\link[IRanges]{intra-range-methods}`}.
   }
-  \item{\dots}{
-    Additional arguments to methods.
-  }
 }
 
 \details{
