@@ -1,7 +1,7 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.21.2
+Version: 1.21.3
 Date: 2019-10-01
 Encoding: UTF-8
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
@@ -31,7 +31,9 @@ Imports:
     Rcpp (>= 0.11.2),
     IRanges (>= 2.19.13),
     data.table,
-    stats4
+    stats4,
+    stats,
+    utils
 Suggests:
     testthat,
     knitr,
