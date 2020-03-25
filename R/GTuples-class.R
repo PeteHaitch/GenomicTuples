@@ -184,17 +184,19 @@ setMethod("as.character", "GTuples",
 # NOTE: as.factor() via inheritance to GenomicRanges, which is okay because 
 #       it calls the above as.character().
 #' @importMethodsFrom S4Vectors as.factor
+#' @importFrom S4Vectors decode
 NULL
 
 #' @importMethodsFrom GenomeInfoDb seqnames
+#' @importFrom S4Vectors decode
 #' 
 #' @export
 setMethod("as.data.frame", 
           "GTuples", 
           function(x, row.names = NULL, optional = FALSE, ...) {
             if (is.na(size(x))) {
-              return(data.frame(seqnames = S4Vectors:::decodeRle(seqnames(x)),
-                                strand = S4Vectors:::decodeRle(strand(x)),
+              return(data.frame(seqnames = decode(seqnames(x)),
+                                strand = decode(strand(x)),
                                 stringsAsFactors = FALSE))
             } else {
               tuples <- tuples(x)
@@ -216,9 +218,9 @@ setMethod("as.data.frame",
                                                'internalPos']
                 mcols_df <- cbind(as.data.frame(extraColumns, ...), mcols_df)
               }
-              data.frame(seqnames = S4Vectors:::decodeRle(seqnames(x)), 
+              data.frame(seqnames = decode(seqnames(x)), 
                          as.data.frame(tuples), 
-                         strand = S4Vectors:::decodeRle(strand(x)), 
+                         strand = decode(strand(x)), 
                          mcols_df, 
                          row.names = row.names, 
                          stringsAsFactors = FALSE)

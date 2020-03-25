@@ -53,6 +53,7 @@
 #' @param gt A GTuples object
 #' @param When set to \code{TRUE}, the strand is set to "*".
 #' @importFrom data.table as.data.table data.table
+#' @importFrom S4Vectors decode
 #' @importMethodsFrom GenomeInfoDb seqnames
 #'        
 #' @keywords internal
@@ -65,11 +66,11 @@
   if (!isTRUEorFALSE(ignore.strand)) {
     stop("'ignore.strand' must be TRUE of FALSE")
   }
-  seqnames <- S4Vectors:::decodeRle(seqnames(gt))
+  seqnames <- decode(seqnames(gt))
   if (ignore.strand) {
     strand <- strand(rep("*", length(gt)))
   } else {
-    strand <- S4Vectors:::decodeRle(strand(gt))
+    strand <- decode(strand(gt))
   }
   tuples <- as.data.table(tuples(gt))
   cbind(data.table("seqnames" = seqnames,

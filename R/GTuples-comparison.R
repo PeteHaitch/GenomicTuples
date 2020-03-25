@@ -264,12 +264,13 @@ setMethod("selfmatch",
 ### object is already sorted, e.g., called prior to a costly sort.
 ### sort is defined via inheritance to GRanges
 
+#' @importFrom S4Vectors decode
 .GTuples.asIntegerTuples <- function(x, ignore.strand = FALSE) {
-  a <- S4Vectors:::decodeRle(seqnames(x))
+  a <- decode(seqnames(x))
   if (ignore.strand) {
     b <- integer(length(x))
   } else {
-    b <- S4Vectors:::decodeRle(strand(x))
+    b <- decode(strand(x))
   }
   c <- start(x)
   if (size(x) > 2L) {
@@ -285,7 +286,7 @@ setMethod("selfmatch",
 }
 
 #' @importFrom data.table := .GRP 
-#' @importFrom S4Vectors isTRUEorFALSE
+#' @importFrom S4Vectors isTRUEorFALSE decode
 #' 
 #' @export
 setMethod("is.unsorted", "GTuples", 
@@ -317,11 +318,11 @@ setMethod("is.unsorted", "GTuples",
               #       is unsorted and return TRUE as soon as this is identified.
               # NOTE: a and b are the same for all 2-tuples whereas c and d are 
               #       updated as we move through the 2-tuples
-              a <- S4Vectors:::decodeRle(seqnames(x))
+              a <- decode(seqnames(x))
               if (ignore.strand) {
                 b <- integer(length(x))
               } else {
-                b <- S4Vectors:::decodeRle(strand(x))
+                b <- decode(strand(x))
               }
               c <- start(x)
               d <- x@internalPos[, 1L]
