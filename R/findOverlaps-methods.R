@@ -123,16 +123,16 @@ setMethod("findOverlaps", signature = c("GTuples", "GTuples"),
 # NOTE: Copy of GenomicRanges::countOverlaps.definition (GenomicRanges v1.23.10)
 #' @importMethodsFrom S4Vectors from
 .countOverlaps.definition <- function(query, subject,
-                           maxgap = -1L, minoverlap = 0L, 
-                           type = c("any", "start", "end", "within", "equal"), 
-                           ignore.strand = FALSE)	{ 
-  counts <- from(findOverlaps(query, subject, 
-                              maxgap = maxgap, 
-                              minoverlap = minoverlap,	
+                                      maxgap = -1L, minoverlap = 0L,
+                                      type = c("any", "start", "end", "within", "equal"),
+                                      ignore.strand = FALSE) {
+  counts <- from(findOverlaps(query, subject,
+                              maxgap = maxgap,
+                              minoverlap = minoverlap,
                               type = match.arg(type),
                               ignore.strand = ignore.strand))
   structure(tabulate(counts, NROW(query)), names = names(query))
-}		
+}
 
 #' @importMethodsFrom IRanges countOverlaps
 #'
