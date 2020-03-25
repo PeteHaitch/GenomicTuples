@@ -56,7 +56,8 @@
 \description{
   The \code{GTuplesList} class is a container for storing a collection of
   \code{\link{GTuples}} objects. It is derived from 
-  \code{\link[GenomicRanges]{GRangesList}}.
+  \code{\linkS4class{GRangesList}}.
+  
 }
 
 \section{Constructor}{
@@ -94,21 +95,21 @@
     \item{}{
       \code{seqnames(x)}, \code{seqnames(x) <- value}:
       Get or set the sequence names in the form of an 
-      \code{\link[IRanges]{RleList}}. \code{value} can be an 
-      \code{\link[IRanges]{RleList}} or \code{\link[IRanges]{CharacterList}} 
+      \code{\linkS4class{RleList}}. \code{value} can be an 
+      \\code{\linkS4class{RleList}} or \code{\linkS4class{CharacterList}} 
       object.
     }
     \item{}{
       \code{tuples(x)}, \code{tuples(x) <- value}:
       Get or set the tuples in the form of a 
-      \code{\link[S4Vectors]{SimpleList}} of integer matrices. \code{value} can 
+      \code{\linkS4class{SimpleList}} of integer matrices. \code{value} can 
       be a a single integer matrix.
     }
     \item{}{
       \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}: Get or 
       set the ranges in the form of a 
-      \code{\link[IRanges]{CompressedIRangesList}}. \code{value} can be a 
-      \code{\link[IRanges]{IntegerRangesList}} object.
+      \code{\linkS4class{CompressedIRangesList}}. \code{value} can be a 
+      \code{\linkS4class{IntegerRangesList}} object.
       
       \strong{WARNING}: The use of \code{ranges} with \code{GTuplesList} 
       objects is \strong{strongly} discouraged. It will only get/set 
@@ -118,19 +119,19 @@
     }
     \item{}{
       \code{strand(x)}, \code{strand(x) <- value}:
-      Get or set the strand in the form of an \code{\link[IRanges]{RleList}}. 
-      \code{value} can be an \code{\link[IRanges]{RleList}}, 
-      \code{\link[IRanges]{CharacterList}} or single character. \code{value} as 
+      Get or set the strand in the form of an \code{\linkS4class{RleList}}. 
+      \code{value} can be an \code{\linkS4class{RleList}}, 
+      \code{\linkS4class{CharacterList}} or single character. \code{value} as 
       a single character converts all ranges in \code{x} to the same
       \code{value}; for selective strand conversion (i.e., mixed \dQuote{+}
-      and \dQuote{-}) use \code{\link[IRanges]{RleList}} or 
-      \code{\link[IRanges]{CharacterList}}. 
+      and \dQuote{-}) use \code{\linkS4class{RleList}} or 
+      \code{\linkS4class{CharacterList}}. 
     }
     \item{}{
       \code{mcols(x, use.names=FALSE)}, \code{mcols(x) <- value}:
       Get or set the metadata columns.
       \code{value} can be \code{NULL}, or a data.frame-like object (i.e.
-      \code{\link[S4Vectors]{DataFrame}} or data.frame) holding 
+      \code{\linkS4class{DataFrame}} or data.frame) holding 
       element-wise metadata.
     }
     \item{}{
@@ -210,7 +211,7 @@
     
     \item{}{
       \code{IPD(x)}: Get the intra-pair distances (\code{IPD}) in the form of a 
-      \code{\link[S4Vectors]{SimpleList}} of integer matrices. \code{IPD} is 
+      \code{\linkS4class{SimpleList}} of integer matrices. \code{IPD} is 
       only defined for tuples with \code{size} > 1. The \code{IPD} of a tuple 
       with \code{size}\eqn{= m} is the vector of intra-pair distances, 
       \eqn{(pos_{2} - pos_{1}, \ldots, pos_{m} - pos_{m - 1})}.
@@ -246,7 +247,7 @@
   \describe{
     \item{}{
       \code{as(x, "GRangesList")}: Creates a 
-      \code{\link[GenomicRanges]{GRangesList}} object from a
+      \code{\linkS4class{GRangesList}} object from a
       \code{GTuplesList} object. \strong{WARNING:} This is generally a 
       \emph{destructive} operation, as the original \code{GTuplesList} may not 
       be re-creatable.
@@ -400,11 +401,11 @@ class and methods.}
 \seealso{
   \link{GTuples-class}
   \code{\link[GenomeInfoDb]{seqinfo}},
-  \link[GenomicRanges]{GRangesList-class},
-  \link[S4Vectors]{Vector-class},
-  \link[IRanges]{IntegerRangesList-class},
-  \link[IRanges]{RleList-class},
-  \link[IRanges]{DataFrameList-class},
+  \code{\linkS4class{GRangesList}},
+  \code{\linkS4class{Vector}},
+  \code{\linkS4class{IntegerRangesList}},
+  \code{\linkS4class{RleList}},
+  \code{\linkS4class{DataFrameList}},
   \link{findOverlaps-methods}
 }
 

@@ -53,8 +53,8 @@
 \title{Undefined methods}
 
 \description{
-  These are methods defined for \code{\link[GenomicRanges]{GRanges}} and 
-  \code{\link[GenomicRanges]{GRangesList}} objects that have no well-defined 
+  These are methods defined for \code{\linkS4class{GRanges}} and 
+  \code{\linkS4class{GRangesList}} objects that have no well-defined 
   equivalent for \code{\link{GTuples}} or \code{\link{GTuplesList}}. Therefore, 
   I have explicitly written methods for these that return errors when called.
 }

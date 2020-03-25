@@ -23,7 +23,7 @@
   ranges given by \eqn{[pos_{1}, pos_{m}]} and where \eqn{m} is the 
   \code{\link{size,GTuples-method}} of the tuples. This is done via inheritance 
   so that a \code{\link{GTuples}} object is treated as a 
-  \code{\link[GenomicRanges]{GRanges}} and the appropriate method is dispatched 
+  \code{\linkS4class{GRanges}} and the appropriate method is dispatched 
   upon.
 }
 
@@ -67,9 +67,9 @@
     the first by order in \code{subject} for \code{precede}, and the
     last for \code{follow}). 
 
-    When \code{select = "all"} a \link[S4Vectors]{Hits} object is returned with 
+    When \code{select = "all"} a \code{\linkS4class{Hits}} object is returned with 
     all matches for \code{x}. If \code{x} does not have a match in 
-    \code{subject} the \code{x} is not included in the \link[S4Vectors]{Hits}
+    \code{subject} the \code{x} is not included in the \code{\linkS4class{Hits}}
     object. 
   }
   \item{ignore.strand}{
@@ -144,10 +144,10 @@
 
 \value{
   For \code{nearest}, \code{precede} and \code{follow}, an integer
-  vector of indices in \code{subject}, or a \link[S4Vectors]{Hits} if 
+  vector of indices in \code{subject}, or a\code{\linkS4class{Hits}} if 
   \code{select = "all"}.
 
-  For \code{distanceToNearest}, a \link[S4Vectors]{Hits} object with a
+  For \code{distanceToNearest}, a \code{\linkS4class{Hits}} object with a
   column for the \code{query} index (from), \code{subject} index
   (to) and the \code{distance} between the pair.
 
@@ -162,10 +162,10 @@ powerful nearest methods.}
 \seealso{
   \itemize{
     \item The \link{GTuples} and \link{GRanges} classes.
-    \item The \link[GenomicRanges]{GenomicRanges} and 
-      \link[GenomicRanges]{GRanges} classes in the \pkg{GenomicRanges} package.
-    \item The \link[IRanges]{IPosRanges} class in the \pkg{IRanges} package.
-    \item The \link[S4Vectors]{Hits} class in the \pkg{S4Vectors} package.
+    \item \code{\linkS4class{GenomicRanges}} and 
+      \code{\linkS4class{GRanges}} classes in the \pkg{GenomicRanges} package.
+    \item The\code{\linkS4class{IPosRanges}} class in the \pkg{IRanges} package.
+    \item The \code{\linkS4class{Hits}} class in the \pkg{S4Vectors} package.
     \item The \link[GenomicRanges]{nearest-methods} man page in the 
       \pkg{GenomicRanges} package.
     \item \link[GenomicTuples]{findOverlaps-methods} for finding just the

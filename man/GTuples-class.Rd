@@ -72,33 +72,33 @@
 }
 
 \details{
-  \code{GTuples} extends \code{\link[GenomicRanges]{GRanges}} as a container
+  \code{GTuples} extends \code{\linkS4class{GRanges}} as a container
   for genomic tuples rather than genomic ranges. \code{GTuples} is a vector of
   genomic locations and associated annotations. Each element in the vector is
   comprised of a sequence name, a tuple, a \code{\link[BiocGenerics]{strand}},
   and optional metadata columns (e.g. score, GC content, etc.). This
   information is stored in four components:
   \describe{
-  \item{\code{seqnames}}{a 'factor' \code{\link[S4Vectors]{Rle}} object
+  \item{\code{seqnames}}{a 'factor' \code{\linkS4class{Rle}} object
    containing the sequence names.}
 
   \item{\code{tuples}}{externally, a matrix-link object containing the
-  tuples. Internally, an \code{\link[IRanges]{IRanges}} object storing the
+  tuples. Internally, an \code{\linkS4class{IRanges}} object storing the
   first and last position of each tuple and, if required, a matrix storing
   the "internal" positions of each tuple (see description of
   \code{internalPos} below).}
 
-  \item{\code{strand}}{a \code{\link[S4Vectors]{Rle}} Rle object containing
+  \item{\code{strand}}{a \code{\linkS4class{Rle}} object containing
   the strand information.}
 
-  \item{\code{mcols}}{a \code{\link[S4Vectors]{DataFrame}} object
+  \item{\code{mcols}}{a \code{\linkS4class{DataFrame}} object
   containing the metadata columns. Columns cannot be named "\code{seqnames}"
   "\code{ranges}", "\code{tuples}", "\code{internalPos}", "\code{size}", 
   "\code{strand}", "\code{seqlevels}", "\code{seqlengths}", 
   "\code{isCircular}", "\code{start}", "\code{end}", "\code{width}", or 
   "\code{element}".}
 
-  \item{\code{seqinfo}}{a \code{\link[S4Vectors]{DataFrame}} object
+  \item{\code{seqinfo}}{a \code{\linkS4class{DataFrame}} object
   containing information about the set of genomic sequences present in the
   \code{GTuples} object.}
   }
@@ -106,7 +106,7 @@
 
 \section{Slots}{
   Since the \code{GTuples} class extends the 
-  \code{\link[GenomicRanges]{GRanges}} class it contains the \code{seqnames}, 
+  \code{\linkS4class{GRanges}} class it contains the \code{seqnames}, 
   \code{ranges}, \code{strand}, \code{elementMetadata}, \code{seqinfo} and 
   \code{metadata}. The \code{GTuples} class also contains two additional slots, 
   \code{size} and \code{internalPos}.
@@ -211,7 +211,7 @@
     }
     \item{}{
       \code{as(x, "GRanges"), granges(x)}: Creates a 
-      \code{\link[GenomicRanges]{GRanges}} object from a
+      \code{\linkS4class{GRanges}} object from a
       \code{GTuples} object. \strong{WARNING:} This is generally a 
       \emph{destructive} operation because all "internal" positions will be 
       dropped.
@@ -235,7 +235,7 @@
 
    \item{}{
     \code{seqnames(x)}, \code{seqnames(x) <- value}: Get or set the
-    sequence names. \code{value} can be an \code{\link[S4Vectors]{Rle}}
+    sequence names. \code{value} can be an \code{\linkS4class{Rle}}
     object, a character vector, or a factor.
    }
    
@@ -264,7 +264,7 @@
 
    \item{}{
     \code{strand(x)}, \code{strand(x) <- value}: Get or set the
-    strand. \code{value} can be an \code{\link[S4Vectors]{Rle}} object,
+    strand. \code{value} can be an \code{\linkS4class{Rle}} object,
     character vector, or factor.
    }
 
@@ -272,10 +272,10 @@
     \code{mcols(x, use.names=FALSE)}, \code{mcols(x) <- value}: Get
     or set the metadata columns. If \code{use.names=TRUE} and the metadata
     columns are not \code{NULL}, then the names of \code{x} are propagated as
-    the row names of the returned \code{\link[S4Vectors]{DataFrame}}
+    the row names of the returned \code{\linkS4class{DataFrame}}
     object. When setting the metadata columns, the supplied value must be
     \code{NULL} or a data.frame-like object (i.e.
-    \code{\link[S4Vectors]{DataTable}} or \code{\link[base]{data.frame}})
+    \code{\linkS4class{DataTable}} or \code{\link[base]{data.frame}})
     object holding element-wise metadata.
    }
 
@@ -288,7 +288,7 @@
    \item{}{
     \code{seqinfo(x)}, \code{seqinfo(x) <- value}: Get or set the
     information about the underlying sequences. \code{value} must be a
-    \code{\link[S4Vectors]{DataFrame}} object.
+    \code{\linkS4class{DataFrame}} object.
    }
 
    \item{}{
@@ -398,8 +398,8 @@
    \item{}{
     \code{c(x, ..., ignore.mcols=FALSE)} If the \code{GTuples}
     objects have metadata columns (represented as one
-    \code{\link[S4Vectors]{DataFrame}} per object), each such
-    \code{\link[S4Vectors]{DataFrame}} must have the same columns in
+    \code{\linkS4class{DataFrame}} per object), each such
+    \\code{\linkS4class{DataFrame}} must have the same columns in
     order to combine successfully. In order to circumvent this restraint, you
     can pass in an \code{ignore.mcols=TRUE} argument which will combine all
     the objects into one and drop all of their metadata columns.
@@ -427,7 +427,7 @@
     \code{x[i, j]}, \code{x[i, j] <- value}: Get or set elements
     \code{i} with optional metadata columns \code{mcols(x)[,j]}, where
     \code{i} can be missing; an \code{NA}-free logical, numeric, or character
-    vector; or a 'logical' \code{\link[S4Vectors]{Rle}} object.
+    vector; or a 'logical' \code{\linkS4class{Rle}} object.
    }
 
    \item{}{
@@ -506,13 +506,13 @@
    \item{}{
     \code{x$name}, \code{x$name <- value}: Shortcuts for
     \code{mcols(x)$name} and \code{mcols(x)$name <- value}, respectively.
-    Provided as a convenience, from \code{\link[GenomicRanges]{GRanges}} as
+    Provided as a convenience, from \\code{\linkS4class{GRanges}} as
     the result of strong popular demand. Note that those methods are not
     consistent with the other \code{$} and \code{$<-} methods in the
-    \code{\link[IRanges]{IRanges}}/
-    \code{\link[GenomicRanges]{GenomicRanges}} infrastructure, and might
+    \code{\linkS4class{IRanges}}/
+    \code{\linkS4class{GenomicRanges}} infrastructure, and might
     confuse some users by making them believe that a
-    \code{\link[GenomicRanges]{GRanges}} object can be manipulated as a
+    \code{\linkS4class{GRanges}} object can be manipulated as a
     data.frame-like object. Therefore we recommend using them only
     interactively, and we discourage their use in scripts or packages. For
     the latter, use \code{mcols(x)$name} and \code{mcols(x)$name <- value},
@@ -530,12 +530,12 @@
     \code{showHeadLines} and \code{showTailLines}. If the object length is
     less than (or equal to) the sum of these 2 options plus 1, then the
     full object is displayed. Note that these options also affect the
-    display of \code{\link[GenomicRanges]{GRanges}},
+    display of \code{\linkS4class{GRanges}},
     \code{\link[GenomicAlignments]{GAlignments}} and
     \code{\link[GenomicAlignments]{GAlignmentPairs}} objects (defined in
     the \strong{GenomicAlignments} package), as well as other objects
     defined in the \strong{IRanges} and \strong{Biostrings} packages (e.g.
-    \code{\link[IRanges]{IRanges}} and \code{\link[Biostrings]{DNAStringSet}}
+    \code{\linkS4class{IRanges}} and \code{\link[Biostrings]{DNAStringSet}}
     objects).
    }
  }
@@ -546,10 +546,10 @@
 \seealso{
   \code{\link{GTuplesList-class}},
   \code{\link[GenomeInfoDb]{seqinfo}},
-  \code{\link[S4Vectors]{Vector-class}},
-  \code{\link[S4Vectors]{Rle-class}},
-  \code{\link[S4Vectors]{DataFrame}},
-  \code{\link[GenomicRanges]{GRanges-class}},
+  \code{\linkS4class{Vector}},
+  \code{\linkS4class{Rle}},
+  \code{\linkS4class{DataFrame}},
+  \code{\linkS4class{GRanges}},
   \code{\link{intra-tuple-methods}},
   \code{\link{findOverlaps-methods}},
   \code{\link{nearest-methods}},

@@ -26,7 +26,7 @@
   
   NOTE: The \code{\link[IRanges]{findOverlaps}} generic function is defined and 
   documented in the \pkg{IRanges} package. The \code{findOverlaps} method for 
-  \link[GenomicRanges]{GenomicRanges} and \link[GenomicRanges]{GRangesList} 
+  \code{\linkS4class{GenomicRanges}} and \code{\linkS4class{GRangesList}} 
   objects are defined and documented in the \pkg{GenoicRanges} package.
   
   \link{GTuples} and \link{GTuplesList} objects also support
@@ -62,7 +62,7 @@
   }
   \item{select}{
     When \code{select} is \code{"all"} (the default), the results are
-    returned as a \link[S4Vectors]{Hits} object.
+    returned as a \code{\linkS4class{Hits}} object.
     Otherwise the returned value is an integer vector parallel to \code{query}
     (i.e. same length) containing the first, last, or arbitrary overlapping
     interval in \code{subject}, with \code{NA} indicating intervals that did
@@ -109,8 +109,8 @@
       \code{\link{size,GTuples-method}} of 
       the tuples. This is done via inheritance so that a \code{\link{GTuples}} 
       (resp. \code{\link{GTuplesList}}) object is treated as a 
-      \code{\link[GenomicRanges]{GRanges}} (resp. 
-      \code{\link[GenomicRanges]{GRangesList}}) and the appropriate 
+      \code{\linkS4class{GRanges}} (resp. 
+      \code{\linkS4class{GRangesList}}) and the appropriate 
       \code{findOverlaps} method is dispatched upon.
       
       \strong{NOTE}: This is the only type of overlap finding available 
@@ -129,8 +129,8 @@
       \code{\link{size,GTuples-method}} of the tuples. This is done via 
       inheritance so that a \code{\link{GTuples}} (resp. 
       \code{\link{GTuplesList}}) object is treated as a 
-      \code{\link[GenomicRanges]{GRanges}} (resp. 
-      \code{\link[GenomicRanges]{GRangesList}}) and the appropriate 
+      \code{\linkS4class{GRanges}} (resp. 
+      \code{\linkS4class{GRangesList}}) and the appropriate 
       \code{findOverlaps} method is dispatched upon.
     }
   }
@@ -144,7 +144,7 @@
 }
 
 \value{
-  For \code{findOverlaps}, either a \link[S4Vectors]{Hits} object when
+  For \code{findOverlaps}, either a \code{\linkS4class{Hits}} object when
   \code{select = "all"} or an integer vector otherwise. 
 
   For \code{countOverlaps}, an integer vector containing the tabulated
@@ -171,11 +171,11 @@ underlying the powerful \code{findOverlaps} functionality.}
     at the R prompt.
     \item \code{\link[GenomicRanges]{findOverlaps}}
     \item \code{\link[IRanges]{findOverlaps}}
-    \item \code{\link[S4Vectors]{Hits-class}}
-    \item \code{\link{GTuples-class}}
-    \item \code{\link{GTuplesList-class}}
-    \item \code{\link[GenomicRanges]{GRanges-class}}
-    \item \code{\link[GenomicRanges]{GRangesList-class}}
+    \item \code{\linkS4class{Hits}}
+    \item \code{\linkS4class{GTuples}}
+    \item \code{\linkS4class{GTuplesList}}
+    \item \code{\linkS4class{GRanges}}
+    \item \code{\linkS4class{GRangesList}}
   }
 }
 
