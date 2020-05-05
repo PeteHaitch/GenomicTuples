@@ -275,7 +275,7 @@
     the row names of the returned \code{\linkS4class{DataFrame}}
     object. When setting the metadata columns, the supplied value must be
     \code{NULL} or a data.frame-like object (i.e.
-    \code{\linkS4class{DataTable}} or \code{\link[base]{data.frame}})
+    \code{\linkS4class{DataFrame}} or \code{\link[base]{data.frame}})
     object holding element-wise metadata.
    }
 
