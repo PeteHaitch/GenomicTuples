@@ -26,6 +26,7 @@
 ###
 
 #' @importMethodsFrom IRanges shift
+#' @importMethodsFrom stats4 update
 #' 
 #' @export
 setMethod("shift", 
@@ -37,8 +38,7 @@ setMethod("shift",
             } else{
               new_internalPos <- x@internalPos
             }
-            GenomicRanges:::clone(x, ranges = new_ranges, 
-                                  internalPos = new_internalPos) 
+            update(x, ranges = new_ranges, internalPos = new_internalPos)
           }
 )
 
