@@ -174,7 +174,7 @@ setAs("list", "GTuplesList",
 ### Going from GTuples to GTuplesList with extractList() and family.
 ###
 
-#' @importMethodsFrom IRanges relistToClass
+#' @importMethodsFrom S4Vectors relistToClass
 #' 
 #' @export
 setMethod("relistToClass", 
