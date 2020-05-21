@@ -37,7 +37,7 @@
 \details{
   \itemize{
     \item{}{\code{shift} behaves like the \code{shift} method for 
-      \link[GenomicRanges]{GRanges} objects, except that any \code{internalPos} 
+      \linkS4class{GRanges} objects, except that any \code{internalPos} 
       are also shifted. See \code{?`\link[GenomicRanges]{intra-range-methods}`} 
       for further details of the \code{shift} method.
     }

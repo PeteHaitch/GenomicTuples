@@ -10,8 +10,9 @@
 \description{
   S4 generic functions for squeezing the tuples out of a tuples-based object. 
   Similar to the S4 generic functions for squeezing the ranges out of a 
-  ranged-based object, see \link[GenomicRanges]{granges} and 
-  \link[GenomicRanges]{grglist}.
+  ranged-based object, see
+  \link[GenomicRanges:genomic-range-squeezers]{granges} and
+  \link[GenomicRanges:genomic-range-squeezers]{grglist}.
 
   \code{gtuples} returns them as a \link{GTuples} object, and \code{gtlist} as 
   a \link{GTuplesList} object.

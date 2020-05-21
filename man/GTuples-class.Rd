@@ -129,14 +129,14 @@
      seqinfo = NULL)}: Creates a \code{GTuples} object.
 
      \describe{
-       \item{\code{seqnames}}{\code{\link[S4Vectors]{Rle}} object, character
+       \item{\code{seqnames}}{\code{\linkS4class{Rle}} object, character
        vector, or factor containing the sequence names.}
 
        \item{\code{tuples}}{matrix object containing the positions of the
        tuples. The first column should refer to pos1, the second to pos2,
        etc.}
 
-       \item{\code{strand}}{\code{\link[S4Vectors]{Rle}} object, character
+       \item{\code{strand}}{\code{\linkS4class{Rle}} object, character
        vector, or factor containing the strand information.}
 
        \item{\code{...}}{Optional metadata columns. These columns cannot be
@@ -148,7 +148,7 @@
        names and containing the lengths (or \code{NA}) for each
        \code{level(seqnames)}.}
 
-       \item{\code{seqinfo}}{a \code{\link[S4Vectors]{DataFrame}} object
+       \item{\code{seqinfo}}{a \code{\linkS4class{DataFrame}} object
        containing allowed sequence names and lengths (or \code{NA}) for each
        \code{level(seqnames)}.}
        }
@@ -297,7 +297,7 @@
     \code{seqlevels(seqinfo(x))} or to \code{levels(seqnames(x))}, those 2
     expressions being guaranteed to return identical character vectors on a
     \code{GTuples} object. \code{value} must be a character vector with no
-    \code{NA}s. See \code{?}\code{\link[GenomeInfoDb]{seqlevels}} for more
+    \code{NA}s. See \code{?\link[GenomeInfoDb:seqinfo]{seqlevels}} for more
     information.
    }
 
@@ -326,7 +326,7 @@
     \code{seqlevelsStyle(x)}, \code{seqlevelsStyle(x) <- value}: Get
     or set the seqname style for \code{x}. See the
     \code{\link[GenomeInfoDb]{seqlevelsStyle}} generic getter and setter in
-    the \strong{GenomeInfoDb} package for more information.
+    the \pkg{GenomeInfoDb} package for more information.
    }
 
    \item{}{
@@ -524,19 +524,20 @@
 \section{Other methods}{
 
  \describe{
-   item{}{
+   \item{}{
     \code{show(x)}: By default the show method displays 5 head and 5
     tail elements. This can be changed by setting the global options
     \code{showHeadLines} and \code{showTailLines}. If the object length is
     less than (or equal to) the sum of these 2 options plus 1, then the
     full object is displayed. Note that these options also affect the
-    display of \code{\linkS4class{GRanges}},
-    \code{\link[GenomicAlignments]{GAlignments}} and
-    \code{\link[GenomicAlignments]{GAlignmentPairs}} objects (defined in
-    the \strong{GenomicAlignments} package), as well as other objects
-    defined in the \strong{IRanges} and \strong{Biostrings} packages (e.g.
-    \code{\linkS4class{IRanges}} and \code{\link[Biostrings]{DNAStringSet}}
-    objects).
+    display of \code{\linkS4class{GRanges}} objects (defined in
+    the \pkg{GenomicRanges} package), 
+    \code{\link[GenomicAlignments:GAlignments-class]{GAlignments}} and
+    \code{\link[GenomicAlignments:GAlignmentPairs-class]{GAlignmentPairs}}
+    objects (defined in the \pkg{GenomicAlignments} package), as well
+    as other objects defined in the \pkg{IRanges} and \pkg{Biostrings}
+    packages (e.g. \code{\linkS4class{IRanges}} and 
+    \code{\link[Biostrings:XStringSet-class]{DNAStringSet}} objects).
    }
  }
 }
