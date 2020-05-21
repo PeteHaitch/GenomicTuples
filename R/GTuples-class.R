@@ -634,6 +634,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
 # NOTE: Unlike GenomicRanges:::showGenomicRanges(), this does not implement 
 #       the print.classinfo argument.
 #' @importMethodsFrom GenomeInfoDb seqinfo
+#' @importFrom S4Vectors makePrettyMatrixForCompactPrinting
 showGTuples <- function(x, margin = "", print.classinfo = FALSE, 
                         print.seqinfo = FALSE) {
   if (!identical(print.classinfo, FALSE)) {
@@ -652,7 +653,7 @@ showGTuples <- function(x, margin = "", print.classinfo = FALSE,
     cat(class(x), " with 0 tuples and 0 metadata columns:\n", sep = "")
   }
   
-  out <- S4Vectors:::makePrettyMatrixForCompactPrinting(x, .makeNakedMatFromGTuples)
+  out <- makePrettyMatrixForCompactPrinting(x, .makeNakedMatFromGTuples)
 
   if (nrow(out) != 0L) { 
     rownames(out) <- paste0(margin, rownames(out))
