@@ -151,7 +151,7 @@
       or to \code{levels(seqnames(x))}, those 2 expressions being
       guaranteed to return identical character vectors on a \code{GTuplesList}
       object. \code{value} must be a character vector with no NAs.
-      See \code{?\link[GenomeInfoDb]{seqlevels}} for more information.
+      See \code{?\link[GenomeInfoDb:seqinfo]{seqlevels}} for more information.
     }
     \item{}{
       \code{seqlengths(x)}, \code{seqlengths(x) <- value}:

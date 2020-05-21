@@ -162,7 +162,7 @@
     \item{}{
       \code{findMatches(x, table)}:
       An enhanced version of \code{match} that returns all the matches
-      in a \code{\link[S4Vectors]{Hits}} object.
+      in a \code{\linkS4class{Hits}} object.
     }
     \item{}{
       \code{countMatches(x, table)}:
@@ -201,7 +201,7 @@
   \code{?BiocGenerics::\link[BiocGenerics]{unique}},
   and \code{?`\link{\%in\%}`}.
 
-  For \code{findMatches}: a \link{Hits} object by default (i.e. if
+  For \code{findMatches}: a \code{\linkS4class{Hits}} object by default (i.e. if
   \code{select="all"}).
 
   For \code{countMatches}: an integer vector of the length of \code{x}
@@ -216,7 +216,7 @@
 \seealso{
   \itemize{
     \item The \code{\link{GTuples}} class.
-    \item \link[GenomicRanges]{GenomicRanges-comparison} in the \strong{GRanges}
+    \item \link[GenomicRanges]{GenomicRanges-comparison} in the \pkg{GRanges}
           package for comparing and ordering genomic ranges.
     \item \link{intra-tuple-methods} for intra-tuple transformations.
     \item \link[GenomicTuples]{findOverlaps-methods} for finding

@@ -24,10 +24,11 @@
   genomic tuples. This man page describes the methods that operate on
   \link{GTuples} and \link{GTuplesList} objects.
   
-  NOTE: The \code{\link[IRanges]{findOverlaps}} generic function is defined and 
-  documented in the \pkg{IRanges} package. The \code{findOverlaps} method for 
-  \code{\linkS4class{GenomicRanges}} and \code{\linkS4class{GRangesList}} 
-  objects are defined and documented in the \pkg{GenoicRanges} package.
+  NOTE: The \code{?\link[IRanges:findOverlaps-methods]{findOverlaps}} generic
+  function is defined and documented in the \pkg{IRanges} package. The 
+  \code{findOverlaps} method for \code{\linkS4class{GenomicRanges}} and
+  \code{\linkS4class{GRangesList}} objects are defined and documented in the
+  \pkg{GenomicRanges} package.
   
   \link{GTuples} and \link{GTuplesList} objects also support
   \code{countOverlaps}, \code{overlapsAny}, and \code{subsetByOverlaps} 
@@ -57,8 +58,8 @@
     See details below.
   }
   \item{maxgap, minoverlap}{
-    See \code{?\link[IRanges]{findOverlaps}} in the \pkg{IRanges} package
-    for a description of these arguments.
+    See \code{?\link[IRanges:findOverlaps-methods]{findOverlaps}} in the 
+    \pkg{IRanges} package for a description of these arguments.
   }
   \item{select}{
     When \code{select} is \code{"all"} (the default), the results are
@@ -116,7 +117,7 @@
       \strong{NOTE}: This is the only type of overlap finding available 
       when either the \code{query} and \code{subject} are 
       \code{\link{GTuplesList}} objects. This is following the behaviour of 
-      \code{\link[GenomicRanges]{findOverlaps,GRangesList,GRangesList-method}} 
+      \code{\link[GenomicRanges:findOverlaps-methods]{findOverlaps,GRangesList,GRangesList-method}}
       that allows \code{type = "any"}, \code{"start"}, \code{"end"} or 
       \code{"within"} but does not allow \code{type = "equal"}.
     }
@@ -169,8 +170,8 @@ underlying the powerful \code{findOverlaps} functionality.}
     overlaps involving genomic tuples, which is available by typing 
     \code{vignette(topic = 'GenomicTuplesIntroduction', package = 'GenomicTuples')} 
     at the R prompt.
-    \item \code{\link[GenomicRanges]{findOverlaps}}
-    \item \code{\link[IRanges]{findOverlaps}}
+    \item \code{\link[GenomicRanges:findOverlaps-methods]{findOverlaps}}
+    \item \code{\link[IRanges:findOverlaps-methods]{findOverlaps}}
     \item \code{\linkS4class{Hits}}
     \item \code{\linkS4class{GTuples}}
     \item \code{\linkS4class{GTuplesList}}
