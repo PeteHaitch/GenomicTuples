@@ -21,25 +21,30 @@ the
 ***[GenomicRanges](https://bioconductor.org/packages/3.14/GenomicRanges)***
 R/Bioconductor package.
 
-## Installation instructions
+## Installation
 
-Get the latest stable `R` release from
-[CRAN](http://cran.r-project.org/). Then install **GenomicTuples** from
-[Bioconductor](http://bioconductor.org/) using the following code:
+Most users will want to install GenomicTuples using the current release
+of Bioconductor using:
 
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
-
 BiocManager::install("GenomicTuples")
 ```
 
-And the development version from
-[GitHub](https://github.com/PeteHaitch/GenomicTuples) with:
+The master branch of this repository is the development version of the
+package. The development version of **GenomicTuples** can only be
+installed using the development version of Bioconductor. Please first
+read [these instructions on installing the development version of
+Bioconductor](http://www.bioconductor.org/developers/how-to/useDevel/);
+**GenomicTuples** can then be installed by:
 
 ``` r
-BiocManager::install("PeteHaitch/GenomicTuples")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+BiocManager::install("GenomicTuples", version = "devel")
 ```
 
 ## Example
@@ -57,11 +62,14 @@ library(GenomicTuples)
 x <- GTuples(
     seqnames = c('chr1', 'chr1', 'chr1', 'chr1', 'chr2'), 
     tuples = matrix(
-        c(10, 10, 10, 10, 10, 20, 20, 20, 25, 20, 30, 30, 35, 30, 30), 
-        ncol = 3), 
+        c(10L, 20L, 30L,
+          10L, 20L, 30L,
+          10L, 20L, 35L,
+          10L, 25L, 30L,
+          10L, 20L, 30L),
+        ncol = 3,
+        byrow = TRUE), 
     strand = c('+', '-', '*', '+', '+'))
-#> Warning in GTuples(seqnames = c("chr1", "chr1", "chr1", "chr1", "chr2"), :
-#> Converting 'tuples' to integer mode
 x
 #> GTuples object with 5 x 3-tuples and 0 metadata columns:
 #>       seqnames pos1 pos2 pos3 strand
