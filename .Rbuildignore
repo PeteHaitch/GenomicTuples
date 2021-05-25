@@ -12,3 +12,4 @@
 ^paper\.md$
 README.Rmd
 ^docs$
+^\.github$
