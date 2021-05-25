@@ -1,11 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.travis.yml
 .Rprofile
 ^tmp/
 .coveralls.R
 ^CHANGELOG\.md$
-^appveyor\.yml$
 ^LICENSE$
 ^paper\.bib$
 ^paper\.json$
@@ -14,3 +12,4 @@ README.Rmd
 ^docs$
 ^\.github$
 ^codecov\.yml$
+.covrignore
