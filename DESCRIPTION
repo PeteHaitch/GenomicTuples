@@ -35,7 +35,8 @@ Suggests:
     testthat,
     knitr,
     BiocStyle,
-    rmarkdown
+    rmarkdown,
+    covr
 LinkingTo: Rcpp
 License: Artistic-2.0
 Collate:

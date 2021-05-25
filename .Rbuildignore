@@ -13,3 +13,4 @@
 README.Rmd
 ^docs$
 ^\.github$
+^codecov\.yml$

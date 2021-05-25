@@ -8,6 +8,8 @@
 [![BioC
 status](http://www.bioconductor.org/shields/build/release/bioc/GenomicTuples.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/GenomicTuples)
 [![R-CMD-check-bioc](https://github.com/PeteHaitch/GenomicTuples/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/PeteHaitch/GenomicTuples/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/PeteHaitch/GenomicTuples/branch/master/graph/badge.svg)](https://codecov.io/gh/PeteHaitch/GenomicTuples?branch=master)
 <!-- badges: end -->
 
 **GenomicTuples** is an R/Bioconductor package that defines general
