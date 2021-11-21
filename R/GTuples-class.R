@@ -268,7 +268,7 @@ setMethod("granges",
 # NOTE: Without '@importMethodsFrom GenomeInfoDb merge' this doesn't work. 
 #       This is despite merge being defined in base.
 #' @importClassesFrom S4Vectors DataFrame
-#' @importFrom S4Vectors isTRUEorFALSE
+#' @importFrom S4Vectors isTRUEorFALSE make_zero_col_DFrame
 #' @importMethodsFrom GenomeInfoDb merge seqinfo seqnames
 #' @importMethodsFrom IRanges ranges
 #' @importMethodsFrom S4Vectors mcols
@@ -285,7 +285,7 @@ setMethod("granges",
   ans_internalPos <- do.call(rbind, lapply(x, function(xx) xx@internalPos))
   ans_size <- size(x[[1L]])
   if (ignore.mcols) {
-    ans_mcols <- new("DataFrame", nrows = length(ans_ranges))
+    ans_mcols <- make_zero_col_DFrame(length(ans_ranges))
   } else {
     ans_mcols <- do.call(rbind, lapply(x, mcols, FALSE))
   }
