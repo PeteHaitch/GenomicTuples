@@ -7,8 +7,7 @@
 setClass("GTuplesList",
          contains = "CompressedGRangesList",
          slots = list(
-           unlistData = "GTuples",
-           elementMetadata = "DataFrame"
+           unlistData = "GTuples"
          ),
          prototype = prototype(
            elementType = "GTuples"
