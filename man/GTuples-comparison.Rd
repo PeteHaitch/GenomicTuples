@@ -117,8 +117,7 @@
   on \code{\link{GTuples}} objects are using this "natural order".
   
   \describe{
-    \item{}{
-      \code{pcompare(x, y)}:
+    \item{\code{pcompare(x, y)}:}{
       Performs "generalized range-wise comparison" of \code{x} and \code{y},
       that is, returns an integer vector where the i-th element is a code
       describing how the i-th element in \code{x} is qualitatively positioned
@@ -132,59 +131,50 @@
       \code{\link[IRanges]{IPosRanges-comparison}}. Specifically, only the 
       sign of the code matters, not the actual value.
     }
-    \item{}{
-      \code{match(x, table, nomatch = NA_integer_)}:
+    \item{\code{match(x, table, nomatch = NA_integer_)}:}{
       Returns an integer vector of the length of \code{x},
       containing the index of the first matching range in \code{table}
       (or \code{nomatch} if there is no matching range) for each tuple
       in \code{x}.
     }
-    \item{}{
-      \code{duplicated(x, fromLast = FALSE, method = c("hash", "base"))}:
+    \item{\code{duplicated(x, fromLast = FALSE, method = c("hash", "base"))}:}{
       Determines which elements of \code{x} are equal to elements
       with smaller subscripts, and returns a logical vector indicating
       which elements are duplicates. 
       See \code{\link[base]{duplicated}} in the \pkg{base} package for more
       details.
     }
-    \item{}{
-      \code{unique(x, fromLast = FALSE, method = c("hash", "base"))}:
+    \item{\code{unique(x, fromLast = FALSE, method = c("hash", "base"))}:}{
       Removes duplicate tuples from \code{x}.
       See \code{\link[base]{unique}} in the \pkg{base} package for more
       details.
     }
-    \item{}{
-      \code{x \%in\% table}:
+    \item{\code{x \%in\% table}:}{
       A shortcut for finding the ranges in \code{x} that match any of
       the tuples in \code{table}. Returns a logical vector of length
       equal to the number of tuples in \code{x}.
     }
-    \item{}{
-      \code{findMatches(x, table)}:
+    \item{\code{findMatches(x, table)}:}{
       An enhanced version of \code{match} that returns all the matches
       in a \code{\linkS4class{Hits}} object.
     }
-    \item{}{
-      \code{countMatches(x, table)}:
+    \item{\code{countMatches(x, table)}:}{
       Returns an integer vector of the length of \code{x} containing the
       number of matches in \code{table} for each element in \code{x}.
     }
-    \item{}{
-      \code{order(...)}:
+    \item{\code{order(...)}:}{
       Returns a permutation which rearranges its first argument (a 
       \code{\link{GTuples}} object) into ascending order, breaking ties by 
       further arguments.
       See \code{\link[BiocGenerics]{order}} in the \pkg{BiocGenerics} package
       for more information.
     }
-    \item{}{
-      \code{sort(x)}:
+    \item{\code{sort(x)}:}{
       Sorts \code{x}.
       See \code{\link[base]{sort}} in the \pkg{base} package for more details.
     }
-    \item{}{
-      \code{rank(x, na.last = TRUE, ties.method = c("average", "first", 
-                  "random", "max", "min"))}:
+    \item{\code{rank(x, na.last = TRUE, ties.method = c("average", "first", 
+                  "random", "max", "min"))}:}{
       Returns the sample ranks of the tuples in \code{x}.
       See \code{\link[base]{rank}} in the \pkg{base} package for more details.
     }

@@ -124,9 +124,9 @@
 
 \section{Constructor}{
  \describe{
-   \item{}{\code{GTuples(seqnames = Rle(), tuples = matrix(),
+   \item{\code{GTuples(seqnames = Rle(), tuples = matrix(),
      strand = Rle("*", length(seqnames)), ..., seqlengths = NULL,
-     seqinfo = NULL)}: Creates a \code{GTuples} object.
+     seqinfo = NULL)}:}{ Creates a \code{GTuples} object.
 
      \describe{
        \item{\code{seqnames}}{\code{\linkS4class{Rle}} object, character
@@ -161,7 +161,7 @@
 
   \describe{
   % TODO: Uncomment once implemented
-%    \item{}{
+%    \item{
 %      \code{as(from, "GTuples")}: Creates a GTuples object from a character
 %      vector, or a factor.
 %
@@ -178,17 +178,15 @@
 %      Coercing a data.frame or DataFrame into a GRanges object is also
 %      supported. See \code{\link{makeGRangesFromDataFrame}} for the details.
 %    }
-    \item{}{
-      \code{as.data.frame(x, row.names = NULL, optional = FALSE, ...)}:
+    \item{\code{as.data.frame(x, row.names = NULL, optional = FALSE, ...)}:}{
       Creates a data.frame with columns \code{seqnames} (factor), 
       \code{tuples} (integer), \code{strand} (factor), as well as 
       the additional metadata columns stored in \code{mcols(x)}. Pass an 
-      explicit \code{stringsAsFactors=TRUE/FALSE} argument via \code{\ldots} to
+      explicit \code{stringsAsFactors=TRUE/FALSE} argument via \code{\dots} to
       override the default conversions for the metadata columns in 
       \code{mcols(x)}.
     }
-    \item{}{
-      \code{as.character(x, ignore.strand=FALSE)}:
+    \item{\code{as.character(x, ignore.strand=FALSE)}:}{
       Turn GTuples object \code{x} into a character vector where each
       tuples in \code{x} is represented by a string in format
       \code{chr1:100,109,115:+}. If \code{ignore.strand} is TRUE or if
@@ -203,18 +201,15 @@
       % TODO: Uncomment when implemented. 
       % See \code{as(from, "GTuples")} above for the reverse transformation.
     }
-    \item{}{
-      \code{as.factor(x)}:
+    \item{\code{as.factor(x)}:}{
       Equivalent to
 \preformatted{  factor(as.character(x), levels=as.character(sort(unique(x))))
 }
     }
-    \item{}{
-      \code{as(x, "GRanges"), granges(x)}: Creates a 
-      \code{\linkS4class{GRanges}} object from a
-      \code{GTuples} object. \strong{WARNING:} This is generally a 
-      \emph{destructive} operation because all "internal" positions will be 
-      dropped.
+    \item{\code{as(x, "GRanges"), granges(x)}:}{
+      Creates a \code{\linkS4class{GRanges}} object from a \code{GTuples} 
+      object. \strong{WARNING:} This is generally a \emph{destructive} 
+      operation because all "internal" positions will be dropped.
     }
   }
 }
@@ -224,75 +219,65 @@
   In the following code snippets, x is a \code{GTuples} object.
 
  \describe{
-   \item{}{
-    \code{size(x)}: Get the size of the genomic tuples stored in
-    \code{x}.
+   \item{\code{size(x)}:}{
+     Get the size of the genomic tuples stored in \code{x}.
    }
 
-   \item{}{
-    \code{length(x)}: Get the number of elements.
+   \item{\code{length(x)}:}{
+     Get the number of elements.
    }
 
-   \item{}{
-    \code{seqnames(x)}, \code{seqnames(x) <- value}: Get or set the
-    sequence names. \code{value} can be an \code{\linkS4class{Rle}}
-    object, a character vector, or a factor.
+   \item{\code{seqnames(x)}, \code{seqnames(x) <- value}:}{
+     Get or set the sequence names. \code{value} can be an 
+     \code{\linkS4class{Rle}} object, a character vector, or a factor.
    }
    
-   \item{}{
-    \code{tuples(x)}, \code{tuples(x) <- value}: Get the positions of the 
-    tuples, which are returned as an integer matrix. \code{value} can be an
-    integer matrix.
+   \item{\code{tuples(x)}, \code{tuples(x) <- value}:}{
+     Get the positions of the tuples, which are returned as an integer matrix.
+     \code{value} can be an integer matrix.
    }
 
-   \item{}{
-    \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}: Get or set 
-    the ranges in the form of a CompressedIRangesList. \code{value} can be a 
-    IntegerRangesList object.
+   \item{ \code{ranges(x, use.mcols = FALSE)}, \code{ranges(x) <- value}:}{ 
+     Get or set the ranges in the form of a CompressedIRangesList. \code{value} 
+     can be a IntegerRangesList object.
     
-    \strong{WARNING}: The use of \code{ranges} with \code{GTuples} objects is 
-    \strong{strongly} discouraged. It will only get/set \eqn{pos_{1}} and 
-    \eqn{pos_{m}} of the tuples, where \eqn{m} is the \code{size} of the 
-    tuples, as these are what are stored in the "ranges" slot of a 
-    \code{GTuples} object.
+     \strong{WARNING}: The use of \code{ranges} with \code{GTuples} objects is 
+     \strong{strongly} discouraged. It will only get/set \eqn{pos_{1}} and 
+     \eqn{pos_{m}} of the tuples, where \eqn{m} is the \code{size} of the 
+     tuples, as these are what are stored in the "ranges" slot of a 
+     \code{GTuples} object.
    }
 
-   \item{}{
-    \code{names(x)}, \code{names(x) <- value}: Get or set the names
-    of the elements.
+   \item{\code{names(x)}, \code{names(x) <- value}:}{
+     Get or set the names of the elements.
    }
 
-   \item{}{
-    \code{strand(x)}, \code{strand(x) <- value}: Get or set the
-    strand. \code{value} can be an \code{\linkS4class{Rle}} object,
-    character vector, or factor.
+   \item{\code{strand(x)}, \code{strand(x) <- value}:}{
+     Get or set the strand. \code{value} can be an \code{\linkS4class{Rle}} 
+     object, character vector, or factor.
    }
 
-   \item{}{
-    \code{mcols(x, use.names=FALSE)}, \code{mcols(x) <- value}: Get
-    or set the metadata columns. If \code{use.names=TRUE} and the metadata
-    columns are not \code{NULL}, then the names of \code{x} are propagated as
-    the row names of the returned \code{\linkS4class{DataFrame}}
-    object. When setting the metadata columns, the supplied value must be
-    \code{NULL} or a data.frame-like object (i.e.
-    \code{\linkS4class{DataFrame}} or \code{\link[base]{data.frame}})
-    object holding element-wise metadata.
+   \item{\code{mcols(x, use.names=FALSE)}, \code{mcols(x) <- value}:}{
+     Get or set the metadata columns. If \code{use.names=TRUE} and the metadata
+     columns are not \code{NULL}, then the names of \code{x} are propagated as
+     the row names of the returned \code{\linkS4class{DataFrame}}
+     object. When setting the metadata columns, the supplied value must be
+     \code{NULL} or a data.frame-like object (i.e.
+     \code{\linkS4class{DataFrame}} or \code{\link[base]{data.frame}})
+     object holding element-wise metadata.
    }
 
-   \item{}{
-    \code{elementMetadata(x)}, \code{elementMetadata(x) <- value},
-    \code{values(x)}, \code{values(x) <- value}: Alternatives to \code{mcols}
-    functions. Their use is discouraged.
+   \item{\code{elementMetadata(x)}, \code{elementMetadata(x) <- value},
+    \code{values(x)}, \code{values(x) <- value}:}{ 
+      Alternatives to \code{mcols} functions. Their use is discouraged.
    }
 
-   \item{}{
-    \code{seqinfo(x)}, \code{seqinfo(x) <- value}: Get or set the
-    information about the underlying sequences. \code{value} must be a
-    \code{\linkS4class{DataFrame}} object.
+   \item{\code{seqinfo(x)}, \code{seqinfo(x) <- value}:}{
+     Get or set the information about the underlying sequences. \code{value} 
+     must be a \code{\linkS4class{DataFrame}} object.
    }
 
-   \item{}{
-    \code{seqlevels(x)}, \code{seqlevels(x, force=FALSE) <- value}:
+   \item{\code{seqlevels(x)}, \code{seqlevels(x, force=FALSE) <- value}:}{
     Get or set the sequence levels. \code{seqlevels(x)} is equivalent to
     \code{seqlevels(seqinfo(x))} or to \code{levels(seqnames(x))}, those 2
     expressions being guaranteed to return identical character vectors on a
@@ -301,37 +286,32 @@
     information.
    }
 
-   \item{}{
-    \code{seqlengths(x)}, \code{seqlengths(x) <- value}: Get or set
-    the sequence lengths. \code{seqlengths(x)} is equivalent to
+   \item{\code{seqlengths(x)}, \code{seqlengths(x) <- value}:}{
+    Get or set the sequence lengths. \code{seqlengths(x)} is equivalent to
     \code{seqlengths(seqinfo(x))}. \code{value} can be a named non-negative
     integer or numeric vector eventually with \code{NA}s.
    }
 
-   \item{}{
-    \code{isCircular(x)}, \code{isCircular(x) <- value}: Get or set
-    the circularity flags. \code{isCircular(x)} is equivalent to
+   \item{\code{isCircular(x)}, \code{isCircular(x) <- value}:}{
+    Get or set the circularity flags. \code{isCircular(x)} is equivalent to
     \code{isCircular(seqinfo(x))}. \code{value} must be a named logical
     vector eventually with \code{NA}s.
    }
 
-   \item{}{
-    \code{genome(x)}, \code{genome(x) <- value}: Get or set the
-    genome identifier or assembly name for each sequence. \code{genome(x)} is
-    equivalent to \code{genome(seqinfo(x))}. \code{value} must be a named
-    character vector eventually with \code{NA}s.
+   \item{\code{genome(x)}, \code{genome(x) <- value}:}{
+    Get or set the genome identifier or assembly name for each sequence. 
+    \code{genome(x)} is equivalent to \code{genome(seqinfo(x))}. \code{value} 
+    must be a named character vector eventually with \code{NA}s.
    }
 
-   \item{}{
-    \code{seqlevelsStyle(x)}, \code{seqlevelsStyle(x) <- value}: Get
-    or set the seqname style for \code{x}. See the
+   \item{\code{seqlevelsStyle(x)}, \code{seqlevelsStyle(x) <- value}:}{ 
+    Get or set the seqname style for \code{x}. See the
     \code{\link[GenomeInfoDb]{seqlevelsStyle}} generic getter and setter in
     the \pkg{GenomeInfoDb} package for more information.
    }
 
-   \item{}{
-    \code{score(x)}, \code{score(x) <- value}: Get or set the "score"
-    column from the element metadata.
+   \item{\code{score(x)}, \code{score(x) <- value}:}{
+    Get or set the "score" column from the element metadata.
    }
  }
 }
@@ -343,31 +323,28 @@
   \code{width(x) <- value is discouraged}.
     
   \describe{
-    \item{}{
-      \code{start(x)}, \code{start(x) <- value}:
+    \item{\code{start(x)}, \code{start(x) <- value}:}{
       Get or set \eqn{pos_{1}} of the tuples. \strong{WARNING}: The use of 
       \code{width(x) <- value} is discouraged; instead, construct the tuples as 
       the appropriate integer matrix, \code{mvalue}, and use 
       \code{tuples(x) <- mvalue}.
     }
     
-    \item{}{
-      \code{end(x)}, \code{end(x) <- value}:
+    \item{\code{end(x)}, \code{end(x) <- value}:}{
       Get or set \eqn{pos_{m}} of the tuples, where \eqn{m} is the \code{size} 
       of the tuples. \strong{WARNING}: The use of \code{end(x) <- value} is 
       discouraged; instead, construct the tuples as the appropriate integer
       matrix, \code{mvalue}, and use \code{tuples(x) <- mvalue}.
     }
     
-    \item{}{
-      \code{IPD(x)}: Get the intra-pair distances (\code{IPD}). \code{IPD} is 
+    \item{\code{IPD(x)}:}{
+      Get the intra-pair distances (\code{IPD}). \code{IPD} is 
       only defined for tuples with \code{size} > 1. The \code{IPD} of a tuple 
       with \code{size}\eqn{= m} is the vector of intra-pair distances, 
       \eqn{(pos_{2} - pos_{1}, \ldots, pos_{m} - pos_{m - 1})}.
     }
     
-    \item{}{
-      \code{width(x)}, \code{width(x) <- value}:
+    \item{\code{width(x)}, \code{width(x) <- value}:}{
       Get or set \eqn{pos_{m} - pos_{1}} of the tuples, where \eqn{m} is the 
       \code{size} of the tuples. If using \code{width(x) <- value}, 
       \eqn{pos_{1}} is held fixed and \eqn{pos_{m}} is altered. 
@@ -382,31 +359,29 @@
   In the following code snippets, x is a \code{GTuples} object.
 
  \describe{
-   \item{}{
-    \code{append(x, values, after = length(x))}: Inserts the values
-    into \code{x} at the position given by after, where \code{x} and
-    \code{values} are of the same class.
+   \item{\code{append(x, values, after = length(x))}:}{
+    Inserts the values into \code{x} at the position given by after, where 
+    \code{x} and \code{values} are of the same class.
    }
 
-   \item{}{
-    \code{c(x, ...)}: Combines \code{x} and the \code{GTuples}
-    objects in \code{...} together. Any object in \code{...} must belong to
-    the same class as \code{x}, or to one of its subclasses, or must be
-    \code{NULL}. The result is an object of the same class as \code{x}.
+   \item{\code{c(x, ...)}:}{
+    Combines \code{x} and the \code{GTuples} objects in \code{...} together. 
+    Any object in \code{...} must belong to the same class as \code{x}, or to 
+    one of its subclasses, or must be \code{NULL}. The result is an object of 
+    the same class as \code{x}.
    }
 
-   \item{}{
-    \code{c(x, ..., ignore.mcols=FALSE)} If the \code{GTuples}
-    objects have metadata columns (represented as one
+   \item{\code{c(x, ..., ignore.mcols=FALSE)}:}{
+    If the \code{GTuples} objects have metadata columns (represented as one
     \code{\linkS4class{DataFrame}} per object), each such
-    \\code{\linkS4class{DataFrame}} must have the same columns in
+    \code{\linkS4class{DataFrame}} must have the same columns in
     order to combine successfully. In order to circumvent this restraint, you
     can pass in an \code{ignore.mcols=TRUE} argument which will combine all
     the objects into one and drop all of their metadata columns.
    }
 
-   \item{}{
-    \code{split(x, f, drop=FALSE)}: Splits \code{x} according to
+   \item{\code{split(x, f, drop=FALSE)}:}{ 
+    Splits \code{x} according to
     \code{f} to create a \code{GTuplesList} object. If \code{f} is a
     list-like object then \code{drop} is ignored and \code{f} is treated as
     if it was \code{rep(seq_len(length(f)), sapply(f, length))}, so the
@@ -423,28 +398,26 @@
   In the following code snippets, x is a \code{GTuples} object.
 
  \describe{
-   \item{}{
-    \code{x[i, j]}, \code{x[i, j] <- value}: Get or set elements
-    \code{i} with optional metadata columns \code{mcols(x)[,j]}, where
-    \code{i} can be missing; an \code{NA}-free logical, numeric, or character
-    vector; or a 'logical' \code{\linkS4class{Rle}} object.
+   \item{\code{x[i, j]}, \code{x[i, j] <- value}:}{
+    Get or set elements \code{i} with optional metadata columns 
+    \code{mcols(x)[,j]}, where \code{i} can be missing; an \code{NA}-free 
+    logical, numeric, or character vector; or a 'logical' 
+    \code{\linkS4class{Rle}} object.
    }
 
-   \item{}{
-    \code{x[i,j] <- value}: Replaces elements \code{i} and optional
-    metadata columns \code{j} with \code{value}.
+   \item{\code{x[i,j] <- value}:}{
+    Replaces elements \code{i} and optional metadata columns \code{j} with
+    \code{value}.
    }
 
-   \item{}{
-    \code{head(x, n = 6L)}: If \code{n} is non-negative, returns the
-    first \code{n} elements of the \code{GTuples} object. If \code{n} is
-    negative, returns all but the last \code{abs(n)} elements of the
-    \code{GTuples} object.
+   \item{\code{head(x, n = 6L)}:}{
+    If \code{n} is non-negative, returns the first \code{n} elements of the
+    \code{GTuples} object. If \code{n} is negative, returns all but the last
+    \code{abs(n)} elements of the \code{GTuples} object.
    }
 
-   \item{}{
-    \code{rep(x, times, length.out, each)}: Repeats the values in
-    \code{x} through one of the following conventions:
+   \item{\code{rep(x, times, length.out, each)}:}{
+    Repeats the values in \code{x} through one of the following conventions:
       \describe{
         \item{\code{times}}{
           Vector giving the number of times to repeat each
@@ -464,21 +437,19 @@
      }
    }
 
-   \item{}{
-    \code{subset(x, subset)}: Returns a new object of the same class
-    as \code{x} made of the subset using logical vector subset, where missing
-    values are taken as \code{FALSE}.
+   \item{\code{subset(x, subset)}:}{ 
+     Returns a new object of the same class as \code{x} made of the subset 
+     using logical vector subset, where missing values are taken as 
+     \code{FALSE}.
    }
 
-   \item{}{
-    \code{tail(x, n = 6L)}: If \code{n} is non-negative, returns the
-    last \code{n} elements of the \code{GTuples} object. If \code{n} is
-    negative, returns all but the first \code{abs(n)} elements of the
-    \code{GTuples} object.
+   \item{\code{tail(x, n = 6L)}:}{ 
+    If \code{n} is non-negative, returns the last \code{n} elements of the
+    \code{GTuples} object. If \code{n} is negative, returns all but the first
+    \code{abs(n)} elements of the \code{GTuples} object.
    }
 
-    \item{}{
-      \code{window(x, start = NA, end = NA, width = NA, frequency = NULL, delta = NULL, ...)}:
+    \item{\code{window(x, start = NA, end = NA, width = NA, frequency = NULL, delta = NULL, ...)}:}{
       Extracts the subsequence window from the \code{GTuples} object using:
       \describe{
         \item{\code{start}, \code{end}, \code{width}}{The start, end, or width
@@ -488,8 +459,7 @@
       }
       In general, this is more efficient than using \code{"["} operator.
     }
-    \item{}{
-      \code{window(x, start = NA, end = NA, width = NA, keepLength = TRUE) <- value}:
+    \item{\code{window(x, start = NA, end = NA, width = NA, keepLength = TRUE) <- value}:}{
       Replaces the subsequence window specified on the left (i.e. the subsequence
       in \code{x} specified by \code{start}, \code{end} and \code{width})
       by \code{value}.
@@ -503,13 +473,12 @@
       subsequence window compares to the length of \code{value}.
     }
 
-   \item{}{
-    \code{x$name}, \code{x$name <- value}: Shortcuts for
-    \code{mcols(x)$name} and \code{mcols(x)$name <- value}, respectively.
-    Provided as a convenience, from \\code{\linkS4class{GRanges}} as
-    the result of strong popular demand. Note that those methods are not
-    consistent with the other \code{$} and \code{$<-} methods in the
-    \code{\linkS4class{IRanges}}/
+   \item{\code{x$name}, \code{x$name <- value}:}{
+    Shortcuts for \code{mcols(x)$name} and \code{mcols(x)$name <- value},
+    respectively. Provided as a convenience, from 
+    \code{\linkS4class{GRanges}} as the result of strong popular demand. Note 
+    that those methods are not consistent with the other \code{$} and 
+    \code{$<-} methods in the \code{\linkS4class{IRanges}}/
     \code{\linkS4class{GenomicRanges}} infrastructure, and might
     confuse some users by making them believe that a
     \code{\linkS4class{GRanges}} object can be manipulated as a
@@ -524,8 +493,8 @@
 \section{Other methods}{
 
  \describe{
-   \item{}{
-    \code{show(x)}: By default the show method displays 5 head and 5
+   \item{\code{show(x)}:}{ 
+    By default the show method displays 5 head and 5
     tail elements. This can be changed by setting the global options
     \code{showHeadLines} and \code{showTailLines}. If the object length is
     less than (or equal to) the sum of these 2 options plus 1, then the
