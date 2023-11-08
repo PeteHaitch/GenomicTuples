@@ -9,7 +9,7 @@
 \arguments{
 \item{gt}{A GTuples object}
 
-\item{When}{set to \code{TRUE}, the strand is set to "*".}
+\item{ignore.strand}{When set to \code{TRUE}, the strand is set to "*".}
 }
 \description{
 Convert a GTuples object to a data.table.

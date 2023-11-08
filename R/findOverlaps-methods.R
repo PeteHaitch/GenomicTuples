@@ -9,8 +9,8 @@
 #' @param subject A GTuples instance
 #' @param select See \code{findOverlaps} in the IRanges package for a 
 #' description of this argument.
-#' @param When set to \code{TRUE}, the strand information is ignored in the 
-#' overlap calculations.
+#' @param ignore.strand When set to \code{TRUE}, the strand information is
+#' ignored in the overlap calculations.
 #' 
 #' @importFrom data.table := .I setkeyv
 #' @importFrom S4Vectors Hits selectHits

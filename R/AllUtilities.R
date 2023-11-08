@@ -51,7 +51,7 @@
 #' Convert a GTuples object to a data.table.
 #' 
 #' @param gt A GTuples object
-#' @param When set to \code{TRUE}, the strand is set to "*".
+#' @param ignore.strand When set to \code{TRUE}, the strand is set to "*".
 #' @importFrom data.table as.data.table data.table
 #' @importFrom S4Vectors decode
 #' @importMethodsFrom GenomeInfoDb seqnames

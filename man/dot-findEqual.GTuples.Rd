@@ -15,8 +15,8 @@ type = "equal".}
 \item{select}{See \code{findOverlaps} in the IRanges package for a 
 description of this argument.}
 
-\item{When}{set to \code{TRUE}, the strand information is ignored in the 
-overlap calculations.}
+\item{ignore.strand}{When set to \code{TRUE}, the strand information is
+ignored in the overlap calculations.}
 }
 \description{
 An internal function used by the findOverlaps,GTuples,GTuples-method when 
