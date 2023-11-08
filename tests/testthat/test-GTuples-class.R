@@ -334,7 +334,8 @@ test_that("c works", {
   expect_identical(c(gt4[1:5], gt4[6:10]), gt4)
   expect_error(c(gt3, granges(gt3)), 
                paste0("unable to find an inherited method for function ", 
-                      sQuote('size'), " for signature ", sQuote('"GRanges"')))
+                      sQuote('size'), " for signature ", 
+                      sQuote('x = "GRanges"')))
   expect_error(c(gt3, gt4), 
                paste0("Cannot combine GTuples containing tuples of ", 
                       "different 'size'"))
