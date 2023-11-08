@@ -36,7 +36,9 @@ Suggests:
     knitr,
     BiocStyle,
     rmarkdown,
-    covr
+    covr,
+    GenomicAlignments,
+    Biostrings
 LinkingTo: Rcpp
 License: Artistic-2.0
 Collate:
