@@ -1,8 +1,8 @@
 Package: GenomicTuples
 Type: Package
 Title: Representation and Manipulation of Genomic Tuples
-Version: 1.43.0
-Date: 2024-11-13
+Version: 1.43.1
+Date: 2025-07-02
 Encoding: UTF-8
 Authors@R: c(person("Peter", "Hickey", role = c("aut", "cre"),
     email = "peter.hickey@gmail.com"),
@@ -20,7 +20,7 @@ VignetteBuilder: knitr
 Depends:
     R (>= 4.0),
     GenomicRanges (>= 1.37.4),
-    GenomeInfoDb (>= 1.15.2),
+    Seqinfo,
     S4Vectors (>= 0.17.25)
 Imports:
     methods,
@@ -38,7 +38,8 @@ Suggests:
     rmarkdown,
     covr,
     GenomicAlignments,
-    Biostrings
+    Biostrings,
+    GenomeInfoDb
 LinkingTo: Rcpp
 License: Artistic-2.0
 Collate:
@@ -57,4 +58,4 @@ Collate:
     'setops-methods.R'
     'tile-methods.R'
     'zzz.R'
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
