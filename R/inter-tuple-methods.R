@@ -67,7 +67,7 @@ setMethod("reduce",
 ###
 
 #' @importMethodsFrom IRanges gaps
-#' @importMethodsFrom GenomeInfoDb seqlengths
+#' @importMethodsFrom Seqinfo seqlengths
 #' 
 #' @export
 setMethod("gaps", 

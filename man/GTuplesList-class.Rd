@@ -140,7 +140,7 @@
       or to \code{levels(seqnames(x))}, those 2 expressions being
       guaranteed to return identical character vectors on a \code{GTuplesList}
       object. \code{value} must be a character vector with no NAs.
-      See \code{?\link[GenomeInfoDb:seqinfo]{seqlevels}} for more information.
+      See \code{?\link[Seqinfo:seqinfo]{seqlevels}} for more information.
     }
     \item{\code{seqlengths(x)}, \code{seqlengths(x) <- value}:}{
       Get or set the sequence lengths.
@@ -366,7 +366,7 @@ class and methods.}
 
 \seealso{
   \link{GTuples-class}
-  \code{\link[GenomeInfoDb]{seqinfo}},
+  \code{\link[Seqinfo]{seqinfo}},
   \code{\linkS4class{GRangesList}},
   \code{\linkS4class{Vector}},
   \code{\linkS4class{IntegerRangesList}},

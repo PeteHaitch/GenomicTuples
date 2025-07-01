@@ -187,7 +187,7 @@ setMethod("as.character", "GTuples",
 #' @importFrom S4Vectors decode
 NULL
 
-#' @importMethodsFrom GenomeInfoDb seqnames
+#' @importMethodsFrom Seqinfo seqnames
 #' @importFrom S4Vectors decode
 #' 
 #' @export
@@ -265,11 +265,11 @@ setMethod("granges",
 
 ### Not exported. 'x' *must* be an unnamed list of length >= 1 (not checked).
 
-# NOTE: Without '@importMethodsFrom GenomeInfoDb merge' this doesn't work. 
+# NOTE: Without '@importMethodsFrom Seqinfo merge' this doesn't work. 
 #       This is despite merge being defined in base.
 #' @importClassesFrom S4Vectors DataFrame
 #' @importFrom S4Vectors isTRUEorFALSE make_zero_col_DFrame
-#' @importMethodsFrom GenomeInfoDb merge seqinfo seqnames
+#' @importMethodsFrom Seqinfo merge seqinfo seqnames
 #' @importMethodsFrom IRanges ranges
 #' @importMethodsFrom S4Vectors mcols
 .unlist_list_of_GTuples <- function(x, ignore.mcols = FALSE) {
@@ -360,7 +360,7 @@ NULL
 ### Setters
 ###
 
-#' @importMethodsFrom GenomeInfoDb seqinfo<- seqnames<-
+#' @importMethodsFrom Seqinfo seqinfo<- seqnames<-
 #' @importMethodsFrom IRanges ranges<-
 NULL
 
@@ -487,7 +487,7 @@ setMethod("IPD",
 #       or 2.
 #' @importFrom S4Vectors DataFrame
 #' @importFrom stats setNames
-#' @importMethodsFrom GenomeInfoDb seqinfo "seqinfo<-" seqnames
+#' @importMethodsFrom Seqinfo seqinfo "seqinfo<-" seqnames
 #' @importMethodsFrom IRanges ranges
 #' @importMethodsFrom stats4 update
 #' @importMethodsFrom S4Vectors extractROWS mcols
@@ -633,7 +633,7 @@ setMethod(GenomicRanges:::extraColumnSlotNames, "GTuples",
 
 # NOTE: Unlike GenomicRanges:::showGenomicRanges(), this does not implement 
 #       the print.classinfo argument.
-#' @importMethodsFrom GenomeInfoDb seqinfo
+#' @importMethodsFrom Seqinfo seqinfo
 #' @importFrom S4Vectors makePrettyMatrixForCompactPrinting
 showGTuples <- function(x, margin = "", print.classinfo = FALSE, 
                         print.seqinfo = FALSE) {

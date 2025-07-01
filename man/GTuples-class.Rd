@@ -282,7 +282,7 @@
     \code{seqlevels(seqinfo(x))} or to \code{levels(seqnames(x))}, those 2
     expressions being guaranteed to return identical character vectors on a
     \code{GTuples} object. \code{value} must be a character vector with no
-    \code{NA}s. See \code{?\link[GenomeInfoDb:seqinfo]{seqlevels}} for more
+    \code{NA}s. See \code{?\link[Seqinfo:seqinfo]{seqlevels}} for more
     information.
    }
 
@@ -515,7 +515,7 @@
 
 \seealso{
   \code{\link{GTuplesList-class}},
-  \code{\link[GenomeInfoDb]{seqinfo}},
+  \code{\link[Seqinfo]{seqinfo}},
   \code{\linkS4class{Vector}},
   \code{\linkS4class{Rle}},
   \code{\linkS4class{DataFrame}},

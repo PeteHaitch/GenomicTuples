@@ -14,7 +14,7 @@
 #' 
 #' @importFrom data.table := .I setkeyv
 #' @importFrom S4Vectors Hits selectHits
-#' @importMethodsFrom GenomeInfoDb isCircular seqinfo seqlengths seqnames
+#' @importMethodsFrom Seqinfo isCircular seqinfo seqlengths seqnames
 #' @importMethodsFrom IRanges which
 #' 
 #' @keywords internal

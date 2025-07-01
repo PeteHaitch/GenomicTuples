@@ -54,7 +54,7 @@
 #' @param ignore.strand When set to \code{TRUE}, the strand is set to "*".
 #' @importFrom data.table as.data.table data.table
 #' @importFrom S4Vectors decode
-#' @importMethodsFrom GenomeInfoDb seqnames
+#' @importMethodsFrom Seqinfo seqnames
 #'        
 #' @keywords internal
 .GT2DT <- function(gt, ignore.strand = FALSE) {

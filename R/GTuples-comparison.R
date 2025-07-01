@@ -55,7 +55,7 @@
 # is < 0, if the first tuple in the pair is "==" the second tuple then the 
 # return value is 0, and if the first tuple is ">" that the second tuple then 
 # the return value is > 0.
-#' @importMethodsFrom GenomeInfoDb seqlevels "seqlevels<-" seqinfo
+#' @importMethodsFrom Seqinfo seqlevels "seqlevels<-" seqinfo
 #' @importMethodsFrom GenomicRanges granges
 #' @importMethodsFrom S4Vectors pcompare
 .pcompare_GTuples <- function(x, y) {
@@ -189,7 +189,7 @@ setMethod("duplicated",
 
 # Effectively just calls findOverlaps with type = equal.
 #' @importFrom S4Vectors isSingleNumberOrNA isTRUEorFALSE selectHits
-#' @importMethodsFrom GenomeInfoDb seqinfo
+#' @importMethodsFrom Seqinfo seqinfo
 #' @importMethodsFrom IRanges findOverlaps
 #' @importMethodsFrom S4Vectors from to
 #' @export
@@ -380,7 +380,7 @@ globalVariables("idx")
 # TODO: Support the 'ignore.strand' argument once order,GenomicRanges-method 
 #       does.
 #' @importFrom S4Vectors isTRUEorFALSE
-#' @importMethodsFrom GenomeInfoDb seqnames
+#' @importMethodsFrom Seqinfo seqnames
 #' 
 #' @export
 setMethod("order", 
