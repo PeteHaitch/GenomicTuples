@@ -146,8 +146,12 @@ test_that("GRangesList inherited accessors work", {
   expect_identical(isCircular(gtl1), isCircular(gtl1[[1]]))
   expect_identical(genome(gtl0), genome(gtl0[[1]]))
   expect_identical(genome(gtl1), genome(gtl1[[1]]))
-  expect_identical(seqlevelsStyle(gtl0), seqlevelsStyle(gtl0[[1]]))
-  expect_identical(seqlevelsStyle(gtl1), seqlevelsStyle(gtl1[[1]]))
+  expect_identical(
+    GenomeInfoDb::seqlevelsStyle(gtl0), 
+    GenomeInfoDb::seqlevelsStyle(gtl0[[1]]))
+  expect_identical(
+    GenomeInfoDb::seqlevelsStyle(gtl1),
+    GenomeInfoDb::seqlevelsStyle(gtl1[[1]]))
   # 'score' can be set at GTuples- or GTuplesList-level.
   # In both gtl0 and gtl1 it is set at the GTuples-level
   expect_identical(score(gtl0), NULL)
@@ -285,8 +289,8 @@ test_that("as.list works", {
 
 test_that("Coercion to GRangesList works", {
   expect_identical(as(gtl0, "GRangesList"), 
-                   GRangesList(A = GRanges(seqinfo = seqinfo), 
-                               B = GRanges(seqinfo = seqinfo)))
+                   GRangesList(A = GRanges(seqinfo = si), 
+                               B = GRanges(seqinfo = si)))
   expect_identical(as(gtl1, "GRangesList"), 
                    GRangesList(A = gr1[1:5], B = gr1[6:10]))
   expect_identical(as(gtl2, "GRangesList"), 

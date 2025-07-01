@@ -244,10 +244,10 @@ test_that("update works on all relevant slots", {
                      seqlengths = c(10000L, 20000L, 15000L), 
                      isCircular = c(NA, NA, NA), 
                      genome = c("mock1", "mock1", "mock1"))
-  gt1_update <- update(gt1, seqinfo = seqinfo)
+  gt1_update <- update(gt1, seqinfo = si)
   expect_identical(gt1_update, GTuples(seqnames(gt1), tuples(gt1), strand(gt1),
                                        score = mcols(gt1)$score, 
-                                       seqinfo = seqinfo))
+                                       seqinfo = si))
   # metadata(gt1) is not the same as setting the metadata in the GTuples() 
   # constructor. This (somewhat confusing) behaviour is inherited from GRanges()
   gt1_update <- update(gt1, metadata = list("foo" = "bar"))
@@ -290,10 +290,10 @@ test_that("clone works", {
                      seqlengths = c(10000L, 20000L, 15000L), 
                      isCircular = c(NA, NA, NA), 
                      genome = c("mock1", "mock1", "mock1"))
-  gt1_clone <- GenomicRanges:::clone(gt1, seqinfo = seqinfo)
+  gt1_clone <- GenomicRanges:::clone(gt1, seqinfo = si)
   expect_identical(gt1_clone, GTuples(seqnames(gt1), tuples(gt1), strand(gt1),
                                       score = mcols(gt1)$score, 
-                                      seqinfo = seqinfo))
+                                      seqinfo = si))
   # metadata(gt1) is not the same as setting the metadata in the GTuples() 
   # constructor. This (somewhat confusing) behaviour is inherited from GRanges()
   gt1_clone <- GenomicRanges:::clone(gt1, metadata = list("foo" = "bar"))
@@ -366,7 +366,9 @@ test_that("GRanges inherited getters work", {
   expect_identical(seqlengths(gt3), seqlengths(gt3@seqinfo))
   expect_identical(isCircular(gt3), isCircular(gt3@seqinfo))
   expect_identical(genome(gt3), genome(gt3@seqinfo))
-  expect_identical(seqlevelsStyle(gt3), seqlevelsStyle(gt3@seqinfo))
+  expect_identical(
+    GenomeInfoDb::seqlevelsStyle(gt3), 
+    GenomeInfoDb::seqlevelsStyle(gt3@seqinfo))
   expect_identical(score(gt3), gt3@elementMetadata$score)
 })
 
