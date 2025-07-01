@@ -80,61 +80,60 @@
 }
 
 \details{
-  \itemize{
-    \item{nearest: }{
+  \describe{
+    \item{\code{nearest}:}{
       Performs conventional nearest neighbour finding.
       Returns an integer vector containing the index of the nearest neighbour 
       tuple/range in \code{subject} for each range in \code{x}. If there is no 
       nearest neighbour \code{NA} is returned. For details of the algorithm
       see the man page in IRanges, ?\code{nearest}. 
     }
-    \item{precede: }{
+    \item{\code{precede}:}{
       For each range in \code{x}, \code{precede} returns
       the index of the tuple/range in \code{subject} that is directly 
       preceded by the tuple/range in \code{x}. Overlapping tuples/ranges are 
       excluded. \code{NA} is returned when there are no qualifying 
       tuples/ranges in \code{subject}.
     }
-    \item{follow: }{
+    \item{\code{follow}:}{
       The opposite of \code{precede}, \code{follow} returns
       the index of the tuple/range in \code{subject} that is directly followed 
       by the tuple/range in \code{x}. Overlapping tuples/ranges are excluded. 
       \code{NA} is returned when there are no qualifying tuples/ranges in 
       \code{subject}.
     }
-    \item{Orientation and Strand: }{
-      The relevant orientation for \code{precede} and \code{follow} 
-      is 5' to 3', consistent with the direction of translation. 
+    \item{Orientation and strand for \code{precede} and \code{follow}: }{
+      Orientation is 5' to 3', consistent with the direction of translation. 
       Because positional numbering along a chromosome is from left to 
       right and transcription takes place from 5' to 3', \code{precede} and 
-      \code{follow} can appear to have `opposite' behaviour on the \code{+}
+      \code{follow} can appear to have `opposite' behavior on the \code{+}
       and \code{-} strand. Using positions 5 and 6 as an example, 5 precedes 
       6 on the \code{+} strand but follows 6 on the \code{-} strand.
 
-      A tuple/range with strand \code{*} can be compared to tuples/ranges on 
-      either the \code{+} or \code{-} strand. Below we outline the priority when 
-      tuples/ranges on multiple strands are compared. When 
-      \code{ignore.strand=TRUE} all tuples/ranges are treated as if on the 
-      \code{+} strand. 
-      \itemize{
-        \item{}{x on + strand can match to tuples/ranges on both + and 
-          * strands. In the case of a tie the first tuple/range by order 
-          is chosen.
-        } 
-        \item{}{x on - strand can match to tuples/ranges on both - and 
-          * strands. In the case of a tie the first tuple/range by order 
-          is chosen.
-        } 
-        \item{}{x on * strand can match to tuples/ranges on any of +, 
-          - or * strands. In the case of a tie the first tuple/range by
-          order is chosen.
-        }
-      }
+      The table below outlines the orientation when tuples/ranges on different 
+      strands are compared. In general, a feature on \code{*} is considered
+      to belong to both strands. The single exception is when both \code{x} 
+      and \code{subject} are \code{*} in which case both are treated as \code{+}.
+\preformatted{
+       x  |  subject  |  orientation 
+     -----+-----------+----------------
+a)     +  |  +        |  ---> 
+b)     +  |  -        |  NA
+c)     +  |  *        |  --->
+d)     -  |  +        |  NA
+e)     -  |  -        |  <---
+f)     -  |  *        |  <---
+g)     *  |  +        |  --->
+h)     *  |  -        |  <---
+i)     *  |  *        |  --->  (the only situation where * arbitrarily means +)
+}
+
     }
-    \item{distanceToNearest: }{Returns the distance for each tuple/range in 
-    \code{x} to its nearest neighbour in the \code{subject}. 
+    \item{\code{distanceToNearest}:}{
+      Returns the distance for each tuple/range in \code{x} to its nearest
+      neighbour in the \code{subject}. 
     }
-    \item{distance: }{
+    \item{\code{distance}:}{
       Returns the distance for each tuple/range in \code{x} to the range in 
       \code{y}. The behaviour of \code{distance} has changed in Bioconductor 
       2.12. See the man page \code{?distance} in IRanges for details.  

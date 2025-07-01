@@ -35,13 +35,13 @@
 }
 
 \details{
-  \itemize{
-    \item{}{\code{shift} behaves like the \code{shift} method for 
+  \describe{
+    \item{\code{shift}:}{ behaves like the \code{shift} method for 
       \linkS4class{GRanges} objects, except that any \code{internalPos} 
       are also shifted. See \code{?`\link[GenomicRanges]{intra-range-methods}`} 
       for further details of the \code{shift} method.
     }
-    \item{}{\code{trim} trims out-of-bound tuples located on non-circular
+    \item{\code{trim}:}{ trims out-of-bound tuples located on non-circular
       sequences whose length is not NA.
     }
   }
