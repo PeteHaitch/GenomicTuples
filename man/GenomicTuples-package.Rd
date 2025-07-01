@@ -2,6 +2,7 @@
 % Please edit documentation in R/GenomicTuples.R
 \docType{package}
 \name{GenomicTuples-package}
+\alias{GenomicTuples}
 \alias{GenomicTuples-package}
 \title{Representation and manipulation of genomic tuples.}
 \description{
@@ -18,4 +19,22 @@ package.
 Peter F Hickey (2016). 
 Representation and Manipulation of Genomic Tuples in R. 
 \emph{JOSS}. URL \url{http://dx.doi.org/10.21105/joss.00020}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{www.github.com/PeteHaitch/GenomicTuples}
+  \item Report bugs at \url{https://github.com/PeteHaitch/GenomicTuples/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Peter Hickey \email{peter.hickey@gmail.com}
+
+Other contributors:
+\itemize{
+  \item Marcin Cieslik \email{marcin.cieslik@gmail.com} [contributor]
+  \item Hervé Pagès [contributor]
+}
+
 }

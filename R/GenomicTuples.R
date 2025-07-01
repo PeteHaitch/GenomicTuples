@@ -8,7 +8,6 @@
 #' Please refer to the vignettes to see how to use the \pkg{GenomicTuples}
 #' package.
 #'
-#' @docType package
 #' @name GenomicTuples-package
 # NOTE: For simplicity, just import the entire BiocGenerics package
 #' @import BiocGenerics
@@ -20,4 +19,4 @@
 #' @useDynLib GenomicTuples, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @import methods
-NULL
+"_PACKAGE"
